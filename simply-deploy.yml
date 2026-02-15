@@ -1,0 +1,59 @@
+name: Deploy to Simply (FTP)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+concurrency:
+  group: simply-deploy-main
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Upload dist/ to Simply over FTP
+        env:
+          HOST: ${{ secrets.SIMPLY_SFTP_HOST }}
+          USER: ${{ secrets.SIMPLY_SFTP_USER }}
+          PASS: ${{ secrets.SIMPLY_SFTP_PASS }}
+          PORT: ${{ secrets.SIMPLY_SFTP_PORT }}
+          REMOTE_DIR: ${{ secrets.SIMPLY_REMOTE_DIR }}
+        run: |
+          test -n "$HOST"
+          test -n "$USER"
+          test -n "$PASS"
+          test -n "$PORT"
+          test -n "$REMOTE_DIR"
+
+          lftp -e "
+            set ftp:passive-mode true;
+            set net:max-retries 2;
+            set net:timeout 20;
+            open -u $USER,$PASS ftp://$HOST:$PORT;
+            mirror -R --delete --verbose dist/ $REMOTE_DIR;
+            bye
+          "
