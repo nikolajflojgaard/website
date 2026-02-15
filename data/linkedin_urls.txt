@@ -1,0 +1,7 @@
+# Add LinkedIn post URLs here (one per line).
+# The GitHub Action will run daily and import any new URLs into src/content/blog/.
+
+https://www.linkedin.com/feed/update/urn:li:activity:7427625853351604224/
+https://www.linkedin.com/feed/update/urn:li:activity:7428410994789351424/
+https://www.linkedin.com/feed/update/urn:li:activity:7426539222423023617/
+https://www.linkedin.com/feed/update/urn:li:activity:7425113030461407232/
