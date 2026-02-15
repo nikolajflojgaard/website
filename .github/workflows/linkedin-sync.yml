@@ -1,0 +1,61 @@
+name: LinkedIn Sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub Actions schedules are in UTC.
+    # Run twice so it lands on 12:00 in Europe/Copenhagen across DST.
+    - cron: "0 10,11 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: linkedin-sync-main
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Decide if we should run (12:00 Europe/Copenhagen)
+        run: |
+          node - <<'NODE'
+          const hour = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Copenhagen", hour: "2-digit", hourCycle: "h23" }).format(new Date());
+          const shouldRun = hour === "12";
+          console.log("Europe/Copenhagen hour:", hour, "shouldRun:", shouldRun);
+          process.stdout.write(`SHOULD_RUN=${shouldRun}\n`);
+          NODE | tee -a "$GITHUB_ENV"
+
+      - uses: actions/checkout@v4
+        if: env.SHOULD_RUN == 'true'
+
+      - name: Set up Node.js
+        if: env.SHOULD_RUN == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        if: env.SHOULD_RUN == 'true'
+        run: npm ci
+
+      - name: Sync LinkedIn posts into content
+        if: env.SHOULD_RUN == 'true'
+        run: node scripts/linkedin_sync.mjs
+
+      - name: Commit changes (if any)
+        if: env.SHOULD_RUN == 'true'
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: sync LinkedIn posts"
+          git push
