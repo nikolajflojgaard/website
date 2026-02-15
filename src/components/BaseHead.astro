@@ -29,8 +29,11 @@ const criticalCSS = getPageCriticalCSS(Astro.url.pathname);
 <meta name="author" content={SITE.author} />
 
 <!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" href="/avatar.jpg" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+<link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16" />
+<link rel="alternate icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="manifest" href="/manifest.webmanifest" />
 
 <!-- PWA Meta Tags -->
