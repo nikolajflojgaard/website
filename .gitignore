@@ -3,6 +3,10 @@ dist/
 # generated types
 .astro/
 
+# local deploy bundles
+site.zip
+dist.zip
+
 # dependencies
 node_modules/
 
