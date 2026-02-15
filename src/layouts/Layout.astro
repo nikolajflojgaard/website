@@ -131,11 +131,11 @@ const structuredData = {
 
     <script is:inline src="/toggle-theme.js"></script>
     
-    <!-- Domain-based markdown redirect -->
+    <!-- Domain-based markdown redirect (optional) -->
     <script is:inline>
-      // Check if we're on steipete.md domain
       const hostname = window.location.hostname;
-      if ((hostname === 'steipete.md' || hostname === 'www.steipete.md') && !window.location.pathname.endsWith('.md')) {
+      // If you ever host a markdown-only mirror on a `.md` domain, redirect to `.md` routes.
+      if (hostname.endsWith('.md') && !window.location.pathname.endsWith('.md')) {
         // Redirect to the .md version of the current page
         const mdPath = window.location.pathname === '/' ? '/index.md' : window.location.pathname + '.md';
         window.location.replace(mdPath + window.location.search + window.location.hash);

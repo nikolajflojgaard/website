@@ -9,8 +9,9 @@ export async function getStaticPaths() {
     return [];
   }
 
-  const posts = await getCollection("blog").then((p) =>
-    p.filter(({ data }) => !data.draft && !data.ogImage)
+  const posts = await getCollection(
+    "blog",
+    ({ data }) => !data.draft && !data.unlisted && !data.ogImage
   );
 
   return posts.map((post) => ({

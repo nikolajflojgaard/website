@@ -5,7 +5,7 @@ import { getPath } from "@/utils/getPath";
 import getSortedPosts from "@/utils/getSortedPosts";
 
 export async function GET() {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("blog", ({ data }) => !data.draft && !data.unlisted);
   const sortedPosts = getSortedPosts(posts);
   return rss({
     title: SITE.title,

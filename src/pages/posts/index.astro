@@ -4,10 +4,12 @@ import Card from "@/components/Card.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import { SITE } from "@/consts";
+import { SOCIALS } from "@/constants";
 import Layout from "@/layouts/Layout.astro";
 import getPostsByGroupCondition from "@/utils/getPostsByGroupCondition";
 
 const posts = await getCollection("blog", ({ data }) => !data.draft);
+const linkedIn = SOCIALS.find((s) => s.active && s.icon === "linkedin")?.href;
 
 const months = [
   "January",
@@ -25,11 +27,21 @@ const months = [
 ];
 ---
 
-<Layout title={`Posts | ${SITE.title}`} description="Archive of all blog posts by Peter Steinberger. iOS, Swift, web development, and open source insights.">
+<Layout title={`Posts | ${SITE.title}`} description={`Posts by ${SITE.title}.`}>
   <Header />
   <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-4">
     <h1 class="text-2xl font-semibold sm:text-3xl mt-8">All Posts</h1>
-    <p class="mt-2 mb-6 italic">Browse all blog posts by year and month</p>
+    <p class="mt-2 mb-6 italic">Browse all posts by year and month</p>
+    {posts.length === 0 && linkedIn && (
+      <div class="my-8 rounded-lg border border-accent/30 bg-secondary p-4">
+        <p class="mb-3">
+          No local posts yet. I publish updates on LinkedIn.
+        </p>
+        <a class="underline hover:text-accent" href={linkedIn} target="_blank" rel="noopener noreferrer">
+          View posts on LinkedIn
+        </a>
+      </div>
+    )}
     {
       Object.entries(
         getPostsByGroupCondition(posts, (post) => {

@@ -7,7 +7,6 @@ import Datetime from "@/components/Datetime.astro";
 import EditPost from "@/components/EditPost.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
-import NewsletterForm from "@/components/NewsletterForm.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
 import StructuredData from "@/components/StructuredData.astro";
 import Tag from "@/components/Tag.astro";
@@ -57,6 +56,10 @@ if (!ogImageUrl && SITE.dynamicOgImage) {
 
 // Resolve OG image URL (or fallback to SITE.ogImage / default `og.png`)
 const ogImage = ogImageUrl ? new URL(ogImageUrl, Astro.url.origin).href : undefined;
+
+// Prefer an explicit per-post hero image. If missing, use the post's explicit ogImage
+// (for LinkedIn imports this is the LinkedIn image URL).
+const topImage = heroImage || (initOgImage ? ogImageUrl : undefined);
 
 // Generate the canonical URL - always use the full path with year
 const postPath = getPath(post.id, post.filePath, true);
@@ -139,19 +142,19 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
     </div>
     <article id="article" class="mx-auto prose mt-6 max-w-3xl">
       {
-        heroImage && (
+        topImage && (
           <img
-            src={heroImage}
-            alt=""
-            class="mb-8 aspect-video w-full rounded-md object-cover"
-            loading="lazy"
+            src={topImage}
+            alt={title}
+            class="mb-8 w-full rounded-md border border-border bg-secondary/20"
+            style="max-height: 420px; object-fit: contain;"
+            loading="eager"
+            decoding="async"
           />
         )
       }
       <Content />
     </article>
-
-    <NewsletterForm />
 
     <hr class="my-8 border-dashed" />
 

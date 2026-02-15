@@ -8,7 +8,7 @@ import Layout from "@/layouts/Layout.astro";
 import Main from "@/layouts/Main.astro";
 import getUniqueTags from "@/utils/getUniqueTags";
 
-const posts = await getCollection("blog");
+const posts = await getCollection("blog", ({ data }) => !data.draft && !data.unlisted);
 
 const tags = getUniqueTags(posts);
 ---

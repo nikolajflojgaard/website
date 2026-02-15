@@ -6,7 +6,7 @@
 	import Layout from "../../layouts/Layout.astro";
 
 	export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-	  const allPosts = await getCollection("blog");
+	  const allPosts = await getCollection("blog", ({ data }) => !data.draft && !data.unlisted);
 
   // Deduplicate posts by id if there are any duplicates
   const idMap = new Map();

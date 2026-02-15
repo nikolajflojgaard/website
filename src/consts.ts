@@ -31,12 +31,13 @@ interface Site {
 
 // Site configuration
 export const SITE: Site = {
-  website: "https://steipete.me/",
-  author: "Peter Steinberger",
-  profile: "https://steipete.me/about",
-  desc: "AI-powered tools from Swift roots to web frontiers. Every commit lands on GitHub for you to fork & remix.",
-  title: "Peter Steinberger",
-  ogImage: "peter-avatar.jpg",
+  // TODO: set this to your canonical domain once you deploy.
+  website: "https://example.com/",
+  author: "Nikolaj Fløjgaard",
+  profile: "https://example.com/about",
+  desc: "Senior integration architect with a passion for writing articles, bulding and shipping project, sharing my learnings along the way.",
+  title: "Nikolaj Fløjgaard",
+  ogImage: "avatar.jpg",
   lightAndDarkMode: true,
   postPerIndex: 10,
   postPerPage: 10,
@@ -44,13 +45,13 @@ export const SITE: Site = {
   showArchives: false,
   showBackButton: false,
   editPost: {
-    enabled: true,
+    enabled: false,
     text: "Edit on GitHub",
-    url: "https://github.com/steipete/steipete.me/edit/main/",
+    url: "",
   },
   dynamicOgImage: true,
   lang: "en",
-  timezone: "America/Los_Angeles",
+  timezone: "Europe/Copenhagen",
 };
 
 export const SITE_TITLE = SITE.title;
@@ -71,28 +72,27 @@ export const NAV_LINKS: SocialLink[] = [
 // Social media links
 export const SOCIAL_LINKS: SocialLink[] = [
   {
-    href: "https://github.com/steipete",
+    href: "https://github.com/nikolajflojgaard",
     label: "GitHub",
   },
   {
-    href: "https://twitter.com/steipete",
-    label: "Twitter",
+    href: "https://x.com/FlJgaard",
+    label: "X",
   },
   {
-    href: "https://bsky.app/profile/steipete.me",
-    label: "BlueSky",
+    href: "https://dk.linkedin.com/in/nikolaj-fl%C3%B8jgaard-90a71b109",
+    label: "LinkedIn",
   },
   {
-    href: "/rss.xml",
-    label: "RSS",
+    href: "mailto:Nikolaj_Fl@hotmail.com",
+    label: "Email",
   },
 ];
 
 // Icon map for social media
 export const ICON_MAP: Record<string, string> = {
   GitHub: "github",
-  Twitter: "twitter",
-  BlueSky: "bsky",
-  RSS: "rss",
+  X: "twitter",
+  LinkedIn: "linkedin",
   Email: "mail",
 };

@@ -1,0 +1,148 @@
+---
+title: "Playing around with Home Assistant, maybe this template is for you?"
+description: "Playing around with Home Assistant, maybe this template is for you?"
+pubDatetime: 2026-02-14T12:13:14.329Z
+canonicalURL: "https://www.linkedin.com/posts/nikolaj-fl%C3%B8jgaard-90a71b109_build-home-assistant-integrations-faster-activity-7428410994789351424-t2Rl"
+ogImage: "https://media.licdn.com/dms/image/v2/D4E12AQGxw0LY1EepGQ/article-cover_image-shrink_720_1280/B4EZxcELj4GgAI-/0/1771071126277?e=2147483647&v=beta&t=wWjIyluQ8Bmnv4L0bbHITq3qR5s8ySDLyElHo9fAt4s"
+source: "LinkedIn"
+---
+
+Originally published on LinkedIn:
+`https://www.linkedin.com/feed/update/urn:li:activity:7428410994789351424/`
+
+---
+
+The LinkedIn post links to this full article:
+`https://www.linkedin.com/pulse/build-home-assistant-integrations-faster-hacs-you-can-fl%C3%B8jgaard-jy0je`
+
+---
+
+If you have ever started a Home Assistant custom integration and thought “I’m rewriting the same scaffolding again”, this is for you - clone repo: template (https://github.com/nikolajflojgaard/homeassistant-hacs-template)
+
+I have put together a production-ready HACS integration template that lets you focus on the unique value of your integration (devices, APIs, UI, automations) instead of rebuilding the same foundation every time.
+
+This template is intentionally opinionated: it bakes in patterns that Home Assistant contributors and reviewers expect, and the parts you end up needing once your integration grows beyond “hello world”.
+
+## Why a Template Matters
+
+Most custom integrations start simple:
+
+- a config flow
+- one sensor
+- a couple of services
+
+Then reality hits:
+
+- you need a clean API layer
+- your integration needs storage
+- you need re-auth when tokens expire
+- you want diagnostics to debug user reports
+- you want release and validation automation
+- you want contributors to onboard quickly
+
+This template includes all of that from day one.
+
+## What You Get Out of the Box
+
+The repo gives you:
+
+- Config Flow + Options Flow (including a realistic re-auth example)
+- Coordinator pattern (DataUpdateCoordinator) with proper auth failure mapping (ConfigEntryAuthFailed)
+- Storage “database” using homeassistant.helpers.storage.Store with schema versioning and migrations
+- Diagnostics support with secret redaction (so you can help users safely)
+- Services (response services) and WebSocket command examples (great for dashboards and custom UI)
+- DeviceInfo helper for consistent device/entity metadata
+- Local validation script so you can sanity check before pushing
+- Release kit (version bump + tagging workflow templates)
+- Devcontainer support so contributors can spin up a ready-to-go dev environment
+- Repo hygiene: issue templates, PR template, dependabot config
+- Branding assets: icon/logo/dark variants both in repo root and inside the integration folder
+
+It is a real foundation, not just a directory tree.
+
+## A Quick Mental Model (How It Works)
+
+Home Assistant integrations are easiest to maintain when you keep responsibilities separated:
+
+- api.py: all IO (local device calls, cloud requests, parsing)
+- coordinator.py: polling and refresh logic, error mapping, data shaping
+- storage.py: durable state in .storage (schema + migrations)
+- config_flow.py: onboarding, options, reauth flow
+- services.py / websocket_api.py: automations + dashboards + custom UI hooks
+- diagnostics.py: safe debug export for support
+
+That separation is exactly what the template enforces.
+
+## How To Use The Template (5-Minute Start)
+
+- Create a new GitHub repo from the template (Use this template).
+- Pick your Home Assistant domain (example: my_integration).
+- Rename the template:
+
+python3 scripts/rename_domain.py --old hacs_template --new my_integration --name "My Integration" --repo yourname/my_integration --codeowner "@yourhandle"
+
+- Update:manifest.json (docs URL, issue tracker, version, ownership)hacs.json (domain + HA minimum version)README.md (what your integration does)
+- Add it to HACS as a custom repository (category: Integration), install, restart Home Assistant, and add it via Settings.
+
+## Local Development Workflow (Simple and Repeatable)
+
+Install optional dev deps:
+
+pip3 install -r requirements-dev.txt
+
+Run sanity checks locally:
+
+./scripts/validate.sh
+
+That script checks Python compilation, basic structure, optional linting, and optional hassfest if you have Docker.
+
+## GitHub Actions (Without Token Pain)
+
+Some Git credentials/tokens cannot push workflow files unless they have workflow scope. To avoid blocking you, this template stores workflow templates in:
+
+- docs/workflows/
+
+When you are ready to enable CI, you copy them into place:
+
+./scripts/enable_ci.sh
+
+This keeps the repo usable even in restricted environments, while still offering proper CI when you want it.
+
+## Release Flow (So You Actually Ship)
+
+When you want to publish:
+
+./scripts/release.sh 0.1.1 git push git push --tags
+
+If you enable the release workflow template, GitHub can automatically draft releases from tags.
+
+## How This Fits Your Home Assistant Journey
+
+Home Assistant is an ecosystem where small projects often become real community tools. A “personal integration” can quickly turn into:
+
+- something friends and family rely on daily
+- a shared repo with contributors
+- a HACS entry with users opening issues
+- something you want to maintain without burnout
+
+The best way to stay motivated and keep quality high is to remove friction:
+
+- predictable structure
+- good defaults
+- easy debugging
+- clean releases
+
+That is exactly what this template is designed to provide.
+
+## Final Thought
+
+If you are learning Home Assistant development, using a well-structured template gives you two wins:
+
+- you ship faster
+- you learn the patterns that scale
+
+If you are already building integrations, it helps you standardize your repos and reduce “setup overhead” to almost zero.
+
+If you want, tell me what kind of integration you are building next (local device, cloud API, scraper, dashboard-heavy, etc.) and I will suggest which parts of the template you should keep vs. delete for a clean first release.
+
+#HomeAssistant #HACS #SmartHome #HomeAutomation #OpenSource #Python #IoT #DeveloperTools #SelfHosted #HomeLab #Makers #SoftwareEngineering

@@ -3,7 +3,7 @@ import type { APIRoute } from "astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 
 export const GET: APIRoute = async () => {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("blog", ({ data }) => !data.draft && !data.unlisted);
   const sortedPosts = getSortedPosts(posts);
 
   let markdownContent = `# All Posts\n\n`;

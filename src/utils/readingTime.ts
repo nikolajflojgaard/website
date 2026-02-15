@@ -8,7 +8,7 @@ export function calculateReadingTime(content: string): string {
 }
 
 export async function getReadingTime(postId: string): Promise<string> {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("blog", ({ data }) => !data.draft && !data.unlisted);
   const post = posts.find((p) => p.id === postId);
 
   if (!post || !post.body) {
