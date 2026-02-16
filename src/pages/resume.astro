@@ -1,0 +1,206 @@
+---
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import { SITE } from "@/config";
+import Layout from "@/layouts/Layout.astro";
+import Main from "@/layouts/Main.astro";
+
+const certifications = [
+  "Hansen Order Management Development Certified",
+  "Hansen Catalog 8 Fundamentals Certified",
+  "Managing Digital Transformation with Open Digital Framework Awareness",
+  "Hansen Order Management Fundamentals Certified",
+  "TM Forum Open API Practitioner",
+];
+
+const competencies = [
+  "Architecture and solution design",
+  "Business process alignment and application ownership",
+  "Servant leadership and cross-team collaboration",
+  "Java, REST, MuleSoft, Kafka, JIRA",
+  "Agile/Scrum and SAFe delivery models",
+  "TMF APIs, Camunda, Sparx",
+];
+
+const experience = [
+  {
+    company: "TDC NET",
+    role: "Senior Integration Architect",
+    period: "May 2025 - Present",
+    highlights: [
+      "Driving target architecture and integration strategy for future-ready IT landscape.",
+      "Designing secure, scalable integrations across MuleSoft and Java/Kubernetes microservices.",
+      "Raising delivery quality by enforcing architecture standards and pragmatic design governance.",
+    ],
+  },
+  {
+    company: "TDC NET",
+    role: "Integration Architect",
+    period: "Nov 2022 - Apr 2025",
+    highlights: [
+      "Evaluated each integration case through design templates to choose the right platform.",
+      "Balanced speed and quality by improving process discipline instead of cutting requirements.",
+      "Supported a resilient architecture approach with high security and maintainability.",
+    ],
+  },
+  {
+    company: "Telia",
+    role: "Solution Architect - Attended Engagement",
+    period: "Aug 2021 - Oct 2022",
+    highlights: [
+      "Set architecture direction for a shared IT stack across Nordic and Baltic countries.",
+      "Implemented target TMF APIs to reduce country silos and increase platform consistency.",
+      "Worked across ServiceNow, Salesforce, ACE, TOCA, and eTray.",
+    ],
+  },
+  {
+    company: "TDC NET",
+    role: "Team Lead / Architect / IT Product Owner",
+    period: "Jan 2020 - Jul 2021",
+    highlights: [
+      "Owned domain architecture and roadmap across Order-to-Fulfillment.",
+      "Led an international team (UK, India, Canada) with end-to-end responsibility for delivery.",
+      "Owned HLD/DPD design, application ownership, release setup, and Scrum execution.",
+    ],
+  },
+  {
+    company: "Nuuday",
+    role: "Lead Developer and Scrum Master",
+    period: "Jul 2018 - Dec 2019",
+    highlights: [
+      "Built Java microservices for SOM platform modernization.",
+      "Led offshore delivery across Portugal, India, and UK with a focus on quality and cadence.",
+      "Owned deployment, release flow, development standards, and automated CI/CD practices.",
+    ],
+  },
+  {
+    company: "TDC Group",
+    role: "Software Developer and IT Business Analyst / Developer",
+    period: "May 2015 - Jul 2018",
+    highlights: [
+      "Developed business-critical Java solutions used by customer and sales operations.",
+      "Worked closely with business stakeholders on architecture and end-to-end process design.",
+      "Bridged business and engineering priorities in complex BSS environments.",
+    ],
+  },
+];
+
+const education = [
+  "Bachelor of Science (BSc), Web Development - KEA Copenhagen School of Design and Technology (2017-2018)",
+  "Associate of Science (AS), Computer Science - KEA Copenhagen School of Design and Technology (2014-2017)",
+  "HHX (Higher Commercial Examination) (2005-2007)",
+];
+---
+
+<Layout title={`Resume | ${SITE.title}`} description={`Resume for ${SITE.title}`}>
+  <Header />
+  <Main
+    pageTitle="Resume"
+    pageDesc="Senior Integration Architect focused on scalable architecture, pragmatic delivery, and modern automation."
+  >
+    <section class="mb-6 rounded-lg border border-border bg-muted/30 p-5">
+      <p class="mb-4 leading-7">
+        I build integration architecture that is simple, adaptable, and operationally strong.
+        I focus on creating long-term value through clear design decisions, quality standards,
+        and high-performing collaboration across business and engineering.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a
+          href="/resume/nikolaj-flojgaard-cv.pdf"
+          class="inline-flex rounded-md border border-border px-4 py-2 text-sm font-medium hover:text-accent"
+          download
+        >
+          Download CV (PDF)
+        </a>
+        <a
+          href="https://dk.linkedin.com/in/nikolaj-fl%C3%B8jgaard-90a71b109"
+          class="inline-flex rounded-md border border-border px-4 py-2 text-sm font-medium hover:text-accent"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View LinkedIn Profile
+        </a>
+        <a
+          href="mailto:nikolaj_fl@hotmail.com"
+          class="inline-flex rounded-md border border-border px-4 py-2 text-sm font-medium hover:text-accent"
+        >
+          Contact
+        </a>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="mb-4 text-xl font-semibold">Experience</h2>
+      <ol class="space-y-4">
+        {
+          experience.map((job) => (
+            <li class="rounded-lg border border-border bg-background p-5">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="text-base font-semibold">{job.role}</h3>
+                <p class="text-sm opacity-80">{job.period}</p>
+              </div>
+              <p class="mb-3 text-sm opacity-80">{job.company}</p>
+              <ul class="list-disc space-y-1 pl-5 text-sm leading-6">
+                {job.highlights.map((item) => <li>{item}</li>)}
+              </ul>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="mb-8 grid gap-4 md:grid-cols-2">
+      <div class="rounded-lg border border-border bg-background p-5">
+        <h2 class="mb-3 text-xl font-semibold">Core Competencies</h2>
+        <ul class="list-disc space-y-1 pl-5 text-sm leading-6">
+          {competencies.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <div class="rounded-lg border border-border bg-background p-5">
+        <h2 class="mb-3 text-xl font-semibold">Certifications</h2>
+        <ul class="list-disc space-y-1 pl-5 text-sm leading-6">
+          {certifications.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="mb-8 grid gap-4 md:grid-cols-2">
+      <div class="rounded-lg border border-border bg-background p-5">
+        <h2 class="mb-3 text-xl font-semibold">Languages</h2>
+        <ul class="list-disc space-y-1 pl-5 text-sm leading-6">
+          <li>Danish (Native / Bilingual)</li>
+          <li>English (Full Professional)</li>
+        </ul>
+      </div>
+      <div class="rounded-lg border border-border bg-background p-5">
+        <h2 class="mb-3 text-xl font-semibold">Education</h2>
+        <ul class="list-disc space-y-1 pl-5 text-sm leading-6">
+          {education.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="mb-3 text-xl font-semibold">PDF Version</h2>
+      <div class="overflow-hidden rounded-lg border border-border bg-background">
+        <object
+          data="/resume/nikolaj-flojgaard-cv.pdf"
+          type="application/pdf"
+          class="h-[70vh] w-full"
+        >
+          <p class="p-4 text-sm">
+            Your browser does not support inline PDF preview.
+            <a
+              href="/resume/nikolaj-flojgaard-cv.pdf"
+              class="ml-1 underline decoration-dashed underline-offset-4 hover:text-accent"
+              download
+            >
+              Download the CV here.
+            </a>
+          </p>
+        </object>
+      </div>
+    </section>
+  </Main>
+  <Footer />
+</Layout>

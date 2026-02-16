@@ -9,6 +9,7 @@ Senior integration architect with a passion for writing articles, bulding and sh
 
 - [About](/about.md)
 - [Posts](/posts.md)
+- [Resume](/resume.md)
 - [RSS Feed](/rss.xml)
 
 ## Links

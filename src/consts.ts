@@ -67,6 +67,10 @@ export const NAV_LINKS: SocialLink[] = [
     href: "/about",
     label: "About",
   },
+  {
+    href: "/resume",
+    label: "Resume",
+  },
 ];
 
 // Social media links
