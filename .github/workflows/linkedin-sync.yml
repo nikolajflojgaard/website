@@ -22,12 +22,13 @@ jobs:
     steps:
       - name: Decide if we should run (12:00 Europe/Copenhagen)
         run: |
-          node - <<'NODE'
-          const hour = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Copenhagen", hour: "2-digit", hourCycle: "h23" }).format(new Date());
-          const shouldRun = hour === "12";
-          console.log("Europe/Copenhagen hour:", hour, "shouldRun:", shouldRun);
-          process.stdout.write(`SHOULD_RUN=${shouldRun}\n`);
-          NODE | tee -a "$GITHUB_ENV"
+          hour="$(TZ=Europe/Copenhagen date +%H)"
+          should_run=false
+          if [ "$hour" = "12" ]; then
+            should_run=true
+          fi
+          echo "Europe/Copenhagen hour: $hour shouldRun: $should_run"
+          echo "SHOULD_RUN=$should_run" >> "$GITHUB_ENV"
 
       - uses: actions/checkout@v4
         if: env.SHOULD_RUN == 'true'
