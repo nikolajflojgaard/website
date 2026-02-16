@@ -131,8 +131,12 @@ export default defineConfig({
         ],
       },
       workbox: {
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: true,
         navigateFallback: "/404",
-        globPatterns: ["**/*.{css,js,html,svg,png,jpg,jpeg,gif,webp,woff,woff2,ttf,eot,ico}"],
+        // Avoid precaching HTML pages so freshly deployed posts are always fetched from network.
+        globPatterns: ["**/*.{css,js,svg,png,jpg,jpeg,gif,webp,woff,woff2,ttf,eot,ico}"],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
