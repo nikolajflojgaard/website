@@ -153,6 +153,22 @@ export default defineConfig({
             },
           },
           {
+            // Keep GitHub contribution graph fresh on About page.
+            urlPattern: /^https:\/\/ghchart\.rshah\.org\/.*/i,
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "github-activity-cache",
+              networkTimeoutSeconds: 5,
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60, // 1 hour
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
             urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/,
             handler: "CacheFirst",
             options: {
