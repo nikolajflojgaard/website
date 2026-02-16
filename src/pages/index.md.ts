@@ -3,7 +3,7 @@ import type { APIRoute } from "astro";
 export const GET: APIRoute = async () => {
   const markdownContent = `# Nikolaj Fløjgaard
 
-Senior integration architect with a passion for writing articles, bulding and shipping project, sharing my learnings along the way. 
+Senior integration architect with a passion for writing articles and building stuff. Sharing my learnings along the way here.
 
 ## Navigation
 
