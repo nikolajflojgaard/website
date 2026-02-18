@@ -4,9 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths:
-      - "src/content/blog/**"
-      - "data/linkedin_state.json"
 
 concurrency:
   group: simply-deploy-main
