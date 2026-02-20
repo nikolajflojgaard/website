@@ -1,0 +1,110 @@
+{
+  "username": "nikolajflojgaard",
+  "name": "Nikolaj Fløjgaard",
+  "bio": null,
+  "public_repos": 6,
+  "followers": 0,
+  "following": 0,
+  "avatar_url": "https://avatars.githubusercontent.com/u/258772712?v=4",
+  "html_url": "https://github.com/nikolajflojgaard",
+  "created_at": "2026-02-02T08:42:01Z",
+  "repos": [
+    {
+      "name": "homeassistant-hacs-template",
+      "description": "Build from this template service to create a fast HACS integration",
+      "html_url": "https://github.com/nikolajflojgaard/homeassistant-hacs-template",
+      "stargazers_count": 1,
+      "language": "Python",
+      "updated_at": "2026-02-14T12:05:27Z"
+    },
+    {
+      "name": "homeassistant-household-chores",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/homeassistant-household-chores",
+      "stargazers_count": 0,
+      "language": "JavaScript",
+      "updated_at": "2026-02-17T21:22:06Z"
+    },
+    {
+      "name": "homeassistant-investing-score-card",
+      "description": "Scoring a companies balance sheet and stock price",
+      "html_url": "https://github.com/nikolajflojgaard/homeassistant-investing-score-card",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-02-16T12:01:22Z"
+    },
+    {
+      "name": "homeassistant-weekly-training",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/homeassistant-weekly-training",
+      "stargazers_count": 0,
+      "language": "JavaScript",
+      "updated_at": "2026-02-15T16:54:22Z"
+    },
+    {
+      "name": "NifloMissionControl",
+      "description": "CodexMissionControl",
+      "html_url": "https://github.com/nikolajflojgaard/NifloMissionControl",
+      "stargazers_count": 0,
+      "language": "CSS",
+      "updated_at": "2026-02-03T21:25:37Z"
+    }
+  ],
+  "recent_activity": [
+    {
+      "type": "release",
+      "description": "Released v0.3.92 in nikolajflojgaard/homeassistant-household-chores",
+      "repo": "nikolajflojgaard/homeassistant-household-chores",
+      "created_at": "2026-02-17T21:22:26Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-household-chores",
+      "repo": "nikolajflojgaard/homeassistant-household-chores",
+      "created_at": "2026-02-17T21:22:02Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-household-chores",
+      "repo": "nikolajflojgaard/homeassistant-household-chores",
+      "created_at": "2026-02-17T21:14:42Z"
+    },
+    {
+      "type": "pr",
+      "description": "closed PR in home-assistant/brands",
+      "repo": "home-assistant/brands",
+      "created_at": "2026-02-14T11:34:06Z"
+    },
+    {
+      "type": "pr",
+      "description": "merged PR in home-assistant/brands",
+      "repo": "home-assistant/brands",
+      "created_at": "2026-02-16T13:27:22Z"
+    },
+    {
+      "type": "pr",
+      "description": "opened PR in home-assistant/brands",
+      "repo": "home-assistant/brands",
+      "created_at": "2026-02-16T12:40:06Z"
+    },
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/brands",
+      "repo": "nikolajflojgaard/brands",
+      "created_at": "2026-02-16T12:37:43Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-investing-score-card",
+      "repo": "nikolajflojgaard/homeassistant-investing-score-card",
+      "created_at": "2026-02-16T12:01:19Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-investing-score-card",
+      "repo": "nikolajflojgaard/homeassistant-investing-score-card",
+      "created_at": "2026-02-16T11:59:33Z"
+    }
+  ],
+  "fetched_at": "2026-02-20T16:53:09.874Z"
+}
