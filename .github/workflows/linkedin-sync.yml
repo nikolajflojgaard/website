@@ -20,8 +20,16 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Decide if we should run (12:00 Europe/Copenhagen)
+      - name: Decide if we should run (schedule only runs at 12:00 Europe/Copenhagen)
         run: |
+          # Always run for manual triggers
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual trigger - always running"
+            echo "SHOULD_RUN=true" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          
+          # For scheduled runs, only run at 12:00 Europe/Copenhagen
           hour="$(TZ=Europe/Copenhagen date +%H)"
           should_run=false
           if [ "$hour" = "12" ]; then
@@ -44,8 +52,15 @@ jobs:
         if: env.SHOULD_RUN == 'true'
         run: npm ci
 
+      - name: Install Playwright Chromium
+        if: env.SHOULD_RUN == 'true'
+        run: npx playwright install --with-deps chromium
+
       - name: Sync LinkedIn posts into content
         if: env.SHOULD_RUN == 'true'
+        env:
+          LINKEDIN_COOKIE_HEADER: ${{ secrets.LINKEDIN_COOKIE_HEADER }}
+          LINKEDIN_PROFILE_URL: "https://www.linkedin.com/in/nikolaj-fl%C3%B8jgaard-90a71b109/recent-activity/posts/"
         run: node scripts/linkedin_sync.mjs
 
       - name: Commit changes (if any)
