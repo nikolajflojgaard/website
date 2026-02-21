@@ -1,0 +1,39 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Enjoyed this?", 
+  description = "Get weekly insights on AI, Tesla, and integration architecture. No spam." 
+} = Astro.props;
+---
+
+<div class="my-8 p-6 bg-gradient-to-br from-accent/5 to-accent/10 border border-accent/20 rounded-xl">
+  <h3 class="text-lg font-semibold mb-2">{title}</h3>
+  <p class="text-skin-base/70 text-sm mb-4">{description}</p>
+  
+  <form 
+    action="https://buttondown.email/api/emails/embed-subscribe/nikolajflojgaard" 
+    method="post" 
+    target="popupwindow"
+    onsubmit="window.open('https://buttondown.email/nikolajflojgaard', 'popupwindow')"
+    class="flex flex-col sm:flex-row gap-2"
+  >
+    <input 
+      type="email" 
+      name="email" 
+      placeholder="you@example.com" 
+      required
+      class="flex-1 px-3 py-2 bg-skin-fill border border-skin-line rounded text-sm text-skin-base placeholder-skin-base/50 focus:outline-none focus:border-accent"
+    />
+    
+    <button 
+      type="submit"
+      class="px-4 py-2 bg-accent hover:opacity-90 text-white text-sm font-medium rounded transition-colors"
+    >
+      Subscribe
+    </button>
+  </form>
+</div>
