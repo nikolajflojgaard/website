@@ -1,0 +1,116 @@
+---
+layout: ../layouts/Layout.astro
+title: "Nikolaj's Notes — Newsletter"
+description: "Weekly insights on AI agents, Tesla, and integration architecture"
+---
+
+<div class="max-w-2xl mx-auto px-4 py-16">
+  <!-- Hero -->
+  <div class="text-center mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">
+      Nikolaj's Notes
+    </h1>
+    <p class="text-xl text-skin-base/70">
+      Weekly insights on AI agents, Tesla, and integration architecture<br/>
+      <span class="text-skin-base/50">— from a Senior Integration Architect building in public</span>
+    </p>
+  </div>
+
+  <!-- What you get -->
+  <div class="grid md:grid-cols-3 gap-6 mb-12">
+    <div class="p-6 bg-skin-fill/50 border border-skin-line rounded-xl">
+      <div class="text-2xl mb-2">🤖</div>
+      <h3 class="font-semibold mb-2">AI Agents</h3>
+      <p class="text-sm text-skin-base/70">What's working in production, not just demos</p>
+    </div>
+    
+    <div class="p-6 bg-skin-fill/50 border border-skin-line rounded-xl">
+      <div class="text-2xl mb-2">🚗</div>
+      <h3 class="font-semibold mb-2">Tesla & FSD</h3>
+      <p class="text-sm text-skin-base/70">Data-driven analysis of autonomy progress</p>
+    </div>
+    
+    <div class="p-6 bg-skin-fill/50 border border-skin-line rounded-xl">
+      <div class="text-2xl mb-2">⚡</div>
+      <h3 class="font-semibold mb-2">Integration</h3>
+      <p class="text-sm text-skin-base/70">Patterns from the trenches of enterprise architecture</p>
+    </div>
+  </div>
+
+  <!-- Signup Form -->
+  <div class="bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-2xl p-8 mb-12">
+    <h2 class="text-2xl font-bold text-center mb-2">Join the list</h2>
+    <p class="text-skin-base/70 text-center mb-6">No spam. Unsubscribe anytime. Weekly delivery.</p>
+    
+    <form 
+      action="https://buttondown.email/api/emails/embed-subscribe/nikolajflojgaard" 
+      method="post" 
+      target="popupwindow"
+      onsubmit="window.open('https://buttondown.email/nikolajflojgaard', 'popupwindow')"
+      class="flex flex-col sm:flex-row gap-3"
+    >
+      <input 
+        type="email" 
+        name="email" 
+        placeholder="you@example.com" 
+        required
+        class="flex-1 px-4 py-3 bg-skin-fill border border-skin-line rounded-lg text-skin-base placeholder-skin-base/50 focus:outline-none focus:border-accent"
+      />
+      <button 
+        type="submit"
+        class="px-6 py-3 bg-accent hover:opacity-90 text-white font-medium rounded-lg transition-colors"
+      >
+        Subscribe
+      </button>
+    </form>
+    
+    <p class="text-center text-skin-base/50 text-sm mt-4">
+      Join 0 others (for now — be the first!)
+    </p>
+  </div>
+
+  <!-- Sample content preview -->
+  <div class="border-t border-skin-line pt-12">
+    <h2 class="text-xl font-semibold mb-6 text-center">What to expect</h2>
+    
+    <div class="space-y-4">
+      <div class="p-4 bg-skin-fill/30 border border-skin-line rounded-lg">
+        <div class="flex items-center gap-2 text-skin-base/50 text-sm mb-1">
+          <span>Issue #12</span>
+          <span>•</span>
+          <span>Feb 21, 2026</span>
+        </div>
+        <h3 class="font-medium">The $59k Cybertruck is a demand test</h3>
+        <p class="text-skin-base/70 text-sm mt-1">Why Tesla's pricing strategy is smarter than it looks...</p>
+      </div>
+      
+      <div class="p-4 bg-skin-fill/30 border border-skin-line rounded-lg">
+        <div class="flex items-center gap-2 text-skin-base/50 text-sm mb-1">
+          <span>Issue #11</span>
+          <span>•</span>
+          <span>Feb 14, 2026</span>
+        </div>
+        <h3 class="font-medium">AI agents in production: 3 failure modes</h3>
+        <p class="text-skin-base/70 text-sm mt-1">What I'm learning from deploying agents at scale...</p>
+      </div>
+      
+      <div class="p-4 bg-skin-fill/30 border border-skin-line rounded-lg">
+        <div class="flex items-center gap-2 text-skin-base/50 text-sm mb-1">
+          <span>Issue #10</span>
+          <span>•</span>
+          <span>Feb 7, 2026</span>
+        </div>
+        <h3 class="font-medium">Integration patterns for AI systems</h3>
+        <p class="text-skin-base/70 text-sm mt-1">How to connect LLMs to your existing stack...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="border-t border-skin-line mt-12 pt-8 text-center">
+    <p class="text-skin-base/50 text-sm">
+      Written by <a href="/" class="text-accent hover:opacity-80">Nikolaj Fløjgaard</a> • 
+      Senior Integration Architect at TDC NET
+    </p>
+  </div>
+</div>

@@ -5,6 +5,10 @@ const ROOT = process.cwd();
 const URLS_PATH = path.join(ROOT, "data", "linkedin_urls.txt");
 const STATE_PATH = path.join(ROOT, "data", "linkedin_state.json");
 const OUT_ROOT = path.join(ROOT, "src", "content", "blog");
+const LINKEDIN_PROFILE_URL =
+  process.env.LINKEDIN_PROFILE_URL ||
+  "https://www.linkedin.com/in/nikolaj-fl%C3%B8jgaard-90a71b109/recent-activity/posts/";
+const LINKEDIN_COOKIE_HEADER = (process.env.LINKEDIN_COOKIE_HEADER || "").trim();
 
 function readTextIfExists(p) {
   try {
@@ -51,6 +55,17 @@ function readUrls() {
     .filter((l) => l && !l.startsWith("#"));
 }
 
+function mergeAndWriteUrls(existingUrls, discoveredUrls) {
+  const merged = Array.from(new Set([...existingUrls, ...discoveredUrls]));
+  const header = [
+    "# Add LinkedIn post URLs here (one per line).",
+    "# The GitHub Action will run daily and import any new URLs into src/content/blog/.",
+    "",
+  ];
+  writeText(URLS_PATH, header.concat(merged).join("\n") + "\n");
+  return merged;
+}
+
 function decodeEntities(s) {
   return s
     .replace(/&amp;/g, "&")
@@ -85,6 +100,14 @@ function extractJsonLd(html) {
 function extractCanonical(html) {
   const m = html.match(/<link rel="canonical" href="([^"]+)"/i);
   return m ? decodeEntities(m[1]) : null;
+}
+
+function extractMetaContent(html, name) {
+  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const byProperty = new RegExp(`<meta\\s+property="${escaped}"\\s+content="([^"]+)"`, "i");
+  const byName = new RegExp(`<meta\\s+name="${escaped}"\\s+content="([^"]+)"`, "i");
+  const m = html.match(byProperty) || html.match(byName);
+  return m?.[1] ? decodeEntities(m[1]) : null;
 }
 
 function extractPulseUrl(html) {
@@ -177,17 +200,139 @@ function extractHashtagTags(text) {
   return Array.from(new Set(tags));
 }
 
-async function fetchText(url) {
+function getRequestHeaders(includeCookie = false) {
+  const headers = {
+    // LinkedIn serves different HTML based on UA.
+    "user-agent": "Mozilla/5.0 (compatible; nikolajflojgaard.me bot; +https://nikolajflojgaard.me)",
+    "accept-language": "en-US,en;q=0.9,da;q=0.8",
+  };
+  if (includeCookie && LINKEDIN_COOKIE_HEADER) headers.cookie = LINKEDIN_COOKIE_HEADER;
+  return headers;
+}
+
+function discoverUrlsFromHtml(html) {
+  const urls = new Set();
+
+  const direct = html.match(/https:\/\/www\.linkedin\.com\/(?:feed\/update\/urn:li:activity:\d+\/|pulse\/[^"'\s<]+)/g) || [];
+  for (const u of direct) urls.add(decodeEntities(u));
+
+  // LinkedIn often escapes URLs in JSON blobs.
+  const escaped =
+    html.match(/https:\\\/\\\/www\.linkedin\.com\\\/(?:feed\\\/update\\\/urn:li:activity:\d+\\\/|pulse\\\/[^"\\\s<]+)/g) ||
+    [];
+  for (const raw of escaped) {
+    urls.add(
+      decodeEntities(raw)
+        .replace(/\\\//g, "/")
+        .replace(/\\u002F/g, "/")
+        .replace(/\\u003A/g, ":"),
+    );
+  }
+
+  return Array.from(urls);
+}
+
+async function fetchText(url, { includeCookie = false } = {}) {
   const res = await fetch(url, {
     redirect: "follow",
-    headers: {
-      // LinkedIn serves different HTML based on UA.
-      "user-agent": "Mozilla/5.0 (compatible; nikolajflojgaard.me bot; +https://nikolajflojgaard.me)",
-      "accept-language": "en-US,en;q=0.9,da;q=0.8",
-    },
+    headers: getRequestHeaders(includeCookie),
   });
   if (!res.ok) throw new Error(`Fetch failed ${res.status} for ${url}`);
   return await res.text();
+}
+
+function parseLinkedInCookieHeader(cookieHeader) {
+  const cookies = [];
+  for (const part of cookieHeader.split(";")) {
+    const p = part.trim();
+    if (!p || !p.includes("=")) continue;
+    const [name, ...rest] = p.split("=");
+    const value = rest.join("=").trim();
+    if (!name || !value) continue;
+    cookies.push({ name: name.trim(), value });
+  }
+  return cookies;
+}
+
+async function discoverUrlsFromProfileWithPlaywright() {
+  if (!LINKEDIN_COOKIE_HEADER) return [];
+
+  let chromium;
+  try {
+    ({ chromium } = await import("playwright"));
+  } catch {
+    return [];
+  }
+
+  const browser = await chromium.launch({ headless: true });
+  try {
+    const context = await browser.newContext({
+      userAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123 Safari/537.36",
+    });
+
+    const cookieItems = parseLinkedInCookieHeader(LINKEDIN_COOKIE_HEADER)
+      .map((c) => ({
+        ...c,
+        domain: ".linkedin.com",
+        path: "/",
+        secure: true,
+        httpOnly: false,
+      }));
+
+    if (cookieItems.length) await context.addCookies(cookieItems);
+
+    const page = await context.newPage();
+    await page.goto(LINKEDIN_PROFILE_URL, { waitUntil: "networkidle", timeout: 45000 });
+
+    for (let i = 0; i < 4; i++) {
+      await page.mouse.wheel(0, 2200);
+      await page.waitForTimeout(700);
+    }
+
+    const urls = new Set(discoverUrlsFromHtml(await page.content()));
+    let hrefs = [];
+    try {
+      hrefs = await page.$$eval("a[href]", (els) =>
+        Array.from(new Set(els.map((el) => el.getAttribute("href") || "").filter(Boolean))),
+      );
+    } catch {
+      // LinkedIn can auto-navigate and reset execution context; ignore and keep HTML-based extraction.
+    }
+
+    for (const href of hrefs) {
+      const full = href.startsWith("http") ? href : `https://www.linkedin.com${href}`;
+      if (
+        /^https:\/\/www\.linkedin\.com\/feed\/update\/urn:li:activity:\d+\/?/.test(full) ||
+        /^https:\/\/www\.linkedin\.com\/pulse\//.test(full)
+      ) {
+        urls.add(full);
+      }
+    }
+
+    await context.close();
+    return Array.from(urls);
+  } finally {
+    await browser.close();
+  }
+}
+
+async function discoverUrlsFromProfile() {
+  let staticUrls = [];
+  try {
+    const html = await fetchText(LINKEDIN_PROFILE_URL, { includeCookie: !!LINKEDIN_COOKIE_HEADER });
+    staticUrls = discoverUrlsFromHtml(html);
+  } catch (e) {
+    console.warn(`Static profile fetch failed: ${e.message}`);
+  }
+
+  if (staticUrls.length) return staticUrls;
+
+  try {
+    return await discoverUrlsFromProfileWithPlaywright();
+  } catch (e) {
+    console.warn(`Could not auto-discover profile URLs: ${e.message}`);
+    return [];
+  }
 }
 
 function buildMdx({ title, description, pubDatetime, tags, canonicalURL, ogImage, sourceUrl, body }) {
@@ -234,7 +379,16 @@ function findExistingCanonicalSet() {
 }
 
 async function main() {
-  const urls = readUrls();
+  const fileUrls = readUrls();
+  const discoveredUrls = await discoverUrlsFromProfile();
+  const urls = mergeAndWriteUrls(fileUrls, discoveredUrls);
+
+  if (discoveredUrls.length) {
+    console.log(`Auto-discovered ${discoveredUrls.length} URL(s) from profile page.`);
+  } else {
+    console.log("No URLs auto-discovered from profile page.");
+  }
+
   if (!urls.length) {
     console.log(`No URLs found in ${path.relative(ROOT, URLS_PATH)}. Nothing to do.`);
     return;
@@ -257,9 +411,26 @@ async function main() {
       continue;
     }
 
-    const canonical = extractCanonical(html);
-    const json = extractJsonLd(html);
-    if (!canonical || !json) {
+    let canonical = extractCanonical(html);
+    let json = extractJsonLd(html);
+
+    if ((!canonical || !json) && LINKEDIN_COOKIE_HEADER) {
+      try {
+        const htmlWithCookie = await fetchText(url, { includeCookie: true });
+        canonical = canonical || extractCanonical(htmlWithCookie);
+        json = json || extractJsonLd(htmlWithCookie);
+        if (!canonical && !json) html = htmlWithCookie;
+      } catch {
+        // Ignore cookie fallback failures.
+      }
+    }
+    const isPulseUrl = /linkedin\.com\/pulse\//i.test(url);
+    const pulseTitle = isPulseUrl ? extractMetaContent(html, "og:title") : null;
+    const pulseDescription = isPulseUrl ? extractMetaContent(html, "description") : null;
+    const pulseBody = isPulseUrl ? extractPulseArticleText(html) : "";
+
+    if (!canonical) canonical = url.split("?")[0];
+    if (!json && !isPulseUrl) {
       console.warn(`Skipping (missing canonical/jsonld): ${url}`);
       skipped++;
       continue;
@@ -270,7 +441,7 @@ async function main() {
       continue;
     }
 
-    const pub = json.datePublished;
+    const pub = json?.datePublished || new Date().toISOString();
     const dt = pub ? new Date(pub) : null;
     if (!dt || Number.isNaN(dt.getTime())) {
       console.warn(`Skipping (bad datePublished): ${url}`);
@@ -283,12 +454,16 @@ async function main() {
     const dd = String(dt.getUTCDate()).padStart(2, "0");
 
     // Prefer a richer title if present (common for article shares).
-    const headline = (json.headline || "").trim();
-    const textTitle = (json.text || "").trim();
-    const title = (textTitle && textTitle !== headline && textTitle.length <= 120) ? textTitle : (headline || "LinkedIn post");
+    const headline = (json?.headline || "").trim();
+    const textTitle = (json?.text || "").trim();
+    const title = isPulseUrl
+      ? (pulseTitle || headline || textTitle || "LinkedIn post")
+      : (textTitle && textTitle !== headline && textTitle.length <= 120)
+        ? textTitle
+        : (headline || "LinkedIn post");
     const baseSlug = slugify(title || headline) || `linkedin-${yyyy}-${mm}-${dd}`;
 
-    let body = (json.articleBody || "").trim();
+    let body = isPulseUrl ? pulseBody : (json?.articleBody || "").trim();
 
     // If the post is just a short headline but contains a linked Pulse article, import that instead.
     if (body && headline && body === headline) {
@@ -309,8 +484,10 @@ async function main() {
     if (!body) body = headline || title;
 
     const tags = extractHashtagTags(body);
-    const ogImage = json.image?.url || json.image?.["@type"] === "ImageObject" ? json.image?.url : undefined;
-    const description = (headline || title).slice(0, 160);
+    const ogImage =
+      extractMetaContent(html, "og:image") ||
+      (json?.image?.url || (json?.image?.["@type"] === "ImageObject" ? json?.image?.url : undefined));
+    const description = ((isPulseUrl ? pulseDescription : headline) || title).slice(0, 160);
 
     const mdx = buildMdx({
       title,
@@ -341,4 +518,3 @@ async function main() {
 }
 
 await main();
-
