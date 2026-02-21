@@ -35,7 +35,7 @@ export const SITE: Site = {
   website: "https://example.com/",
   author: "Nikolaj Fløjgaard",
   profile: "https://example.com/about",
-  desc: "Senior integration architect with a passion for writing articles and building stuff. Sharing my learnings along the way here.",
+  desc: "Weekly insights on AI agents, Tesla, and integration architecture — from a Senior Integration Architect building in public.",
   title: "Nikolaj Fløjgaard",
   ogImage: "avatar.jpg",
   lightAndDarkMode: true,
