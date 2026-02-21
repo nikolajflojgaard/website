@@ -1,7 +1,5 @@
 ---
-import { getCollection } from "astro:content";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import IconRss from "@/assets/icons/IconRss.svg";
 import Card from "@/components/Card.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
@@ -11,16 +9,24 @@ import Socials from "@/components/Socials.astro";
 import StructuredData from "@/components/StructuredData.astro";
 import { SITE, SOCIALS } from "@/config";
 import Layout from "@/layouts/Layout.astro";
-import getSortedPosts from "@/utils/getSortedPosts";
 
-const posts = await getCollection("blog", ({ data }) => !data.draft && !data.unlisted);
-
-const sortedPosts = getSortedPosts(posts);
-const posts2025AndLater = sortedPosts.filter(({ data }) => data.pubDatetime.getFullYear() >= 2025);
-const featuredPosts = posts2025AndLater.filter(({ data }) => data.featured);
-const recentPosts = posts2025AndLater.filter(({ data }) => !data.featured);
-const hasPosts = posts.length > 0;
-const linkedIn = SOCIALS.find((s) => s.active && s.icon === "linkedin")?.href;
+const featuredPosts = [
+  {
+    title: "The $59k Cybertruck is a demand test",
+    description: "Why Tesla's pricing strategy is smarter than it looks...",
+    date: "Feb 21, 2026"
+  },
+  {
+    title: "AI agents in production: 3 failure modes", 
+    description: "What I'm learning from deploying agents at scale...",
+    date: "Feb 14, 2026"
+  },
+  {
+    title: "Integration patterns for AI systems",
+    description: "How to connect LLMs to your existing stack...",
+    date: "Feb 7, 2026"
+  }
+];
 ---
 
 <Layout description={SITE.desc}>
@@ -28,42 +34,27 @@ const linkedIn = SOCIALS.find((s) => s.active && s.icon === "linkedin")?.href;
   <StructuredData type="Person" data={{}} />
   <Header />
   <main id="main-content" data-layout="index">
-    <section id="hero" class="pt-6 pb-4">
+    
+    {/* Hero */}
+    <section id="hero" class="pt-6 pb-8">
       <div class="flex flex-col sm:flex-row items-start gap-4">
         <a href="/about" class="block mx-auto sm:mx-0 group">
           <img 
             src="/hero.png" 
             alt={SITE.title}
-            class="w-40 h-40 rounded-full object-cover flex-shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
+            class="w-32 h-32 rounded-full object-cover flex-shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
           />
         </a>
         <div class="flex-1 text-center sm:text-left">
-          <div class="flex items-center gap-2 justify-center sm:justify-start">
-            <h1 class="my-2 inline-block text-2xl font-bold sm:my-4 sm:text-3xl">
-              Hi, I'm {SITE.title}.
-            </h1>
-            <a
-              target="_blank"
-              href="/rss.xml"
-              class="inline-block"
-              aria-label="rss feed"
-              title="RSS Feed"
-            >
-              <IconRss
-                width={20}
-                height={20}
-                class="scale-125 stroke-accent stroke-3"
-              />
-              <span class="sr-only">RSS Feed</span>
-            </a>
-          </div>
-          <p>
+          <h1 class="my-2 inline-block text-2xl font-bold sm:my-3 sm:text-3xl">
+            Hi, I'm {SITE.title}.
+          </h1>
+          <p class="text-skin-base/80">
             {SITE.desc}
           </p>
           {
-            // only display if at least one social link is enabled
             SOCIALS.filter((social) => social.active).length > 0 && (
-              <div class="mt-4 flex flex-row items-center justify-center sm:justify-start">
+              <div class="mt-3 flex flex-row items-center justify-center sm:justify-start">
                 <Socials />
               </div>
             )
@@ -74,48 +65,96 @@ const linkedIn = SOCIALS.find((s) => s.active && s.icon === "linkedin")?.href;
 
     <Hr />
 
-    {
-      featuredPosts.length > 0 && (
-        <>
-          <section id="featured" class="pt-12 pb-6">
-            <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
-            <ul>
-              {featuredPosts.map((data) => (
-                <Card variant="h3" {...data} showImage={false} />
-              ))}
-            </ul>
-          </section>
-          {recentPosts.length > 0 && <Hr />}
-        </>
-      )
-    }
+    {/* Newsletter Section */}
+    <section class="py-12">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          Nikolaj's Notes
+        </h2>
+        <p class="text-lg text-skin-base/70 mb-2">
+          Weekly insights on AI agents, Tesla, and integration architecture
+        </p>
+        <p class="text-skin-base/50 mb-8">
+          — from a Senior Integration Architect building in public
+        </p>
 
-    {
-      hasPosts && recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <ul>
-            {recentPosts.map(
-              (data, index) =>
-                index < SITE.postPerIndex && <Card variant="h3" {...data} showImage={false} />,
-            )}
-          </ul>
-        </section>
-      )
-    }
+        {/* Value props */}
+        <div class="grid md:grid-cols-3 gap-4 mb-8 text-left">
+          <div class="p-4 bg-skin-fill/50 border border-skin-line rounded-xl">
+            <div class="text-2xl mb-2">🤖</div>
+            <h3 class="font-semibold text-sm mb-1">AI Agents</h3>
+            <p class="text-xs text-skin-base/70">What's working in production, not just demos</p>
+          </div>
+          
+          <div class="p-4 bg-skin-fill/50 border border-skin-line rounded-xl">
+            <div class="text-2xl mb-2">🚗</div>
+            <h3 class="font-semibold text-sm mb-1">Tesla & FSD</h3>
+            <p class="text-xs text-skin-base/70">Data-driven analysis of autonomy progress</p>
+          </div>
+          
+          <div class="p-4 bg-skin-fill/50 border border-skin-line rounded-xl">
+            <div class="text-2xl mb-2">⚡</div>
+            <h3 class="font-semibold text-sm mb-1">Integration</h3>
+            <p class="text-xs text-skin-base/70">Patterns from enterprise architecture</p>
+          </div>
+        </div>
 
-    <div class="my-8 text-center">
-      {hasPosts ? (
+        {/* Signup Form */}
+        <div class="bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-2xl p-6 mb-6">
+          <p class="text-skin-base/70 mb-4">No spam. Unsubscribe anytime. Weekly delivery.</p>
+          
+          <form 
+            action="https://buttondown.email/api/emails/embed-subscribe/nikolajflojgaard" 
+            method="post" 
+            target="popupwindow"
+            onsubmit="window.open('https://buttondown.email/nikolajflojgaard', 'popupwindow')"
+            class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+          >
+            <input 
+              type="email" 
+              name="email" 
+              placeholder="you@example.com" 
+              required
+              class="flex-1 px-4 py-3 bg-skin-fill border border-skin-line rounded-lg text-skin-base placeholder-skin-base/50 focus:outline-none focus:border-accent"
+            />
+            <button 
+              type="submit"
+              class="px-6 py-3 bg-accent hover:opacity-90 text-white font-medium rounded-lg transition-colors whitespace-nowrap"
+            >
+              Subscribe
+            </button>
+          </form>
+          
+          <p class="text-skin-base/50 text-sm mt-4">
+            Join 0 others (for now — be the first!)
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <Hr />
+
+    {/* Featured Content Teaser */}
+    <section class="py-12">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-semibold">From the blog</h2>
         <LinkButton href="/posts/">
           All Posts
           <IconArrowRight class="inline-block" />
         </LinkButton>
-      ) : linkedIn ? (
-        <LinkButton href={linkedIn} target="_blank">
-          Posts on LinkedIn
-          <IconArrowRight class="inline-block" />
-        </LinkButton>
-      ) : null}
-    </div>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-4">
+        {featuredPosts.map((post) => (
+          <div class="p-4 bg-skin-fill/30 border border-skin-line rounded-lg hover:border-accent/50 transition-colors">
+            <div class="text-skin-base/50 text-xs mb-2">{post.date}</div>
+            <h3 class="font-medium mb-2 line-clamp-2">{post.title}</h3>
+            <p class="text-sm text-skin-base/70 line-clamp-2">{post.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
   </main>
   <Footer />
 </Layout>
