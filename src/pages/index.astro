@@ -17,11 +17,33 @@ const sortedPosts = allPosts.sort((a, b) => {
   const bDate = b.data.pubDatetime || new Date();
   return new Date(bDate).getTime() - new Date(aDate).getTime();
 });
+
+// Generate correct slug matching the routing logic in [...slug].astro
+const generateSlug = (post) => {
+  const postId = post.id;
+  
+  // Check if post is already in a year directory (e.g., 2026/filename)
+  const yearDirMatch = postId.match(/^(\d{4})\/(.*)/);
+  if (yearDirMatch) {
+    return postId; // Already has year prefix
+  }
+  
+  // For posts not in year directories, extract year from metadata or filename
+  const pubDate = post.data.pubDatetime;
+  const year = pubDate
+    ? pubDate.getFullYear().toString()
+    : postId.match(/^(\d{4})-\d{2}-\d{2}/)
+      ? postId.substring(0, 4)
+      : new Date().getFullYear().toString();
+  
+  return `${year}/${postId}`;
+};
+
 const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
   title: post.data.title,
   description: post.data.description || "",
   date: new Date(post.data.pubDatetime).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-  slug: post.slug
+  slug: generateSlug(post)
 }));
 ---
 
