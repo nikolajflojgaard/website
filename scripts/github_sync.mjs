@@ -26,9 +26,12 @@ async function fetchUser() {
 }
 
 async function fetchRepos() {
-  const repos = await fetchGitHub(
-    `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`
-  );
+  // Use authenticated endpoint if token available (includes private repos)
+  const url = GITHUB_TOKEN
+    ? `https://api.github.com/user/repos?per_page=100&sort=updated&affiliation=owner`
+    : `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`;
+  
+  const repos = await fetchGitHub(url);
   // Filter out forks and sort by stars
   return repos
     .filter((r) => !r.fork)
@@ -45,10 +48,12 @@ async function fetchRepos() {
 }
 
 async function fetchRecentActivity() {
-  // Get recent events
-  const events = await fetchGitHub(
-    `https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=20`
-  );
+  // Use authenticated endpoint if token available (includes private events)
+  const url = GITHUB_TOKEN
+    ? `https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=20`
+    : `https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=20`;
+  
+  const events = await fetchGitHub(url);
   
   const activity = [];
   for (const event of events.slice(0, 10)) {

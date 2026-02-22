@@ -29,7 +29,10 @@ jobs:
       - name: Sync GitHub data
         env:
           GITHUB_USERNAME: nikolajflojgaard
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use GITHUB_TOKEN for public repos only
+          # For private repos, create a Personal Access Token with 'repo' scope
+          # and store it as GH_PRIVATE_TOKEN secret, then update below
+          GITHUB_TOKEN: ${{ secrets.GH_PRIVATE_TOKEN || secrets.GITHUB_TOKEN }}
         run: node scripts/github_sync.mjs
 
       - name: Commit and push changes
