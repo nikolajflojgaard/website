@@ -192,9 +192,13 @@ const canonicalURL = new URL(canonicalPath, Astro.site).toString();
     // Look for YouTube embeds
     const youtubeEmbedRegex =
       /\{% youtube (https:\/\/[^\s]+|[a-zA-Z0-9_-]+) %\}/g;
+    // Look for LinkedIn embeds
+    const linkedinEmbedRegex =
+      /\{% linkedin (https:\/\/[^\s]+) %\}/g;
 
 	    let foundTwitterEmbeds = false;
 	    let foundYoutubeEmbeds = false;
+    let foundLinkedInEmbeds = false;
 
 	    // Helper to extract a YouTube video ID from various URL formats
 	    const extractYouTubeId = (input: string) => {
@@ -214,12 +218,30 @@ const canonicalURL = new URL(canonicalPath, Astro.site).toString();
       return videoId;
     };
 
+    // Helper to extract LinkedIn post ID from URL
+    const extractLinkedInId = (input: string) => {
+      // Handle different LinkedIn URL formats
+      // Format 1: https://www.linkedin.com/posts/USERNAME_post-id
+      // Format 2: https://www.linkedin.com/feed/update/urn:li:activity:ID
+      try {
+        if (input.includes("activity:")) {
+          const match = input.match(/activity:(\d+)/);
+          return match ? match[1] : "";
+        }
+        // Extract from posts URL
+        const postsMatch = input.match(/\/posts\/[\w-]+_(\d+)/);
+        return postsMatch ? postsMatch[1] : "";
+      } catch (_) {
+        return "";
+      }
+
     // 1) Pre-pass: replace whole-paragraph shortcodes (most common case)
     const pNodes = article.querySelectorAll("p");
     pNodes.forEach((p) => {
       const text = (p.textContent || "").trim();
       const twMatch = text.match(/\{% twitter (https:\/\/[^\s]+) %\}/);
       const ytMatch = text.match(/\{% youtube (https:\/\/[^\s]+|[a-zA-Z0-9_-]+) %\}/);
+      const liMatch = text.match(/\{% linkedin (https:\/\/[^\s]+) %\}/);
 
       if (twMatch && twMatch[1]) {
         foundTwitterEmbeds = true;
@@ -247,6 +269,22 @@ const canonicalURL = new URL(canonicalPath, Astro.site).toString();
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
+          ></iframe>
+        `;
+        p.replaceWith(container);
+      } else if (liMatch && liMatch[1]) {
+        foundLinkedInEmbeds = true;
+        const url = liMatch[1];
+        const container = document.createElement("div");
+        container.className = "linkedin-embed-container";
+        container.innerHTML = `
+          <iframe 
+            src="https://www.linkedin.com/embed/feed/update/urn:li:activity:${extractLinkedInId(url)}" 
+            frameborder="0" 
+            allowfullscreen="" 
+            title="LinkedIn post"
+            loading="lazy"
+            style="width: 100%; min-height: 400px; border: none; border-radius: 8px;"
           ></iframe>
         `;
         p.replaceWith(container);
@@ -291,8 +329,8 @@ const canonicalURL = new URL(canonicalPath, Astro.site).toString();
         hasChanges = true;
         videoId = extractYouTubeId(videoId);
 
-        return `<div class="youtube-embed-container">
-            <iframe
+        return `\u003cdiv class="youtube-embed-container"\u003e
+            \u003ciframe
               width="560"
               height="315"
               src="https://www.youtube.com/embed/${videoId}"
@@ -300,8 +338,25 @@ const canonicalURL = new URL(canonicalPath, Astro.site).toString();
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
-            ></iframe>
-          </div>`;
+            \u003e\u003c/iframe\u003e
+          \u003c/div\u003e`;
+      });
+
+      // Process LinkedIn embeds
+      content = content.replace(linkedinEmbedRegex, (match, url) => {
+        foundLinkedInEmbeds = true;
+        hasChanges = true;
+        const linkedInId = extractLinkedInId(url);
+        return `\u003cdiv class="linkedin-embed-container"\u003e
+            \u003ciframe 
+              src="https://www.linkedin.com/embed/feed/update/urn:li:activity:${linkedInId}" 
+              frameborder="0" 
+              allowfullscreen="" 
+              title="LinkedIn post"
+              loading="lazy"
+              style="width: 100%; min-height: 400px; border: none; border-radius: 8px;"
+            \u003e\u003c/iframe\u003e
+          \u003c/div\u003e`;
       });
 
 	      if (hasChanges) {
@@ -372,6 +427,20 @@ const canonicalURL = new URL(canonicalPath, Astro.site).toString();
     width: 100%;
     height: 100%;
     border: 0;
+  }
+
+  .linkedin-embed-container {
+    margin: 2rem 0;
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+  }
+
+  .linkedin-embed-container iframe {
+    width: 100%;
+    min-height: 400px;
+    border: none;
+    border-radius: 8px;
   }
 </style>
   
