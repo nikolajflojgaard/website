@@ -1,0 +1,127 @@
+---
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+const DATA_PATH = resolve(process.cwd(), 'data/github_data.json');
+
+let githubData: any = null;
+let error: string | null = null;
+
+try {
+  const raw = readFileSync(DATA_PATH, 'utf-8');
+  githubData = JSON.parse(raw);
+} catch (e) {
+  error = 'Failed to load GitHub data';
+}
+
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function formatTimeAgo(dateStr: string): string {
+  const date = new Date(dateStr);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  
+  if (diffHours < 1) return 'just now';
+  if (diffHours < 24) return `${diffHours}h ago`;
+  if (diffDays < 7) return `${diffDays}d ago`;
+  return formatDate(dateStr);
+}
+
+function getActivityIcon(type: string): string {
+  switch (type) {
+    case 'push': return '📤';
+    case 'create': return '🆕';
+    case 'pr': return '🔀';
+    case 'issue': return '📋';
+    case 'release': return '🏷️';
+    default: return '⚡';
+  }
+}
+---
+
+{error ? (
+  <div class="text-skin-base/70">{error}</div>
+) : githubData ? (
+  <div class="space-y-6">
+    {/* Stats */}
+    <div class="grid grid-cols-3 gap-4">
+      <div class="text-center p-4 bg-skin-fill/50 rounded-lg">
+        <div class="text-2xl font-bold text-accent">{githubData.public_repos}</div>
+        <div class="text-sm text-skin-base/70">Repositories</div>
+      </div>
+      <div class="text-center p-4 bg-skin-fill/50 rounded-lg">
+        <div class="text-2xl font-bold text-accent">{githubData.followers}</div>
+        <div class="text-sm text-skin-base/70">Followers</div>
+      </div>
+      <div class="text-center p-4 bg-skin-fill/50 rounded-lg">
+        <div class="text-2xl font-bold text-accent">{githubData.following}</div>
+        <div class="text-sm text-skin-base/70">Following</div>
+      </div>
+    </div>
+
+    {/* Contribution Graph */}
+    <div class="bg-skin-fill/30 p-4 rounded-lg border border-skin-line">
+      <img 
+        src={`https://ghchart.rshah.org/nikolajflojgaard`}
+        alt="GitHub Contribution Graph"
+        class="w-full"
+        loading="lazy"
+      />
+    </div>
+
+    {/* Recent Activity */}
+    <div>
+      <h3 class="text-lg font-semibold mb-4">Recent Activity</h3>
+      <div class="space-y-3">
+        {githubData.recent_activity?.slice(0, 6).map((activity: any) => (
+          <div class="flex items-start gap-3 p-3 bg-skin-fill/30 rounded-lg">
+            <span class="text-lg">{getActivityIcon(activity.type)}</span>
+            <div class="flex-1 min-w-0">
+              <div class="text-sm">{activity.description}</div>
+              <div class="text-xs text-skin-base/50 mt-1">
+                {formatTimeAgo(activity.created_at)}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* Top Repos */}
+    <div>
+      <h3 class="text-lg font-semibold mb-4">Top Repositories</h3>
+      <div class="grid gap-3">
+        {githubData.repos?.slice(0, 4).map((repo: any) => (
+          <a 
+            href={repo.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block p-4 bg-skin-fill/30 rounded-lg hover:bg-skin-fill/50 transition-colors border border-skin-line hover:border-accent/30"
+          >
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-medium">{repo.name}</span>
+              <span class="text-sm text-skin-base/50">⭐ {repo.stargazers_count}</span>
+            </div>
+            <div class="text-sm text-skin-base/70 line-clamp-1">
+              {repo.description || 'No description'}
+            </div>
+            <div class="text-xs text-skin-base/50 mt-2">
+              {repo.language && <span class="inline-flex items-center gap-1">🔹 {repo.language}</span>}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="text-xs text-skin-base/50 text-right">
+      Last updated: {githubData.fetched_at ? formatTimeAgo(githubData.fetched_at) : 'Unknown'}
+    </div>
+  </div>
+) : (
+  <div class="text-skin-base/70">Loading GitHub data...</div>
+)}
