@@ -8,24 +8,21 @@ import Socials from "@/components/Socials.astro";
 import StructuredData from "@/components/StructuredData.astro";
 import { SITE, SOCIALS } from "@/config";
 import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-const featuredPosts = [
-  {
-    title: "The $59k Cybertruck is a demand test",
-    description: "Why Tesla's pricing strategy is smarter than it looks...",
-    date: "Feb 21, 2026"
-  },
-  {
-    title: "AI agents in production: 3 failure modes", 
-    description: "What I'm learning from deploying agents at scale...",
-    date: "Feb 14, 2026"
-  },
-  {
-    title: "Integration patterns for AI systems",
-    description: "How to connect LLMs to your existing stack...",
-    date: "Feb 7, 2026"
-  }
-];
+// Get actual blog posts
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort((a, b) => {
+  const aDate = a.data.pubDatetime || new Date();
+  const bDate = b.data.pubDatetime || new Date();
+  return new Date(bDate).getTime() - new Date(aDate).getTime();
+});
+const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
+  title: post.data.title,
+  description: post.data.description || "",
+  date: new Date(post.data.pubDatetime).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+  slug: post.slug
+}));
 ---
 
 <Layout description={SITE.desc}>
@@ -134,15 +131,21 @@ const featuredPosts = [
         </LinkButton>
       </div>
       
-      <div class="grid md:grid-cols-3 gap-4">
-        {featuredPosts.map((post) => (
-          <div class="p-4 bg-skin-fill/30 border border-skin-line rounded-lg hover:border-accent/50 transition-colors">
-            <div class="text-skin-base/50 text-xs mb-2">{post.date}</div>
-            <h3 class="font-medium mb-2 line-clamp-2">{post.title}</h3>
-            <p class="text-sm text-skin-base/70 line-clamp-2">{post.description}</p>
-          </div>
-        ))}
-      </div>
+      {featuredPosts.length > 0 ? (
+        <div class="grid md:grid-cols-3 gap-4">
+          {featuredPosts.map((post) => (
+            <a href={`/posts/${post.slug}`} class="block p-4 bg-skin-fill/30 border border-skin-line rounded-lg hover:border-accent/50 hover:bg-skin-fill/50 transition-all group">
+              <div class="text-skin-base/50 text-xs mb-2">{post.date}</div>
+              <h3 class="font-medium mb-2 line-clamp-2 group-hover:text-accent transition-colors">{post.title}</h3>
+              <p class="text-sm text-skin-base/70 line-clamp-2">{post.description}</p>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="p-6 bg-skin-fill/30 border border-skin-line rounded-lg text-center">
+          <p class="text-skin-base/70">No posts yet — check back soon!</p>
+        </div>
+      )}
     </section>
 
   </main>
