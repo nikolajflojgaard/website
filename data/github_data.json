@@ -18,6 +18,14 @@
       "updated_at": "2026-02-14T12:05:27Z"
     },
     {
+      "name": "NifloMissionControl",
+      "description": "CodexMissionControl",
+      "html_url": "https://github.com/nikolajflojgaard/NifloMissionControl",
+      "stargazers_count": 0,
+      "language": "TypeScript",
+      "updated_at": "2026-02-22T07:50:48Z"
+    },
+    {
       "name": "homeassistant-household-chores",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/homeassistant-household-chores",
@@ -40,17 +48,21 @@
       "stargazers_count": 0,
       "language": "JavaScript",
       "updated_at": "2026-02-15T16:54:22Z"
-    },
-    {
-      "name": "NifloMissionControl",
-      "description": "CodexMissionControl",
-      "html_url": "https://github.com/nikolajflojgaard/NifloMissionControl",
-      "stargazers_count": 0,
-      "language": "CSS",
-      "updated_at": "2026-02-03T21:25:37Z"
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/NifloMissionControl",
+      "repo": "nikolajflojgaard/NifloMissionControl",
+      "created_at": "2026-02-22T07:50:45Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/NifloMissionControl",
+      "repo": "nikolajflojgaard/NifloMissionControl",
+      "created_at": "2026-02-22T07:42:00Z"
+    },
     {
       "type": "release",
       "description": "Released v0.3.93 in nikolajflojgaard/homeassistant-household-chores",
@@ -92,19 +104,7 @@
       "description": "merged PR in home-assistant/brands",
       "repo": "home-assistant/brands",
       "created_at": "2026-02-16T13:27:22Z"
-    },
-    {
-      "type": "pr",
-      "description": "opened PR in home-assistant/brands",
-      "repo": "home-assistant/brands",
-      "created_at": "2026-02-16T12:40:06Z"
-    },
-    {
-      "type": "create",
-      "description": "Created branch in nikolajflojgaard/brands",
-      "repo": "nikolajflojgaard/brands",
-      "created_at": "2026-02-16T12:37:43Z"
     }
   ],
-  "fetched_at": "2026-02-22T05:08:42.131Z"
+  "fetched_at": "2026-02-22T07:51:05.078Z"
 }
