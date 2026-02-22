@@ -105,7 +105,12 @@ function getActivityIcon(type: string): string {
           >
             <div class="flex items-center justify-between mb-1">
               <span class="font-medium">{repo.name}</span>
-              <span class="text-sm text-skin-base/50">⭐ {repo.stargazers_count}</span>
+              <div class="flex items-center gap-2">
+                {repo.private && (
+                  <span class="px-2 py-0.5 text-xs bg-skin-base/10 text-skin-base/60 rounded">Private</span>
+                )}
+                <span class="text-sm text-skin-base/50">⭐ {repo.stargazers_count}</span>
+              </div>
             </div>
             <div class="text-sm text-skin-base/70 line-clamp-1">
               {repo.description || 'No description'}

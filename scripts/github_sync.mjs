@@ -44,6 +44,7 @@ async function fetchRepos() {
       stargazers_count: r.stargazers_count,
       language: r.language,
       updated_at: r.updated_at,
+      private: r.private,
     }));
 }
 
