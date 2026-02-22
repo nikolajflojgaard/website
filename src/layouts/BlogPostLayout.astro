@@ -234,6 +234,7 @@ const canonicalURL = new URL(canonicalPath, Astro.site).toString();
       } catch (_) {
         return "";
       }
+    };
 
     // 1) Pre-pass: replace whole-paragraph shortcodes (most common case)
     const pNodes = article.querySelectorAll("p");
