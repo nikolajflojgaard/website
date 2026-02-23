@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "tesla-fsd-ai-bot",
+      "description": "Tesla FSD AI Bot - Growth automation and content generation",
+      "html_url": "https://github.com/nikolajflojgaard/tesla-fsd-ai-bot",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-02-23T11:02:30Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "Astro",
-      "updated_at": "2026-02-23T05:24:18Z",
+      "updated_at": "2026-02-23T08:06:24Z",
       "private": true
     },
     {
@@ -53,18 +62,33 @@
       "language": "JavaScript",
       "updated_at": "2026-02-21T07:26:49Z",
       "private": false
-    },
-    {
-      "name": "Linkedin-pipeline",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/Linkedin-pipeline",
-      "stargazers_count": 0,
-      "language": "JavaScript",
-      "updated_at": "2026-02-21T06:51:25Z",
-      "private": true
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/tesla-fsd-ai-bot",
+      "repo": "nikolajflojgaard/tesla-fsd-ai-bot",
+      "created_at": "2026-02-23T11:02:27Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/tesla-fsd-ai-bot",
+      "repo": "nikolajflojgaard/tesla-fsd-ai-bot",
+      "created_at": "2026-02-23T10:00:27Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/tesla-fsd-ai-bot",
+      "repo": "nikolajflojgaard/tesla-fsd-ai-bot",
+      "created_at": "2026-02-23T09:58:32Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/tesla-fsd-ai-bot",
+      "repo": "nikolajflojgaard/tesla-fsd-ai-bot",
+      "created_at": "2026-02-23T09:27:04Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
@@ -100,31 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/egedalbogholderi",
       "repo": "nikolajflojgaard/egedalbogholderi",
       "created_at": "2026-02-22T17:30:36Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/egedalbogholderi",
-      "repo": "nikolajflojgaard/egedalbogholderi",
-      "created_at": "2026-02-22T17:09:25Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/egedalbogholderi",
-      "repo": "nikolajflojgaard/egedalbogholderi",
-      "created_at": "2026-02-22T16:57:53Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/egedalbogholderi",
-      "repo": "nikolajflojgaard/egedalbogholderi",
-      "created_at": "2026-02-22T16:50:57Z"
-    },
-    {
-      "type": "create",
-      "description": "Created branch in nikolajflojgaard/egedalbogholderi",
-      "repo": "nikolajflojgaard/egedalbogholderi",
-      "created_at": "2026-02-22T16:43:10Z"
     }
   ],
-  "fetched_at": "2026-02-23T08:06:20.698Z"
+  "fetched_at": "2026-02-23T14:38:07.249Z"
 }
