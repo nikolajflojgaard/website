@@ -19,13 +19,13 @@
       "private": false
     },
     {
-      "name": "tesla-fsd-ai-bot",
-      "description": "Tesla FSD AI Bot - Growth automation and content generation",
-      "html_url": "https://github.com/nikolajflojgaard/tesla-fsd-ai-bot",
+      "name": "egedalbogholderi",
+      "description": "Bogholderi",
+      "html_url": "https://github.com/nikolajflojgaard/egedalbogholderi",
       "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-02-23T11:02:30Z",
-      "private": true
+      "language": "Astro",
+      "updated_at": "2026-02-23T16:07:18Z",
+      "private": false
     },
     {
       "name": "website",
@@ -33,7 +33,16 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "Astro",
-      "updated_at": "2026-02-23T08:06:24Z",
+      "updated_at": "2026-02-23T14:38:11Z",
+      "private": true
+    },
+    {
+      "name": "tesla-fsd-ai-bot",
+      "description": "Tesla FSD AI Bot - Growth automation and content generation",
+      "html_url": "https://github.com/nikolajflojgaard/tesla-fsd-ai-bot",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-02-23T11:02:30Z",
       "private": true
     },
     {
@@ -46,15 +55,6 @@
       "private": true
     },
     {
-      "name": "egedalbogholderi",
-      "description": "Bogholderi",
-      "html_url": "https://github.com/nikolajflojgaard/egedalbogholderi",
-      "stargazers_count": 0,
-      "language": "HTML",
-      "updated_at": "2026-02-22T17:46:25Z",
-      "private": false
-    },
-    {
       "name": "homeassistant-household-chores",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/homeassistant-household-chores",
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/egedalbogholderi",
+      "repo": "nikolajflojgaard/egedalbogholderi",
+      "created_at": "2026-02-23T16:07:14Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/tesla-fsd-ai-bot",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/egedalbogholderi",
       "repo": "nikolajflojgaard/egedalbogholderi",
       "created_at": "2026-02-22T17:43:28Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/egedalbogholderi",
-      "repo": "nikolajflojgaard/egedalbogholderi",
-      "created_at": "2026-02-22T17:30:36Z"
     }
   ],
-  "fetched_at": "2026-02-23T14:38:07.249Z"
+  "fetched_at": "2026-02-23T20:06:56.539Z"
 }
