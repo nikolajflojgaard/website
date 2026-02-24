@@ -31,10 +31,9 @@ interface Site {
 
 // Site configuration
 export const SITE: Site = {
-  // TODO: set this to your canonical domain once you deploy.
-  website: "https://example.com/",
+  website: "https://nikolajflojgaard.me/",
   author: "Nikolaj Fløjgaard",
-  profile: "https://example.com/about",
+  profile: "https://nikolajflojgaard.me/about",
   desc: "Weekly insights on AI agents, Tesla, and integration architecture — from a Senior Integration Architect building in public.",
   title: "Nikolaj Fløjgaard",
   ogImage: "avatar.jpg",
