@@ -19,21 +19,21 @@
       "private": false
     },
     {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "Astro",
+      "updated_at": "2026-02-24T05:14:35Z",
+      "private": true
+    },
+    {
       "name": "openclaw-workspace",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
       "stargazers_count": 0,
       "language": "Python",
       "updated_at": "2026-02-24T01:04:53Z",
-      "private": true
-    },
-    {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "Astro",
-      "updated_at": "2026-02-23T20:07:00Z",
       "private": true
     },
     {
@@ -126,5 +126,5 @@
       "created_at": "2026-02-22T17:45:05Z"
     }
   ],
-  "fetched_at": "2026-02-24T05:14:31.999Z"
+  "fetched_at": "2026-02-24T08:05:30.027Z"
 }
