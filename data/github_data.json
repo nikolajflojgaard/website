@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "website-rescue",
+      "description": "Business website - rescue",
+      "html_url": "https://github.com/nikolajflojgaard/website-rescue",
+      "stargazers_count": 0,
+      "language": "Astro",
+      "updated_at": "2026-02-24T15:26:22Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "Astro",
-      "updated_at": "2026-02-24T14:36:26Z",
+      "updated_at": "2026-02-24T15:19:24Z",
       "private": true
     },
     {
@@ -53,18 +62,21 @@
       "language": "Astro",
       "updated_at": "2026-02-23T16:07:18Z",
       "private": false
-    },
-    {
-      "name": "tesla-fsd-ai-bot",
-      "description": "Tesla FSD AI Bot - Growth automation and content generation",
-      "html_url": "https://github.com/nikolajflojgaard/tesla-fsd-ai-bot",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-02-23T11:02:30Z",
-      "private": true
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website-rescue",
+      "repo": "nikolajflojgaard/website-rescue",
+      "created_at": "2026-02-24T15:15:04Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-02-24T15:16:59Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website",
@@ -112,19 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/tesla-fsd-ai-bot",
       "repo": "nikolajflojgaard/tesla-fsd-ai-bot",
       "created_at": "2026-02-23T11:02:27Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/tesla-fsd-ai-bot",
-      "repo": "nikolajflojgaard/tesla-fsd-ai-bot",
-      "created_at": "2026-02-23T10:00:27Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/tesla-fsd-ai-bot",
-      "repo": "nikolajflojgaard/tesla-fsd-ai-bot",
-      "created_at": "2026-02-23T09:58:32Z"
     }
   ],
-  "fetched_at": "2026-02-24T15:11:57.280Z"
+  "fetched_at": "2026-02-24T19:54:34.085Z"
 }
