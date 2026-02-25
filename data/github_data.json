@@ -19,12 +19,12 @@
       "private": false
     },
     {
-      "name": "website-rescue",
-      "description": "Business website - rescue",
-      "html_url": "https://github.com/nikolajflojgaard/website-rescue",
+      "name": "openclaw-workspace",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
       "stargazers_count": 0,
-      "language": "Astro",
-      "updated_at": "2026-02-24T15:26:22Z",
+      "language": "Python",
+      "updated_at": "2026-02-25T01:04:30Z",
       "private": true
     },
     {
@@ -33,7 +33,16 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "Astro",
-      "updated_at": "2026-02-24T15:19:24Z",
+      "updated_at": "2026-02-24T19:55:02Z",
+      "private": true
+    },
+    {
+      "name": "website-rescue",
+      "description": "Business website - rescue",
+      "html_url": "https://github.com/nikolajflojgaard/website-rescue",
+      "stargazers_count": 0,
+      "language": "Astro",
+      "updated_at": "2026-02-24T15:26:22Z",
       "private": true
     },
     {
@@ -46,15 +55,6 @@
       "private": false
     },
     {
-      "name": "openclaw-workspace",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-02-24T08:56:44Z",
-      "private": true
-    },
-    {
       "name": "egedalbogholderi",
       "description": "Bogholderi",
       "html_url": "https://github.com/nikolajflojgaard/egedalbogholderi",
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-02-25T01:04:27Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website-rescue",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/egedalbogholderi",
       "repo": "nikolajflojgaard/egedalbogholderi",
       "created_at": "2026-02-23T16:07:14Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/tesla-fsd-ai-bot",
-      "repo": "nikolajflojgaard/tesla-fsd-ai-bot",
-      "created_at": "2026-02-23T11:02:27Z"
     }
   ],
-  "fetched_at": "2026-02-24T19:54:34.085Z"
+  "fetched_at": "2026-02-25T05:17:12.782Z"
 }
