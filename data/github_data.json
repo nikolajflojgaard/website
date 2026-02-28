@@ -19,21 +19,21 @@
       "private": false
     },
     {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "Astro",
-      "updated_at": "2026-02-27T14:10:51Z",
-      "private": true
-    },
-    {
       "name": "openclaw-workspace",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-02-27T01:04:23Z",
+      "updated_at": "2026-02-28T01:06:10Z",
+      "private": true
+    },
+    {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "Astro",
+      "updated_at": "2026-02-27T19:48:55Z",
       "private": true
     },
     {
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-02-28T01:06:07Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
       "repo": "nikolajflojgaard/openclaw-workspace",
       "created_at": "2026-02-24T08:53:53Z"
-    },
-    {
-      "type": "create",
-      "description": "Created branch in nikolajflojgaard/Agentic-skill-contentcreator",
-      "repo": "nikolajflojgaard/Agentic-skill-contentcreator",
-      "created_at": "2026-02-24T08:44:21Z"
     }
   ],
-  "fetched_at": "2026-02-27T19:48:52.071Z"
+  "fetched_at": "2026-02-28T04:36:14.396Z"
 }
