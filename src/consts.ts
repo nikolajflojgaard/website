@@ -34,7 +34,7 @@ export const SITE: Site = {
   website: "https://nikolajflojgaard.me/",
   author: "Nikolaj Fløjgaard",
   profile: "https://nikolajflojgaard.me/about",
-  desc: "Weekly insights on AI agents, Tesla, and integration architecture — from a Senior Integration Architect building in public.",
+  desc: "Senior Integration Architect writing about AI agents, systems, autonomy, and the infrastructure behind what actually works.",
   title: "Nikolaj Fløjgaard",
   ogImage: "avatar.jpg",
   lightAndDarkMode: true,

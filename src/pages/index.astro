@@ -67,8 +67,11 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
           <h1 class="my-2 inline-block text-2xl font-bold sm:my-3 sm:text-3xl">
             Hi, I'm {SITE.title}.
           </h1>
-          <p class="text-skin-base/80">
+          <p class="text-skin-base/80 max-w-2xl">
             {SITE.desc}
+          </p>
+          <p class="mt-3 text-sm text-skin-base/65 max-w-2xl">
+            Less hype, more systems thinking: practical notes on enterprise integration, agentic workflows, and autonomy from the edge of real-world implementation.
           </p>
           {
             SOCIALS.filter((social) => social.active).length > 0 && (
@@ -92,25 +95,26 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
           <div class="p-4 bg-skin-fill/50 border border-skin-line rounded-xl">
             <div class="text-2xl mb-2">🤖</div>
             <h3 class="font-semibold text-sm mb-1">AI Agents</h3>
-            <p class="text-xs text-skin-base/70">What's working in production, not just demos</p>
+            <p class="text-xs text-skin-base/70">What survives contact with production, not just demos</p>
           </div>
           
           <div class="p-4 bg-skin-fill/50 border border-skin-line rounded-xl">
             <div class="text-2xl mb-2">🚗</div>
-            <h3 class="font-semibold text-sm mb-1">Tesla & FSD</h3>
-            <p class="text-xs text-skin-base/70">Data-driven analysis of autonomy progress</p>
+            <h3 class="font-semibold text-sm mb-1">Autonomy</h3>
+            <p class="text-xs text-skin-base/70">Signals, constraints, and where the real progress is happening</p>
           </div>
           
           <div class="p-4 bg-skin-fill/50 border border-skin-line rounded-xl">
             <div class="text-2xl mb-2">⚡</div>
-            <h3 class="font-semibold text-sm mb-1">Integration</h3>
-            <p class="text-xs text-skin-base/70">Patterns from enterprise architecture</p>
+            <h3 class="font-semibold text-sm mb-1">Systems & Integration</h3>
+            <p class="text-xs text-skin-base/70">Architecture patterns, governance, and where complexity actually bites</p>
           </div>
         </div>
 
         <!-- Signup Form -->
         <div class="bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-2xl p-6 mb-6">
-          <p class="text-skin-base/70 mb-4">No spam. Unsubscribe anytime. Weekly delivery.</p>
+          <h2 class="text-xl font-semibold mb-2">Get the sharp version</h2>
+          <p class="text-skin-base/70 mb-4">Occasional writing on AI agents, autonomy, and integration architecture. No filler. Unsubscribe anytime.</p>
           
           <form 
             action="https://buttondown.email/api/emails/embed-subscribe/f35" 
@@ -135,7 +139,7 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
           </form>
           
           <p class="text-skin-base/50 text-sm mt-4">
-            Join 0 others (for now — be the first!)
+            For people who care about what actually works.
           </p>
         </div>
       </div>
