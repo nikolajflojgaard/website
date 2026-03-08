@@ -13,8 +13,9 @@ export interface Props extends CollectionEntry<"blog"> {
 
 const { variant = "h2", data, id, filePath, body, showImage = true } = Astro.props;
 
-const { title, description, pubDatetime, modDatetime, timezone, heroImage, source } = data;
+const { title, description, pubDatetime, modDatetime, timezone, heroImage, ogImage, source } = data;
 const readingTime = calculateReadingTime(body ?? "");
+const cardImage = heroImage || ogImage;
 
 const headerProps = {
   style: { viewTransitionName: slugifyStr(title) },
@@ -49,22 +50,34 @@ const headerProps = {
       )}
     </div>
     <div class="flex gap-4 items-start">
-      {showImage && heroImage && (
+      {showImage && cardImage && (
         <a 
           href={getPath(id, filePath)}
           class="flex-shrink-0 hidden sm:block group"
         >
-          <Image
-            src={heroImage}
-            alt={title}
-            width={140}
-            height={79}
-            class="rounded shadow-sm transition-all duration-200 group-hover:shadow-md group-hover:scale-105 object-cover"
-            format="webp"
-            quality={80}
-            loading="lazy"
-            densities={[1, 2]}
-          />
+          {typeof cardImage === "string" ? (
+            <img
+              src={cardImage}
+              alt={title}
+              width="140"
+              height="79"
+              class="rounded shadow-sm transition-all duration-200 group-hover:shadow-md group-hover:scale-105 object-cover w-[140px] h-[79px]"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <Image
+              src={cardImage}
+              alt={title}
+              width={140}
+              height={79}
+              class="rounded shadow-sm transition-all duration-200 group-hover:shadow-md group-hover:scale-105 object-cover"
+              format="webp"
+              quality={80}
+              loading="lazy"
+              densities={[1, 2]}
+            />
+          )}
         </a>
       )}
       <p class="opacity-80 flex-1">{description}</p>
