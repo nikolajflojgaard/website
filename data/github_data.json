@@ -24,7 +24,7 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "Astro",
-      "updated_at": "2026-03-08T06:53:11Z",
+      "updated_at": "2026-03-08T18:12:25Z",
       "private": true
     },
     {
@@ -33,7 +33,7 @@
       "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-03-02T01:04:18Z",
+      "updated_at": "2026-03-08T15:53:33Z",
       "private": true
     },
     {
@@ -65,6 +65,24 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-03-08T18:12:22Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-03-08T17:30:38Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-03-08T15:53:30Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
@@ -106,25 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/website-rescue",
       "repo": "nikolajflojgaard/website-rescue",
       "created_at": "2026-02-24T15:15:04Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-02-24T15:16:59Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-02-24T14:36:16Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/Agentic-skill-contentcreator",
-      "repo": "nikolajflojgaard/Agentic-skill-contentcreator",
-      "created_at": "2026-02-24T09:05:59Z"
     }
   ],
-  "fetched_at": "2026-03-08T13:01:59.123Z"
+  "fetched_at": "2026-03-08T18:43:07.096Z"
 }
