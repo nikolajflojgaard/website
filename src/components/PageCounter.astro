@@ -1,0 +1,44 @@
+---
+const namespace = "nikolajflojgaard_me";
+---
+
+<script is:inline define:vars={{ namespace }}>
+  const COUNTER_NAMESPACE = namespace;
+  const COUNTER_TTL_MS = 12 * 60 * 60 * 1000;
+
+  function counterKey(pathname) {
+    const normalized = pathname === "/" ? "home" : pathname.replace(/\/+$/g, "") || "/";
+    return normalized
+      .replace(/^\//, "")
+      .replace(/[^a-zA-Z0-9/_-]/g, "-")
+      .replace(/\//g, "__");
+  }
+
+  async function hitCounter() {
+    if (typeof window === "undefined") return;
+    const pathname = window.location.pathname;
+    const storageKey = `nf_hit:${pathname}`;
+    const now = Date.now();
+    try {
+      const last = Number(window.localStorage.getItem(storageKey) || 0);
+      if (last && now - last < COUNTER_TTL_MS) return;
+    } catch {}
+
+    const key = counterKey(pathname);
+    try {
+      await fetch(`https://api.countapi.xyz/hit/${COUNTER_NAMESPACE}/${encodeURIComponent(key)}`, {
+        method: "GET",
+        mode: "cors",
+        keepalive: true,
+      });
+      try {
+        window.localStorage.setItem(storageKey, String(now));
+      } catch {}
+    } catch {
+      // best-effort only
+    }
+  }
+
+  hitCounter();
+  document.addEventListener("astro:page-load", hitCounter);
+</script>
