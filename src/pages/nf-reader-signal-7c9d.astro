@@ -99,12 +99,18 @@ const routes = [
       const countCell = row.querySelector("[data-count]");
       try {
         const res = await fetch(`https://api.countapi.xyz/get/${COUNTER_NAMESPACE}/${encodeURIComponent(counterKey(path))}`);
+        if (!res.ok) {
+          if (countCell) countCell.textContent = "0";
+          results.push({ title, path, value: 0, row });
+          continue;
+        }
         const data = await res.json();
         const value = Number(data?.value || 0);
         if (countCell) countCell.textContent = String(value);
         results.push({ title, path, value, row });
       } catch {
-        if (countCell) countCell.textContent = "err";
+        if (countCell) countCell.textContent = "0";
+        results.push({ title, path, value: 0, row });
       }
     }
 
