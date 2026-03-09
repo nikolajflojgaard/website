@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "Astro",
+      "updated_at": "2026-03-09T16:47:14Z",
+      "private": true
+    },
+    {
       "name": "homeassistant-weekly-training",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/homeassistant-weekly-training",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-03-09T13:06:12Z",
+      "updated_at": "2026-03-09T15:28:09Z",
       "private": false
     },
     {
@@ -35,15 +44,6 @@
       "language": "JavaScript",
       "updated_at": "2026-03-09T10:56:32Z",
       "private": false
-    },
-    {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "Astro",
-      "updated_at": "2026-03-09T07:11:00Z",
-      "private": true
     },
     {
       "name": "openclaw-workspace",
@@ -65,6 +65,30 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-03-09T16:47:11Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-03-09T16:35:12Z"
+    },
+    {
+      "type": "release",
+      "description": "Released v0.3.24 in nikolajflojgaard/homeassistant-weekly-training",
+      "repo": "nikolajflojgaard/homeassistant-weekly-training",
+      "created_at": "2026-03-09T15:27:49Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-weekly-training",
+      "repo": "nikolajflojgaard/homeassistant-weekly-training",
+      "created_at": "2026-03-09T15:27:49Z"
+    },
     {
       "type": "release",
       "description": "Released v0.3.23 in nikolajflojgaard/homeassistant-weekly-training",
@@ -100,31 +124,7 @@
       "description": "Released v0.3.22 in nikolajflojgaard/homeassistant-weekly-training",
       "repo": "nikolajflojgaard/homeassistant-weekly-training",
       "created_at": "2026-03-09T09:48:48Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-weekly-training",
-      "repo": "nikolajflojgaard/homeassistant-weekly-training",
-      "created_at": "2026-03-09T09:48:46Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.3.21 in nikolajflojgaard/homeassistant-weekly-training",
-      "repo": "nikolajflojgaard/homeassistant-weekly-training",
-      "created_at": "2026-03-09T09:37:59Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-weekly-training",
-      "repo": "nikolajflojgaard/homeassistant-weekly-training",
-      "created_at": "2026-03-09T09:37:58Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.3.20 in nikolajflojgaard/homeassistant-weekly-training",
-      "repo": "nikolajflojgaard/homeassistant-weekly-training",
-      "created_at": "2026-03-09T09:27:42Z"
     }
   ],
-  "fetched_at": "2026-03-09T13:18:07.658Z"
+  "fetched_at": "2026-03-09T19:01:17.587Z"
 }
