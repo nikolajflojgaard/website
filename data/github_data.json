@@ -19,6 +19,24 @@
       "private": false
     },
     {
+      "name": "homeassistant-weekly-training",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/homeassistant-weekly-training",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-03-10T06:41:05Z",
+      "private": false
+    },
+    {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "Astro",
+      "updated_at": "2026-03-10T02:34:14Z",
+      "private": true
+    },
+    {
       "name": "egedalbogholderi",
       "description": "Bogholderi",
       "html_url": "https://github.com/nikolajflojgaard/egedalbogholderi",
@@ -28,15 +46,6 @@
       "private": false
     },
     {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "Astro",
-      "updated_at": "2026-03-09T19:44:12Z",
-      "private": true
-    },
-    {
       "name": "reichkendlersolutions",
       "description": "Business website - rescue",
       "html_url": "https://github.com/nikolajflojgaard/reichkendlersolutions",
@@ -44,15 +53,6 @@
       "language": "Astro",
       "updated_at": "2026-03-09T19:40:31Z",
       "private": true
-    },
-    {
-      "name": "homeassistant-weekly-training",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/homeassistant-weekly-training",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-03-09T15:28:09Z",
-      "private": false
     },
     {
       "name": "homeassistant-household-chores",
@@ -65,6 +65,30 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "release",
+      "description": "Released v0.3.26 in nikolajflojgaard/homeassistant-weekly-training",
+      "repo": "nikolajflojgaard/homeassistant-weekly-training",
+      "created_at": "2026-03-10T06:41:03Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-weekly-training",
+      "repo": "nikolajflojgaard/homeassistant-weekly-training",
+      "created_at": "2026-03-10T06:41:02Z"
+    },
+    {
+      "type": "release",
+      "description": "Released v0.3.25 in nikolajflojgaard/homeassistant-weekly-training",
+      "repo": "nikolajflojgaard/homeassistant-weekly-training",
+      "created_at": "2026-03-10T06:08:02Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-weekly-training",
+      "repo": "nikolajflojgaard/homeassistant-weekly-training",
+      "created_at": "2026-03-10T06:08:00Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/egedalbogholderi",
@@ -100,31 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/reichkendlersolutions",
       "repo": "nikolajflojgaard/reichkendlersolutions",
       "created_at": "2026-03-09T19:26:27Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/reichkendlersolutions",
-      "repo": "nikolajflojgaard/reichkendlersolutions",
-      "created_at": "2026-03-09T19:24:33Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/reichkendlersolutions",
-      "repo": "nikolajflojgaard/reichkendlersolutions",
-      "created_at": "2026-03-09T19:20:45Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-03-09T16:47:11Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-03-09T16:35:12Z"
     }
   ],
-  "fetched_at": "2026-03-10T02:34:10.748Z"
+  "fetched_at": "2026-03-10T06:59:25.992Z"
 }
