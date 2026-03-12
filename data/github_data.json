@@ -19,6 +19,15 @@
       "private": false
     },
     {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "Astro",
+      "updated_at": "2026-03-11T19:01:13Z",
+      "private": false
+    },
+    {
       "name": "template-laravel-livewire",
       "description": "template-laravel-livewire",
       "html_url": "https://github.com/nikolajflojgaard/template-laravel-livewire",
@@ -52,15 +61,6 @@
       "stargazers_count": 0,
       "language": "Astro",
       "updated_at": "2026-03-11T13:33:51Z",
-      "private": false
-    },
-    {
-      "name": "mjk-judo",
-      "description": "Måløv judo klub",
-      "html_url": "https://github.com/nikolajflojgaard/mjk-judo",
-      "stargazers_count": 0,
-      "language": "Astro",
-      "updated_at": "2026-03-11T13:21:37Z",
       "private": false
     }
   ],
@@ -126,5 +126,5 @@
       "created_at": "2026-03-11T13:20:12Z"
     }
   ],
-  "fetched_at": "2026-03-11T19:01:07.725Z"
+  "fetched_at": "2026-03-12T02:39:47.603Z"
 }
