@@ -24,7 +24,7 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "Astro",
-      "updated_at": "2026-03-17T06:52:15Z",
+      "updated_at": "2026-03-17T07:18:40Z",
       "private": false
     },
     {
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-03-17T07:18:37Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website",
@@ -118,13 +124,7 @@
       "description": "Created branch in nikolajflojgaard/template-laravel-livewire",
       "repo": "nikolajflojgaard/template-laravel-livewire",
       "created_at": "2026-03-11T13:26:09Z"
-    },
-    {
-      "type": "create",
-      "description": "Created branch in nikolajflojgaard/template-laravel-blade",
-      "repo": "nikolajflojgaard/template-laravel-blade",
-      "created_at": "2026-03-11T13:25:56Z"
     }
   ],
-  "fetched_at": "2026-03-17T07:13:10.200Z"
+  "fetched_at": "2026-03-17T13:25:32.852Z"
 }
