@@ -30,7 +30,11 @@ function loadState() {
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== "object") return { importedCanonicalUrls: [] };
     if (!Array.isArray(parsed.importedCanonicalUrls)) return { importedCanonicalUrls: [] };
-    return parsed;
+    return {
+      importedCanonicalUrls: Array.from(
+        new Set(parsed.importedCanonicalUrls.map((u) => normalizeLinkedInUrl(u))),
+      ),
+    };
   } catch {
     return { importedCanonicalUrls: [] };
   }
@@ -38,7 +42,7 @@ function loadState() {
 
 function saveState(state) {
   // Stable ordering for diffs.
-  const unique = Array.from(new Set(state.importedCanonicalUrls)).sort();
+  const unique = Array.from(new Set(state.importedCanonicalUrls.map((u) => normalizeLinkedInUrl(u)))).sort();
   writeText(STATE_PATH, JSON.stringify({ importedCanonicalUrls: unique }, null, 2) + "\n");
 }
 
@@ -46,17 +50,51 @@ function stripBom(s) {
   return s.replace(/^\uFEFF/, "");
 }
 
+function normalizeLinkedInUrl(rawUrl) {
+  if (!rawUrl) return rawUrl;
+  try {
+    const url = new URL(rawUrl.trim());
+    url.hash = "";
+
+    if (/linkedin\.com$/i.test(url.hostname)) {
+      const cleanPath = url.pathname.replace(/\/+$/, "");
+
+      const activityMatch = cleanPath.match(/\/feed\/update\/urn:li:activity:(\d+)/i);
+      if (activityMatch) {
+        return `https://www.linkedin.com/feed/update/urn:li:activity:${activityMatch[1]}/`;
+      }
+
+      const pulseMatch = cleanPath.match(/\/pulse\/([^/?#]+)/i);
+      if (pulseMatch) {
+        return `https://www.linkedin.com/pulse/${pulseMatch[1]}/`;
+      }
+
+      return `https://www.linkedin.com${cleanPath || "/"}`;
+    }
+
+    url.search = "";
+    return url.toString();
+  } catch {
+    return rawUrl.trim();
+  }
+}
+
 function readUrls() {
   const raw = readTextIfExists(URLS_PATH);
   if (!raw) return [];
-  return stripBom(raw)
-    .split(/\r?\n/)
-    .map((l) => l.trim())
-    .filter((l) => l && !l.startsWith("#"));
+  return Array.from(
+    new Set(
+      stripBom(raw)
+        .split(/\r?\n/)
+        .map((l) => l.trim())
+        .filter((l) => l && !l.startsWith("#"))
+        .map(normalizeLinkedInUrl),
+    ),
+  );
 }
 
 function mergeAndWriteUrls(existingUrls, discoveredUrls) {
-  const merged = Array.from(new Set([...existingUrls, ...discoveredUrls]));
+  const merged = Array.from(new Set([...existingUrls, ...discoveredUrls].map(normalizeLinkedInUrl)));
   const header = [
     "# Add LinkedIn post URLs here (one per line).",
     "# The GitHub Action will run daily and import any new URLs into src/content/blog/.",
@@ -370,7 +408,7 @@ function findExistingCanonicalSet() {
         const c = readTextIfExists(p);
         if (!c) continue;
         const m = c.match(/canonicalURL:\s*["']([^"']+)["']/);
-        if (m?.[1]) canonicals.add(m[1]);
+        if (m?.[1]) canonicals.add(normalizeLinkedInUrl(m[1]));
       }
     }
   };
@@ -429,7 +467,8 @@ async function main() {
     const pulseDescription = isPulseUrl ? extractMetaContent(html, "description") : null;
     const pulseBody = isPulseUrl ? extractPulseArticleText(html) : "";
 
-    if (!canonical) canonical = url.split("?")[0];
+    if (!canonical) canonical = normalizeLinkedInUrl(url);
+    canonical = normalizeLinkedInUrl(canonical);
     if (!json && !isPulseUrl) {
       console.warn(`Skipping (missing canonical/jsonld): ${url}`);
       skipped++;
@@ -489,6 +528,8 @@ async function main() {
       (json?.image?.url || (json?.image?.["@type"] === "ImageObject" ? json?.image?.url : undefined));
     const description = ((isPulseUrl ? pulseDescription : headline) || title).slice(0, 160);
 
+    const sourceUrl = isPulseUrl ? normalizeLinkedInUrl(url) : canonical;
+
     const mdx = buildMdx({
       title,
       description,
@@ -496,7 +537,7 @@ async function main() {
       tags,
       canonicalURL: canonical,
       ogImage,
-      sourceUrl: url,
+      sourceUrl,
       body,
     });
 
