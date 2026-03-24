@@ -24,7 +24,7 @@
       "html_url": "https://github.com/nikolajflojgaard/home-assistant-home-brief",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-03-24T11:51:22Z",
+      "updated_at": "2026-03-24T19:03:53Z",
       "private": false
     },
     {
@@ -33,7 +33,7 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "Astro",
-      "updated_at": "2026-03-24T07:12:51Z",
+      "updated_at": "2026-03-24T13:25:50Z",
       "private": false
     },
     {
@@ -65,6 +65,30 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "release",
+      "description": "Released v0.3.0 in nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-03-24T19:03:51Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-03-24T19:03:50Z"
+    },
+    {
+      "type": "release",
+      "description": "Released v0.2.0 in nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-03-24T18:49:38Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-03-24T18:49:30Z"
+    },
     {
       "type": "release",
       "description": "Released 0.1.6 in nikolajflojgaard/home-assistant-home-brief",
@@ -100,31 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
       "created_at": "2026-03-24T11:48:55Z"
-    },
-    {
-      "type": "release",
-      "description": "Released 0.1.4 in nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-03-24T11:41:36Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-03-24T11:41:33Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-03-24T11:39:50Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-03-24T10:22:08Z"
     }
   ],
-  "fetched_at": "2026-03-24T13:25:45.961Z"
+  "fetched_at": "2026-03-24T19:13:12.348Z"
 }
