@@ -158,7 +158,7 @@ This repository uses dual licensing:
 
 Nye blogindlæg og article rewrites skal som default være mere menneskelige end "AI-polished".
 
-Brug den korte huskeliste i [`src/content/blog/STYLE.md`](src/content/blog/STYLE.md) som editorial baseline.
+Brug den korte huskeliste i [`docs/editorial-style.md`](docs/editorial-style.md) som editorial baseline.
 
 ## 💡 Tips
 
