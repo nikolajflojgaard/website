@@ -36,7 +36,7 @@ Sådan kommer nyt content fra LinkedIn ud på sitet:
 2. **Push til GitHub** → Commit og push ændringen
 3. **LinkedIn Sync** → GitHub Action henter post content og opretter Markdown fil i `src/content/blog/`
 4. **GitHub Sync** → (auto hver 6. time) Henter repo stats og activity
-5. **Deploy** → GitHub Action bygger og uploader til Simply via FTPS
+5. **Deploy** → `npm run deploy` bygger sitet og deployer enten direkte til Simply via FTPS eller triggere GitHub Actions workflowet
 
 ---
 
@@ -99,6 +99,7 @@ git push origin main
 | `npm run dev`          | Starts local dev server at `localhost:4321` |
 | `npm run build`        | Build the production site to `./dist/`      |
 | `npm run preview`      | Preview the build locally, before deploying |
+| `npm run deploy`       | Build + deploy to Simply (direct FTPS or GitHub Actions fallback) |
 
 ---
 
@@ -106,19 +107,22 @@ git push origin main
 
 ### Simply.com (Production)
 
-Deploy sker automatisk via GitHub Actions:
-- **Trigger**: Push til `main` branch eller manuel kørsel
-- **Build**: `npm run build` → `./dist/`
-- **Upload**: FTPS til Simply hosting
+Produktion kører aktuelt på **Simply**.
 
-**Manuel trigger**: https://github.com/nikolajflojgaard/website/actions/workflows/simply-deploy.yml
-
-### Lokalt Build (hvis nødvendigt)
+Der er nu en lokal deploy-wrapper, så følgende virker igen:
 
 ```bash
-npm run build
-# Upload indholdet af `dist/` til webroot (fx `public_html/`)
+npm run deploy
 ```
+
+Den gør dette:
+- bygger sitet lokalt
+- deployer direkte til Simply via FTPS, hvis credentials findes i miljøvariabler
+- ellers triggere den GitHub Actions workflowet `simply-deploy.yml`, hvis `gh` CLI er logget ind og branchen er pushed
+
+Se detaljer i [`docs/deployment.md`](docs/deployment.md).
+
+**Manuel workflow trigger**: https://github.com/nikolajflojgaard/website/actions/workflows/simply-deploy.yml
 
 ---
 
@@ -149,6 +153,12 @@ This repository uses dual licensing:
 - **Code & Code Snippets**: Licensed under the [MIT License](LICENSE)
 
 ---
+
+## ✍️ Writing style
+
+Nye blogindlæg og article rewrites skal som default være mere menneskelige end "AI-polished".
+
+Brug den korte huskeliste i [`src/content/blog/STYLE.md`](src/content/blog/STYLE.md) som editorial baseline.
 
 ## 💡 Tips
 

@@ -8,7 +8,7 @@
     "build:check": "astro check && astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "scripts/deploy.sh",
+    "deploy": "bash scripts/deploy.sh",
     "add-source-metadata": "node scripts/add-source-metadata.mjs",
     "remove-tags": "node scripts/remove-tags-from-posts.mjs",
     "sync": "astro sync",
