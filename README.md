@@ -166,3 +166,7 @@ Brug den korte huskeliste i [`docs/editorial-style.md`](docs/editorial-style.md)
 - GitHub data opdateres hver 6. time automatisk
 - Deploy kører automatisk ved push til main
 - Brug `npm run dev` til at teste lokalt før deploy
+
+
+> Last updated: 2026-03-27
+
