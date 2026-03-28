@@ -19,21 +19,21 @@
       "private": false
     },
     {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "Astro",
-      "updated_at": "2026-03-28T02:44:01Z",
-      "private": false
-    },
-    {
       "name": "home-assistant-home-brief",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/home-assistant-home-brief",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-03-27T12:53:33Z",
+      "updated_at": "2026-03-28T09:54:29Z",
+      "private": false
+    },
+    {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "Astro",
+      "updated_at": "2026-03-28T07:06:01Z",
       "private": false
     },
     {
@@ -65,6 +65,18 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "release",
+      "description": "Released v0.4.7 in nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-03-28T09:54:06Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-03-28T09:54:04Z"
+    },
     {
       "type": "release",
       "description": "Released 0.4.6 in nikolajflojgaard/home-assistant-home-brief",
@@ -112,19 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
       "created_at": "2026-03-27T12:07:24Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-03-27T12:06:29Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-03-27T12:01:29Z"
     }
   ],
-  "fetched_at": "2026-03-28T07:05:57.744Z"
+  "fetched_at": "2026-03-28T13:08:04.759Z"
 }
