@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "homeassistant-household-chores",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/homeassistant-household-chores",
+      "stargazers_count": 0,
+      "language": "JavaScript",
+      "updated_at": "2026-03-30T05:50:12Z",
+      "private": false
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "Astro",
-      "updated_at": "2026-03-29T18:53:29Z",
+      "updated_at": "2026-03-30T03:20:02Z",
       "private": false
     },
     {
@@ -53,18 +62,21 @@
       "language": "Blade",
       "updated_at": "2026-03-11T13:34:13Z",
       "private": false
-    },
-    {
-      "name": "template-next-app",
-      "description": "template-next-app",
-      "html_url": "https://github.com/nikolajflojgaard/template-next-app",
-      "stargazers_count": 0,
-      "language": "TypeScript",
-      "updated_at": "2026-03-11T13:34:08Z",
-      "private": false
     }
   ],
   "recent_activity": [
+    {
+      "type": "release",
+      "description": "Released v0.3.95 in nikolajflojgaard/homeassistant-household-chores",
+      "repo": "nikolajflojgaard/homeassistant-household-chores",
+      "created_at": "2026-03-30T05:50:21Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-household-chores",
+      "repo": "nikolajflojgaard/homeassistant-household-chores",
+      "created_at": "2026-03-30T05:50:09Z"
+    },
     {
       "type": "release",
       "description": "Released v0.4.7 in nikolajflojgaard/home-assistant-home-brief",
@@ -112,19 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
       "created_at": "2026-03-27T12:35:15Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-03-27T12:30:42Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-03-27T12:07:24Z"
     }
   ],
-  "fetched_at": "2026-03-30T03:19:58.482Z"
+  "fetched_at": "2026-03-30T07:52:49.643Z"
 }
