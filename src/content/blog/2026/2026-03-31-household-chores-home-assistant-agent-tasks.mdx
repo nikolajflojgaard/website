@@ -18,7 +18,7 @@ source: "nikolajflojgaard.me"
 
 Most task systems fail for the same reason.
 
-They work fine as databases. They suck as interfaces.
+They work fine as databases. They are bad interfaces.
 
 You can build a decent board, a clean mobile UI, and a tidy data model, and it still won’t matter if adding a task feels slower than just keeping it in your head.
 
@@ -26,14 +26,12 @@ That was the problem I wanted to solve with **Household Chores** in Home Assista
 
 Not just “show tasks on a dashboard.” That part is easy. The useful part is making the system available when life actually happens.
 
-So we built two things:
+So the build ended up as two connected pieces:
 
 1. a Home Assistant integration that manages household tasks properly
 2. an assistant workflow that can create, list, update, and delete those tasks through normal chat
 
 That second part is the interesting one.
-
-![Household Chores agent loop](/images/household-chores-agent-loop.svg)
 
 ## What we built
 
@@ -70,7 +68,7 @@ A few practical details matter here, because this is exactly where a lot of hous
 - tasks can span multiple days instead of being forced into awkward one-day duplicates
 - the same underlying data is exposed as sensors and service actions, not just a card UI
 
-That means the product is useful both as a visual board and as infrastructure.
+That last point matters. The board is not the product. The board is one interface to the product.
 
 ## Why this actually matters
 
@@ -143,7 +141,7 @@ That’s the right shape.
 
 One source of truth. Multiple useful interfaces.
 
-The board itself is built for touch-first planning, so dragging work between days is not some side gimmick — it is part of the normal interaction model:
+The board itself is built for touch-first planning, so dragging work between days is not some side gimmick. It is part of the normal interaction model:
 
 ![Household Chores drag and drop between days](/images/household-chores-weekly-board-drag-drop.png)
 
@@ -167,9 +165,7 @@ So instead of forcing people to context-switch into a task app every time, the s
 
 That matters more than clever features.
 
-There is also a less flashy but important product point here: the board is not locked to a desktop view. It works on smaller screens too, which matters if the actual users are glancing at it from a phone in the middle of the day instead of admiring it from a wall tablet.
-
-![Household Chores mobile view](/images/household-chores-weekly-board-mobile.png)
+There is also a less flashy but important product point here: the board is not locked to a desktop view. It works on smaller screens too, which matters if the actual users are checking it from a phone in the middle of the day instead of admiring it from a wall tablet.
 
 ## Home Assistant is a surprisingly good backbone for this
 
@@ -221,6 +217,8 @@ So the assistant can pull live Home Assistant state and say, in one message:
 That’s the kind of cross-system usefulness I care about.
 
 Not isolated features. Useful loops.
+
+And that is really the whole point of this build: chores are not interesting on their own. The useful part is when they plug into the rest of the system.
 
 ## This is the real promise of agentic assistants
 
