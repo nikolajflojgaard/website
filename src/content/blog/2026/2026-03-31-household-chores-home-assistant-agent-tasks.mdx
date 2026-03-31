@@ -1,0 +1,256 @@
+---
+title: "We built a Household Chores system for Home Assistant that you can actually talk to"
+description: "A practical look at how I built Household Chores for Home Assistant, wired it into my assistant, and made task creation work through chat surfaces like iMessage and Telegram."
+pubDatetime: 2026-03-31T08:00:00.000Z
+tags:
+  - home-assistant
+  - automation
+  - ai
+  - agentic-ai
+  - telegram
+  - imessage
+  - productivity
+  - software
+heroImage: "/images/household-chores-agent-loop.svg"
+ogImage: "https://nikolajflojgaard.me/images/household-chores-agent-loop.svg"
+source: "nikolajflojgaard.me"
+---
+
+Most task systems fail for the same reason.
+
+They work fine as databases. They suck as interfaces.
+
+You can build a decent board, a clean mobile UI, and a tidy data model, and it still won’t matter if adding a task feels slower than just keeping it in your head.
+
+That was the problem I wanted to solve with **Household Chores** in Home Assistant.
+
+Not just “show tasks on a dashboard.” That part is easy. The useful part is making the system available when life actually happens.
+
+So we built two things:
+
+1. a Home Assistant integration that manages household tasks properly
+2. an assistant workflow that can create, list, update, and delete those tasks through normal chat
+
+That second part is the interesting one.
+
+![Household Chores agent loop](/images/household-chores-agent-loop.svg)
+
+## What we built
+
+At the core is a custom Home Assistant integration for Household Chores.
+
+It handles the usual things you’d expect:
+
+- boards
+- people
+- recurring tasks
+- upcoming-task sensors
+- per-person task views
+- frontend card support
+
+But the more important change is this: it now exposes service actions that make it usable from an assistant:
+
+- `create_task`
+- `update_task`
+- `delete_task`
+- `list_tasks`
+
+That means the chores system is no longer trapped inside one UI.
+
+It becomes a task layer that other interfaces can talk to.
+
+## Why this actually matters
+
+This is not interesting because it’s “AI + chores.” That’s just terrible positioning.
+
+It’s interesting because **household systems only become useful when the input path is frictionless**.
+
+If I can say:
+
+> Add “Workout” for Wednesday for Nikolaj
+
+and it lands in Home Assistant correctly, the system starts competing with memory, sticky notes, and random half-finished chat threads.
+
+If I have to open a dashboard, find the board, click the right day, choose the right person, and save it manually, I’ll do that far less often.
+
+That’s where a lot of home automation ideas quietly die. Not because the backend is weak. Because the interaction cost is too high.
+
+## The assistant layer
+
+I already have an assistant setup that can operate across tools, files, messaging surfaces, and APIs.
+
+So instead of treating Household Chores like another isolated widget, I wired it into that assistant flow.
+
+That means I can create tasks from normal conversations in places like:
+
+- iMessage
+- Telegram
+- and, in practice, any other chat surface routed through OpenClaw
+
+In real use, that looks like this:
+
+> Add 5km on Thursday for me
+
+Or:
+
+> What are my next chores?
+
+Or:
+
+> Move workout to Friday
+
+Or:
+
+> Delete that school holiday task
+
+The assistant interprets the message, calls the right Home Assistant action, and updates the board.
+
+Not a toy. Not a mockup. Actual task operations.
+
+## What the system can do now
+
+From the assistant side, the Household Chores setup can now:
+
+- list upcoming tasks
+- create new tasks
+- update existing tasks
+- delete tasks
+- filter tasks per person
+- expose upcoming chores through Home Assistant sensors
+- feed those sensors into daily briefings
+
+So the same system can drive:
+
+- a dashboard card
+- per-person task sensors
+- a morning brief
+- chat-based task capture
+
+That’s the right shape.
+
+One source of truth. Multiple useful interfaces.
+
+## Why chat beats a dedicated task UI
+
+Household tasks don’t appear when you’re sitting calmly in front of a dashboard thinking about household architecture.
+
+They appear when:
+
+- you’re in the car
+- someone sends you a message
+- you remember something mid-conversation
+- a kid activity changes
+- you realize a recurring task needs to move
+
+That’s why chat is a better interface than people think.
+
+Not because chat is magical. Because it’s already where the interruption happens.
+
+So instead of forcing people to context-switch into a task app every time, the system can meet them where they already are.
+
+That matters more than clever features.
+
+## Home Assistant is a surprisingly good backbone for this
+
+I like Home Assistant for this kind of thing because it’s not just “smart home.”
+
+It’s a local automation and state platform with a very useful bias toward integration.
+
+Once Household Chores lives there, it can connect to other things that already matter in daily life:
+
+- briefings
+- presence
+- calendars
+- notifications
+- routines
+- dashboards
+- voice and chat interfaces
+
+So the chores board is not isolated.
+
+It becomes part of a broader family operating system.
+
+That is far more interesting than building yet another standalone list app.
+
+## The morning brief is a good example
+
+One of the things I wanted was a short morning brief that includes:
+
+- global and market context
+- Copenhagen weather
+- solar production
+- upcoming household chores
+- a Nikolaj-only task section
+
+That works because Household Chores exposes the right sensors, including a next-3-tasks view and per-person next-task sensors.
+
+So the assistant can pull live Home Assistant state and say, in one message:
+
+- here’s the weather
+- here’s solar
+- here are the next household tasks
+- here are your tasks specifically
+
+That’s the kind of cross-system usefulness I care about.
+
+Not isolated features. Useful loops.
+
+## This is the real promise of agentic assistants
+
+A lot of people still think assistants are mainly for writing text.
+
+That’s the boring version.
+
+The useful version is when the assistant can take action in your actual systems.
+
+In this case, that means the assistant is not just telling me what my chores are. It can help manage the system itself.
+
+That shift matters.
+
+The interface becomes:
+
+> Handle this for me.
+
+instead of:
+
+> Let me manually update yet another app.
+
+That’s the difference between AI as decoration and AI as an operating layer.
+
+## What I like about this build
+
+The best part is that this is not abstract.
+
+It’s not a prototype slide about the future of agentic AI.
+
+It’s a grounded example of what happens when you combine:
+
+- a real Home Assistant integration
+- clear service actions
+- structured sensors
+- a chat-capable assistant
+- normal messaging surfaces
+
+You end up with something much more practical than a dashboard and much less annoying than a traditional task app.
+
+And honestly, that’s where a lot of good automation lives: not in flashy demos, but in removing just enough friction that people actually use the thing.
+
+## Where this goes next
+
+The obvious next steps are:
+
+- better natural-language task parsing
+- smarter task disambiguation
+- cleaner confirmation flows in chat
+- more context-aware filtering
+- tighter connection between chores, calendar, and routines
+
+But even in its current state, this already feels like the right model.
+
+Home Assistant holds the truth.
+The assistant gives it a human interface.
+Chat makes it usable in the messy moments when life actually happens.
+
+That’s a lot more interesting than another checkbox app.
+
+If you’re building with Home Assistant, I think this is one of the more practical directions to push: treat your assistant as a real control plane for household operations, not just a thing that answers questions.

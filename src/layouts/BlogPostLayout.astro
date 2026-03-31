@@ -14,7 +14,11 @@ type Props = CollectionEntry<"blog">["data"] & {
 const { title, description, pubDatetime, modDatetime, heroImage, ogImage, slug, readingTime } = Astro.props;
 
 // Prefer an explicit hero image. If missing, fall back to ogImage (used by LinkedIn imports).
-const topImage = heroImage || ogImage;
+const topImage = typeof heroImage === "string"
+  ? heroImage
+  : typeof ogImage === "string"
+    ? ogImage
+    : ogImage?.src;
 
 // Enforce canonical URL to always be /posts/ path without trailing slash
 // This matches Vercel's trailingSlash: false configuration

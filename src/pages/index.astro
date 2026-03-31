@@ -9,6 +9,7 @@ import StructuredData from "@/components/StructuredData.astro";
 import { SITE, SOCIALS } from "@/config";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
 // Get actual blog posts
 const allPosts = await getCollection("blog", ({ data }) => !data.draft);
@@ -19,7 +20,7 @@ const sortedPosts = allPosts.sort((a, b) => {
 });
 
 // Generate correct slug matching the routing logic in [...slug].astro
-const generateSlug = (post) => {
+const generateSlug = (post: CollectionEntry<"blog">) => {
   const postId = post.id;
   
   // Check if post is already in a year directory (e.g., 2026/filename)
