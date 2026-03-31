@@ -39,6 +39,10 @@ That second part is the interesting one.
 
 At the core is a custom Home Assistant integration for Household Chores.
 
+Here’s what the board actually looks like on a tablet-sized Home Assistant dashboard:
+
+![Household Chores weekly board on tablet](/images/household-chores-weekly-board-tablet.png)
+
 It handles the usual things you’d expect:
 
 - boards
@@ -58,6 +62,15 @@ But the more important change is this: it now exposes service actions that make 
 That means the chores system is no longer trapped inside one UI.
 
 It becomes a task layer that other interfaces can talk to.
+
+A few practical details matter here, because this is exactly where a lot of household planners fall apart:
+
+- the board supports week-by-week navigation instead of trapping everything in “this week only”
+- it can plan forward up to **three weeks ahead** from the current week
+- tasks can span multiple days instead of being forced into awkward one-day duplicates
+- the same underlying data is exposed as sensors and service actions, not just a card UI
+
+That means the product is useful both as a visual board and as infrastructure.
 
 ## Why this actually matters
 
@@ -130,6 +143,10 @@ That’s the right shape.
 
 One source of truth. Multiple useful interfaces.
 
+The board itself is built for touch-first planning, so dragging work between days is not some side gimmick — it is part of the normal interaction model:
+
+![Household Chores drag and drop between days](/images/household-chores-weekly-board-drag-drop.png)
+
 ## Why chat beats a dedicated task UI
 
 Household tasks don’t appear when you’re sitting calmly in front of a dashboard thinking about household architecture.
@@ -149,6 +166,10 @@ Not because chat is magical. Because it’s already where the interruption happe
 So instead of forcing people to context-switch into a task app every time, the system can meet them where they already are.
 
 That matters more than clever features.
+
+There is also a less flashy but important product point here: the board is not locked to a desktop view. It works on smaller screens too, which matters if the actual users are glancing at it from a phone in the middle of the day instead of admiring it from a wall tablet.
+
+![Household Chores mobile view](/images/household-chores-weekly-board-mobile.png)
 
 ## Home Assistant is a surprisingly good backbone for this
 
@@ -184,6 +205,12 @@ One of the things I wanted was a short morning brief that includes:
 
 That works because Household Chores exposes the right sensors, including a next-3-tasks view and per-person next-task sensors.
 
+It also supports the kinds of planning details that usually get lost in simpler chore apps:
+
+- **multi-day tasks** for things like holidays, travel, or school breaks
+- **future-week planning** up to three weeks forward
+- **person-specific upcoming views** so the assistant can tell me what is mine versus what belongs to the household in general
+
 So the assistant can pull live Home Assistant state and say, in one message:
 
 - here’s the weather
@@ -216,6 +243,18 @@ instead of:
 > Let me manually update yet another app.
 
 That’s the difference between AI as decoration and AI as an operating layer.
+
+## A couple of product details worth calling out
+
+If you look closely at the board, a few things stand out.
+
+First, it is not pretending households only live inside one calendar week. You can browse forward and plan ahead without turning the board into a mess.
+
+Second, multi-day tasks are handled as actual spans instead of being hacked together as duplicate cards on consecutive days. That matters for things like trips, school holidays, or any chore that is really a time block rather than a single checkbox.
+
+Third, the assistant layer means task entry is no longer tied to the board itself. The board is where the plan lives. Chat is where capture happens.
+
+That split is important.
 
 ## What I like about this build
 
