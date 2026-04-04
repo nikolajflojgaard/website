@@ -19,21 +19,21 @@
       "private": false
     },
     {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "Astro",
-      "updated_at": "2026-04-03T18:56:52Z",
-      "private": false
-    },
-    {
       "name": "home-assistant-home-brief",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/home-assistant-home-brief",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-04-02T09:37:03Z",
+      "updated_at": "2026-04-04T06:26:24Z",
+      "private": false
+    },
+    {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "Astro",
+      "updated_at": "2026-04-04T02:42:50Z",
       "private": false
     },
     {
@@ -65,6 +65,18 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "release",
+      "description": "Released v0.5.5 in nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-04-04T06:26:23Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-04-04T06:26:21Z"
+    },
     {
       "type": "release",
       "description": "Released v0.5.4 in nikolajflojgaard/home-assistant-home-brief",
@@ -112,19 +124,7 @@
       "description": "Released v0.4.8 in nikolajflojgaard/homeassistant-household-chores",
       "repo": "nikolajflojgaard/homeassistant-household-chores",
       "created_at": "2026-04-01T17:23:13Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-household-chores",
-      "repo": "nikolajflojgaard/homeassistant-household-chores",
-      "created_at": "2026-04-01T17:23:10Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.4.7 in nikolajflojgaard/homeassistant-household-chores",
-      "repo": "nikolajflojgaard/homeassistant-household-chores",
-      "created_at": "2026-04-01T16:45:09Z"
     }
   ],
-  "fetched_at": "2026-04-04T02:42:46.616Z"
+  "fetched_at": "2026-04-04T07:08:51.808Z"
 }
