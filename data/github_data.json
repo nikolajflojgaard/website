@@ -20,11 +20,11 @@
     },
     {
       "name": "home-assistant-home-brief",
-      "description": null,
+      "description": "A Home Assistant custom integration and card for actionable household briefs, chores, energy, and daily brief packages.",
       "html_url": "https://github.com/nikolajflojgaard/home-assistant-home-brief",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-04-05T12:08:38Z",
+      "updated_at": "2026-04-05T18:49:15Z",
       "private": false
     },
     {
@@ -33,7 +33,7 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "Astro",
-      "updated_at": "2026-04-05T07:16:17Z",
+      "updated_at": "2026-04-05T13:11:09Z",
       "private": false
     },
     {
@@ -67,64 +67,64 @@
   "recent_activity": [
     {
       "type": "release",
-      "description": "Released v0.6.5 in nikolajflojgaard/home-assistant-home-brief",
+      "description": "Released v0.6.18 in nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T12:08:33Z"
+      "created_at": "2026-04-05T18:49:14Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T12:08:31Z"
+      "created_at": "2026-04-05T18:49:12Z"
     },
     {
       "type": "release",
-      "description": "Released v0.6.4 in nikolajflojgaard/home-assistant-home-brief",
+      "description": "Released v0.6.17 in nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T11:49:18Z"
+      "created_at": "2026-04-05T18:29:08Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T11:49:16Z"
+      "created_at": "2026-04-05T18:29:06Z"
     },
     {
       "type": "release",
-      "description": "Released v0.6.3 in nikolajflojgaard/home-assistant-home-brief",
+      "description": "Released v0.6.16 in nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T10:49:50Z"
+      "created_at": "2026-04-05T18:27:07Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T10:49:48Z"
+      "created_at": "2026-04-05T18:27:05Z"
     },
     {
       "type": "release",
-      "description": "Released v0.6.2 in nikolajflojgaard/home-assistant-home-brief",
+      "description": "Released v0.6.15 in nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T10:43:32Z"
+      "created_at": "2026-04-05T18:24:49Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T10:43:30Z"
+      "created_at": "2026-04-05T18:24:47Z"
     },
     {
       "type": "release",
-      "description": "Released v0.6.1 in nikolajflojgaard/home-assistant-home-brief",
+      "description": "Released v0.6.14 in nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T09:48:02Z"
+      "created_at": "2026-04-05T18:23:13Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T05:17:57Z"
+      "created_at": "2026-04-05T18:23:11Z"
     }
   ],
-  "fetched_at": "2026-04-05T13:11:04.670Z"
+  "fetched_at": "2026-04-05T18:54:12.172Z"
 }
