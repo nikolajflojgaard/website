@@ -19,21 +19,21 @@
       "private": false
     },
     {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "Astro",
+      "updated_at": "2026-04-06T13:23:45Z",
+      "private": false
+    },
+    {
       "name": "home-assistant-home-brief",
       "description": "A Home Assistant custom integration and card for actionable household briefs, chores, energy, and daily brief packages.",
       "html_url": "https://github.com/nikolajflojgaard/home-assistant-home-brief",
       "stargazers_count": 0,
       "language": "Python",
       "updated_at": "2026-04-06T10:40:42Z",
-      "private": false
-    },
-    {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "Astro",
-      "updated_at": "2026-04-06T07:54:05Z",
       "private": false
     },
     {
@@ -126,5 +126,5 @@
       "created_at": "2026-04-06T10:26:48Z"
     }
   ],
-  "fetched_at": "2026-04-06T13:23:37.144Z"
+  "fetched_at": "2026-04-06T19:10:25.251Z"
 }
