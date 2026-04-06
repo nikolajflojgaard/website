@@ -24,7 +24,7 @@
       "html_url": "https://github.com/nikolajflojgaard/home-assistant-home-brief",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-04-06T06:56:33Z",
+      "updated_at": "2026-04-06T10:40:42Z",
       "private": false
     },
     {
@@ -33,7 +33,7 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "Astro",
-      "updated_at": "2026-04-06T03:22:12Z",
+      "updated_at": "2026-04-06T07:54:05Z",
       "private": false
     },
     {
@@ -67,64 +67,64 @@
   "recent_activity": [
     {
       "type": "release",
-      "description": "Released v0.6.23 in nikolajflojgaard/home-assistant-home-brief",
+      "description": "Released v0.6.28 in nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-06T06:56:33Z"
+      "created_at": "2026-04-06T10:40:41Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-06T06:56:31Z"
+      "created_at": "2026-04-06T10:40:39Z"
     },
     {
       "type": "release",
-      "description": "Released v0.6.22 in nikolajflojgaard/home-assistant-home-brief",
+      "description": "Released v0.6.27 in nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-06T06:10:54Z"
+      "created_at": "2026-04-06T10:37:42Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-06T06:10:52Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-06T05:52:02Z"
+      "created_at": "2026-04-06T10:37:41Z"
     },
     {
       "type": "release",
-      "description": "Released v0.6.21 in nikolajflojgaard/home-assistant-home-brief",
+      "description": "Released v0.6.26 in nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-06T05:52:04Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.6.20 in nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-06T05:29:57Z"
+      "created_at": "2026-04-06T10:34:28Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-06T05:29:54Z"
+      "created_at": "2026-04-06T10:34:26Z"
     },
     {
       "type": "release",
-      "description": "Released v0.6.19 in nikolajflojgaard/home-assistant-home-brief",
+      "description": "Released v0.6.25 in nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T19:45:04Z"
+      "created_at": "2026-04-06T10:31:40Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T19:45:02Z"
+      "created_at": "2026-04-06T10:31:38Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-04-06T10:26:47Z"
+    },
+    {
+      "type": "release",
+      "description": "Released v0.6.24 in nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-04-06T10:26:48Z"
     }
   ],
-  "fetched_at": "2026-04-06T07:54:02.217Z"
+  "fetched_at": "2026-04-06T13:23:37.144Z"
 }
