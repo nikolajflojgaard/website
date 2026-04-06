@@ -24,7 +24,7 @@
       "html_url": "https://github.com/nikolajflojgaard/home-assistant-home-brief",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-04-05T19:45:05Z",
+      "updated_at": "2026-04-06T06:56:33Z",
       "private": false
     },
     {
@@ -33,7 +33,7 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "Astro",
-      "updated_at": "2026-04-05T18:54:18Z",
+      "updated_at": "2026-04-06T03:22:12Z",
       "private": false
     },
     {
@@ -67,6 +67,54 @@
   "recent_activity": [
     {
       "type": "release",
+      "description": "Released v0.6.23 in nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-04-06T06:56:33Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-04-06T06:56:31Z"
+    },
+    {
+      "type": "release",
+      "description": "Released v0.6.22 in nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-04-06T06:10:54Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-04-06T06:10:52Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-04-06T05:52:02Z"
+    },
+    {
+      "type": "release",
+      "description": "Released v0.6.21 in nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-04-06T05:52:04Z"
+    },
+    {
+      "type": "release",
+      "description": "Released v0.6.20 in nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-04-06T05:29:57Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-04-06T05:29:54Z"
+    },
+    {
+      "type": "release",
       "description": "Released v0.6.19 in nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
       "created_at": "2026-04-05T19:45:04Z"
@@ -76,55 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
       "created_at": "2026-04-05T19:45:02Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.6.18 in nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T18:49:14Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T18:49:12Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.6.17 in nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T18:29:08Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T18:29:06Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.6.16 in nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T18:27:07Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T18:27:05Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.6.15 in nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T18:24:49Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-05T18:24:47Z"
     }
   ],
-  "fetched_at": "2026-04-06T03:22:04.880Z"
+  "fetched_at": "2026-04-06T07:54:02.217Z"
 }
