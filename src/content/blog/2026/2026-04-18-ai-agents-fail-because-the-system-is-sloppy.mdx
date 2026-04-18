@@ -1,0 +1,222 @@
+---
+title: "AI agents are not failing because they’re dumb. They’re failing because the system around them is sloppy."
+description: "Most agent products do not break on model quality first. They break on messy context, brittle tools, fake evals, weak recovery paths, and sloppy release discipline."
+pubDatetime: 2026-04-18T13:46:00.000Z
+tags:
+  - ai
+  - agentic-ai
+  - software-architecture
+  - product-engineering
+  - evals
+  - observability
+heroImage: "/images/ai-agent-failure-stack.svg"
+ogImage: "https://nikolajflojgaard.me/images/ai-agent-failure-stack.svg"
+featured: true
+source: "Original analysis"
+---
+
+A lot of teams blame the model way too early.
+
+The agent loops once, forgets context, calls the wrong tool, or breaks the moment real users show up, and suddenly the diagnosis is: we need a smarter model.
+
+Usually, no.
+
+Most agent products do not fail because the model is weak. They fail because the system around the model is messy. Bad context. Brittle tools. No evals. No fallback path. No release discipline.
+
+Swapping models feels productive. Cleaning up architecture does not. That is why people keep reaching for the wrong fix.
+
+## The comforting lie
+
+There is a pattern now.
+
+If the agent is unreliable, upgrade the model.
+If it is still unreliable, rewrite the prompt.
+If that still does not fix it, wait for the next model release and pretend that counts as strategy.
+
+That logic survives because model quality obviously matters.
+
+But once a model is good enough, the biggest problems usually stop being about intelligence.
+
+They become system problems.
+
+Things like:
+
+- unclear task boundaries
+- context that is bloated or messy
+- memory with no discipline
+- tools that only work on the happy path
+- no real evals
+- no proper recovery behavior
+- no observability
+- no clean shipping loop
+
+A smarter model inside a sloppy system is still a sloppy system.
+
+## Where these products actually break
+
+### 1. Context is treated like a dumpster
+
+Too many teams still treat context like a storage unit.
+
+So the agent gets stale instructions, duplicate rules, irrelevant history, conflicting priorities, and giant blobs of text no one has cleaned up.
+
+Then people wonder why it behaves inconsistently.
+
+Context is not a dump. It is an interface.
+
+If you do not control what belongs in the working set, what belongs in memory, and what should stay out entirely, the system starts confused and gets worse from there.
+
+### 2. Tooling looks integrated, but is not reliable
+
+The demo works. Great.
+
+Then real life shows up with partial state, malformed inputs, expired auth, rate limits, duplicate actions, weird sequencing, and timeouts.
+
+Now the agent is not solving the task. It is fighting your tool layer.
+
+If the contract is vague, the model will guess. If the API returns mush, the model will build more mush on top of it.
+
+That is not model failure. That is weak engineering wearing AI makeup.
+
+### 3. No evals, just vibes
+
+A lot of teams still judge progress with some version of: “feels better now.”
+
+That means nothing.
+
+If you do not have repeatable tasks, known failure cases, regression checks, and some way to compare versions, you are not improving a system in a reliable way.
+
+You are just having opinions in a Slack thread.
+
+### 4. No failure model
+
+Real systems fail constantly.
+
+Tools fail. Models fail. Dependencies fail. State drifts. Users contradict themselves. Inputs come in malformed.
+
+If your agent only works when everything goes right, then it does not work.
+
+You need explicit behavior for when things go wrong:
+
+- retry
+- stop
+- ask
+- escalate
+- rollback
+- log what happened
+
+Otherwise failure just leaks into the product as weirdness.
+
+### 5. Shipping discipline is weak
+
+This is the boring one, which is exactly why it gets neglected.
+
+A lot of teams still ship agent features like research demos, then act surprised when users expect product-grade behavior.
+
+No tight release cadence. No rollback thinking. No operational ownership. No daily review of failures. No real definition of better.
+
+That is not product development. That is recurring optimism.
+
+## The real product is the whole stack
+
+The model is one part.
+
+The actual product is more like this:
+
+1. task framing
+2. context selection
+3. memory policy
+4. tool contracts
+5. orchestration
+6. failure handling
+7. evals
+8. observability
+9. release discipline
+
+That is what users actually feel.
+
+Yes, model choice matters. Of course it does.
+
+But it matters inside the system, not instead of the system.
+
+## What actually helps
+
+Usually the right move is not “make it smarter.”
+
+It is this.
+
+### Make tasks smaller
+
+Most agents are trying to do too much in one pass.
+
+Break the work into cleaner steps. Reduce ambiguity. Make handoffs explicit. Stop pretending one huge prompt is product design.
+
+### Be ruthless about context
+
+Every extra instruction has a cost. Every stale memory has a cost. Every duplicated rule has a cost.
+
+Most systems need less context, chosen better.
+
+### Make tools boring
+
+Boring tools are good tools.
+
+Clear schemas. Predictable errors. Structured outputs. Idempotent actions. Explicit state changes.
+
+The less the model has to guess, the less weird the system gets.
+
+### Build evals before trusting your taste
+
+If a change makes the system better, prove it.
+
+Not with one screenshot. Not with one good run. With a small set of hard tests that catch regressions quickly.
+
+### Design for failure on purpose
+
+The question is never whether the agent will fail.
+
+It will.
+
+The question is whether failure is visible, contained, and recoverable.
+
+That is what separates a system people trust from one they quietly stop using.
+
+### Ship in tighter loops
+
+Shorter loops win.
+
+Smaller releases. Faster feedback. Faster rollback. Faster learning.
+
+That is how agent products stop feeling like demos and start feeling dependable.
+
+## The blunt version
+
+If your agent is unreliable, stop blaming intelligence first.
+
+Check whether:
+
+- the task is fuzzy
+- the context is messy
+- the memory is undisciplined
+- the tools are brittle
+- the fallback behavior is missing
+- the evals are fake
+- the shipping process is sloppy
+
+Because that is where a lot of the real damage happens.
+
+The industry is still a bit drunk on model progress. Fair enough. The progress is real.
+
+But product quality is not the same thing as model quality.
+
+The teams that win will not just be the teams using the smartest model.
+
+They will be the teams with the cleanest system around it.
+
+That is less sexy. It is also the part that matters.
+
+## Cover image prompt
+
+If you want to regenerate or replace the visual later, use this:
+
+> Editorial product-engineering illustration, dark minimal background, central AI core stable and precise, outer system layers breaking down around it, visual layers for context, memory, tools, evals, observability, release discipline, subtle warning signals and fractures in the outer layers, high-end modern tech aesthetic, clean composition, no cheesy sci-fi, no text, landscape

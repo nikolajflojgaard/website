@@ -1,0 +1,86 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Why agent products fail</title>
+  <desc id="desc">A layered systems diagram showing that failures usually enter through context, memory, tools, orchestration, evals, observability, and release discipline rather than the model alone.</desc>
+  <defs>
+    <linearGradient id="bg" x1="160" y1="80" x2="1440" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1020"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="core" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="layer" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#1F2937"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" rx="32" fill="url(#bg)"/>
+
+  <text x="120" y="120" fill="#F9FAFB" font-family="Inter, Arial, sans-serif" font-size="48" font-weight="700">Why agent products fail</text>
+  <text x="120" y="165" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="24">Most failures enter through the system layers, not the model alone.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="120" y="230" width="1360" height="520" rx="30" fill="#0F172A" stroke="#1E293B"/>
+
+    <rect x="180" y="290" width="180" height="400" rx="24" fill="url(#core)"/>
+    <text x="270" y="505" text-anchor="middle" fill="#EFF6FF" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">Model</text>
+    <text x="270" y="545" text-anchor="middle" fill="#DBEAFE" font-family="Inter, Arial, sans-serif" font-size="20">Reasoning core</text>
+
+    <g>
+      <rect x="430" y="300" width="160" height="380" rx="22" fill="url(#layer)" stroke="#334155"/>
+      <text x="510" y="505" text-anchor="middle" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="600">Context</text>
+      <path d="M560 332 L580 356 L548 372" stroke="#F59E0B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <g>
+      <rect x="630" y="300" width="160" height="380" rx="22" fill="url(#layer)" stroke="#334155"/>
+      <text x="710" y="505" text-anchor="middle" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="600">Memory</text>
+      <path d="M676 640 L698 612 L722 650" stroke="#F97316" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <g>
+      <rect x="830" y="300" width="160" height="380" rx="22" fill="url(#layer)" stroke="#334155"/>
+      <text x="910" y="505" text-anchor="middle" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="600">Tools</text>
+      <path d="M882 348 L934 400" stroke="#EF4444" stroke-width="7" stroke-linecap="round"/>
+      <path d="M934 348 L882 400" stroke="#EF4444" stroke-width="7" stroke-linecap="round"/>
+    </g>
+
+    <g>
+      <rect x="1030" y="300" width="180" height="380" rx="22" fill="url(#layer)" stroke="#334155"/>
+      <text x="1120" y="488" text-anchor="middle" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="600">Orchestration</text>
+      <path d="M1156 614 C1168 580,1080 560,1104 520" stroke="#F59E0B" stroke-width="7" stroke-linecap="round" fill="none"/>
+    </g>
+
+    <g>
+      <rect x="1250" y="300" width="170" height="170" rx="22" fill="url(#layer)" stroke="#334155"/>
+      <text x="1335" y="388" text-anchor="middle" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="600">Evals</text>
+      <path d="M1290 340 L1380 428" stroke="#EF4444" stroke-width="7" stroke-linecap="round"/>
+    </g>
+
+    <g>
+      <rect x="1250" y="510" width="170" height="170" rx="22" fill="url(#layer)" stroke="#334155"/>
+      <text x="1335" y="583" text-anchor="middle" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="600">Observability</text>
+      <text x="1335" y="614" text-anchor="middle" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="600">Release discipline</text>
+      <circle cx="1298" cy="550" r="10" fill="#F59E0B"/>
+      <circle cx="1334" cy="550" r="10" fill="#F59E0B"/>
+      <circle cx="1370" cy="550" r="10" fill="#F59E0B"/>
+    </g>
+
+    <path d="M360 490 H430" stroke="#38BDF8" stroke-width="6" stroke-linecap="round"/>
+    <path d="M590 490 H630" stroke="#64748B" stroke-width="6" stroke-linecap="round"/>
+    <path d="M790 490 H830" stroke="#64748B" stroke-width="6" stroke-linecap="round"/>
+    <path d="M990 490 H1030" stroke="#64748B" stroke-width="6" stroke-linecap="round"/>
+    <path d="M1210 390 H1250" stroke="#64748B" stroke-width="6" stroke-linecap="round"/>
+    <path d="M1210 595 H1250" stroke="#64748B" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <rect x="120" y="790" width="1360" height="62" rx="18" fill="#111827" stroke="#1F2937"/>
+    <text x="800" y="830" text-anchor="middle" fill="#CBD5E1" font-family="Inter, Arial, sans-serif" font-size="26">Model → Context → Memory → Tools → Orchestration → Evals → Observability → Release discipline → User trust</text>
+  </g>
+</svg>
