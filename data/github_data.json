@@ -19,21 +19,21 @@
       "private": false
     },
     {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "Astro",
-      "updated_at": "2026-04-23T08:04:47Z",
-      "private": false
-    },
-    {
       "name": "home-assistant-home-brief",
       "description": "A Home Assistant custom integration and card for actionable household briefs, chores, energy, and daily brief packages.",
       "html_url": "https://github.com/nikolajflojgaard/home-assistant-home-brief",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-04-06T10:40:42Z",
+      "updated_at": "2026-04-23T16:43:39Z",
+      "private": false
+    },
+    {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "Astro",
+      "updated_at": "2026-04-23T16:03:38Z",
       "private": false
     },
     {
@@ -65,6 +65,18 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-04-23T16:43:35Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-04-23T16:03:35Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website",
@@ -112,19 +124,7 @@
       "description": "Released v0.6.26 in nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
       "created_at": "2026-04-06T10:34:28Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-06T10:34:26Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.6.25 in nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-04-06T10:31:40Z"
     }
   ],
-  "fetched_at": "2026-04-23T13:59:23.421Z"
+  "fetched_at": "2026-04-23T19:21:07.952Z"
 }
