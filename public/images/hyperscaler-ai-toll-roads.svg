@@ -1,0 +1,59 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#0A0F1C"/>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#bg)"/>
+  <path d="M610 900L760 520H840L990 900H610Z" fill="url(#road)" opacity="0.95"/>
+  <path d="M0 900L530 540H650L430 900H0Z" fill="url(#leftRoad)" opacity="0.8"/>
+  <path d="M1600 900L1070 540H950L1170 900H1600Z" fill="url(#rightRoad)" opacity="0.8"/>
+  <g opacity="0.9">
+    <rect x="150" y="170" width="290" height="280" rx="18" fill="#101A2F" stroke="#2D4F86"/>
+    <rect x="580" y="110" width="440" height="360" rx="22" fill="#121E36" stroke="#4D77B8"/>
+    <rect x="1160" y="170" width="290" height="280" rx="18" fill="#101A2F" stroke="#2D4F86"/>
+  </g>
+  <g opacity="0.55" stroke="#78A9FF">
+    <path d="M195 235H395"/>
+    <path d="M195 275H395"/>
+    <path d="M195 315H395"/>
+    <path d="M625 180H975"/>
+    <path d="M625 225H975"/>
+    <path d="M625 270H975"/>
+    <path d="M625 315H975"/>
+    <path d="M625 360H975"/>
+    <path d="M1205 235H1405"/>
+    <path d="M1205 275H1405"/>
+    <path d="M1205 315H1405"/>
+  </g>
+  <g opacity="0.95">
+    <circle cx="295" cy="380" r="7" fill="#54E0FF"/>
+    <circle cx="800" cy="400" r="8" fill="#FFB454"/>
+    <circle cx="1305" cy="380" r="7" fill="#54E0FF"/>
+  </g>
+  <g opacity="0.35" stroke="#54E0FF" stroke-width="2">
+    <path d="M295 387C295 470 520 510 800 540"/>
+    <path d="M1305 387C1305 470 1080 510 800 540"/>
+    <path d="M800 408V540"/>
+  </g>
+  <g opacity="0.2">
+    <circle cx="800" cy="540" r="160" fill="#54E0FF"/>
+    <circle cx="800" cy="540" r="250" fill="#FFB454"/>
+  </g>
+  <text x="120" y="760" fill="#EAF2FF" font-family="Inter, Arial, sans-serif" font-size="56" font-weight="700">Hyperscalers as AI toll roads</text>
+  <text x="120" y="812" fill="#9CB6D9" font-family="Inter, Arial, sans-serif" font-size="28">The stack under the next compute cycle matters more than the weekly model drama.</text>
+  <defs>
+    <linearGradient id="bg" x1="800" y1="0" x2="800" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0E1628"/>
+      <stop offset="1" stop-color="#09101B"/>
+    </linearGradient>
+    <linearGradient id="road" x1="800" y1="520" x2="800" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A2D4D"/>
+      <stop offset="1" stop-color="#2E537F"/>
+    </linearGradient>
+    <linearGradient id="leftRoad" x1="325" y1="540" x2="325" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#13253F"/>
+      <stop offset="1" stop-color="#27476F"/>
+    </linearGradient>
+    <linearGradient id="rightRoad" x1="1275" y1="540" x2="1275" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#13253F"/>
+      <stop offset="1" stop-color="#27476F"/>
+    </linearGradient>
+  </defs>
+</svg>
