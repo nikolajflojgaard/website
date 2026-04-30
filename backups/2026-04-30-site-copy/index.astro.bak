@@ -87,34 +87,6 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
 
     <Hr />
 
-    {/* Proof / Focus Section */}
-    <section class="py-12">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-xl font-semibold">What I actually spend time on</h2>
-        <LinkButton href="/about">
-          More about me
-          <IconArrowRight class="inline-block" />
-        </LinkButton>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-4">
-        <div class="p-5 bg-skin-fill/30 border border-skin-line rounded-xl">
-          <h3 class="font-semibold mb-2">Enterprise architecture</h3>
-          <p class="text-sm text-skin-base/70">Integration strategy, system design, and the uncomfortable tradeoffs that show up in real delivery, not just diagrams.</p>
-        </div>
-        <div class="p-5 bg-skin-fill/30 border border-skin-line rounded-xl">
-          <h3 class="font-semibold mb-2">Agentic workflows</h3>
-          <p class="text-sm text-skin-base/70">What happens when AI leaves the demo stage and has to deal with brittle tools, bad context, and actual operational constraints.</p>
-        </div>
-        <div class="p-5 bg-skin-fill/30 border border-skin-line rounded-xl">
-          <h3 class="font-semibold mb-2">Built things, not just opinions</h3>
-          <p class="text-sm text-skin-base/70">Home Assistant tooling, workflow automation, architecture notes, and practical product experiments that are meant to survive production.</p>
-        </div>
-      </div>
-    </section>
-
-    <Hr />
-
     {/* Newsletter Section */}
     <section class="py-12">
       <div class="max-w-2xl mx-auto text-center">
@@ -143,7 +115,7 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
         <!-- Signup Form -->
         <div class="bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-2xl p-6 mb-6">
           <h2 class="text-xl font-semibold mb-2">Get the sharp version</h2>
-          <p class="text-skin-base/70 mb-4">Occasional essays on AI systems, autonomy, and integration architecture, written for people who care about what survives contact with production.</p>
+          <p class="text-skin-base/70 mb-4">Occasional writing on AI agents, autonomy, and integration architecture. No filler. Unsubscribe anytime.</p>
           
           <form 
             action="https://buttondown.email/api/emails/embed-subscribe/f35" 
