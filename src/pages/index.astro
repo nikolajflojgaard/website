@@ -11,7 +11,6 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
-// Get actual blog posts
 const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 const sortedPosts = allPosts.sort((a, b) => {
   const aDate = a.data.pubDatetime || new Date();
@@ -19,33 +18,67 @@ const sortedPosts = allPosts.sort((a, b) => {
   return new Date(bDate).getTime() - new Date(aDate).getTime();
 });
 
-// Generate correct slug matching the routing logic in [...slug].astro
 const generateSlug = (post: CollectionEntry<"blog">) => {
   const postId = post.id;
-  
-  // Check if post is already in a year directory (e.g., 2026/filename)
   const yearDirMatch = postId.match(/^(\d{4})\/(.*)/);
-  if (yearDirMatch) {
-    return postId; // Already has year prefix
-  }
-  
-  // For posts not in year directories, extract year from metadata or filename
+  if (yearDirMatch) return postId;
+
   const pubDate = post.data.pubDatetime;
   const year = pubDate
     ? pubDate.getFullYear().toString()
     : postId.match(/^(\d{4})-\d{2}-\d{2}/)
       ? postId.substring(0, 4)
       : new Date().getFullYear().toString();
-  
+
   return `${year}/${postId}`;
 };
 
-const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
+const featuredPosts = sortedPosts.slice(0, 3).map((post) => ({
   title: post.data.title,
   description: post.data.description || "",
-  date: new Date(post.data.pubDatetime).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-  slug: generateSlug(post)
+  date: new Date(post.data.pubDatetime).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }),
+  slug: generateSlug(post),
 }));
+
+const selectedWriting = [
+  {
+    title: "Enterprise architecture",
+    description: "Architecture, transformation, and the system-level tradeoffs that matter when delivery gets real.",
+    href: "/posts/2026/2026-02-05-ai-doesn-t-replace-architecture-it-makes-good-architecture-non-negotiable",
+    article: "AI doesn’t replace architecture, it makes good architecture non-negotiable",
+  },
+  {
+    title: "AI systems in the wild",
+    description: "Less prompt-theatre, more operational reality: agents, constraints, controls, and what actually breaks.",
+    href: "/posts/2026/2026-03-17-most-enterprise-ai-still-feels-like-letting-a-very-confident-intern-loose-in-your-systems",
+    article: "Most enterprise AI still feels like letting a very confident intern loose in your systems",
+  },
+  {
+    title: "Built systems and experiments",
+    description: "Proof-of-work through real implementations, not just opinions about what someone should build.",
+    href: "/posts/2026/2026-03-31-household-chores-home-assistant-agent-tasks",
+    article: "Household Chores for Home Assistant",
+  },
+];
+
+const workLanes = [
+  {
+    title: "Large-scale transformation",
+    body: "Architecture, operating-model friction, integration complexity, and the ugly tradeoffs that appear when big companies try to change without breaking the core business.",
+  },
+  {
+    title: "AI workflows and systems",
+    body: "What happens when AI leaves the demo stage and has to work through tools, permissions, brittle context, governance, and production reality.",
+  },
+  {
+    title: "Built products and experiments",
+    body: "Home Assistant tooling, workflow automation, content systems, and practical product experiments designed to survive actual use.",
+  },
+];
 ---
 
 <Layout description={SITE.desc}>
@@ -53,19 +86,17 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
   <StructuredData type="Person" data={{}} />
   <Header />
   <main id="main-content" data-layout="index">
-    
-    {/* Hero */}
     <section id="hero" class="pt-6 pb-10">
       <div class="rounded-3xl border border-accent/15 bg-gradient-to-br from-accent/8 via-background to-background p-5 sm:p-6">
-        <div class="flex flex-col sm:flex-row items-start gap-5 sm:gap-6">
-          <a href="/about" class="block mx-auto sm:mx-0 group">
-            <img 
-              src="/hero.png" 
+        <div class="flex flex-col items-start gap-5 sm:flex-row sm:gap-6">
+          <a href="/about" class="group mx-auto block sm:mx-0">
+            <img
+              src="/hero.png"
               alt={SITE.title}
-              class="w-32 h-32 rounded-full object-cover flex-shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
+              class="h-32 w-32 rounded-full object-cover transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
             />
           </a>
-          <div class="flex-1 text-center sm:text-left pt-1">
+          <div class="flex-1 pt-1 text-center sm:text-left">
             <h1 class="my-2 inline-block max-w-3xl text-3xl font-bold tracking-tight sm:my-3 sm:text-4xl sm:leading-tight">
               Hi, I'm {SITE.title}.
             </h1>
@@ -73,7 +104,7 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
               {SITE.desc}
             </p>
             <p class="mt-3 max-w-2xl text-sm leading-7 text-skin-base/62">
-              Less hype, more systems thinking: practical notes on enterprise integration, agentic workflows, autonomy, and the infrastructure behind what actually works.
+              Less hype, more systems thinking: practical notes on enterprise integration, large-scale transformation, agentic workflows, autonomy, and the infrastructure behind what actually works.
             </p>
             {
               SOCIALS.filter((social) => social.active).length > 0 && (
@@ -89,29 +120,27 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
 
     <Hr />
 
-    {/* Proof / Focus Section */}
     <section class="py-10">
-      <div class="flex items-center justify-between mb-5">
-        <h2 class="text-xl font-semibold">What I actually spend time on</h2>
-        <LinkButton href="/about" class="text-sm">
-          More about me
+      <div class="mb-5 flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold">Where I spend time</h2>
+          <p class="mt-2 max-w-2xl text-sm leading-7 text-skin-base/70">
+            Three lanes explain most of the work: transformation, AI systems, and things built to prove the point.
+          </p>
+        </div>
+        <LinkButton href="/resume" class="text-sm">
+          See work
           <IconArrowRight class="inline-block" />
         </LinkButton>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-4">
-        <div class="p-5 bg-skin-fill/25 border border-skin-line rounded-2xl">
-          <h3 class="font-semibold mb-2">Enterprise architecture</h3>
-          <p class="text-sm text-skin-base/70">Integration strategy, system design, and the uncomfortable tradeoffs that show up in real delivery, not just diagrams.</p>
-        </div>
-        <div class="p-5 bg-skin-fill/25 border border-skin-line rounded-2xl">
-          <h3 class="font-semibold mb-2">Agentic workflows</h3>
-          <p class="text-sm text-skin-base/70">What happens when AI leaves the demo stage and has to deal with brittle tools, bad context, and actual operational constraints.</p>
-        </div>
-        <div class="p-5 bg-skin-fill/25 border border-skin-line rounded-2xl">
-          <h3 class="font-semibold mb-2">Built things, not just opinions</h3>
-          <p class="text-sm text-skin-base/70">Home Assistant tooling, workflow automation, architecture notes, and practical product experiments that are meant to survive production.</p>
-        </div>
+      <div class="grid gap-4 md:grid-cols-3">
+        {workLanes.map((lane) => (
+          <div class="rounded-2xl border border-skin-line bg-skin-fill/25 p-5">
+            <h3 class="mb-2 font-semibold">{lane.title}</h3>
+            <p class="text-sm leading-7 text-skin-base/70">{lane.body}</p>
+          </div>
+        ))}
       </div>
     </section>
 
@@ -119,10 +148,12 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
 
     <section class="py-10">
       <div class="rounded-2xl border border-accent/18 bg-gradient-to-br from-accent/10 to-accent/5 p-6 sm:p-8">
-        <div class="flex items-center justify-between mb-6 gap-4 flex-col sm:flex-row sm:items-end">
+        <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h2 class="text-xl font-semibold">Start here</h2>
-            <p class="mt-2 max-w-2xl text-sm text-skin-base/70">If you are new here, these are the three lanes that best explain what I write about and where I tend to have a point of view.</p>
+            <h2 class="text-xl font-semibold">Selected writing</h2>
+            <p class="mt-2 max-w-2xl text-sm text-skin-base/70">
+              If you are new here, start with the pieces that best reflect how I think and what I tend to build around.
+            </p>
           </div>
           <LinkButton href="/posts/" class="text-sm">
             Browse everything
@@ -130,63 +161,56 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
           </LinkButton>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-4">
-          <a href="/tags/ai" class="block p-5 bg-background/70 border border-accent/15 rounded-2xl hover:border-accent/40 hover:bg-background/85 transition-all">
-            <div class="text-2xl mb-3">🤖</div>
-            <h3 class="font-semibold mb-2">AI systems</h3>
-            <p class="text-sm text-skin-base/70">Agents, evals, workflow design, and what breaks when AI hits production reality.</p>
-          </a>
-          <a href="/tags/autonomy" class="block p-5 bg-background/70 border border-accent/15 rounded-2xl hover:border-accent/40 hover:bg-background/85 transition-all">
-            <div class="text-2xl mb-3">🚗</div>
-            <h3 class="font-semibold mb-2">Autonomy</h3>
-            <p class="text-sm text-skin-base/70">Signals, constraints, and where real progress is happening beyond the marketing layer.</p>
-          </a>
-          <a href="/tags/integration-architecture" class="block p-5 bg-background/70 border border-accent/15 rounded-2xl hover:border-accent/40 hover:bg-background/85 transition-all">
-            <div class="text-2xl mb-3">⚡</div>
-            <h3 class="font-semibold mb-2">Systems & integration</h3>
-            <p class="text-sm text-skin-base/70">Architecture patterns, platform tradeoffs, and the complexity that actually matters.</p>
-          </a>
+        <div class="grid gap-4 md:grid-cols-3">
+          {selectedWriting.map((item) => (
+            <a href={item.href} class="block rounded-2xl border border-accent/15 bg-background/70 p-5 transition-all hover:border-accent/40 hover:bg-background/85">
+              <div class="mb-3 text-xs font-medium uppercase tracking-[0.14em] text-accent/80">Selected lane</div>
+              <h3 class="mb-2 font-semibold">{item.title}</h3>
+              <p class="mb-4 text-sm leading-7 text-skin-base/70">{item.description}</p>
+              <p class="text-sm font-medium text-foreground/85">{item.article}</p>
+            </a>
+          ))}
         </div>
       </div>
     </section>
 
     <Hr />
 
-    <!-- Featured Content Teaser -->
     <section class="py-10">
-      <div class="flex items-center justify-between mb-5">
-        <h2 class="text-xl font-semibold">From the blog</h2>
+      <div class="mb-5 flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold">Recent writing</h2>
+          <p class="mt-2 text-sm text-skin-base/70">Latest posts, if you want the freshest signal instead of the curated entry points above.</p>
+        </div>
         <LinkButton href="/posts/" class="text-sm">
           All Posts
           <IconArrowRight class="inline-block" />
         </LinkButton>
       </div>
-      
+
       {featuredPosts.length > 0 ? (
-        <div class="grid md:grid-cols-3 gap-4">
+        <div class="grid gap-4 md:grid-cols-3">
           {featuredPosts.map((post) => (
-            <a href={`/posts/${post.slug}`} class="block p-5 bg-skin-fill/25 border border-skin-line rounded-2xl hover:border-accent/45 hover:bg-skin-fill/45 transition-all group">
-              <div class="text-skin-base/50 text-xs mb-2">{post.date}</div>
-              <h3 class="font-medium mb-2 line-clamp-2 group-hover:text-accent transition-colors">{post.title}</h3>
-              <p class="text-sm text-skin-base/70 line-clamp-2">{post.description}</p>
+            <a href={`/posts/${post.slug}`} class="group block rounded-2xl border border-skin-line bg-skin-fill/25 p-5 transition-all hover:border-accent/45 hover:bg-skin-fill/45">
+              <div class="mb-2 text-xs text-skin-base/50">{post.date}</div>
+              <h3 class="mb-2 line-clamp-2 font-medium transition-colors group-hover:text-accent">{post.title}</h3>
+              <p class="line-clamp-3 text-sm text-skin-base/70">{post.description}</p>
             </a>
           ))}
         </div>
       ) : (
-        <div class="p-6 bg-skin-fill/30 border border-skin-line rounded-lg text-center">
-          <p class="text-skin-base/70">No posts yet — check back soon!</p>
+        <div class="rounded-lg border border-skin-line bg-skin-fill/30 p-6 text-center">
+          <p class="text-skin-base/70">No posts yet, check back soon.</p>
         </div>
       )}
     </section>
-
   </main>
   <Footer />
 </Layout>
 
 <script>
   document.addEventListener("astro:page-load", () => {
-    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
-      ?.dataset?.layout;
+    const indexLayout = (document.querySelector("#main-content") as HTMLElement)?.dataset?.layout;
     if (indexLayout) {
       sessionStorage.setItem("backUrl", "/");
     }
