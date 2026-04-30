@@ -10,6 +10,7 @@ import Header from "@/components/Header.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
 import StructuredData from "@/components/StructuredData.astro";
 import Tag from "@/components/Tag.astro";
+import Card from "@/components/Card.astro";
 import { SITE } from "@/config";
 import Layout from "@/layouts/Layout.astro";
 import { getPath } from "@/utils/getPath";
@@ -80,15 +81,32 @@ const layoutProps = {
 
 /* ========== Prev/Next Posts ========== */
 
-const allPosts = posts.map(({ data: { title }, id }) => ({
+const allPosts = posts.map(({ data: { title }, id }, index) => ({
   slug: id,
   title,
+  index,
 }));
 
 const currentPostIndex = allPosts.findIndex((a) => a.slug === post.id);
 
 const prevPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
 const nextPost = currentPostIndex !== allPosts.length ? allPosts[currentPostIndex + 1] : null;
+
+const currentTags = new Set((tags ?? []).map(tag => tag.toLowerCase()));
+const relatedPosts = posts
+  .filter(candidate => candidate.id !== post.id)
+  .map(candidate => {
+    const candidateTags = (candidate.data.tags ?? []).map(tag => tag.toLowerCase());
+    const overlap = candidateTags.filter(tag => currentTags.has(tag)).length;
+    return { candidate, overlap };
+  })
+  .filter(item => item.overlap > 0)
+  .sort((a, b) => {
+    if (b.overlap !== a.overlap) return b.overlap - a.overlap;
+    return new Date(b.candidate.data.pubDatetime).getTime() - new Date(a.candidate.data.pubDatetime).getTime();
+  })
+  .slice(0, 3)
+  .map(item => item.candidate);
 
 // Calculate word count for structured data
 const wordCount = (post.body ?? "").split(/\s+/).length;
@@ -179,6 +197,18 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
     </div>
 
     <hr class="my-6 border-dashed" />
+
+    {relatedPosts.length > 0 && (
+      <section class="mb-10" data-pagefind-ignore>
+        <div class="mb-4">
+          <h2 class="text-xl font-semibold">Related reading</h2>
+          <p class="mt-1 text-sm text-foreground/65">More pieces in the same part of the map.</p>
+        </div>
+        <ul>
+          {relatedPosts.map((relatedPost) => <Card {...relatedPost} variant="h3" showImage={false} />)}
+        </ul>
+      </section>
+    )}
 
     <!-- Previous/Next Post Buttons -->
     <div 

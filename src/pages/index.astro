@@ -176,6 +176,33 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
 
     <Hr />
 
+    <section class="py-12">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-semibold">Start here</h2>
+        <LinkButton href="/posts/">
+          Browse everything
+          <IconArrowRight class="inline-block" />
+        </LinkButton>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/tags/ai" class="block p-5 bg-skin-fill/30 border border-skin-line rounded-xl hover:border-accent/50 hover:bg-skin-fill/50 transition-all">
+          <h3 class="font-semibold mb-2">AI systems</h3>
+          <p class="text-sm text-skin-base/70">Agents, evals, workflow design, and what breaks when AI hits production reality.</p>
+        </a>
+        <a href="/tags/autonomy" class="block p-5 bg-skin-fill/30 border border-skin-line rounded-xl hover:border-accent/50 hover:bg-skin-fill/50 transition-all">
+          <h3 class="font-semibold mb-2">Autonomy</h3>
+          <p class="text-sm text-skin-base/70">Signals, constraints, and where real progress is happening beyond the marketing layer.</p>
+        </a>
+        <a href="/tags/integration-architecture" class="block p-5 bg-skin-fill/30 border border-skin-line rounded-xl hover:border-accent/50 hover:bg-skin-fill/50 transition-all">
+          <h3 class="font-semibold mb-2">Systems & integration</h3>
+          <p class="text-sm text-skin-base/70">Architecture patterns, platform tradeoffs, and the complexity that actually matters.</p>
+        </a>
+      </div>
+    </section>
+
+    <Hr />
+
     <!-- Featured Content Teaser -->
     <section class="py-12">
       <div class="flex items-center justify-between mb-6">
