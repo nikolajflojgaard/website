@@ -44,6 +44,27 @@ const featuredPosts = sortedPosts.slice(0, 3).map((post) => ({
   slug: generateSlug(post),
 }));
 
+const guidedPaths = [
+  {
+    title: "Enterprise architecture and transformation",
+    body: "For people dealing with architecture, platform decisions, integration mess, and large-scale transformation pressure.",
+    href: "/resume",
+    cta: "See work",
+  },
+  {
+    title: "AI systems and agentic workflows",
+    body: "For people trying to separate real operational AI from prompt theatre and demo energy.",
+    href: "/tags/ai",
+    cta: "Explore AI writing",
+  },
+  {
+    title: "Built systems and proof-of-work",
+    body: "For people who want to see actual artifacts, experiments, integrations, and product-shaped systems.",
+    href: "/projects",
+    cta: "See projects",
+  },
+];
+
 const selectedWriting = [
   {
     title: "Enterprise architecture",
@@ -65,18 +86,18 @@ const selectedWriting = [
   },
 ];
 
-const workLanes = [
+const themes = [
   {
-    title: "Large-scale transformation",
+    title: "Transformation",
     body: "Architecture, operating-model friction, integration complexity, and the ugly tradeoffs that appear when big companies try to change without breaking the core business.",
   },
   {
-    title: "AI workflows and systems",
+    title: "AI systems",
     body: "What happens when AI leaves the demo stage and has to work through tools, permissions, brittle context, governance, and production reality.",
   },
   {
-    title: "Built products and experiments",
-    body: "Home Assistant tooling, workflow automation, content systems, and practical product experiments designed to survive actual use.",
+    title: "Applied software",
+    body: "Home Assistant tooling, workflow automation, content systems, and experiments designed to survive actual use instead of just looking clever.",
   },
 ];
 ---
@@ -87,32 +108,52 @@ const workLanes = [
   <Header />
   <main id="main-content" data-layout="index">
     <section id="hero" class="pt-6 pb-10">
-      <div class="rounded-3xl border border-accent/15 bg-gradient-to-br from-accent/8 via-background to-background p-5 sm:p-6">
-        <div class="flex flex-col items-start gap-5 sm:flex-row sm:gap-6">
-          <a href="/about" class="group mx-auto block sm:mx-0">
-            <img
-              src="/hero.png"
-              alt={SITE.title}
-              class="h-32 w-32 rounded-full object-cover transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
-            />
-          </a>
-          <div class="flex-1 pt-1 text-center sm:text-left">
-            <h1 class="my-2 inline-block max-w-3xl text-3xl font-bold tracking-tight sm:my-3 sm:text-4xl sm:leading-tight">
-              Hi, I'm {SITE.title}.
-            </h1>
-            <p class="max-w-2xl text-base leading-8 text-skin-base/82">
-              {SITE.desc}
-            </p>
-            <p class="mt-3 max-w-2xl text-sm leading-7 text-skin-base/62">
-              Less hype, more systems thinking: practical notes on enterprise integration, large-scale transformation, agentic workflows, autonomy, and the infrastructure behind what actually works.
-            </p>
-            {
-              SOCIALS.filter((social) => social.active).length > 0 && (
-                <div class="mt-4 flex flex-row items-center justify-center sm:justify-start">
-                  <Socials />
-                </div>
-              )
-            }
+      <div class="rounded-3xl border border-accent/15 bg-gradient-to-br from-accent/8 via-background to-background p-6 sm:p-8">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+          <div class="flex flex-1 flex-col items-start gap-5 sm:flex-row sm:gap-6">
+            <a href="/about" class="group mx-auto block sm:mx-0">
+              <img
+                src="/hero.png"
+                alt={SITE.title}
+                class="h-32 w-32 rounded-full object-cover transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
+              />
+            </a>
+            <div class="flex-1 pt-1 text-center sm:text-left">
+              <div class="mb-3 inline-flex items-center rounded-full border border-accent/20 bg-background/80 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-foreground/65">
+                Enterprise architecture • AI systems • proof-of-work
+              </div>
+              <h1 class="my-2 inline-block max-w-3xl text-3xl font-bold tracking-tight sm:my-3 sm:text-4xl sm:leading-tight">
+                Hi, I'm {SITE.title}.
+              </h1>
+              <p class="max-w-2xl text-base leading-8 text-skin-base/82">
+                {SITE.desc}
+              </p>
+              <p class="mt-3 max-w-2xl text-sm leading-7 text-skin-base/62">
+                Less hype, more systems thinking: practical notes on enterprise integration, large-scale transformation, agentic workflows, autonomy, and the infrastructure behind what actually works.
+              </p>
+              {
+                SOCIALS.filter((social) => social.active).length > 0 && (
+                  <div class="mt-4 flex flex-row items-center justify-center sm:justify-start">
+                    <Socials />
+                  </div>
+                )
+              }
+            </div>
+          </div>
+
+          <div class="grid gap-3 sm:grid-cols-3 lg:w-[420px] lg:grid-cols-1">
+            <a href="/resume" class="rounded-2xl border border-border bg-background/70 p-4 transition-all hover:border-accent/35 hover:bg-background/90">
+              <div class="text-xs font-medium uppercase tracking-[0.12em] text-foreground/55">Work</div>
+              <p class="mt-2 text-sm leading-7 text-foreground/78">Large-scale transformation, architecture, and delivery in real enterprise environments.</p>
+            </a>
+            <a href="/projects" class="rounded-2xl border border-border bg-background/70 p-4 transition-all hover:border-accent/35 hover:bg-background/90">
+              <div class="text-xs font-medium uppercase tracking-[0.12em] text-foreground/55">Projects</div>
+              <p class="mt-2 text-sm leading-7 text-foreground/78">Applied systems, Home Assistant builds, workflow experiments, and proof-of-work.</p>
+            </a>
+            <a href="/posts" class="rounded-2xl border border-border bg-background/70 p-4 transition-all hover:border-accent/35 hover:bg-background/90">
+              <div class="text-xs font-medium uppercase tracking-[0.12em] text-foreground/55">Writing</div>
+              <p class="mt-2 text-sm leading-7 text-foreground/78">Essays, notes, and sharper takes on AI systems, autonomy, and integration architecture.</p>
+            </a>
           </div>
         </div>
       </div>
@@ -121,24 +162,50 @@ const workLanes = [
     <Hr />
 
     <section class="py-10">
-      <div class="mb-5 flex items-center justify-between">
+      <div class="mb-6 flex items-center justify-between">
         <div>
-          <h2 class="text-xl font-semibold">Where I spend time</h2>
+          <h2 class="text-xl font-semibold">Start from the right path</h2>
           <p class="mt-2 max-w-2xl text-sm leading-7 text-skin-base/70">
-            Three lanes explain most of the work: transformation, AI systems, and things built to prove the point.
+            Different people land here for different reasons. This should make that easier.
           </p>
         </div>
-        <LinkButton href="/resume" class="text-sm">
-          See work
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-3">
+        {guidedPaths.map((path) => (
+          <a href={path.href} class="rounded-2xl border border-border bg-background/70 p-5 transition-all hover:border-accent/35 hover:bg-background/90">
+            <h3 class="mb-2 font-semibold">{path.title}</h3>
+            <p class="mb-4 text-sm leading-7 text-skin-base/70">{path.body}</p>
+            <div class="inline-flex items-center gap-2 text-sm font-medium text-accent">
+              {path.cta}
+              <IconArrowRight class="inline-block" />
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <Hr />
+
+    <section class="py-10">
+      <div class="mb-5 flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold">Core themes</h2>
+          <p class="mt-2 max-w-2xl text-sm leading-7 text-skin-base/70">
+            These are the three themes the rest of the site keeps orbiting around.
+          </p>
+        </div>
+        <LinkButton href="/about" class="text-sm">
+          More about me
           <IconArrowRight class="inline-block" />
         </LinkButton>
       </div>
 
       <div class="grid gap-4 md:grid-cols-3">
-        {workLanes.map((lane) => (
+        {themes.map((theme) => (
           <div class="rounded-2xl border border-skin-line bg-skin-fill/25 p-5">
-            <h3 class="mb-2 font-semibold">{lane.title}</h3>
-            <p class="text-sm leading-7 text-skin-base/70">{lane.body}</p>
+            <h3 class="mb-2 font-semibold">{theme.title}</h3>
+            <p class="text-sm leading-7 text-skin-base/70">{theme.body}</p>
           </div>
         ))}
       </div>
@@ -152,7 +219,7 @@ const workLanes = [
           <div>
             <h2 class="text-xl font-semibold">Selected writing</h2>
             <p class="mt-2 max-w-2xl text-sm text-skin-base/70">
-              If you are new here, start with the pieces that best reflect how I think and what I tend to build around.
+              Start with the pieces that best reflect how I think and what I tend to build around.
             </p>
           </div>
           <LinkButton href="/posts/" class="text-sm">

@@ -25,15 +25,45 @@ const months = [
   "November",
   "December",
 ];
+
+const selectedTopics = [
+  {
+    title: "AI systems",
+    href: "/tags/ai",
+    body: "Agents, workflow design, governance, and what breaks when AI moves from demo to production.",
+  },
+  {
+    title: "Integration architecture",
+    href: "/tags/integration-architecture",
+    body: "APIs, architecture patterns, platform tradeoffs, and enterprise system design under pressure.",
+  },
+  {
+    title: "Home Assistant",
+    href: "/tags/home-assistant",
+    body: "Applied experiments, useful household systems, and proof-of-work built around actual use.",
+  },
+];
 ---
 
 <Layout title={`Posts | ${SITE.title}`} description={`Posts by ${SITE.title}.`}>
   <Header />
-  <main id="main-content" class="mx-auto w-full max-w-4xl px-4 pb-10">
+  <main id="main-content" class="mx-auto w-full max-w-5xl px-4 pb-10">
     <section class="mt-8 mb-8 rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/10 to-accent/5 p-6 sm:p-8">
-      <h1 class="text-3xl font-semibold sm:text-4xl">All Posts</h1>
-      <p class="mt-3 max-w-2xl text-sm text-skin-base/70">Essays, notes, and analysis on AI systems, autonomy, integration architecture, infrastructure, and the occasional detour into investing or product thinking.</p>
+      <div class="max-w-3xl">
+        <h1 class="text-3xl font-semibold sm:text-4xl">Posts</h1>
+        <p class="mt-3 text-sm leading-7 text-skin-base/70">Essays, notes, and analysis on AI systems, autonomy, integration architecture, infrastructure, and the occasional detour into investing or product thinking.</p>
+      </div>
     </section>
+
+    <section class="mb-10 grid gap-4 md:grid-cols-3">
+      {selectedTopics.map((topic) => (
+        <a href={topic.href} class="rounded-2xl border border-border bg-background/70 p-5 transition-all hover:border-accent/35 hover:bg-background/90">
+          <h2 class="mb-2 text-base font-semibold">{topic.title}</h2>
+          <p class="text-sm leading-7 text-foreground/72">{topic.body}</p>
+        </a>
+      ))}
+    </section>
+
     {posts.length === 0 && linkedIn && (
       <div class="my-8 rounded-lg border border-accent/30 bg-secondary p-4">
         <p class="mb-3">
@@ -54,9 +84,9 @@ const months = [
         .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
         .map(([year, yearGroup]) => (
           <section class="mb-10">
-            <h2 class="text-2xl font-bold mb-6 border-b border-accent/40 pb-2">
+            <h2 class="mb-6 border-b border-accent/40 pb-2 text-2xl font-bold">
               {year}
-              <sup class="text-sm ml-1">{yearGroup.length}</sup>
+              <sup class="ml-1 text-sm">{yearGroup.length}</sup>
             </h2>
             {Object.entries(
               getPostsByGroupCondition(yearGroup, (post) => {

@@ -10,10 +10,13 @@ const featuredProjects = [
   {
     name: "Household Chores",
     homeAssistant: true,
+    role: "Product design, integration design, Home Assistant implementation, and assistant workflow orchestration.",
     summary:
       "A Home Assistant task system built for actual household coordination, not just another database with a nicer skin.",
     problem:
       "Most task systems break in the real world because adding, assigning, and completing chores still takes too much effort. They store tasks fine. They are bad interfaces.",
+    constraints:
+      "Had to work across household context, chat interaction, automation logic, and a UI that people would actually use without resenting it.",
     whyItMatters:
       "This project connects product thinking, Home Assistant, automation, and chat-based interaction into one practical system. It is a better example of full-stack systems design than a simple dashboard or toy app.",
     links: [
@@ -24,10 +27,13 @@ const featuredProjects = [
   {
     name: "Home Brief",
     homeAssistant: true,
+    role: "Integration architecture, UI surface design, assistant publishing contract, and Home Assistant implementation.",
     summary:
       "A Home Assistant integration for generating and rendering a persistent daily brief across assistant and dashboard surfaces.",
     problem:
       "AI-generated summaries are usually ephemeral. They show up once in chat, then disappear. This project turns them into stable, reusable household information.",
+    constraints:
+      "Needed a cleaner separation between generation and rendering so the brief could persist and stay stable across surfaces instead of being recomputed ad hoc.",
     whyItMatters:
       "It bridges assistant output, structured payloads, and in-home presentation instead of treating AI as a one-shot message generator.",
     links: [
@@ -38,10 +44,13 @@ const featuredProjects = [
   {
     name: "Home Assistant HACS Template",
     homeAssistant: true,
+    role: "Tooling and integration scaffolding for faster future delivery.",
     summary:
       "A reusable foundation for building Home Assistant integrations faster without rewriting the same scaffolding every time.",
     problem:
       "Starting a custom integration from scratch often means redoing the same setup work before any actual product value gets built.",
+    constraints:
+      "Needed to be generic enough to reuse, but opinionated enough to speed up real implementation instead of becoming another empty starter kit.",
     whyItMatters:
       "This is the kind of tooling work that compounds. It makes future integrations cleaner, faster to ship, and easier to maintain.",
     links: [
@@ -107,17 +116,19 @@ const experiments = [
 
 <Layout title={`Projects | ${SITE.title}`} description={`Selected projects and experiments by ${SITE.title}.`}>
   <Header />
-  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-16">
+  <main id="main-content" class="mx-auto w-full max-w-4xl px-4 pb-16">
     <section class="mt-8 mb-10 rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/10 to-accent/5 p-6 sm:p-8">
-      <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Projects</h1>
-      <p class="mt-3 max-w-2xl text-base leading-8 text-foreground/80">
-        Selected things I have built, shipped, or keep pushing forward. Less portfolio theatre, more useful systems.
-      </p>
+      <div class="max-w-3xl">
+        <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Projects</h1>
+        <p class="mt-3 text-base leading-8 text-foreground/80">
+          Selected things I have built, shipped, or keep pushing forward. Less portfolio theatre, more proof-of-work, systems thinking, and applied architecture.
+        </p>
+      </div>
     </section>
 
     <ContentSection
       title="Featured projects"
-      description="The stronger examples of how I think, build, and ship."
+      description="The stronger examples of how I think, build, and structure real systems."
     >
       <div class="space-y-5">
         {featuredProjects.map((project, index) => (
@@ -135,6 +146,17 @@ const experiments = [
             </div>
 
             <p class="text-base leading-8 text-foreground/84">{project.summary}</p>
+
+            <div class="mt-5 grid gap-4 md:grid-cols-2">
+              <div class="rounded-xl border border-border/70 bg-muted/18 p-4">
+                <h4 class="mb-2 text-sm font-semibold uppercase tracking-[0.12em] text-foreground/60">Role</h4>
+                <p class="text-sm leading-7 text-foreground/74">{project.role}</p>
+              </div>
+              <div class="rounded-xl border border-border/70 bg-muted/18 p-4">
+                <h4 class="mb-2 text-sm font-semibold uppercase tracking-[0.12em] text-foreground/60">Constraint</h4>
+                <p class="text-sm leading-7 text-foreground/74">{project.constraints}</p>
+              </div>
+            </div>
 
             <div class="mt-4 space-y-3 text-sm leading-7 text-foreground/72">
               <p><span class="font-semibold text-foreground">Problem:</span> {project.problem}</p>
@@ -205,14 +227,6 @@ const experiments = [
           </InfoCard>
         ))}
       </div>
-    </ContentSection>
-
-    <ContentSection title="What these projects have in common" className="mb-0">
-      <InfoCard className="bg-background/60">
-        <p class="text-base leading-8 text-foreground/80">
-          They all sit somewhere near the same center of gravity: systems thinking, practical automation, architecture that survives reality, and a bias toward useful over flashy.
-        </p>
-      </InfoCard>
     </ContentSection>
   </main>
   <Footer />
