@@ -115,89 +115,36 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
 
     <Hr />
 
-    {/* Newsletter Section */}
     <section class="py-12">
-      <div class="max-w-2xl mx-auto text-center">
-
-        <!-- Value props -->
-        <div class="grid md:grid-cols-3 gap-4 mb-8 text-left">
-          <div class="p-4 bg-skin-fill/50 border border-skin-line rounded-xl">
-            <div class="text-2xl mb-2">🤖</div>
-            <h3 class="font-semibold text-sm mb-1">AI Agents</h3>
-            <p class="text-xs text-skin-base/70">What survives contact with production, not just demos</p>
+      <div class="rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/10 to-accent/5 p-6 sm:p-8">
+        <div class="flex items-center justify-between mb-6 gap-4 flex-col sm:flex-row sm:items-end">
+          <div>
+            <h2 class="text-xl font-semibold">Start here</h2>
+            <p class="mt-2 max-w-2xl text-sm text-skin-base/70">If you are new here, these are the three lanes that best explain what I write about and where I tend to have a point of view.</p>
           </div>
-          
-          <div class="p-4 bg-skin-fill/50 border border-skin-line rounded-xl">
-            <div class="text-2xl mb-2">🚗</div>
-            <h3 class="font-semibold text-sm mb-1">Autonomy</h3>
-            <p class="text-xs text-skin-base/70">Signals, constraints, and where the real progress is happening</p>
-          </div>
-          
-          <div class="p-4 bg-skin-fill/50 border border-skin-line rounded-xl">
-            <div class="text-2xl mb-2">⚡</div>
-            <h3 class="font-semibold text-sm mb-1">Systems & Integration</h3>
-            <p class="text-xs text-skin-base/70">Architecture patterns, governance, and where complexity actually bites</p>
-          </div>
+          <LinkButton href="/posts/">
+            Browse everything
+            <IconArrowRight class="inline-block" />
+          </LinkButton>
         </div>
 
-        <!-- Signup Form -->
-        <div class="bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-2xl p-6 mb-6">
-          <h2 class="text-xl font-semibold mb-2">Get the sharp version</h2>
-          <p class="text-skin-base/70 mb-4">Occasional essays on AI systems, autonomy, and integration architecture, written for people who care about what survives contact with production.</p>
-          
-          <form 
-            action="https://buttondown.email/api/emails/embed-subscribe/f35" 
-            method="post" 
-            target="popupwindow"
-            onsubmit="window.open('https://buttondown.email/f35', 'popupwindow')"
-            class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-          >
-            <input 
-              type="email" 
-              name="email" 
-              placeholder="you@example.com" 
-              required
-              class="flex-1 px-4 py-3 bg-skin-fill border border-skin-line rounded-lg text-skin-base placeholder-skin-base/50 focus:outline-none focus:border-accent"
-            />
-            <button 
-              type="submit"
-              class="px-6 py-3 bg-accent hover:opacity-90 text-white font-medium rounded-lg transition-colors whitespace-nowrap"
-            >
-              Subscribe
-            </button>
-          </form>
-          
-          <p class="text-skin-base/50 text-sm mt-4">
-            For people who care about what actually works.
-          </p>
+        <div class="grid md:grid-cols-3 gap-4">
+          <a href="/tags/ai" class="block p-5 bg-background/65 border border-accent/15 rounded-xl hover:border-accent/40 hover:bg-background/80 transition-all backdrop-blur-sm">
+            <div class="text-2xl mb-3">🤖</div>
+            <h3 class="font-semibold mb-2">AI systems</h3>
+            <p class="text-sm text-skin-base/70">Agents, evals, workflow design, and what breaks when AI hits production reality.</p>
+          </a>
+          <a href="/tags/autonomy" class="block p-5 bg-background/65 border border-accent/15 rounded-xl hover:border-accent/40 hover:bg-background/80 transition-all backdrop-blur-sm">
+            <div class="text-2xl mb-3">🚗</div>
+            <h3 class="font-semibold mb-2">Autonomy</h3>
+            <p class="text-sm text-skin-base/70">Signals, constraints, and where real progress is happening beyond the marketing layer.</p>
+          </a>
+          <a href="/tags/integration-architecture" class="block p-5 bg-background/65 border border-accent/15 rounded-xl hover:border-accent/40 hover:bg-background/80 transition-all backdrop-blur-sm">
+            <div class="text-2xl mb-3">⚡</div>
+            <h3 class="font-semibold mb-2">Systems & integration</h3>
+            <p class="text-sm text-skin-base/70">Architecture patterns, platform tradeoffs, and the complexity that actually matters.</p>
+          </a>
         </div>
-      </div>
-    </section>
-
-    <Hr />
-
-    <section class="py-12">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-xl font-semibold">Start here</h2>
-        <LinkButton href="/posts/">
-          Browse everything
-          <IconArrowRight class="inline-block" />
-        </LinkButton>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-4">
-        <a href="/tags/ai" class="block p-5 bg-skin-fill/30 border border-skin-line rounded-xl hover:border-accent/50 hover:bg-skin-fill/50 transition-all">
-          <h3 class="font-semibold mb-2">AI systems</h3>
-          <p class="text-sm text-skin-base/70">Agents, evals, workflow design, and what breaks when AI hits production reality.</p>
-        </a>
-        <a href="/tags/autonomy" class="block p-5 bg-skin-fill/30 border border-skin-line rounded-xl hover:border-accent/50 hover:bg-skin-fill/50 transition-all">
-          <h3 class="font-semibold mb-2">Autonomy</h3>
-          <p class="text-sm text-skin-base/70">Signals, constraints, and where real progress is happening beyond the marketing layer.</p>
-        </a>
-        <a href="/tags/integration-architecture" class="block p-5 bg-skin-fill/30 border border-skin-line rounded-xl hover:border-accent/50 hover:bg-skin-fill/50 transition-all">
-          <h3 class="font-semibold mb-2">Systems & integration</h3>
-          <p class="text-sm text-skin-base/70">Architecture patterns, platform tradeoffs, and the complexity that actually matters.</p>
-        </a>
       </div>
     </section>
 
