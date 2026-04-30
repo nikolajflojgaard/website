@@ -49,12 +49,39 @@ const featuredProjects = [
   },
 ];
 
+const jasonPrinciples = [
+  "Useful beats impressive.",
+  "Systems beat one-off hacks.",
+  "Clarity beats fluff.",
+  "Shipping beats endless planning.",
+  "Good taste matters.",
+  "AI is only valuable when it survives real workflows.",
+];
+
+const jasonCapabilities = [
+  "Shape product ideas into sharper, more buildable directions.",
+  "Write and edit with a more human, less synthetic cadence.",
+  "Build and ship changes across code, content, and automation systems.",
+  "Structure workflows, task routing, and operational glue.",
+  "Connect systems and reduce the chaos that grows between teams, tools, and abstractions.",
+];
+
+const jasonBuiltTogether = [
+  "Household Chores",
+  "Home Brief",
+  "This website and its positioning/content system",
+  "Workflow and memory systems",
+  "Automation and integration experiments",
+];
+
+const jasonLimits = [
+  "Not a replacement for deep domain ownership.",
+  "Not magic when the underlying system is messy and nobody wants to decide.",
+  "Not a substitute for real taste if nobody curates the output.",
+  "Less useful when goals stay vague on purpose.",
+];
+
 const experiments = [
-  {
-    name: "Working With Jason",
-    summary:
-      "A practical AI collaboration model shaped around systems thinking, writing, product direction, execution, and actual delivery instead of chatbot theatre.",
-  },
   {
     name: "Family Ops",
     summary:
@@ -123,13 +150,56 @@ const experiments = [
       </div>
     </section>
 
+    <section class="mb-12 rounded-2xl border border-border bg-background/70 p-6 sm:p-8">
+      <div class="mb-6">
+        <h2 class="text-2xl font-semibold">Working With Jason</h2>
+        <p class="mt-2 max-w-2xl text-sm leading-7 text-foreground/72">
+          A practical AI collaboration model shaped around systems thinking, writing, product direction, execution, and actual delivery instead of chatbot theatre.
+        </p>
+      </div>
+
+      <div class="mb-6 grid gap-4 md:grid-cols-2">
+        <div class="rounded-xl border border-border bg-muted/20 p-5">
+          <h3 class="mb-3 font-semibold">How Jason thinks</h3>
+          <ul class="list-disc space-y-1 pl-5 text-sm leading-7 text-foreground/72">
+            {jasonPrinciples.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+        <div class="rounded-xl border border-border bg-muted/20 p-5">
+          <h3 class="mb-3 font-semibold">What Jason can do</h3>
+          <ul class="list-disc space-y-1 pl-5 text-sm leading-7 text-foreground/72">
+            {jasonCapabilities.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+
+      <div class="mb-6 grid gap-4 md:grid-cols-2">
+        <div class="rounded-xl border border-border bg-muted/20 p-5">
+          <h3 class="mb-3 font-semibold">What we have built together</h3>
+          <ul class="list-disc space-y-1 pl-5 text-sm leading-7 text-foreground/72">
+            {jasonBuiltTogether.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+        <div class="rounded-xl border border-border bg-muted/20 p-5">
+          <h3 class="mb-3 font-semibold">Where it is less useful</h3>
+          <ul class="list-disc space-y-1 pl-5 text-sm leading-7 text-foreground/72">
+            {jasonLimits.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+
+      <p class="text-sm leading-7 text-foreground/72">
+        The useful version of this is not “talk to a chatbot.” It is having a system that can think across writing, product direction, architecture, workflows, and execution without losing the thread every five minutes. The point is leverage, not novelty.
+      </p>
+    </section>
+
     <section class="mb-12">
       <div class="mb-6">
         <h2 class="text-2xl font-semibold">Experiments</h2>
         <p class="mt-2 text-sm text-foreground/65">Smaller bets, evolving systems, and things that are still becoming clearer.</p>
       </div>
 
-      <div class="grid gap-4 md:grid-cols-2">
+      <div class="grid gap-4 md:grid-cols-3">
         {experiments.map((experiment) => (
           <article class="rounded-2xl border border-border bg-muted/20 p-5">
             <h3 class="mb-2 font-semibold">{experiment.name}</h3>
