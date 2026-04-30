@@ -164,7 +164,6 @@ const workLanes = [
         <div class="grid gap-4 md:grid-cols-3">
           {selectedWriting.map((item) => (
             <a href={item.href} class="block rounded-2xl border border-accent/15 bg-background/70 p-5 transition-all hover:border-accent/40 hover:bg-background/85">
-              <div class="mb-3 text-xs font-medium uppercase tracking-[0.14em] text-accent/80">Selected lane</div>
               <h3 class="mb-2 font-semibold">{item.title}</h3>
               <p class="mb-4 text-sm leading-7 text-skin-base/70">{item.description}</p>
               <p class="text-sm font-medium text-foreground/85">{item.article}</p>
