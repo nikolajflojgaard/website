@@ -56,31 +56,33 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
     
     {/* Hero */}
     <section id="hero" class="pt-6 pb-10">
-      <div class="flex flex-col sm:flex-row items-start gap-5 sm:gap-6">
-        <a href="/about" class="block mx-auto sm:mx-0 group">
-          <img 
-            src="/hero.png" 
-            alt={SITE.title}
-            class="w-32 h-32 rounded-full object-cover flex-shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
-          />
-        </a>
-        <div class="flex-1 text-center sm:text-left pt-1">
-          <h1 class="my-2 inline-block max-w-3xl text-3xl font-bold tracking-tight sm:my-3 sm:text-4xl sm:leading-tight">
-            Hi, I'm {SITE.title}.
-          </h1>
-          <p class="max-w-2xl text-base leading-8 text-skin-base/82">
-            {SITE.desc}
-          </p>
-          <p class="mt-3 max-w-2xl text-sm leading-7 text-skin-base/62">
-            Less hype, more systems thinking: practical notes on enterprise integration, agentic workflows, autonomy, and the infrastructure behind what actually works.
-          </p>
-          {
-            SOCIALS.filter((social) => social.active).length > 0 && (
-              <div class="mt-4 flex flex-row items-center justify-center sm:justify-start">
-                <Socials />
-              </div>
-            )
-          }
+      <div class="rounded-3xl border border-accent/15 bg-gradient-to-br from-accent/8 via-background to-background p-5 sm:p-6">
+        <div class="flex flex-col sm:flex-row items-start gap-5 sm:gap-6">
+          <a href="/about" class="block mx-auto sm:mx-0 group">
+            <img 
+              src="/hero.png" 
+              alt={SITE.title}
+              class="w-32 h-32 rounded-full object-cover flex-shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
+            />
+          </a>
+          <div class="flex-1 text-center sm:text-left pt-1">
+            <h1 class="my-2 inline-block max-w-3xl text-3xl font-bold tracking-tight sm:my-3 sm:text-4xl sm:leading-tight">
+              Hi, I'm {SITE.title}.
+            </h1>
+            <p class="max-w-2xl text-base leading-8 text-skin-base/82">
+              {SITE.desc}
+            </p>
+            <p class="mt-3 max-w-2xl text-sm leading-7 text-skin-base/62">
+              Less hype, more systems thinking: practical notes on enterprise integration, agentic workflows, autonomy, and the infrastructure behind what actually works.
+            </p>
+            {
+              SOCIALS.filter((social) => social.active).length > 0 && (
+                <div class="mt-4 flex flex-row items-center justify-center sm:justify-start">
+                  <Socials />
+                </div>
+              )
+            }
+          </div>
         </div>
       </div>
     </section>
