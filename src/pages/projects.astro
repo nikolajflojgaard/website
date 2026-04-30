@@ -1,6 +1,8 @@
 ---
+import ContentSection from "@/components/ContentSection.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
+import InfoCard from "@/components/InfoCard.astro";
 import { SITE } from "@/config";
 import Layout from "@/layouts/Layout.astro";
 
@@ -110,15 +112,13 @@ const experiments = [
       </p>
     </section>
 
-    <section class="mb-12">
-      <div class="mb-6">
-        <h2 class="text-2xl font-semibold">Featured projects</h2>
-        <p class="mt-2 text-sm text-foreground/65">The stronger examples of how I think, build, and ship.</p>
-      </div>
-
+    <ContentSection
+      title="Featured projects"
+      description="The stronger examples of how I think, build, and ship."
+    >
       <div class="space-y-5">
         {featuredProjects.map((project, index) => (
-          <article class="rounded-2xl border border-border bg-background/70 p-6">
+          <InfoCard>
             <div class="mb-3 flex flex-wrap items-center gap-3">
               <span class="inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-accent/12 px-3 text-sm font-semibold text-accent">
                 {index + 1}
@@ -145,78 +145,67 @@ const experiments = [
                 </a>
               ))}
             </div>
-          </article>
+          </InfoCard>
         ))}
       </div>
-    </section>
+    </ContentSection>
 
-    <section class="mb-12 rounded-2xl border border-border bg-background/70 p-6 sm:p-8">
-      <div class="mb-6">
-        <h2 class="text-2xl font-semibold">Working With Jason</h2>
-        <p class="mt-2 max-w-2xl text-sm leading-7 text-foreground/72">
-          A practical AI collaboration model shaped around systems thinking, writing, product direction, execution, and actual delivery instead of chatbot theatre.
-        </p>
-      </div>
-
+    <ContentSection
+      title="Working With Jason"
+      description="A practical AI collaboration model shaped around systems thinking, writing, product direction, execution, and actual delivery instead of chatbot theatre."
+      className="rounded-2xl border border-border bg-background/70 p-6 sm:p-8"
+    >
       <div class="mb-6 grid gap-4 md:grid-cols-2">
-        <div class="rounded-xl border border-border bg-muted/20 p-5">
-          <h3 class="mb-3 font-semibold">How Jason thinks</h3>
-          <ul class="list-disc space-y-1 pl-5 text-sm leading-7 text-foreground/72">
+        <InfoCard title="How Jason thinks" className="bg-muted/20 p-5" bodyClassName="text-sm leading-7 text-foreground/72">
+          <ul class="list-disc space-y-1 pl-5">
             {jasonPrinciples.map((item) => <li>{item}</li>)}
           </ul>
-        </div>
-        <div class="rounded-xl border border-border bg-muted/20 p-5">
-          <h3 class="mb-3 font-semibold">What Jason can do</h3>
-          <ul class="list-disc space-y-1 pl-5 text-sm leading-7 text-foreground/72">
+        </InfoCard>
+        <InfoCard title="What Jason can do" className="bg-muted/20 p-5" bodyClassName="text-sm leading-7 text-foreground/72">
+          <ul class="list-disc space-y-1 pl-5">
             {jasonCapabilities.map((item) => <li>{item}</li>)}
           </ul>
-        </div>
+        </InfoCard>
       </div>
 
       <div class="mb-6 grid gap-4 md:grid-cols-2">
-        <div class="rounded-xl border border-border bg-muted/20 p-5">
-          <h3 class="mb-3 font-semibold">What we have built together</h3>
-          <ul class="list-disc space-y-1 pl-5 text-sm leading-7 text-foreground/72">
+        <InfoCard title="What we have built together" className="bg-muted/20 p-5" bodyClassName="text-sm leading-7 text-foreground/72">
+          <ul class="list-disc space-y-1 pl-5">
             {jasonBuiltTogether.map((item) => <li>{item}</li>)}
           </ul>
-        </div>
-        <div class="rounded-xl border border-border bg-muted/20 p-5">
-          <h3 class="mb-3 font-semibold">Where it is less useful</h3>
-          <ul class="list-disc space-y-1 pl-5 text-sm leading-7 text-foreground/72">
+        </InfoCard>
+        <InfoCard title="Where it is less useful" className="bg-muted/20 p-5" bodyClassName="text-sm leading-7 text-foreground/72">
+          <ul class="list-disc space-y-1 pl-5">
             {jasonLimits.map((item) => <li>{item}</li>)}
           </ul>
-        </div>
+        </InfoCard>
       </div>
 
       <p class="text-sm leading-7 text-foreground/72">
         The useful version of this is not “talk to a chatbot.” It is having a system that can think across writing, product direction, architecture, workflows, and execution without losing the thread every five minutes. The point is leverage, not novelty.
       </p>
-    </section>
+    </ContentSection>
 
-    <section class="mb-12">
-      <div class="mb-6">
-        <h2 class="text-2xl font-semibold">Experiments</h2>
-        <p class="mt-2 text-sm text-foreground/65">Smaller bets, evolving systems, and things that are still becoming clearer.</p>
-      </div>
-
+    <ContentSection
+      title="Experiments"
+      description="Smaller bets, evolving systems, and things that are still becoming clearer."
+    >
       <div class="grid gap-4 md:grid-cols-3">
         {experiments.map((experiment) => (
-          <article class="rounded-2xl border border-border bg-muted/20 p-5">
-            <h3 class="mb-2 font-semibold">{experiment.name}</h3>
-            <p class="text-sm leading-7 text-foreground/72">{experiment.summary}</p>
-          </article>
+          <InfoCard title={experiment.name} className="bg-muted/20 p-5" bodyClassName="text-sm leading-7 text-foreground/72">
+            <p>{experiment.summary}</p>
+          </InfoCard>
         ))}
       </div>
-    </section>
+    </ContentSection>
 
-    <section>
-      <div class="rounded-2xl border border-border bg-background/60 p-6">
-        <h2 class="text-2xl font-semibold">What these projects have in common</h2>
-        <p class="mt-4 text-base leading-8 text-foreground/80">
+    <ContentSection title="What these projects have in common" className="mb-0">
+      <InfoCard className="bg-background/60">
+        <p class="text-base leading-8 text-foreground/80">
           They all sit somewhere near the same center of gravity: systems thinking, practical automation, architecture that survives reality, and a bias toward useful over flashy.
         </p>
-      </div>
-    </section>
+      </InfoCard>
+    </ContentSection>
   </main>
   <Footer />
 </Layout>
