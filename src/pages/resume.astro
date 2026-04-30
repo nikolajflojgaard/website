@@ -92,17 +92,18 @@ const education = [
 ];
 ---
 
-<Layout title={`Resume | ${SITE.title}`} description={`Resume for ${SITE.title}`}>
+<Layout title={`Work | ${SITE.title}`} description={`Professional background and experience for ${SITE.title}`}>
   <Header />
   <Main
-    pageTitle="Resume"
-    pageDesc="Senior Integration Architect focused on scalable architecture, pragmatic delivery, and modern automation."
+    pageTitle="Work"
+    pageDesc="Enterprise architecture, integration leadership, and production-minded delivery across telecom and complex systems."
   >
-    <section class="mb-6 rounded-lg border border-border bg-muted/30 p-5">
-      <p class="mb-4 leading-7">
-        I build integration architecture that is simple, adaptable, and operationally strong.
-        I focus on creating long-term value through clear design decisions, quality standards,
-        and high-performing collaboration across business and engineering.
+    <section class="mb-6 rounded-xl border border-border bg-muted/30 p-6">
+      <p class="mb-4 text-base leading-8">
+        I work on architecture, integration, and delivery in environments where complexity is real, dependencies are ugly, and systems still need to hold up in production.
+      </p>
+      <p class="mb-4 text-base leading-8">
+        Most of my experience sits at the intersection of enterprise architecture, integration strategy, platform decisions, and the practical work of turning large system landscapes into something more scalable, maintainable, and operationally sane.
       </p>
       <div class="flex flex-wrap gap-3">
         <a
@@ -129,12 +130,31 @@ const education = [
       </div>
     </section>
 
+    <section class="mb-8 grid gap-4 md:grid-cols-3">
+      <div class="rounded-xl border border-border bg-background p-5">
+        <h2 class="mb-3 text-lg font-semibold">What I do well</h2>
+        <ul class="list-disc space-y-1 pl-5 text-sm leading-6">
+          <li>Integration and platform architecture</li>
+          <li>Target-state design and roadmap shaping</li>
+          <li>Cross-team technical leadership</li>
+          <li>Process and delivery simplification</li>
+          <li>Making complex systems more survivable</li>
+        </ul>
+      </div>
+      <div class="rounded-xl border border-border bg-background p-5 md:col-span-2">
+        <h2 class="mb-3 text-lg font-semibold">What kind of problems I tend to work on</h2>
+        <p class="text-sm leading-7 opacity-85">
+          Large integration landscapes, order and fulfilment flows, API strategy, platform choice, architecture governance, delivery quality, and the gap between what looks good on paper and what actually survives operational reality.
+        </p>
+      </div>
+    </section>
+
     <section class="mb-8">
       <h2 class="mb-4 text-xl font-semibold">Experience</h2>
       <ol class="space-y-4">
         {
           experience.map((job) => (
-            <li class="rounded-lg border border-border bg-background p-5">
+            <li class="rounded-xl border border-border bg-background p-5">
               <div class="flex flex-wrap items-baseline justify-between gap-2">
                 <h3 class="text-base font-semibold">{job.role}</h3>
                 <p class="text-sm opacity-80">{job.period}</p>
