@@ -132,6 +132,11 @@ const education = [
 
     <section class="mb-8 grid gap-4 md:grid-cols-3">
       <div class="rounded-xl border border-border bg-background p-5">
+        <div class="mb-3">
+          <span class="inline-flex items-center rounded-full border border-border/70 bg-muted/25 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-foreground/65">
+            Strengths
+          </span>
+        </div>
         <h2 class="mb-3 text-lg font-semibold">What I do well</h2>
         <ul class="list-disc space-y-1 pl-5 text-sm leading-6">
           <li>Integration and platform architecture</li>
@@ -143,6 +148,11 @@ const education = [
         </ul>
       </div>
       <div class="rounded-xl border border-border bg-background p-5 md:col-span-2">
+        <div class="mb-3">
+          <span class="inline-flex items-center rounded-full border border-border/70 bg-muted/25 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-foreground/65">
+            Problem space
+          </span>
+        </div>
         <h2 class="mb-3 text-lg font-semibold">What kind of problems I tend to work on</h2>
         <p class="text-sm leading-7 opacity-85">
           Large integration landscapes, order and fulfilment flows, enterprise platform modernization, API strategy, architecture governance, large-scale company transformation programs, delivery quality, and the gap between what looks good on paper and what actually survives operational reality.
@@ -160,7 +170,9 @@ const education = [
                 <h3 class="text-base font-semibold">{job.role}</h3>
                 <p class="text-sm opacity-80">{job.period}</p>
               </div>
-              <p class="mb-3 text-sm opacity-80">{job.company}</p>
+              <div class="mb-3 mt-1 flex items-center gap-3">
+                <p class="text-sm opacity-80">{job.company}</p>
+              </div>
               <ul class="list-disc space-y-1 pl-5 text-sm leading-6">
                 {job.highlights.map((item) => <li>{item}</li>)}
               </ul>
