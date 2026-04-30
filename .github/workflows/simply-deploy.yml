@@ -50,6 +50,7 @@ jobs:
             set ftp:ssl-protect-data true;
             set ssl:verify-certificate no;
             open -u $USER,$PASS ftp://$HOST:$PORT;
-            mirror -R --delete --verbose dist/ $REMOTE_DIR;
+            mkdir -p $REMOTE_DIR;
+            mirror -R --verbose --only-newer dist/ $REMOTE_DIR;
             bye
           "

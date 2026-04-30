@@ -26,7 +26,7 @@ npm run build
 if [[ -n "${SIMPLY_SFTP_HOST:-}" && -n "${SIMPLY_SFTP_USER:-}" && -n "${SIMPLY_SFTP_PASS:-}" && -n "${SIMPLY_REMOTE_DIR:-}" ]]; then
   require_cmd lftp
   PORT="${SIMPLY_SFTP_PORT:-21}"
-  log "Deploying dist/ directly to Simply over FTPS"
+  log "Deploying dist/ to Simply over FTPS without destructive delete"
   lftp -e "
     set ftp:passive-mode true;
     set ftp:ssl-allow yes;
@@ -34,7 +34,8 @@ if [[ -n "${SIMPLY_SFTP_HOST:-}" && -n "${SIMPLY_SFTP_USER:-}" && -n "${SIMPLY_S
     set ftp:ssl-protect-data true;
     set ssl:verify-certificate no;
     open -u ${SIMPLY_SFTP_USER},${SIMPLY_SFTP_PASS} ftp://${SIMPLY_SFTP_HOST}:${PORT};
-    mirror -R --delete --verbose dist/ ${SIMPLY_REMOTE_DIR};
+    mkdir -p ${SIMPLY_REMOTE_DIR};
+    mirror -R --verbose --only-newer dist/ ${SIMPLY_REMOTE_DIR};
     bye
   "
   log "Deploy complete via Simply FTPS"
