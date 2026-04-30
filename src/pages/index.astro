@@ -65,23 +65,6 @@ const guidedPaths = [
   },
 ];
 
-const themes = [
-  {
-    title: "Transformation",
-    body: "Architecture, operating-model friction, integration complexity, and the ugly tradeoffs that appear when big companies try to change without breaking the core business.",
-    href: "/resume",
-  },
-  {
-    title: "AI systems",
-    body: "What happens when AI leaves the demo stage and has to work through tools, permissions, brittle context, governance, and production reality.",
-    href: "/tags/ai",
-  },
-  {
-    title: "Applied software",
-    body: "Home Assistant tooling, workflow automation, content systems, and experiments designed to survive actual use instead of just looking clever.",
-    href: "/projects",
-  },
-];
 ---
 
 <Layout description={SITE.desc}>
@@ -146,32 +129,6 @@ const themes = [
             <h3 class="mb-2 font-semibold">{path.title}</h3>
             <p class="mb-4 text-sm leading-7 text-skin-base/70">{path.description}</p>
             <p class="text-sm font-medium text-foreground/85">{path.article}</p>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <Hr />
-
-    <section class="py-10">
-      <div class="mb-5 flex items-center justify-between">
-        <div>
-          <h2 class="text-xl font-semibold">Core themes</h2>
-          <p class="mt-2 max-w-2xl text-sm leading-7 text-skin-base/70">
-            These are the three themes the rest of the site keeps orbiting around.
-          </p>
-        </div>
-        <LinkButton href="/about" class="text-sm">
-          More about me
-          <IconArrowRight class="inline-block" />
-        </LinkButton>
-      </div>
-
-      <div class="grid gap-4 md:grid-cols-3">
-        {themes.map((theme) => (
-          <a href={theme.href} class="rounded-2xl border border-skin-line bg-skin-fill/25 p-5 transition-all hover:border-accent/35 hover:bg-skin-fill/40">
-            <h3 class="mb-2 font-semibold">{theme.title}</h3>
-            <p class="text-sm leading-7 text-skin-base/70">{theme.body}</p>
           </a>
         ))}
       </div>
