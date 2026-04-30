@@ -55,25 +55,27 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
   <main id="main-content" data-layout="index">
     
     {/* Hero */}
-    <section id="hero" class="pt-6 pb-8">
-      <div class="flex flex-col sm:flex-row items-start gap-4">
-        <a href="/about" class="block mx-auto sm:mx-0 group">
-          <img 
-            src="/hero.png" 
-            alt={SITE.title}
-            class="w-32 h-32 rounded-full object-cover flex-shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
-          />
-        </a>
-        <div class="flex-1 text-center sm:text-left">
-          <h1 class="my-2 inline-block text-2xl font-bold sm:my-3 sm:text-3xl">
-            Hi, I'm {SITE.title}.
-          </h1>
-          <p class="text-skin-base/80 max-w-2xl">
-            {SITE.desc}
-          </p>
-          <p class="mt-3 text-sm text-skin-base/65 max-w-2xl">
-            Less hype, more systems thinking: practical notes on enterprise integration, agentic workflows, and autonomy from the edge of real-world implementation.
-          </p>
+    <section id="hero" class="pt-6 pb-10">
+      <div class="rounded-3xl border border-accent/15 bg-gradient-to-br from-accent/8 via-background to-background p-6 sm:p-8">
+        <div class="flex flex-col sm:flex-row items-start gap-5">
+          <a href="/about" class="block mx-auto sm:mx-0 group">
+            <img 
+              src="/hero.png" 
+              alt={SITE.title}
+              class="w-32 h-32 rounded-full object-cover flex-shrink-0 border border-accent/20 transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
+            />
+          </a>
+          <div class="flex-1 text-center sm:text-left">
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-accent/80">Nikolaj Fløjgaard</p>
+            <h1 class="mt-3 inline-block text-3xl font-bold tracking-tight sm:text-4xl">
+              Architecture, AI, and systems that have to survive reality.
+            </h1>
+            <p class="mt-4 text-skin-base/80 max-w-2xl text-base leading-8">
+              {SITE.desc}
+            </p>
+            <p class="mt-3 text-sm text-skin-base/65 max-w-2xl leading-7">
+              Less hype, more systems thinking: practical notes on enterprise integration, agentic workflows, and autonomy from the edge of real-world implementation.
+            </p>
           {
             SOCIALS.filter((social) => social.active).length > 0 && (
               <div class="mt-3 flex flex-row items-center justify-center sm:justify-start">
@@ -81,6 +83,7 @@ const featuredPosts = sortedPosts.slice(0, 3).map(post => ({
               </div>
             )
           }
+          </div>
         </div>
       </div>
     </section>
