@@ -90,14 +90,17 @@ const themes = [
   {
     title: "Transformation",
     body: "Architecture, operating-model friction, integration complexity, and the ugly tradeoffs that appear when big companies try to change without breaking the core business.",
+    href: "/resume",
   },
   {
     title: "AI systems",
     body: "What happens when AI leaves the demo stage and has to work through tools, permissions, brittle context, governance, and production reality.",
+    href: "/tags/ai",
   },
   {
     title: "Applied software",
     body: "Home Assistant tooling, workflow automation, content systems, and experiments designed to survive actual use instead of just looking clever.",
+    href: "/projects",
   },
 ];
 ---
@@ -186,10 +189,10 @@ const themes = [
 
       <div class="grid gap-4 md:grid-cols-3">
         {themes.map((theme) => (
-          <div class="rounded-2xl border border-skin-line bg-skin-fill/25 p-5">
+          <a href={theme.href} class="rounded-2xl border border-skin-line bg-skin-fill/25 p-5 transition-all hover:border-accent/35 hover:bg-skin-fill/40">
             <h3 class="mb-2 font-semibold">{theme.title}</h3>
             <p class="text-sm leading-7 text-skin-base/70">{theme.body}</p>
-          </div>
+          </a>
         ))}
       </div>
     </section>

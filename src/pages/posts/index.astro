@@ -55,13 +55,21 @@ const selectedTopics = [
       </div>
     </section>
 
-    <section class="mb-10 grid gap-4 md:grid-cols-3">
-      {selectedTopics.map((topic) => (
-        <a href={topic.href} class="rounded-2xl border border-border bg-background/70 p-5 transition-all hover:border-accent/35 hover:bg-background/90">
-          <h2 class="mb-2 text-base font-semibold">{topic.title}</h2>
-          <p class="text-sm leading-7 text-foreground/72">{topic.body}</p>
-        </a>
-      ))}
+    <section class="mb-10">
+      <div class="mb-4 flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold">Browse by topic</h2>
+          <p class="mt-2 text-sm leading-7 text-foreground/70">Start from a theme if you do not want a pure chronological archive.</p>
+        </div>
+      </div>
+      <div class="grid gap-4 md:grid-cols-3">
+        {selectedTopics.map((topic) => (
+          <a href={topic.href} class="rounded-2xl border border-border bg-background/70 p-5 transition-all hover:border-accent/35 hover:bg-background/90">
+            <h2 class="mb-2 text-base font-semibold">{topic.title}</h2>
+            <p class="text-sm leading-7 text-foreground/72">{topic.body}</p>
+          </a>
+        ))}
+      </div>
     </section>
 
     {posts.length === 0 && linkedIn && (

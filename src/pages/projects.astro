@@ -147,14 +147,14 @@ const experiments = [
 
             <p class="text-base leading-8 text-foreground/84">{project.summary}</p>
 
-            <div class="mt-5 grid gap-4 md:grid-cols-2">
-              <div class="rounded-xl border border-border/70 bg-muted/18 p-4">
-                <h4 class="mb-2 text-sm font-semibold uppercase tracking-[0.12em] text-foreground/60">Role</h4>
-                <p class="text-sm leading-7 text-foreground/74">{project.role}</p>
+            <div class="mt-5 flex flex-wrap gap-3 text-sm leading-7 text-foreground/72">
+              <div class="inline-flex max-w-full items-start gap-2 rounded-full border border-border/70 bg-muted/18 px-3 py-1.5">
+                <span class="font-semibold text-foreground">Role:</span>
+                <span>{project.role}</span>
               </div>
-              <div class="rounded-xl border border-border/70 bg-muted/18 p-4">
-                <h4 class="mb-2 text-sm font-semibold uppercase tracking-[0.12em] text-foreground/60">Constraint</h4>
-                <p class="text-sm leading-7 text-foreground/74">{project.constraints}</p>
+              <div class="inline-flex max-w-full items-start gap-2 rounded-full border border-border/70 bg-muted/18 px-3 py-1.5">
+                <span class="font-semibold text-foreground">Constraint:</span>
+                <span>{project.constraints}</span>
               </div>
             </div>
 
