@@ -51,6 +51,11 @@ const featuredProjects = [
 
 const experiments = [
   {
+    name: "Working With Jason",
+    summary:
+      "A practical AI collaboration model shaped around systems thinking, writing, product direction, execution, and actual delivery instead of chatbot theatre.",
+  },
+  {
     name: "Family Ops",
     summary:
       "A mobile-first family logistics and smart scheduling concept built around modular building blocks instead of a tightly coupled mess.",
@@ -124,7 +129,7 @@ const experiments = [
         <p class="mt-2 text-sm text-foreground/65">Smaller bets, evolving systems, and things that are still becoming clearer.</p>
       </div>
 
-      <div class="grid gap-4 md:grid-cols-3">
+      <div class="grid gap-4 md:grid-cols-2">
         {experiments.map((experiment) => (
           <article class="rounded-2xl border border-border bg-muted/20 p-5">
             <h3 class="mb-2 font-semibold">{experiment.name}</h3>
