@@ -127,29 +127,27 @@ const themes = [
     <Hr />
 
     <section class="py-10">
-      <div class="rounded-2xl border border-accent/18 bg-gradient-to-br from-accent/10 to-accent/5 p-6 sm:p-8">
-        <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 class="text-xl font-semibold">Start from the right path</h2>
-            <p class="mt-2 max-w-2xl text-sm text-skin-base/70">
-              Different people land here for different reasons. This should make that easier.
-            </p>
-          </div>
-          <LinkButton href="/posts/" class="text-sm">
-            Browse everything
-            <IconArrowRight class="inline-block" />
-          </LinkButton>
+      <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 class="text-xl font-semibold">Start from the right path</h2>
+          <p class="mt-2 max-w-2xl text-sm text-skin-base/70">
+            Different people land here for different reasons. This should make that easier.
+          </p>
         </div>
+        <LinkButton href="/posts/" class="text-sm">
+          Browse everything
+          <IconArrowRight class="inline-block" />
+        </LinkButton>
+      </div>
 
-        <div class="grid gap-4 md:grid-cols-3">
-          {guidedPaths.map((path) => (
-            <a href={path.href} class="block rounded-2xl border border-accent/15 bg-background/70 p-5 transition-all hover:border-accent/40 hover:bg-background/85">
-              <h3 class="mb-2 font-semibold">{path.title}</h3>
-              <p class="mb-4 text-sm leading-7 text-skin-base/70">{path.description}</p>
-              <p class="text-sm font-medium text-foreground/85">{path.article}</p>
-            </a>
-          ))}
-        </div>
+      <div class="grid gap-4 md:grid-cols-3">
+        {guidedPaths.map((path) => (
+          <a href={path.href} class="block rounded-2xl border border-border bg-background/70 p-5 transition-all hover:border-accent/40 hover:bg-background/85">
+            <h3 class="mb-2 font-semibold">{path.title}</h3>
+            <p class="mb-4 text-sm leading-7 text-skin-base/70">{path.description}</p>
+            <p class="text-sm font-medium text-foreground/85">{path.article}</p>
+          </a>
+        ))}
       </div>
     </section>
 
