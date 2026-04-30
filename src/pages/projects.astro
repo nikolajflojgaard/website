@@ -86,16 +86,19 @@ const jasonLimits = [
 const experiments = [
   {
     name: "Family Ops",
+    label: "Concept",
     summary:
       "A mobile-first family logistics and smart scheduling concept built around modular building blocks instead of a tightly coupled mess.",
   },
   {
     name: "Agentic workflow experiments",
+    label: "AI Systems",
     summary:
       "Ongoing work around AI-assisted workflows, orchestration, memory, task routing, and the gap between impressive demos and dependable systems.",
   },
   {
     name: "Publishing and content systems",
+    label: "Publishing",
     summary:
       "The site itself is also an evolving experiment in structured publishing, better content packaging, and building a cleaner system around writing.",
   },
@@ -125,7 +128,7 @@ const experiments = [
               </span>
               <h3 class="text-xl font-semibold">{project.name}</h3>
               {project.homeAssistant && (
-                <span class="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700 dark:border-sky-900/60 dark:bg-sky-950/50 dark:text-sky-300">
+                <span class="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.12em] text-sky-700 dark:border-sky-900/60 dark:bg-sky-950/50 dark:text-sky-300">
                   Home Assistant
                 </span>
               )}
@@ -193,6 +196,11 @@ const experiments = [
       <div class="grid gap-4 md:grid-cols-3">
         {experiments.map((experiment) => (
           <InfoCard title={experiment.name} className="bg-muted/20 p-5" bodyClassName="text-sm leading-7 text-foreground/72">
+            <div class="mb-3">
+              <span class="inline-flex items-center rounded-full border border-border/70 bg-background/85 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-foreground/65">
+                {experiment.label}
+              </span>
+            </div>
             <p>{experiment.summary}</p>
           </InfoCard>
         ))}
