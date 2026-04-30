@@ -1,0 +1,160 @@
+---
+title: "Home Brief turns Home Assistant daily briefs into something that actually persists"
+description: "A practical write-up of Home Brief, a Home Assistant integration that generates useful house summaries and supports a proper published daily brief instead of one-shot AI output."
+pubDatetime: 2026-04-30T09:45:00.000Z
+tags:
+  - home-assistant
+  - automation
+  - ai
+  - software
+  - productivity
+heroImage: "/images/home-brief-daily-brief.svg"
+ogImage: "https://nikolajflojgaard.me/images/home-brief-daily-brief.svg"
+source: "nikolajflojgaard.me"
+---
+
+Most AI summaries have a short half-life.
+
+They appear once, look clever for ten seconds, and then disappear into a chat window nobody is going to revisit.
+
+That is fine for novelty. It is bad for household systems.
+
+That was the problem I wanted to solve with **Home Brief**.
+
+It is a Home Assistant integration built to turn a handful of live entity states into a short, useful house summary. But the more important part is not the summary itself. It is the architecture around it.
+
+The interesting version of a daily brief is not “the model can generate text.” The interesting version is when the output becomes stable enough to render on actual surfaces around the house without being recomputed every time someone opens a card.
+
+## What Home Brief does
+
+At a basic level, Home Brief turns Home Assistant state into a plain-English summary.
+
+That can include things like:
+
+- power is expensive right now
+- the washer has been done for a while
+- there is solar surplus right now
+- it is a good time to run heavy appliances
+- nobody is home but lights are still on
+- the house looks calm right now
+
+It creates:
+
+- a human-readable summary sensor
+- an insight count sensor
+- a Lovelace card
+- service endpoints for retrieving and publishing brief data
+- diagnostics output for setup and troubleshooting
+
+That alone is already more useful than a lot of dashboard clutter.
+
+## Why the first version was not enough
+
+The obvious trap with something like this is to generate the brief at read time.
+
+That sounds fine until you realize what it means in practice:
+
+- every card open becomes a mini runtime event
+- state can shift between reads
+- the output is not stable across surfaces
+- external workflows have nothing durable to publish into
+
+That is exactly the wrong shape for a real daily brief.
+
+A household morning brief should be generated once, published once, and then rendered consistently.
+
+So the architecture evolved.
+
+## The better model: generate once, publish, render from stored state
+
+Home Brief now supports a structured publish path through `home_brief.publish_morning_brief`.
+
+That matters because it separates **generation** from **rendering**.
+
+Instead of forcing the card to recompute the world every time it opens, an external runtime can:
+
+1. gather the relevant data
+2. build the brief payload once
+3. publish it into Home Brief
+4. let the card and sensors render the stored payload
+
+That is a much better system.
+
+It gives you:
+
+- a stable morning brief contract
+- cleaner rendering across surfaces
+- less fragile coupling between assistant runtime and UI
+- a better way to reason about freshness and published state
+
+Bluntly, this is the difference between “AI summary demo” and “something you can actually use in a house.”
+
+## What goes into the brief
+
+The exact payload can vary, but for my setup it includes a mix of:
+
+- household chores
+- Nikolaj-only chores
+- weather context
+- solar context
+- home load and energy signals
+- top actions and suggested next moves
+
+That gives the system enough signal to be useful without turning into a bloated dashboard.
+
+The point is not maximal information density. The point is useful signal in under 30 seconds.
+
+## Why Home Assistant is a good backbone for this
+
+This works because Home Assistant is already the state layer.
+
+It already knows about:
+
+- occupancy
+- lights
+- weather
+- power
+- solar
+- appliances
+- chores
+- dashboards
+- notifications
+
+So Home Brief does not need to invent a separate world. It can sit on top of a real home state model and turn that into something easier to scan.
+
+That is a much better use of AI-style summarization than generating more text for the sake of it.
+
+## What makes the project interesting
+
+There are a lot of ways to build something that looks smart.
+
+The part I care about is when the design survives operational reality.
+
+For Home Brief, that meant:
+
+- discovery that can improve without fighting user config
+- summary output that is readable by humans and usable by systems
+- a published daily-brief path instead of ephemeral one-shot generation
+- a Lovelace rendering layer that behaves like a real product surface, not just a dump of states
+
+That is also why I treat this as more than a dashboard widget.
+
+It is an interface layer for household state.
+
+## Where it fits
+
+Home Brief pairs naturally with things like Household Chores and a broader assistant workflow.
+
+One system handles tasks.
+Another turns mixed household state into a readable brief.
+The assistant can then operate across both.
+
+That is the right direction.
+
+Not isolated features. Connected systems.
+
+## GitHub
+
+If you want the code, the repository is here:
+
+[https://github.com/nikolajflojgaard/home-assistant-home-brief](https://github.com/nikolajflojgaard/home-assistant-home-brief)

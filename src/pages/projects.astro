@@ -7,6 +7,7 @@ import Layout from "@/layouts/Layout.astro";
 const featuredProjects = [
   {
     name: "Household Chores",
+    homeAssistant: true,
     summary:
       "A Home Assistant task system built for actual household coordination, not just another database with a nicer skin.",
     problem:
@@ -15,10 +16,12 @@ const featuredProjects = [
       "This project connects product thinking, Home Assistant, automation, and chat-based interaction into one practical system. It is a better example of full-stack systems design than a simple dashboard or toy app.",
     links: [
       { label: "Read the write-up", href: "/posts/2026/2026-03-31-household-chores-home-assistant-agent-tasks" },
+      { label: "GitHub", href: "https://github.com/nikolajflojgaard/household-chores" },
     ],
   },
   {
     name: "Home Brief",
+    homeAssistant: true,
     summary:
       "A Home Assistant integration for generating and rendering a persistent daily brief across assistant and dashboard surfaces.",
     problem:
@@ -26,11 +29,13 @@ const featuredProjects = [
     whyItMatters:
       "It bridges assistant output, structured payloads, and in-home presentation instead of treating AI as a one-shot message generator.",
     links: [
+      { label: "Read the write-up", href: "/posts/2026/2026-04-30-home-brief-home-assistant-daily-briefs-that-persist" },
       { label: "GitHub", href: "https://github.com/nikolajflojgaard/home-assistant-home-brief" },
     ],
   },
   {
     name: "Home Assistant HACS Template",
+    homeAssistant: true,
     summary:
       "A reusable foundation for building Home Assistant integrations faster without rewriting the same scaffolding every time.",
     problem:
@@ -38,7 +43,8 @@ const featuredProjects = [
     whyItMatters:
       "This is the kind of tooling work that compounds. It makes future integrations cleaner, faster to ship, and easier to maintain.",
     links: [
-      { label: "Read the post", href: "/posts/2026/2026-02-14-playing-around-with-home-assistant-maybe-this-template-is-for-you" },
+      { label: "Read the write-up", href: "/posts/2026/2026-02-14-playing-around-with-home-assistant-maybe-this-template-is-for-you" },
+      { label: "GitHub", href: "https://github.com/nikolajflojgaard/home-assistant-hacs-template" },
     ],
   },
 ];
@@ -81,11 +87,16 @@ const experiments = [
       <div class="space-y-5">
         {featuredProjects.map((project, index) => (
           <article class="rounded-2xl border border-border bg-background/70 p-6">
-            <div class="mb-3 flex items-center gap-3">
+            <div class="mb-3 flex flex-wrap items-center gap-3">
               <span class="inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-accent/12 px-3 text-sm font-semibold text-accent">
                 {index + 1}
               </span>
               <h3 class="text-xl font-semibold">{project.name}</h3>
+              {project.homeAssistant && (
+                <span class="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700 dark:border-sky-900/60 dark:bg-sky-950/50 dark:text-sky-300">
+                  Home Assistant
+                </span>
+              )}
             </div>
 
             <p class="text-base leading-8 text-foreground/84">{project.summary}</p>
@@ -95,15 +106,13 @@ const experiments = [
               <p><span class="font-semibold text-foreground">Why it matters:</span> {project.whyItMatters}</p>
             </div>
 
-            {project.links.length > 0 && (
-              <div class="mt-5 flex flex-wrap gap-3">
-                {project.links.map((link) => (
-                  <a href={link.href} class="inline-flex rounded-lg border border-border px-4 py-2 text-sm font-medium hover:text-accent">
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            )}
+            <div class="mt-5 flex flex-wrap gap-3">
+              {project.links.map((link) => (
+                <a href={link.href} class="inline-flex rounded-lg border border-border px-4 py-2 text-sm font-medium hover:text-accent">
+                  {link.label}
+                </a>
+              ))}
+            </div>
           </article>
         ))}
       </div>
