@@ -47,42 +47,21 @@ const featuredPosts = sortedPosts.slice(0, 3).map((post) => ({
 const guidedPaths = [
   {
     title: "Enterprise architecture and transformation",
-    body: "For people dealing with architecture, platform decisions, integration mess, and large-scale transformation pressure.",
+    description: "For people dealing with architecture, platform decisions, integration mess, and large-scale transformation pressure.",
     href: "/resume",
-    cta: "See work",
+    article: "See work",
   },
   {
     title: "AI systems and agentic workflows",
-    body: "For people trying to separate real operational AI from prompt theatre and demo energy.",
+    description: "For people trying to separate real operational AI from prompt theatre and demo energy.",
     href: "/tags/ai",
-    cta: "Explore AI writing",
+    article: "Explore AI writing",
   },
   {
     title: "Built systems and proof-of-work",
-    body: "For people who want to see actual artifacts, experiments, integrations, and product-shaped systems.",
+    description: "For people who want to see actual artifacts, experiments, integrations, and product-shaped systems.",
     href: "/projects",
-    cta: "See projects",
-  },
-];
-
-const selectedWriting = [
-  {
-    title: "Enterprise architecture",
-    description: "Architecture, transformation, and the system-level tradeoffs that matter when delivery gets real.",
-    href: "/posts/2026/2026-02-05-ai-doesn-t-replace-architecture-it-makes-good-architecture-non-negotiable",
-    article: "AI doesn’t replace architecture, it makes good architecture non-negotiable",
-  },
-  {
-    title: "AI systems in the wild",
-    description: "Less prompt-theatre, more operational reality: agents, constraints, controls, and what actually breaks.",
-    href: "/posts/2026/2026-03-17-most-enterprise-ai-still-feels-like-letting-a-very-confident-intern-loose-in-your-systems",
-    article: "Most enterprise AI still feels like letting a very confident intern loose in your systems",
-  },
-  {
-    title: "Built systems and experiments",
-    description: "Proof-of-work through real implementations, not just opinions about what someone should build.",
-    href: "/posts/2026/2026-03-31-household-chores-home-assistant-agent-tasks",
-    article: "Household Chores for Home Assistant",
+    article: "See projects",
   },
 ];
 
@@ -148,26 +127,29 @@ const themes = [
     <Hr />
 
     <section class="py-10">
-      <div class="mb-6 flex items-center justify-between">
-        <div>
-          <h2 class="text-xl font-semibold">Start from the right path</h2>
-          <p class="mt-2 max-w-2xl text-sm leading-7 text-skin-base/70">
-            Different people land here for different reasons. This should make that easier.
-          </p>
+      <div class="rounded-2xl border border-accent/18 bg-gradient-to-br from-accent/10 to-accent/5 p-6 sm:p-8">
+        <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 class="text-xl font-semibold">Start from the right path</h2>
+            <p class="mt-2 max-w-2xl text-sm text-skin-base/70">
+              Different people land here for different reasons. This should make that easier.
+            </p>
+          </div>
+          <LinkButton href="/posts/" class="text-sm">
+            Browse everything
+            <IconArrowRight class="inline-block" />
+          </LinkButton>
         </div>
-      </div>
 
-      <div class="grid gap-4 md:grid-cols-3">
-        {guidedPaths.map((path) => (
-          <a href={path.href} class="rounded-2xl border border-border bg-background/70 p-5 transition-all hover:border-accent/35 hover:bg-background/90">
-            <h3 class="mb-2 font-semibold">{path.title}</h3>
-            <p class="mb-4 text-sm leading-7 text-skin-base/70">{path.body}</p>
-            <div class="inline-flex items-center gap-2 text-sm font-medium text-accent">
-              {path.cta}
-              <IconArrowRight class="inline-block" />
-            </div>
-          </a>
-        ))}
+        <div class="grid gap-4 md:grid-cols-3">
+          {guidedPaths.map((path) => (
+            <a href={path.href} class="block rounded-2xl border border-accent/15 bg-background/70 p-5 transition-all hover:border-accent/40 hover:bg-background/85">
+              <h3 class="mb-2 font-semibold">{path.title}</h3>
+              <p class="mb-4 text-sm leading-7 text-skin-base/70">{path.description}</p>
+              <p class="text-sm font-medium text-foreground/85">{path.article}</p>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
 
@@ -194,35 +176,6 @@ const themes = [
             <p class="text-sm leading-7 text-skin-base/70">{theme.body}</p>
           </a>
         ))}
-      </div>
-    </section>
-
-    <Hr />
-
-    <section class="py-10">
-      <div class="rounded-2xl border border-accent/18 bg-gradient-to-br from-accent/10 to-accent/5 p-6 sm:p-8">
-        <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 class="text-xl font-semibold">Selected writing</h2>
-            <p class="mt-2 max-w-2xl text-sm text-skin-base/70">
-              Start with the pieces that best reflect how I think and what I tend to build around.
-            </p>
-          </div>
-          <LinkButton href="/posts/" class="text-sm">
-            Browse everything
-            <IconArrowRight class="inline-block" />
-          </LinkButton>
-        </div>
-
-        <div class="grid gap-4 md:grid-cols-3">
-          {selectedWriting.map((item) => (
-            <a href={item.href} class="block rounded-2xl border border-accent/15 bg-background/70 p-5 transition-all hover:border-accent/40 hover:bg-background/85">
-              <h3 class="mb-2 font-semibold">{item.title}</h3>
-              <p class="mb-4 text-sm leading-7 text-skin-base/70">{item.description}</p>
-              <p class="text-sm font-medium text-foreground/85">{item.article}</p>
-            </a>
-          ))}
-        </div>
       </div>
     </section>
 
