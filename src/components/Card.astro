@@ -23,8 +23,8 @@ const headerProps = {
 };
 ---
 
-<li class="my-8">
-  <div>
+<li class="my-6">
+  <article class="rounded-2xl border border-border bg-background/60 p-5 transition-all hover:border-accent/30 hover:bg-muted/15">
     <a
       href={getPath(id, filePath)}
       class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
@@ -37,7 +37,7 @@ const headerProps = {
         )
       }
     </a>
-    <div class="flex items-center gap-3 mb-3 flex-wrap">
+    <div class="flex items-center gap-3 mb-4 flex-wrap text-sm">
       <Datetime {pubDatetime} {modDatetime} {timezone} />
       <span class="text-sm italic opacity-80">• {readingTime}</span>
       {source === "LinkedIn" && (
@@ -80,7 +80,7 @@ const headerProps = {
           )}
         </a>
       )}
-      <p class="opacity-80 flex-1">{description}</p>
+      <p class="opacity-80 flex-1 leading-7">{description}</p>
     </div>
-  </div>
+  </article>
 </li>
