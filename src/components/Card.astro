@@ -24,7 +24,7 @@ const headerProps = {
 ---
 
 <li class="my-6">
-  <article class="rounded-2xl border border-border bg-background/60 p-5 transition-all hover:border-accent/30 hover:bg-muted/15">
+  <article class="rounded-2xl border border-border bg-background/60 p-5 transition-all hover:border-accent/30 hover:bg-muted/15 hover:shadow-sm">
     <a
       href={getPath(id, filePath)}
       class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
@@ -49,7 +49,7 @@ const headerProps = {
         </span>
       )}
     </div>
-    <div class="flex gap-4 items-start">
+    <div class="flex items-start gap-4 md:gap-5">
       {showImage && cardImage && (
         <a 
           href={getPath(id, filePath)}
@@ -61,7 +61,7 @@ const headerProps = {
               alt={title}
               width="140"
               height="79"
-              class="rounded shadow-sm transition-all duration-200 group-hover:shadow-md group-hover:scale-105 object-cover w-[140px] h-[79px]"
+              class="h-[84px] w-[148px] rounded-lg border border-border/60 object-cover shadow-sm transition-all duration-200 group-hover:scale-[1.03] group-hover:shadow-md"
               loading="lazy"
               decoding="async"
             />
@@ -71,7 +71,7 @@ const headerProps = {
               alt={title}
               width={140}
               height={79}
-              class="rounded shadow-sm transition-all duration-200 group-hover:shadow-md group-hover:scale-105 object-cover"
+              class="rounded-lg border border-border/60 object-cover shadow-sm transition-all duration-200 group-hover:scale-[1.03] group-hover:shadow-md"
               format="webp"
               quality={80}
               loading="lazy"
@@ -80,7 +80,7 @@ const headerProps = {
           )}
         </a>
       )}
-      <p class="opacity-80 flex-1 leading-7">{description}</p>
+      <p class="flex-1 leading-7 text-foreground/78">{description}</p>
     </div>
   </article>
 </li>

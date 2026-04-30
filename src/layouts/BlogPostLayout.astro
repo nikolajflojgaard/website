@@ -66,7 +66,7 @@ const canonicalURL = new URL(canonicalPath, Astro.site).toString();
   <!-- Main Content -->
   <main
     id="main-content"
-    class="mx-auto w-full max-w-4xl px-4 pb-12 mt-8"
+    class="mx-auto mt-8 w-full max-w-5xl px-4 pb-12"
     data-pagefind-body
   >
     <section class="rounded-2xl border border-accent/15 bg-gradient-to-br from-accent/8 to-background p-6 sm:p-8 mb-8">
@@ -154,14 +154,14 @@ const canonicalURL = new URL(canonicalPath, Astro.site).toString();
       <p class="mt-4 max-w-3xl text-base leading-8 text-foreground/78">{description}</p>
     </section>
 
-    <article id="article" class="mx-auto prose prose-lg mt-8 max-w-3xl">
+    <article id="article" class="article-prose mx-auto mt-10 max-w-3xl">
       {
         topImage && (
           <img
             src={topImage}
             alt={title}
-            class="mb-8 w-full rounded-md border border-border bg-secondary/20"
-            style="max-height: 420px; object-fit: contain;"
+            class="mb-10 w-full rounded-2xl border border-border bg-secondary/20 shadow-sm"
+            style="max-height: 460px; object-fit: contain;"
             loading="eager"
             decoding="async"
           />
