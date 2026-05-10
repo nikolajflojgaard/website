@@ -2,7 +2,7 @@
   "username": "nikolajflojgaard",
   "name": "Nikolaj Fløjgaard",
   "bio": null,
-  "public_repos": 15,
+  "public_repos": 16,
   "followers": 0,
   "following": 0,
   "avatar_url": "https://avatars.githubusercontent.com/u/258772712?v=4",
@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "household-intelligence",
+      "description": "Local-first household decision engine",
+      "html_url": "https://github.com/nikolajflojgaard/household-intelligence",
+      "stargazers_count": 0,
+      "language": "JavaScript",
+      "updated_at": "2026-05-10T14:24:02Z",
+      "private": false
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-05-10T08:15:32Z",
+      "updated_at": "2026-05-10T13:41:34Z",
       "private": false
     },
     {
@@ -53,18 +62,45 @@
       "language": "Blade",
       "updated_at": "2026-03-11T13:34:19Z",
       "private": false
-    },
-    {
-      "name": "template-laravel-blade",
-      "description": "template-laravel-blade",
-      "html_url": "https://github.com/nikolajflojgaard/template-laravel-blade",
-      "stargazers_count": 0,
-      "language": "Blade",
-      "updated_at": "2026-03-11T13:34:13Z",
-      "private": false
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/household-intelligence",
+      "repo": "nikolajflojgaard/household-intelligence",
+      "created_at": "2026-05-10T14:23:59Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/household-intelligence",
+      "repo": "nikolajflojgaard/household-intelligence",
+      "created_at": "2026-05-10T14:19:43Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/household-intelligence",
+      "repo": "nikolajflojgaard/household-intelligence",
+      "created_at": "2026-05-10T14:14:44Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/household-intelligence",
+      "repo": "nikolajflojgaard/household-intelligence",
+      "created_at": "2026-05-10T14:14:32Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/household-intelligence",
+      "repo": "nikolajflojgaard/household-intelligence",
+      "created_at": "2026-05-10T13:59:18Z"
+    },
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/household-intelligence",
+      "repo": "nikolajflojgaard/household-intelligence",
+      "created_at": "2026-05-10T13:54:33Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website",
@@ -82,49 +118,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
       "created_at": "2026-05-06T15:23:55Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.6.37 in nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-05-06T14:21:43Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-05-06T14:21:40Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.6.36 in nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-05-06T14:02:53Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-05-06T14:02:51Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.6.35 in nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-05-06T14:00:52Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-05-06T14:00:50Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.6.34 in nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-05-06T13:16:17Z"
     }
   ],
-  "fetched_at": "2026-05-10T13:41:30.336Z"
+  "fetched_at": "2026-05-10T19:13:16.066Z"
 }
