@@ -19,21 +19,21 @@
       "private": false
     },
     {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-05-11T04:03:45Z",
+      "private": false
+    },
+    {
       "name": "household-intelligence",
       "description": "Local-first household decision engine",
       "html_url": "https://github.com/nikolajflojgaard/household-intelligence",
       "stargazers_count": 0,
       "language": "JavaScript",
       "updated_at": "2026-05-10T19:56:27Z",
-      "private": false
-    },
-    {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-05-10T19:13:20Z",
       "private": false
     },
     {
@@ -126,5 +126,5 @@
       "created_at": "2026-05-10T13:59:18Z"
     }
   ],
-  "fetched_at": "2026-05-11T04:03:40.314Z"
+  "fetched_at": "2026-05-11T09:51:47.585Z"
 }
