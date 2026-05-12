@@ -19,21 +19,21 @@
       "private": false
     },
     {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-05-12T14:13:48Z",
-      "private": false
-    },
-    {
       "name": "JuliansProject",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/JuliansProject",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-05-12T12:48:35Z",
+      "updated_at": "2026-05-12T16:30:14Z",
+      "private": false
+    },
+    {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-05-12T15:33:02Z",
       "private": false
     },
     {
@@ -65,6 +65,18 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/JuliansProject",
+      "repo": "nikolajflojgaard/JuliansProject",
+      "created_at": "2026-05-12T16:03:00Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/JuliansProject",
+      "repo": "nikolajflojgaard/JuliansProject",
+      "created_at": "2026-05-12T14:53:56Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website",
@@ -112,19 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/JuliansProject",
       "repo": "nikolajflojgaard/JuliansProject",
       "created_at": "2026-05-11T19:16:00Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/JuliansProject",
-      "repo": "nikolajflojgaard/JuliansProject",
-      "created_at": "2026-05-11T19:00:11Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/JuliansProject",
-      "repo": "nikolajflojgaard/JuliansProject",
-      "created_at": "2026-05-11T18:53:54Z"
     }
   ],
-  "fetched_at": "2026-05-12T14:37:02.958Z"
+  "fetched_at": "2026-05-12T20:00:55.356Z"
 }
