@@ -2,7 +2,7 @@
   "username": "nikolajflojgaard",
   "name": "Nikolaj Fløjgaard",
   "bio": null,
-  "public_repos": 17,
+  "public_repos": 18,
   "followers": 1,
   "following": 0,
   "avatar_url": "https://avatars.githubusercontent.com/u/258772712?v=4",
@@ -19,12 +19,30 @@
       "private": false
     },
     {
+      "name": "homeassistant-backup",
+      "description": "backup of my home assistant",
+      "html_url": "https://github.com/nikolajflojgaard/homeassistant-backup",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-05-14T10:16:54Z",
+      "private": true
+    },
+    {
+      "name": "openclaw-workspace",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-05-14T09:48:21Z",
+      "private": false
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-05-14T03:55:38Z",
+      "updated_at": "2026-05-14T08:45:09Z",
       "private": false
     },
     {
@@ -44,27 +62,39 @@
       "language": "JavaScript",
       "updated_at": "2026-05-10T19:56:27Z",
       "private": false
-    },
-    {
-      "name": "home-assistant-home-brief",
-      "description": "A Home Assistant custom integration and card for actionable household briefs, chores, energy, and daily brief packages.",
-      "html_url": "https://github.com/nikolajflojgaard/home-assistant-home-brief",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-05-06T15:25:38Z",
-      "private": false
-    },
-    {
-      "name": "homeassistant-household-chores",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/homeassistant-household-chores",
-      "stargazers_count": 0,
-      "language": "JavaScript",
-      "updated_at": "2026-04-01T17:57:10Z",
-      "private": false
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
+      "repo": "nikolajflojgaard/homeassistant-backup",
+      "created_at": "2026-05-14T10:16:47Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-05-14T09:48:17Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-05-14T09:39:30Z"
+    },
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/homeassistant-backup",
+      "repo": "nikolajflojgaard/homeassistant-backup",
+      "created_at": "2026-05-14T09:39:19Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-05-14T09:33:25Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/JuliansProject",
@@ -88,43 +118,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
       "created_at": "2026-05-12T13:52:10Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-05-12T13:20:55Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/JuliansProject",
-      "repo": "nikolajflojgaard/JuliansProject",
-      "created_at": "2026-05-12T12:48:32Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/JuliansProject",
-      "repo": "nikolajflojgaard/JuliansProject",
-      "created_at": "2026-05-12T12:45:20Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/JuliansProject",
-      "repo": "nikolajflojgaard/JuliansProject",
-      "created_at": "2026-05-12T12:35:43Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/JuliansProject",
-      "repo": "nikolajflojgaard/JuliansProject",
-      "created_at": "2026-05-12T09:26:48Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/JuliansProject",
-      "repo": "nikolajflojgaard/JuliansProject",
-      "created_at": "2026-05-11T19:16:00Z"
     }
   ],
-  "fetched_at": "2026-05-14T08:45:04.566Z"
+  "fetched_at": "2026-05-14T14:27:51.409Z"
 }
