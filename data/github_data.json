@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "stock-playbook",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-05-16T21:02:44Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-05-16T13:44:58Z",
+      "updated_at": "2026-05-16T19:13:53Z",
       "private": false
     },
     {
@@ -53,72 +62,69 @@
       "language": "Python",
       "updated_at": "2026-05-12T16:30:14Z",
       "private": false
-    },
-    {
-      "name": "household-intelligence",
-      "description": "Local-first household decision engine",
-      "html_url": "https://github.com/nikolajflojgaard/household-intelligence",
-      "stargazers_count": 0,
-      "language": "JavaScript",
-      "updated_at": "2026-05-10T19:56:27Z",
-      "private": false
     }
   ],
   "recent_activity": [
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
-      "repo": "nikolajflojgaard/homeassistant-backup",
-      "created_at": "2026-05-14T10:16:47Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-05-16T21:02:41Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-05-14T09:48:17Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-05-16T20:54:19Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-05-14T09:39:30Z"
-    },
-    {
-      "type": "create",
-      "description": "Created branch in nikolajflojgaard/homeassistant-backup",
-      "repo": "nikolajflojgaard/homeassistant-backup",
-      "created_at": "2026-05-14T09:39:19Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-05-16T20:50:36Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-05-14T09:33:25Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-05-16T20:16:37Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/JuliansProject",
-      "repo": "nikolajflojgaard/JuliansProject",
-      "created_at": "2026-05-12T16:03:00Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-05-16T20:12:35Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/JuliansProject",
-      "repo": "nikolajflojgaard/JuliansProject",
-      "created_at": "2026-05-12T14:53:56Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-05-16T19:51:38Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-05-12T14:00:19Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-05-16T19:50:17Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-05-12T13:52:10Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-05-16T19:49:06Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-05-16T19:47:45Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-05-16T19:46:32Z"
     }
   ],
-  "fetched_at": "2026-05-16T19:13:49.834Z"
+  "fetched_at": "2026-05-17T03:59:59.709Z"
 }
