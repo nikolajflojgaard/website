@@ -2,7 +2,7 @@
   "username": "nikolajflojgaard",
   "name": "Nikolaj Fløjgaard",
   "bio": null,
-  "public_repos": 18,
+  "public_repos": 19,
   "followers": 1,
   "following": 0,
   "avatar_url": "https://avatars.githubusercontent.com/u/258772712?v=4",
@@ -19,12 +19,30 @@
       "private": false
     },
     {
+      "name": "stock-playbook-review-skill",
+      "description": "Reusable OpenClaw skill for 5-gate stock reviews, portfolio-fit checks, and DCA dry-powder discipline",
+      "html_url": "https://github.com/nikolajflojgaard/stock-playbook-review-skill",
+      "stargazers_count": 0,
+      "language": "Shell",
+      "updated_at": "2026-05-17T12:37:29Z",
+      "private": false
+    },
+    {
+      "name": "work-architecture-playbook",
+      "description": "Private architecture/API workflow playbook, templates, and OpenAPI artifact tooling",
+      "html_url": "https://github.com/nikolajflojgaard/work-architecture-playbook",
+      "stargazers_count": 0,
+      "language": "JavaScript",
+      "updated_at": "2026-05-17T12:27:14Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-05-17T04:00:04Z",
+      "updated_at": "2026-05-17T10:20:48Z",
       "private": false
     },
     {
@@ -33,7 +51,7 @@
       "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-05-16T21:02:44Z",
+      "updated_at": "2026-05-17T09:55:20Z",
       "private": true
     },
     {
@@ -44,87 +62,69 @@
       "language": "Python",
       "updated_at": "2026-05-14T10:16:54Z",
       "private": true
-    },
-    {
-      "name": "openclaw-workspace",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-05-14T09:48:21Z",
-      "private": false
-    },
-    {
-      "name": "JuliansProject",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/JuliansProject",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-05-12T16:30:14Z",
-      "private": false
     }
   ],
   "recent_activity": [
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-05-16T21:02:41Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook-review-skill",
+      "repo": "nikolajflojgaard/stock-playbook-review-skill",
+      "created_at": "2026-05-17T12:37:26Z"
+    },
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/stock-playbook-review-skill",
+      "repo": "nikolajflojgaard/stock-playbook-review-skill",
+      "created_at": "2026-05-17T12:37:16Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-05-16T20:54:19Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook",
+      "repo": "nikolajflojgaard/work-architecture-playbook",
+      "created_at": "2026-05-17T12:27:11Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-05-16T20:50:36Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook",
+      "repo": "nikolajflojgaard/work-architecture-playbook",
+      "created_at": "2026-05-17T12:25:46Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-05-16T20:16:37Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook",
+      "repo": "nikolajflojgaard/work-architecture-playbook",
+      "created_at": "2026-05-17T12:19:40Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-05-16T20:12:35Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook",
+      "repo": "nikolajflojgaard/work-architecture-playbook",
+      "created_at": "2026-05-17T12:14:09Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-05-16T19:51:38Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook",
+      "repo": "nikolajflojgaard/work-architecture-playbook",
+      "created_at": "2026-05-17T12:01:02Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-05-16T19:50:17Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook",
+      "repo": "nikolajflojgaard/work-architecture-playbook",
+      "created_at": "2026-05-17T11:59:55Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-05-16T19:49:06Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook",
+      "repo": "nikolajflojgaard/work-architecture-playbook",
+      "created_at": "2026-05-17T11:58:14Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-05-16T19:47:45Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-05-16T19:46:32Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook",
+      "repo": "nikolajflojgaard/work-architecture-playbook",
+      "created_at": "2026-05-17T11:55:26Z"
     }
   ],
-  "fetched_at": "2026-05-17T08:27:49.023Z"
+  "fetched_at": "2026-05-17T13:44:08.823Z"
 }
