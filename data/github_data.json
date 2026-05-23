@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "stock-playbook",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-05-23T06:23:25Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-05-22T19:56:11Z",
+      "updated_at": "2026-05-23T03:50:41Z",
       "private": false
     },
     {
@@ -46,15 +55,6 @@
       "private": false
     },
     {
-      "name": "stock-playbook",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-05-18T14:59:31Z",
-      "private": true
-    },
-    {
       "name": "work-architecture-playbook",
       "description": "Private architecture/API workflow playbook, templates, and OpenAPI artifact tooling",
       "html_url": "https://github.com/nikolajflojgaard/work-architecture-playbook",
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-05-23T06:23:22Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/architecture-flow",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
       "repo": "nikolajflojgaard/stock-playbook",
       "created_at": "2026-05-18T13:15:22Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/architecture-flow",
-      "repo": "nikolajflojgaard/architecture-flow",
-      "created_at": "2026-05-18T12:55:26Z"
     }
   ],
-  "fetched_at": "2026-05-23T03:50:37.105Z"
+  "fetched_at": "2026-05-23T08:26:11.061Z"
 }
