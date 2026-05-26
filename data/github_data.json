@@ -19,6 +19,15 @@
       "private": false
     },
     {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-05-26T15:56:32Z",
+      "private": false
+    },
+    {
       "name": "work-architecture-playbook",
       "description": "Private architecture/API workflow playbook, templates, and OpenAPI artifact tooling",
       "html_url": "https://github.com/nikolajflojgaard/work-architecture-playbook",
@@ -34,15 +43,6 @@
       "stargazers_count": 0,
       "language": "TypeScript",
       "updated_at": "2026-05-26T15:47:49Z",
-      "private": false
-    },
-    {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-05-26T10:07:53Z",
       "private": false
     },
     {
@@ -126,5 +126,5 @@
       "created_at": "2026-05-18T14:58:26Z"
     }
   ],
-  "fetched_at": "2026-05-26T15:53:55.719Z"
+  "fetched_at": "2026-05-26T20:16:33.101Z"
 }
