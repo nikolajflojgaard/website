@@ -19,22 +19,22 @@
       "private": false
     },
     {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-05-29T15:55:32Z",
-      "private": false
-    },
-    {
       "name": "stock-playbook",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-05-28T11:46:25Z",
+      "updated_at": "2026-05-29T21:54:00Z",
       "private": true
+    },
+    {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-05-29T20:32:55Z",
+      "private": false
     },
     {
       "name": "work-architecture-playbook",
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-05-29T21:53:57Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/architecture-flow",
       "repo": "nikolajflojgaard/architecture-flow",
       "created_at": "2026-05-22T12:01:55Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-05-20T14:02:34Z"
     }
   ],
-  "fetched_at": "2026-05-29T20:32:50.574Z"
+  "fetched_at": "2026-05-30T03:57:54.278Z"
 }
