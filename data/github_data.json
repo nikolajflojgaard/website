@@ -19,22 +19,22 @@
       "private": false
     },
     {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-06-04T20:11:11Z",
-      "private": false
-    },
-    {
       "name": "stock-playbook",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-06-04T13:25:39Z",
+      "updated_at": "2026-06-05T06:26:00Z",
       "private": true
+    },
+    {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-06-05T04:18:54Z",
+      "private": false
     },
     {
       "name": "work-architecture-playbook",
@@ -65,6 +65,18 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-06-05T06:25:57Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-06-05T06:20:46Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
@@ -112,19 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
       "created_at": "2026-05-31T15:43:22Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-05-31T15:34:45Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-05-29T21:53:57Z"
     }
   ],
-  "fetched_at": "2026-06-05T04:18:50.142Z"
+  "fetched_at": "2026-06-05T10:01:53.078Z"
 }
