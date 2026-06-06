@@ -19,22 +19,22 @@
       "private": false
     },
     {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-06-05T20:01:43Z",
-      "private": false
-    },
-    {
       "name": "stock-playbook",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-06-05T17:57:12Z",
+      "updated_at": "2026-06-06T07:31:33Z",
       "private": true
+    },
+    {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-06-06T04:01:23Z",
+      "private": false
     },
     {
       "name": "work-architecture-playbook",
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-06-06T07:31:30Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
       "repo": "nikolajflojgaard/stock-playbook",
       "created_at": "2026-06-03T10:19:36Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-06-02T13:39:49Z"
     }
   ],
-  "fetched_at": "2026-06-06T04:01:18.706Z"
+  "fetched_at": "2026-06-06T08:40:23.263Z"
 }
