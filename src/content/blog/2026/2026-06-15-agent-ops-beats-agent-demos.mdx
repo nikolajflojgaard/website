@@ -114,7 +114,13 @@ Everyone technically has the notes. Nobody knows what the next move is.
 
 Context windows make that problem worse because the assistant can still sound coherent while important details are sliding out of view.
 
-The fix is not to keep shoving more text into the same conversation. The fix is to create a proper handoff before the session gets heavy.
+The expensive version is to keep dragging the whole swollen thread forward and hope the important bits stay alive.
+
+That burns tokens, slows the work down, and still risks losing the actual task.
+
+The better version is to stop before the context window becomes the problem.
+
+The fix is not to keep shoving more text into the same conversation. The fix is to create a proper handoff before the session gets heavy, then start a clean continuation with only the context that matters.
 
 A useful handoff says:
 
@@ -129,7 +135,9 @@ That is not a summary for the sake of summary.
 
 It is operational continuity.
 
-The point is that a fresh session should be able to continue the work without replaying the entire chat history like a courtroom transcript.
+The point is that a fresh session should be able to continue the work without replaying the entire chat history like a courtroom transcript. The assistant should know the goal, the current state, the files touched, the risks, and the next move.
+
+It should not need to reread 50,000 tokens of vibes to remember what it was doing.
 
 The public version is here: [skill-context-resume-handoff](https://github.com/nikolajflojgaard/skill-context-resume-handoff).
 
@@ -140,6 +148,12 @@ I like subagents.
 I do not like using them as decoration.
 
 There is a real temptation to split every task into little parallel workers because it feels sophisticated. Most of the time that just creates coordination overhead with a nicer name.
+
+But there is a good version of it.
+
+If a task is long, messy, or research-heavy, subagents can keep the main thread lighter. They can investigate side questions, read repo history, compare options, or check documentation without stuffing every intermediate step into the primary context window.
+
+That matters because context is not free. Even if the model technically has room, every extra pile of irrelevant history makes the next decision heavier.
 
 Subagents are worth it when the work is genuinely independent:
 
@@ -154,6 +168,8 @@ So the rule became simple: use subagents when they improve speed, coverage, inde
 And when they are done, clean them up.
 
 That last part sounds tiny, but it matters. Temporary workers should not become permanent clutter. Results should be collected, decisions should be integrated, and the session should be closed or deleted where the tool supports it.
+
+Otherwise the agent has not reduced complexity. It has just created more places to lose the thread.
 
 The public version is here: [skill-research-subagent-cleanup](https://github.com/nikolajflojgaard/skill-research-subagent-cleanup).
 
