@@ -8,6 +8,33 @@ import Layout from "@/layouts/Layout.astro";
 
 const featuredProjects = [
   {
+    name: "Personal Agent Ops Kit",
+    role: "Agent workflow design, operational runbook design, public skill packaging, and personal automation hardening.",
+    summary:
+      "A small public set of reusable agent-operation skills for the stuff that decides whether a personal AI assistant survives real use.",
+    problem:
+      "Most agent examples stop at the impressive demo. Real personal agents also need recovery paths, context handoff, cleanup, memory boundaries, and quiet scheduled work.",
+    constraints:
+      "Had to be useful in a private local assistant setup while still being generalized and sanitized enough to release publicly.",
+    whyItMatters:
+      "It turns repeated assistant failure modes into reusable operating procedures: OAuth recovery, context handoff, and subagent cleanup.",
+    links: [
+      { label: "Read the write-up", href: "/posts/2026/2026-06-15-agent-ops-beats-agent-demos" },
+      {
+        label: "OAuth recovery",
+        href: "https://github.com/nikolajflojgaard/skill-gog-oauth-recovery",
+      },
+      {
+        label: "Context handoff",
+        href: "https://github.com/nikolajflojgaard/skill-context-resume-handoff",
+      },
+      {
+        label: "Subagent cleanup",
+        href: "https://github.com/nikolajflojgaard/skill-research-subagent-cleanup",
+      },
+    ],
+  },
+  {
     name: "Household Chores",
     homeAssistant: true,
     role: "Product design, integration design, Home Assistant implementation, and assistant workflow orchestration.",
@@ -20,7 +47,10 @@ const featuredProjects = [
     whyItMatters:
       "This project connects product thinking, Home Assistant, automation, and chat-based interaction into one practical system. It is a better example of full-stack systems design than a simple dashboard or toy app.",
     links: [
-      { label: "Read the write-up", href: "/posts/2026/2026-03-31-household-chores-home-assistant-agent-tasks" },
+      {
+        label: "Read the write-up",
+        href: "/posts/2026/2026-03-31-household-chores-home-assistant-agent-tasks",
+      },
       { label: "GitHub", href: "https://github.com/nikolajflojgaard/household-chores" },
     ],
   },
@@ -37,7 +67,10 @@ const featuredProjects = [
     whyItMatters:
       "It bridges assistant output, structured payloads, and in-home presentation instead of treating AI as a one-shot message generator.",
     links: [
-      { label: "Read the write-up", href: "/posts/2026/2026-04-30-home-brief-home-assistant-daily-briefs-that-persist" },
+      {
+        label: "Read the write-up",
+        href: "/posts/2026/2026-04-30-home-brief-home-assistant-daily-briefs-that-persist",
+      },
       { label: "GitHub", href: "https://github.com/nikolajflojgaard/home-assistant-home-brief" },
     ],
   },
@@ -54,7 +87,10 @@ const featuredProjects = [
     whyItMatters:
       "This is the kind of tooling work that compounds. It makes future integrations cleaner, faster to ship, and easier to maintain.",
     links: [
-      { label: "Read the write-up", href: "/posts/2026/2026-02-14-playing-around-with-home-assistant-maybe-this-template-is-for-you" },
+      {
+        label: "Read the write-up",
+        href: "/posts/2026/2026-02-14-playing-around-with-home-assistant-maybe-this-template-is-for-you",
+      },
       { label: "GitHub", href: "https://github.com/nikolajflojgaard/home-assistant-hacs-template" },
     ],
   },

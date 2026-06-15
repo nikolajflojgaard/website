@@ -1,0 +1,273 @@
+---
+title: "Agent ops beats agent demos"
+description: "A useful personal AI agent is not one clever prompt. It is the boring operational loop around memory, recovery, context handoff, scheduled work, and cleanup."
+pubDatetime: 2026-06-15T12:19:59.000Z
+tags:
+  - ai
+  - agentic-ai
+  - automation
+  - productivity
+  - software
+  - personal-systems
+heroImage: "/images/personal-agent-ops-kit.svg"
+ogImage: "https://nikolajflojgaard.me/images/personal-agent-ops-kit.svg"
+featured: true
+source: "Personal agent operations work and three public reusable skill releases"
+---
+
+Most agent demos are too clean.
+
+The assistant gets a task. It opens a tool. It writes something clever. Everyone nods. The screen recording ends before anything awkward happens.
+
+That is fine for a demo.
+
+It is not enough for a useful personal agent.
+
+The real test starts later, when the OAuth token expires, the context window is getting fat, a scheduled job fails at noon, a subagent session needs to be cleaned up, and the assistant has to remember what matters without dumping private notes into the wrong place.
+
+That is the part nobody puts in the launch video.
+
+It is also the part that decides whether the agent becomes useful or just becomes another enthusiastic tab in the browser.
+
+## The demo is not the product
+
+I care less and less about whether an AI agent can do one impressive thing once.
+
+One impressive run is cheap now. The more interesting question is whether the surrounding system can survive ordinary mess.
+
+Can it recover from auth failures?
+
+Can it tell the difference between something it can fix and something that still needs a human handoff?
+
+Can it keep scheduled work quiet when nothing happened, but loud when something actually matters?
+
+Can it write down durable memory without turning every conversation into a landfill?
+
+Can it hand off cleanly before the context gets too large?
+
+Can it use subagents when useful, then clean up the sessions instead of leaving a trail of abandoned state?
+
+That is agent ops.
+
+Not glamorous. Very useful.
+
+## My personal agent got better when the boring parts got stricter
+
+The weird thing about building a personal agent is that the failures are small until they are not.
+
+A missed cron job is small.
+
+A stale Google token is small.
+
+A vague memory note is small.
+
+A half-finished subagent is small.
+
+But stack enough of them together and the assistant stops feeling like leverage. It starts feeling like a junior system with confidence issues and no runbook.
+
+So I have been turning recurring failure modes into reusable skills.
+
+Not skills as in "can write a poem in the style of a pirate."
+
+Actual operational skills:
+
+- how to recover Google Workspace OAuth when `gog` hits `invalid_grant`
+- how to summarize a long running session before context compaction eats the useful parts
+- how to decide when research subagents are worth it, then close them down after the work is done
+
+That sounds boring because it is.
+
+It is also what makes the agent feel less like a toy.
+
+## Skill 1: OAuth recovery without pretending browsers do not exist
+
+Google auth is a perfect example of where agent hype gets silly.
+
+If the token is expired or revoked, the assistant can detect that. It can start a new OAuth flow. It can keep the callback listener open. It can verify Drive access afterward. It can rerun the failed sweep.
+
+That is useful.
+
+But sometimes Google still wants a human in the browser. Password. Passkey. 2FA. CAPTCHA. Some small ceremony that exists precisely because unattended software should not always be able to walk through the door by itself.
+
+The honest skill is not "the agent can always re-login itself."
+
+The honest skill is:
+
+1. detect the auth failure
+2. start the correct recovery flow
+3. keep the window open long enough
+4. ask for human approval only when the identity wall appears
+5. verify access after callback
+6. rerun the failed job once
+
+That distinction matters.
+
+An agent that knows when it needs a human is more useful than one that performs confidence until it times out.
+
+The public version is here: [skill-gog-oauth-recovery](https://github.com/nikolajflojgaard/skill-gog-oauth-recovery).
+
+## Skill 2: Context handoff before the thread turns into soup
+
+Long agent sessions have a failure mode that feels familiar if you have ever joined a meeting halfway through.
+
+Everyone technically has the notes. Nobody knows what the next move is.
+
+Context windows make that problem worse because the assistant can still sound coherent while important details are sliding out of view.
+
+The fix is not to keep shoving more text into the same conversation. The fix is to create a proper handoff before the session gets heavy.
+
+A useful handoff says:
+
+- what we are trying to do
+- what has already changed
+- which files, repos, cron jobs, and skill IDs matter
+- what is blocked
+- what the next concrete action is
+- what must not be copied because it is private or sensitive
+
+That is not a summary for the sake of summary.
+
+It is operational continuity.
+
+The point is that a fresh session should be able to continue the work without replaying the entire chat history like a courtroom transcript.
+
+The public version is here: [skill-context-resume-handoff](https://github.com/nikolajflojgaard/skill-context-resume-handoff).
+
+## Skill 3: Subagents are useful, but only when they earn their keep
+
+I like subagents.
+
+I do not like using them as decoration.
+
+There is a real temptation to split every task into little parallel workers because it feels sophisticated. Most of the time that just creates coordination overhead with a nicer name.
+
+Subagents are worth it when the work is genuinely independent:
+
+- one side reads a repo while another checks docs
+- one investigates a bug while another compares prior behavior
+- one researches options while the main agent keeps implementing
+
+They are less useful when the task is small, sequential, or mainly taste-based.
+
+So the rule became simple: use subagents when they improve speed, coverage, independence, or risk reduction. Do not use them just because "agentic" sounds cooler.
+
+And when they are done, clean them up.
+
+That last part sounds tiny, but it matters. Temporary workers should not become permanent clutter. Results should be collected, decisions should be integrated, and the session should be closed or deleted where the tool supports it.
+
+The public version is here: [skill-research-subagent-cleanup](https://github.com/nikolajflojgaard/skill-research-subagent-cleanup).
+
+## Cron jobs are where agents meet reality
+
+The other thing that changes the shape of a personal agent is scheduled work.
+
+Not everything should wait for me to ask.
+
+Some things are better as quiet background loops:
+
+- a daily brief that publishes into Home Assistant
+- a Drive folder sweep that only speaks when new files appear
+- a monitor for a specific used car search
+- a weekly backup
+- a stock threshold check
+
+The key word is quiet.
+
+A bad assistant nags. A useful one understands the difference between "I checked and nothing changed" and "you need to know this now."
+
+That is why my cron jobs usually have a silent path.
+
+No change? Say nothing.
+
+Actual signal? Ping me.
+
+Failure? Report clearly.
+
+This is a small design choice, but it is the difference between an assistant and a notification factory.
+
+## Memory is not a junk drawer
+
+Memory sounds like the magical part of agents.
+
+It is not.
+
+Bad memory makes an assistant worse. If every tiny detail gets saved forever, the system becomes haunted by outdated context. If nothing gets saved, it wakes up confused every morning.
+
+The useful version is more selective.
+
+Daily notes are raw.
+
+Long-term memory is curated.
+
+Operational notes live near the tools they explain.
+
+Secrets do not belong in memory.
+
+Private context does not belong in public artifacts.
+
+That is less exciting than "infinite memory," but it is much closer to how a real working system should behave.
+
+## The pattern underneath all of this
+
+The pattern is not complicated:
+
+1. detect the signal
+2. gather the right context
+3. do the work
+4. verify the result
+5. write down what matters
+6. stay quiet unless the human needs to know
+
+That loop is more important than any single model choice.
+
+The model matters, of course. Better reasoning helps. Better tools help. Faster inference helps.
+
+But the agent becomes useful when the loop around the model is strong enough to survive ordinary failure.
+
+That is the part I want more people to talk about.
+
+Not "here is my prompt."
+
+More like:
+
+- here is how the system recovers
+- here is where the human checkpoint belongs
+- here is what stays private
+- here is when it shuts up
+- here is how it resumes work tomorrow
+
+That is where the leverage lives.
+
+## The funny bit
+
+After all this, the agent did not become useful because it got more dramatic.
+
+It became useful because it got more boring in the right places.
+
+It learned to check the cron registry.
+
+It learned to admit when Google still wants a human login.
+
+It learned to save a handoff before the context turns into fog.
+
+It learned that subagents are not confetti.
+
+It learned to say nothing when nothing happened.
+
+That last one might be the most underrated feature in all of AI.
+
+## The project version
+
+I am packaging this as a small public **Personal Agent Ops Kit**:
+
+- [gog-oauth-recovery](https://github.com/nikolajflojgaard/skill-gog-oauth-recovery)
+- [context-resume-handoff](https://github.com/nikolajflojgaard/skill-context-resume-handoff)
+- [research-subagent-cleanup](https://github.com/nikolajflojgaard/skill-research-subagent-cleanup)
+
+They are not universal magic. They are opinionated runbooks for recurring agent operations.
+
+That is exactly the point.
+
+The future of useful agents will not be built only out of clever prompts and bigger context windows. It will be built out of small reliable loops, honest handoffs, recoverable failures, and systems that know when to involve a human.
+
+Agent ops beats agent demos.
