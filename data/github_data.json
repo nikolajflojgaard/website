@@ -2,7 +2,7 @@
   "username": "nikolajflojgaard",
   "name": "Nikolaj Fløjgaard",
   "bio": null,
-  "public_repos": 20,
+  "public_repos": 23,
   "followers": 1,
   "following": 0,
   "avatar_url": "https://avatars.githubusercontent.com/u/258772712?v=4",
@@ -19,6 +19,42 @@
       "private": false
     },
     {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-06-15T12:23:41Z",
+      "private": false
+    },
+    {
+      "name": "skill-research-subagent-cleanup",
+      "description": "AgentSkill for discretionary subagent delegation and cleanup",
+      "html_url": "https://github.com/nikolajflojgaard/skill-research-subagent-cleanup",
+      "stargazers_count": 0,
+      "language": null,
+      "updated_at": "2026-06-15T10:10:35Z",
+      "private": false
+    },
+    {
+      "name": "skill-context-resume-handoff",
+      "description": "AgentSkill for resumable context handoffs in long sessions",
+      "html_url": "https://github.com/nikolajflojgaard/skill-context-resume-handoff",
+      "stargazers_count": 0,
+      "language": null,
+      "updated_at": "2026-06-15T10:09:22Z",
+      "private": false
+    },
+    {
+      "name": "skill-gog-oauth-recovery",
+      "description": "AgentSkill for recovering gog Google Workspace OAuth invalid_grant failures",
+      "html_url": "https://github.com/nikolajflojgaard/skill-gog-oauth-recovery",
+      "stargazers_count": 0,
+      "language": null,
+      "updated_at": "2026-06-15T10:08:29Z",
+      "private": false
+    },
+    {
       "name": "openclaw-workspace",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
@@ -26,45 +62,33 @@
       "language": "Python",
       "updated_at": "2026-06-15T00:00:09Z",
       "private": false
-    },
-    {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-06-14T19:44:31Z",
-      "private": false
-    },
-    {
-      "name": "stock-playbook",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-06-06T07:31:33Z",
-      "private": true
-    },
-    {
-      "name": "work-architecture-playbook",
-      "description": "Private architecture/API workflow playbook, templates, and OpenAPI artifact tooling",
-      "html_url": "https://github.com/nikolajflojgaard/work-architecture-playbook",
-      "stargazers_count": 0,
-      "language": "JavaScript",
-      "updated_at": "2026-06-04T09:26:12Z",
-      "private": true
-    },
-    {
-      "name": "architecture-flow",
-      "description": "Internal architecture workflow manager for intake, BPMN-driven progress, and OpenAPI/PDF artifacts",
-      "html_url": "https://github.com/nikolajflojgaard/architecture-flow",
-      "stargazers_count": 0,
-      "language": "TypeScript",
-      "updated_at": "2026-05-26T15:47:49Z",
-      "private": false
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-06-15T12:23:38Z"
+    },
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/skill-research-subagent-cleanup",
+      "repo": "nikolajflojgaard/skill-research-subagent-cleanup",
+      "created_at": "2026-06-15T10:10:31Z"
+    },
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/skill-context-resume-handoff",
+      "repo": "nikolajflojgaard/skill-context-resume-handoff",
+      "created_at": "2026-06-15T10:09:19Z"
+    },
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/skill-gog-oauth-recovery",
+      "repo": "nikolajflojgaard/skill-gog-oauth-recovery",
+      "created_at": "2026-06-15T10:08:25Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
@@ -100,31 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
       "repo": "nikolajflojgaard/openclaw-workspace",
       "created_at": "2026-06-08T09:12:13Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-06-06T07:31:30Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-06-05T17:57:09Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-06-05T13:27:49Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-06-05T06:25:57Z"
     }
   ],
-  "fetched_at": "2026-06-15T05:02:57.227Z"
+  "fetched_at": "2026-06-15T12:28:52.495Z"
 }
