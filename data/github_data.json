@@ -19,6 +19,15 @@
       "private": false
     },
     {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-06-17T11:07:27Z",
+      "private": false
+    },
+    {
       "name": "homeassistant-backup",
       "description": "backup of my home assistant",
       "html_url": "https://github.com/nikolajflojgaard/homeassistant-backup",
@@ -35,15 +44,6 @@
       "language": "Python",
       "updated_at": "2026-06-17T09:41:36Z",
       "private": true
-    },
-    {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-06-17T04:48:03Z",
-      "private": false
     },
     {
       "name": "skill-research-subagent-cleanup",
@@ -126,5 +126,5 @@
       "created_at": "2026-06-15T10:08:25Z"
     }
   ],
-  "fetched_at": "2026-06-17T11:07:23.345Z"
+  "fetched_at": "2026-06-17T15:50:35.418Z"
 }
