@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "openclaw-workspace",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-06-22T00:00:08Z",
+      "private": false
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-06-21T14:23:37Z",
+      "updated_at": "2026-06-21T19:51:03Z",
       "private": false
     },
     {
@@ -53,18 +62,15 @@
       "language": null,
       "updated_at": "2026-06-15T12:48:19Z",
       "private": false
-    },
-    {
-      "name": "skill-gog-oauth-recovery",
-      "description": "AgentSkill for recovering gog Google Workspace OAuth invalid_grant failures",
-      "html_url": "https://github.com/nikolajflojgaard/skill-gog-oauth-recovery",
-      "stargazers_count": 0,
-      "language": null,
-      "updated_at": "2026-06-15T12:48:18Z",
-      "private": false
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-06-22T00:00:04Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
@@ -118,13 +124,7 @@
       "description": "Created branch in nikolajflojgaard/skill-context-resume-handoff",
       "repo": "nikolajflojgaard/skill-context-resume-handoff",
       "created_at": "2026-06-15T10:09:19Z"
-    },
-    {
-      "type": "create",
-      "description": "Created branch in nikolajflojgaard/skill-gog-oauth-recovery",
-      "repo": "nikolajflojgaard/skill-gog-oauth-recovery",
-      "created_at": "2026-06-15T10:08:25Z"
     }
   ],
-  "fetched_at": "2026-06-21T19:50:59.141Z"
+  "fetched_at": "2026-06-22T05:03:29.070Z"
 }
