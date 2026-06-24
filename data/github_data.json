@@ -19,21 +19,21 @@
       "private": false
     },
     {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-06-24T14:38:01Z",
+      "private": false
+    },
+    {
       "name": "code-doc-pipeline",
       "description": "AgentSkill for generating maintainable codebase documentation, diagrams, and CI documentation drift checks",
       "html_url": "https://github.com/nikolajflojgaard/code-doc-pipeline",
       "stargazers_count": 0,
       "language": "Python",
       "updated_at": "2026-06-24T04:31:26Z",
-      "private": false
-    },
-    {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-06-24T04:05:48Z",
       "private": false
     },
     {
@@ -65,6 +65,18 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-06-24T14:35:23Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-06-24T14:22:54Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/code-doc-pipeline",
@@ -112,19 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
       "created_at": "2026-06-23T14:26:55Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-06-22T00:00:04Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
-      "repo": "nikolajflojgaard/homeassistant-backup",
-      "created_at": "2026-06-17T10:00:15Z"
     }
   ],
-  "fetched_at": "2026-06-24T09:40:36.780Z"
+  "fetched_at": "2026-06-24T14:43:24.491Z"
 }
