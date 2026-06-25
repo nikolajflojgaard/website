@@ -2,7 +2,7 @@
   "username": "nikolajflojgaard",
   "name": "Nikolaj Fløjgaard",
   "bio": null,
-  "public_repos": 31,
+  "public_repos": 32,
   "followers": 2,
   "following": 0,
   "avatar_url": "https://avatars.githubusercontent.com/u/258772712?v=4",
@@ -19,12 +19,30 @@
       "private": false
     },
     {
+      "name": "personal-ops-dashboard",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/personal-ops-dashboard",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-06-25T10:50:02Z",
+      "private": false
+    },
+    {
       "name": "agent-orchestration-hub",
       "description": "OpenClaw skill for coordinating multiple agents with briefs, state, gates, and cleanup.",
       "html_url": "https://github.com/nikolajflojgaard/agent-orchestration-hub",
       "stargazers_count": 0,
       "language": null,
-      "updated_at": "2026-06-25T08:44:56Z",
+      "updated_at": "2026-06-25T10:48:36Z",
+      "private": false
+    },
+    {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-06-25T10:24:06Z",
       "private": false
     },
     {
@@ -44,27 +62,45 @@
       "language": "Python",
       "updated_at": "2026-06-25T08:43:19Z",
       "private": false
-    },
-    {
-      "name": "home-assistant-home-brief",
-      "description": "A Home Assistant custom integration and card for actionable household briefs, chores, energy, and daily brief packages.",
-      "html_url": "https://github.com/nikolajflojgaard/home-assistant-home-brief",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-06-25T08:43:16Z",
-      "private": false
-    },
-    {
-      "name": "reichkendlersolutions",
-      "description": "Business website - rescue",
-      "html_url": "https://github.com/nikolajflojgaard/reichkendlersolutions",
-      "stargazers_count": 0,
-      "language": "Astro",
-      "updated_at": "2026-06-25T08:41:30Z",
-      "private": false
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/personal-ops-dashboard",
+      "repo": "nikolajflojgaard/personal-ops-dashboard",
+      "created_at": "2026-06-25T10:49:59Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/agent-orchestration-hub",
+      "repo": "nikolajflojgaard/agent-orchestration-hub",
+      "created_at": "2026-06-25T10:48:33Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/agent-orchestration-hub",
+      "repo": "nikolajflojgaard/agent-orchestration-hub",
+      "created_at": "2026-06-25T10:47:55Z"
+    },
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/personal-ops-dashboard",
+      "repo": "nikolajflojgaard/personal-ops-dashboard",
+      "created_at": "2026-06-25T10:47:33Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-06-25T10:24:03Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-06-25T10:01:47Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/agent-orchestration-hub",
@@ -88,43 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
       "repo": "nikolajflojgaard/home-assistant-home-brief",
       "created_at": "2026-06-25T08:43:12Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/reichkendlersolutions",
-      "repo": "nikolajflojgaard/reichkendlersolutions",
-      "created_at": "2026-06-25T08:41:26Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/mjk-judo",
-      "repo": "nikolajflojgaard/mjk-judo",
-      "created_at": "2026-06-25T08:41:23Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-weekly-training",
-      "repo": "nikolajflojgaard/homeassistant-weekly-training",
-      "created_at": "2026-06-25T08:41:19Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-investing-score-card",
-      "repo": "nikolajflojgaard/homeassistant-investing-score-card",
-      "created_at": "2026-06-25T08:41:16Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-household-chores",
-      "repo": "nikolajflojgaard/homeassistant-household-chores",
-      "created_at": "2026-06-25T08:41:12Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-06-25T08:41:08Z"
     }
   ],
-  "fetched_at": "2026-06-25T09:33:03.382Z"
+  "fetched_at": "2026-06-25T14:43:14.829Z"
 }
