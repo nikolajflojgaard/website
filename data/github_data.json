@@ -2,7 +2,7 @@
   "username": "nikolajflojgaard",
   "name": "Nikolaj Fløjgaard",
   "bio": null,
-  "public_repos": 32,
+  "public_repos": 33,
   "followers": 2,
   "following": 0,
   "avatar_url": "https://avatars.githubusercontent.com/u/258772712?v=4",
@@ -19,12 +19,12 @@
       "private": false
     },
     {
-      "name": "personal-ops-dashboard",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/personal-ops-dashboard",
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-06-25T10:50:02Z",
+      "language": "MDX",
+      "updated_at": "2026-06-25T18:18:35Z",
       "private": false
     },
     {
@@ -33,16 +33,25 @@
       "html_url": "https://github.com/nikolajflojgaard/agent-orchestration-hub",
       "stargazers_count": 0,
       "language": null,
-      "updated_at": "2026-06-25T10:48:36Z",
+      "updated_at": "2026-06-25T17:11:54Z",
       "private": false
     },
     {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
+      "name": "skill-publisher-pipeline",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/skill-publisher-pipeline",
       "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-06-25T10:24:06Z",
+      "language": "Python",
+      "updated_at": "2026-06-25T17:10:30Z",
+      "private": false
+    },
+    {
+      "name": "personal-ops-dashboard",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/personal-ops-dashboard",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-06-25T10:50:02Z",
       "private": false
     },
     {
@@ -53,18 +62,57 @@
       "language": "Python",
       "updated_at": "2026-06-25T08:43:23Z",
       "private": false
-    },
-    {
-      "name": "homeassistant-investing-score-card",
-      "description": "Scoring a companies balance sheet and stock price",
-      "html_url": "https://github.com/nikolajflojgaard/homeassistant-investing-score-card",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-06-25T08:43:19Z",
-      "private": false
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-06-25T18:18:32Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-06-25T18:07:21Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-06-25T17:55:47Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-06-25T17:41:18Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-06-25T17:30:53Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-06-25T17:19:16Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/agent-orchestration-hub",
+      "repo": "nikolajflojgaard/agent-orchestration-hub",
+      "created_at": "2026-06-25T17:11:50Z"
+    },
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/skill-publisher-pipeline",
+      "repo": "nikolajflojgaard/skill-publisher-pipeline",
+      "created_at": "2026-06-25T17:10:25Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/personal-ops-dashboard",
@@ -76,55 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/agent-orchestration-hub",
       "repo": "nikolajflojgaard/agent-orchestration-hub",
       "created_at": "2026-06-25T10:48:33Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/agent-orchestration-hub",
-      "repo": "nikolajflojgaard/agent-orchestration-hub",
-      "created_at": "2026-06-25T10:47:55Z"
-    },
-    {
-      "type": "create",
-      "description": "Created branch in nikolajflojgaard/personal-ops-dashboard",
-      "repo": "nikolajflojgaard/personal-ops-dashboard",
-      "created_at": "2026-06-25T10:47:33Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-06-25T10:24:03Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-06-25T10:01:47Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/agent-orchestration-hub",
-      "repo": "nikolajflojgaard/agent-orchestration-hub",
-      "created_at": "2026-06-25T08:44:53Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-weekly-training",
-      "repo": "nikolajflojgaard/homeassistant-weekly-training",
-      "created_at": "2026-06-25T08:43:20Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-investing-score-card",
-      "repo": "nikolajflojgaard/homeassistant-investing-score-card",
-      "created_at": "2026-06-25T08:43:16Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
-      "repo": "nikolajflojgaard/home-assistant-home-brief",
-      "created_at": "2026-06-25T08:43:12Z"
     }
   ],
-  "fetched_at": "2026-06-25T14:43:14.829Z"
+  "fetched_at": "2026-06-25T20:09:06.361Z"
 }
