@@ -19,6 +19,15 @@
       "private": false
     },
     {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-06-24T19:54:02Z",
+      "private": false
+    },
+    {
       "name": "agent-orchestration-hub",
       "description": "OpenClaw skill for coordinating multiple agents with briefs, state, gates, and cleanup.",
       "html_url": "https://github.com/nikolajflojgaard/agent-orchestration-hub",
@@ -53,15 +62,6 @@
       "language": "Astro",
       "updated_at": "2026-06-24T15:22:01Z",
       "private": true
-    },
-    {
-      "name": "egedalbogholderi",
-      "description": "Bogholderi",
-      "html_url": "https://github.com/nikolajflojgaard/egedalbogholderi",
-      "stargazers_count": 0,
-      "language": "Astro",
-      "updated_at": "2026-06-24T15:21:47Z",
-      "private": false
     }
   ],
   "recent_activity": [
@@ -126,5 +126,5 @@
       "created_at": "2026-06-24T15:21:25Z"
     }
   ],
-  "fetched_at": "2026-06-24T19:53:57.254Z"
+  "fetched_at": "2026-06-25T04:06:01.740Z"
 }
