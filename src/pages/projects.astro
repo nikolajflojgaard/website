@@ -9,28 +9,36 @@ import Layout from "@/layouts/Layout.astro";
 const featuredProjects = [
   {
     name: "Personal Agent Ops Kit",
-    role: "Agent workflow design, operational runbook design, public skill packaging, and personal automation hardening.",
+    role: "Agent workflow design, evaluation design, public skill packaging, CI documentation rollout, and personal automation hardening.",
     summary:
-      "A small public set of reusable agent-operation skills for the stuff that decides whether a personal AI assistant survives real use.",
+      "A growing public toolchain for running a personal AI assistant like an operating system instead of a clever chat window.",
     problem:
-      "Most agent examples stop at the impressive demo. Real personal agents also need recovery paths, context handoff, cleanup, memory boundaries, and quiet scheduled work.",
+      "Most agent examples stop at the impressive demo. Real personal agents also need scoped work packets, QA, memory boundaries, durable waits, evaluation, repo maintenance, and docs that stay honest in CI.",
     constraints:
-      "Had to be useful in a private local assistant setup while still being generalized and sanitized enough to release publicly.",
+      "Had to be useful in a private local assistant setup while still being generalized, sanitized, documented, and public enough for reuse.",
     whyItMatters:
-      "It turns repeated assistant failure modes into reusable operating procedures: OAuth recovery, context handoff, and subagent cleanup.",
+      "It turns repeated assistant failure modes into reusable operating procedures: workbench runs, red-team review, memory distillation, TaskFlow handoff, behavior evaluation, and repo documentation checks.",
     links: [
+      {
+        label: "Read the new write-up",
+        href: "/posts/2026/2026-06-25-building-a-personal-agent-toolchain",
+      },
       { label: "Read the write-up", href: "/posts/2026/2026-06-15-agent-ops-beats-agent-demos" },
       {
-        label: "OAuth recovery",
-        href: "https://github.com/nikolajflojgaard/skill-gog-oauth-recovery",
+        label: "Agent Workbench",
+        href: "https://github.com/nikolajflojgaard/agent-workbench",
       },
       {
-        label: "Context handoff",
-        href: "https://github.com/nikolajflojgaard/skill-context-resume-handoff",
+        label: "QA / Red Team",
+        href: "https://github.com/nikolajflojgaard/agent-qa-red-team",
       },
       {
-        label: "Subagent cleanup",
-        href: "https://github.com/nikolajflojgaard/skill-research-subagent-cleanup",
+        label: "Evaluation Harness",
+        href: "https://github.com/nikolajflojgaard/agent-evaluation-harness",
+      },
+      {
+        label: "Code Doc Pipeline",
+        href: "https://github.com/nikolajflojgaard/code-doc-pipeline",
       },
     ],
   },
@@ -116,6 +124,8 @@ const jasonCapabilities = [
 const jasonBuiltTogether = [
   "Household Chores",
   "Home Brief",
+  "Personal Agent Ops Kit",
+  "Code Doc Pipeline rollout",
   "This website and its positioning/content system",
   "Workflow and memory systems",
   "Automation and integration experiments",

@@ -1,0 +1,205 @@
+---
+title: "Building a personal agent toolchain"
+description: "A useful personal agent needs more than prompts. It needs a workbench, QA, memory discipline, durable task running, evaluation, and docs that stay honest in CI."
+pubDatetime: 2026-06-25T09:57:00.000Z
+tags:
+  - ai
+  - agentic-ai
+  - automation
+  - software
+  - personal-systems
+  - architecture
+heroImage: "/images/personal-agent-toolchain.svg"
+ogImage: "https://nikolajflojgaard.me/images/personal-agent-toolchain.svg"
+featured: true
+source: "Personal agent toolchain repos built across agent-workbench, agent-qa-red-team, agent-memory-distiller, taskflow-agent-runner, agent-evaluation-harness, repo-fleet-maintainer, and code-doc-pipeline"
+---
+
+I have become less interested in whether an AI agent can do a clever task once.
+
+That part is getting cheap.
+
+The more useful question is whether the agent has a system around it. Can it turn a vague request into a real run? Can it pause without losing the plot? Can it get reviewed before it overclaims? Can it remember the right things without turning memory into a junk drawer? Can it prove that the work is actually shipped?
+
+That is what I have been building over the last few days: a small public toolchain for running a personal agent like an operating system, not a chat window with ambition.
+
+The repos are not glamorous in the demo sense. That is the point.
+
+They are the rails around the work.
+
+## The problem with agent demos
+
+Most agent demos flatten the hard parts.
+
+They show the assistant browsing, coding, writing, or calling a tool. They rarely show the moment after the first run, when the repo has local changes, the docs are stale, the CI result disagrees with the local machine, the context is bloated, and the assistant has to decide whether it is actually done.
+
+That last part matters more than the flashy bit.
+
+A personal agent becomes useful when it can handle the ugly middle:
+
+- scope a messy request
+- split work into lanes
+- track state without relying on chat memory
+- hand off cleanly when a task waits
+- review its own claims with a second-pass critic
+- distill durable memory without saving everything
+- measure whether it is getting better
+- keep repos documented through CI, not hope
+
+So I started turning those failure modes into reusable repos.
+
+## Agent Workbench: make the run concrete
+
+The first piece is [agent-workbench](https://github.com/nikolajflojgaard/agent-workbench).
+
+This is the part that turns a messy request into a work packet: objective, lanes, briefs, state, gates, artifacts, and final report shape.
+
+That sounds like process, but it is really anti-chaos.
+
+When the task is small, you do not need ceremony. When the task starts touching multiple repos, CI, docs, generated assets, public publishing, and long-running checks, the assistant needs somewhere to put the shape of the work.
+
+Chat history is not enough.
+
+The workbench gives the agent a place to say:
+
+- what are we actually trying to do?
+- which lanes exist?
+- what is blocked?
+- what counts as done?
+- what evidence needs to be collected before reporting success?
+
+That last question is the difference between an assistant that helps and an assistant that sounds helpful.
+
+## Agent QA / Red Team: stop trusting the first confident answer
+
+The second piece is [agent-qa-red-team](https://github.com/nikolajflojgaard/agent-qa-red-team).
+
+I do not want a personal agent that rubber-stamps itself.
+
+The more tools an assistant gets, the more important it becomes to have a read-only reviewer pass. Not a second assistant that rewrites everything. A reviewer that looks for bugs, missing validation, security issues, weak reasoning, privacy leaks, and claims that are not backed by evidence.
+
+The workflow is simple:
+
+1. inspect the work
+2. lead with findings
+3. cite the file, command, run, or repo evidence
+4. separate confirmed problems from assumptions
+5. keep the summary short
+
+This is useful because agents are very good at finishing a story. QA forces the story to meet the facts.
+
+During the code-doc rollout, that mattered immediately. I had to say, clearly, that code-doc-pipeline was not embedded across all GitHub repos yet. It existed in the new skill repos, but it was not a default CI check everywhere.
+
+That is exactly the kind of honesty a QA layer should protect.
+
+## Agent Memory Distiller: memory should be curated, not hoarded
+
+The third piece is [agent-memory-distiller](https://github.com/nikolajflojgaard/agent-memory-distiller).
+
+Memory is one of those features that sounds magical until it becomes a mess.
+
+If the assistant remembers nothing, it wakes up useless. If it remembers everything, it becomes haunted by stale details, accidental private context, and old plans that should have died days ago.
+
+The distiller treats memory as a boundary problem.
+
+Daily notes are raw. Long-term memory is curated. Repo docs belong in repos. Tool-specific setup belongs near the tool. Secrets do not belong in memory at all.
+
+The goal is not to save more. The goal is to promote less, better.
+
+For a personal agent, this matters because the work is intimate. It touches messages, repos, calendars, home automation, finance notes, and personal preferences. The assistant needs continuity, but it also needs restraint.
+
+Good memory is not a bigger bucket.
+
+It is better editorial judgment.
+
+## TaskFlow Agent Runner: wait without rotting
+
+The fourth piece is [taskflow-agent-runner](https://github.com/nikolajflojgaard/taskflow-agent-runner).
+
+Some tasks do not finish in one neat turn.
+
+CI has to run. A deploy has to complete. An approval has to come back. A scheduled job has to wait until the next window. A child task may need to finish before the main task can report.
+
+If the assistant treats all of that as chat context, the work gets fragile fast.
+
+TaskFlow Agent Runner gives the agent a pattern for durable background work: create a flow, link child tasks, wait, resume, attach artifacts, finish, fail, or cancel cleanly.
+
+This is not about making the agent more autonomous for the sake of it. It is about making long-running work less sloppy.
+
+The assistant should be able to say:
+
+- I am waiting on this exact thing
+- here is the state I will resume from
+- here is what changed while I was away
+- here is the final report
+- here is what failed and why
+
+That is the difference between a task that sleeps and a task that disappears.
+
+## Agent Evaluation Harness: vibes are not measurement
+
+The fifth piece is [agent-evaluation-harness](https://github.com/nikolajflojgaard/agent-evaluation-harness).
+
+This one exists because "it feels better" is not a good enough metric.
+
+If I am building a personal agent stack, I want repeatable tests for behavior. Did the agent preserve dirty worktrees? Did it avoid privacy leaks? Did it validate the work? Did it distinguish local success from GitHub Actions success? Did it overclaim?
+
+One of the first fixtures is deliberately based on the code-doc rollout mistake: an agent is asked whether the documentation pipeline is now a default across GitHub. The correct answer has to separate:
+
+- generated docs
+- local config
+- GitHub Actions coverage
+- repos intentionally excluded or deferred
+
+That is not a toy evaluation. That is a real failure mode.
+
+Good evaluation catches the moment where the assistant wants to say "done" because the story feels complete, even though the system evidence says otherwise.
+
+## Code docs: documentation should have a CI rail
+
+The sixth piece is [code-doc-pipeline](https://github.com/nikolajflojgaard/code-doc-pipeline), which now sits underneath the new repos and a set of active public projects.
+
+The point is simple: generated docs are only useful if they stay honest.
+
+So the pipeline generates:
+
+- docs index
+- architecture notes
+- operations notes
+- interface notes
+- Mermaid diagrams
+- an inventory file
+
+Then CI checks for drift.
+
+This caught real problems immediately. Local generation passed on macOS, but GitHub Actions failed because Linux exposed case sensitivity around `docs/ARCHITECTURE.md` versus `docs/architecture.md`. Another issue came from docs depending on the checkout folder name. That became a proper generator fix: repos can now pin stable `repository_name` metadata, and `.husky` helper files are excluded by default.
+
+That is the kind of boring fix that makes the whole system more trustworthy.
+
+Not "we have docs."
+
+Docs that fail when they drift.
+
+## The stack is starting to look like an operating model
+
+Put together, the new stack looks like this:
+
+- [repo-fleet-maintainer](https://github.com/nikolajflojgaard/repo-fleet-maintainer) watches the repo landscape
+- [agent-workbench](https://github.com/nikolajflojgaard/agent-workbench) scopes the run
+- [taskflow-agent-runner](https://github.com/nikolajflojgaard/taskflow-agent-runner) handles waiting and resuming
+- [agent-qa-red-team](https://github.com/nikolajflojgaard/agent-qa-red-team) reviews the work
+- [agent-memory-distiller](https://github.com/nikolajflojgaard/agent-memory-distiller) decides what should persist
+- [agent-evaluation-harness](https://github.com/nikolajflojgaard/agent-evaluation-harness) scores behavior
+- [code-doc-pipeline](https://github.com/nikolajflojgaard/code-doc-pipeline) keeps repo documentation honest
+
+None of these replace judgment.
+
+They make judgment easier to apply repeatedly.
+
+That is the part I care about. A useful personal agent should not just be clever. It should have working habits. It should know how to plan, verify, wait, recover, document, remember, and shut up when nothing changed.
+
+This is still early, but the direction feels right.
+
+The next layer is a Personal Ops Dashboard: one place to see active tasks, waits, repo health, failed deploys, recent commits, memory items, and pending approvals.
+
+Because once the agent has a real operating model, the next problem is visibility.
