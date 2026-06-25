@@ -8,7 +8,7 @@ import Layout from "@/layouts/Layout.astro";
 
 const featuredProjects = [
   {
-    name: "Personal Agent Ops Kit",
+    name: "Personal Agent Toolchain",
     role: "Agent workflow design, evaluation design, public skill packaging, CI documentation rollout, and personal automation hardening.",
     summary:
       "A growing public toolchain for running a personal AI assistant like an operating system instead of a clever chat window.",
@@ -104,6 +104,51 @@ const featuredProjects = [
   },
 ];
 
+const agentToolchainRepos = [
+  {
+    name: "Agent Workbench",
+    label: "Run setup",
+    href: "https://github.com/nikolajflojgaard/agent-workbench",
+    summary:
+      "Turns a messy request into objective, lanes, briefs, state, artifacts, gates, and final-report scaffolding.",
+  },
+  {
+    name: "Agent QA / Red Team",
+    label: "Review",
+    href: "https://github.com/nikolajflojgaard/agent-qa-red-team",
+    summary:
+      "Adds a read-only second pass for bugs, weak claims, privacy issues, missing validation, and release risk.",
+  },
+  {
+    name: "Agent Memory Distiller",
+    label: "Memory",
+    href: "https://github.com/nikolajflojgaard/agent-memory-distiller",
+    summary:
+      "Separates raw daily notes from compact long-term memory so the assistant remembers signal, not clutter.",
+  },
+  {
+    name: "TaskFlow Agent Runner",
+    label: "Durable work",
+    href: "https://github.com/nikolajflojgaard/taskflow-agent-runner",
+    summary:
+      "Defines the wait, resume, approval pause, child-task, artifact, finish, fail, and handoff pattern.",
+  },
+  {
+    name: "Agent Evaluation Harness",
+    label: "Measurement",
+    href: "https://github.com/nikolajflojgaard/agent-evaluation-harness",
+    summary:
+      "Scores agent runs against fixtures and rubrics for honesty, validation, safety, usefulness, and regression.",
+  },
+  {
+    name: "Code Doc Pipeline",
+    label: "Docs rail",
+    href: "https://github.com/nikolajflojgaard/code-doc-pipeline",
+    summary:
+      "Generates repo docs and Mermaid diagrams, then uses CI drift checks to keep documentation honest.",
+  },
+];
+
 const jasonPrinciples = [
   "Useful beats impressive.",
   "Systems beat one-off hacks.",
@@ -124,7 +169,7 @@ const jasonCapabilities = [
 const jasonBuiltTogether = [
   "Household Chores",
   "Home Brief",
-  "Personal Agent Ops Kit",
+  "Personal Agent Toolchain",
   "Code Doc Pipeline rollout",
   "This website and its positioning/content system",
   "Workflow and memory systems",
@@ -171,6 +216,65 @@ const experiments = [
         </p>
       </div>
     </section>
+
+    <ContentSection
+      title="Personal agent toolchain"
+      description="The current public repo stack behind Jason: the operating layer for planning, waiting, reviewing, remembering, measuring, and documenting agent work."
+    >
+      <InfoCard className="mb-5 overflow-hidden border-accent/25 bg-accent/8 p-0 shadow-sm">
+        <div class="grid gap-0 md:grid-cols-[1.05fr_0.95fr]">
+          <div class="p-5 sm:p-6">
+            <div class="mb-3 inline-flex items-center rounded-full border border-accent/30 bg-background/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-accent">
+              New public stack
+            </div>
+            <h2 class="text-2xl font-semibold tracking-tight">From chat helper to operating system</h2>
+            <p class="mt-3 text-sm leading-7 text-foreground/74">
+              This is the newer agent work: a set of repos that make the assistant more dependable when work crosses repos, waits on CI, needs a critic, or has to prove that something is really shipped.
+            </p>
+            <div class="mt-5 flex flex-wrap gap-3">
+              <a
+                href="/posts/2026/2026-06-25-building-a-personal-agent-toolchain"
+                class="inline-flex rounded-lg border border-accent/35 bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-accent/90"
+              >
+                Read the toolchain article
+              </a>
+              <a
+                href="https://github.com/nikolajflojgaard/agent-orchestration-hub"
+                class="inline-flex rounded-lg border border-border bg-background/80 px-4 py-2 text-sm font-medium hover:border-accent/35 hover:text-accent"
+              >
+                Orchestration hub
+              </a>
+            </div>
+          </div>
+          <div class="border-t border-border/70 bg-background/65 p-5 md:border-t-0 md:border-l sm:p-6">
+            <p class="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-foreground/55">What it is for</p>
+            <ul class="space-y-2 text-sm leading-7 text-foreground/74">
+              <li>Make ambiguous work concrete before touching code.</li>
+              <li>Keep long-running tasks alive without stale chat context.</li>
+              <li>Catch overclaims before they become public updates.</li>
+              <li>Promote useful memory and leave noisy notes behind.</li>
+              <li>Measure whether the agent is actually improving.</li>
+            </ul>
+          </div>
+        </div>
+      </InfoCard>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        {agentToolchainRepos.map((repo) => (
+          <InfoCard title={repo.name} className="bg-muted/20 p-5" bodyClassName="text-sm leading-7 text-foreground/72">
+            <div class="mb-3">
+              <span class="inline-flex items-center rounded-full border border-border/70 bg-background/85 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-foreground/65">
+                {repo.label}
+              </span>
+            </div>
+            <p>{repo.summary}</p>
+            <a href={repo.href} class="mt-4 inline-flex rounded-lg border border-border px-3 py-1.5 text-sm font-medium hover:border-accent/35 hover:text-accent">
+              GitHub
+            </a>
+          </InfoCard>
+        ))}
+      </div>
+    </ContentSection>
 
     <ContentSection
       title="Featured projects"
