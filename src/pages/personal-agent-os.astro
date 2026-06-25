@@ -1,0 +1,377 @@
+---
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import { SITE } from "@/config";
+import Layout from "@/layouts/Layout.astro";
+
+const repos = [
+  {
+    name: "Personal Ops Dashboard",
+    role: "Private cockpit",
+    href: "https://github.com/nikolajflojgaard/personal-ops-dashboard",
+    summary:
+      "A local-first dashboard for gateway health, sessions, waits, repo state, approvals, workflows, and memory freshness.",
+  },
+  {
+    name: "Agent Workbench",
+    role: "Work shaping",
+    href: "https://github.com/nikolajflojgaard/agent-workbench",
+    summary:
+      "Turns vague requests into objectives, lanes, briefs, state, artifacts, validation gates, and final reports.",
+  },
+  {
+    name: "Agent QA / Red Team",
+    role: "Second pass",
+    href: "https://github.com/nikolajflojgaard/agent-qa-red-team",
+    summary:
+      "Reviews serious work for bugs, overclaims, missing validation, security risk, and weak reasoning.",
+  },
+  {
+    name: "TaskFlow Agent Runner",
+    role: "Durable work",
+    href: "https://github.com/nikolajflojgaard/taskflow-agent-runner",
+    summary:
+      "Keeps long-running jobs alive across waits, child tasks, approvals, resumes, and final reporting.",
+  },
+  {
+    name: "Agent Memory Distiller",
+    role: "Continuity",
+    href: "https://github.com/nikolajflojgaard/agent-memory-distiller",
+    summary:
+      "Distills daily notes, commits, and outcomes into compact long-term memory without dragging noise forward.",
+  },
+  {
+    name: "Agent Evaluation Harness",
+    role: "Measurement",
+    href: "https://github.com/nikolajflojgaard/agent-evaluation-harness",
+    summary: "Scores agent behavior with fixtures, rubrics, evidence, and regression checks.",
+  },
+  {
+    name: "Code Doc Pipeline",
+    role: "Documentation rail",
+    href: "https://github.com/nikolajflojgaard/code-doc-pipeline",
+    summary: "Generates architecture docs and Mermaid diagrams, then checks drift in CI.",
+  },
+  {
+    name: "Skill Publisher Pipeline",
+    role: "Release packaging",
+    href: "https://github.com/nikolajflojgaard/skill-publisher-pipeline",
+    summary:
+      "Packages reusable skills into repos, artifacts, release notes, validation reports, and publishing gates.",
+  },
+];
+
+const cockpitRows = [
+  ["Gateway", "online", "Telegram, cron, tasks, sessions"],
+  ["Node host", "online", "local runtime and file access"],
+  ["TaskFlow", "watching", "2 waits, 0 stale"],
+  ["Repos", "clean", "agent stack CI green"],
+  ["Memory", "fresh", "daily note updated"],
+  ["Approvals", "quiet", "no public action pending"],
+];
+
+const architecture = [
+  {
+    title: "Public story",
+    body: "A website page can show the system, repos, thinking, and sanitized operational patterns without exposing private state.",
+  },
+  {
+    title: "Private cockpit",
+    body: "The real dashboard stays local-first. Remote access should go through Cloudflare Access, Tailscale, or another hard gate.",
+  },
+  {
+    title: "Reusable skills",
+    body: "The toolchain is packaged as small public repos so the useful parts can travel without carrying personal data with them.",
+  },
+];
+---
+
+<Layout
+  title={`Personal Agent OS | ${SITE.title}`}
+  description="A local-first personal agent operating system built around durable work, review, memory, evaluation, and private operational visibility."
+>
+  <Header />
+  <main id="main-content" class="w-full pb-16">
+    <section class="mx-auto grid w-full max-w-6xl gap-8 px-4 pt-8 pb-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.16em] text-accent">Personal Agent OS</p>
+        <h1 class="mt-4 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+          A private operating layer for a personal AI agent that actually ships.
+        </h1>
+        <p class="mt-5 max-w-2xl text-base leading-8 text-foreground/78">
+          Jason is not just a chat window. The useful version is a system: scoped work, durable waits,
+          review loops, memory hygiene, evaluation, repo health, and a local cockpit that shows what is
+          running, blocked, or risky.
+        </p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a
+            href="https://github.com/nikolajflojgaard/personal-ops-dashboard"
+            class="inline-flex rounded-lg border border-accent bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-accent/90"
+          >
+            Dashboard repo
+          </a>
+          <a
+            href="/posts/2026/2026-06-25-building-a-personal-agent-toolchain"
+            class="inline-flex rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium hover:border-accent/35 hover:text-accent"
+          >
+            Read the write-up
+          </a>
+        </div>
+      </div>
+
+      <div class="agent-cockpit" aria-label="Sanitized Personal Ops Dashboard preview">
+        <div class="cockpit-topline">
+          <div>
+            <p>Jason cockpit</p>
+            <span>sanitized public preview</span>
+          </div>
+          <strong>local-first</strong>
+        </div>
+        <div class="cockpit-grid">
+          {cockpitRows.map(([name, state, detail]) => (
+            <div class="cockpit-row">
+              <div>
+                <span>{name}</span>
+                <p>{detail}</p>
+              </div>
+              <strong>{state}</strong>
+            </div>
+          ))}
+        </div>
+        <div class="cockpit-timeline">
+          <div>
+            <span></span>
+            <p>09:00 repo health scan</p>
+          </div>
+          <div>
+            <span></span>
+            <p>12:40 dashboard refresh</p>
+          </div>
+          <div>
+            <span></span>
+            <p>17:10 skill publisher CI green</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-border bg-muted/18">
+      <div class="mx-auto grid max-w-6xl gap-5 px-4 py-9 md:grid-cols-3">
+        {architecture.map((item) => (
+          <article class="agent-panel">
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-4 py-12">
+      <div class="max-w-3xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.16em] text-accent">Toolchain</p>
+        <h2 class="mt-3 text-3xl font-semibold tracking-tight">The public stack behind the private assistant</h2>
+        <p class="mt-4 text-base leading-8 text-foreground/76">
+          The private cockpit should stay private. The operating ideas around it should be public: small repos,
+          clear boundaries, CI checks, and enough documentation for other builders to reuse the pattern.
+        </p>
+      </div>
+
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        {repos.map((repo) => (
+          <article class="repo-card">
+            <div class="repo-heading">
+              <div>
+                <p>{repo.role}</p>
+                <h3>{repo.name}</h3>
+              </div>
+              <a href={repo.href} aria-label={`${repo.name} on GitHub`}>GitHub</a>
+            </div>
+            <p>{repo.summary}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="border-y border-border bg-background">
+      <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 lg:grid-cols-[0.8fr_1.2fr]">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.16em] text-accent">Access model</p>
+          <h2 class="mt-3 text-3xl font-semibold tracking-tight">Public page now. Login-gated cockpit later.</h2>
+        </div>
+        <div class="space-y-4 text-base leading-8 text-foreground/76">
+          <p>
+            A public website is useful for showing the system and the thinking behind it. The live dashboard is
+            different: it can reveal local repos, waits, approvals, memory freshness, and operational state.
+          </p>
+          <p>
+            The clean remote-access plan is Cloudflare Access or Tailscale in front of a private cockpit. Custom
+            auth only makes sense if this becomes a multi-user product. Until then, boring security wins.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .agent-cockpit {
+    border: 1px solid color-mix(in srgb, var(--border) 78%, var(--foreground) 22%);
+    border-radius: 16px;
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--background) 94%, var(--accent) 6%), var(--background)),
+      var(--background);
+    box-shadow: 0 24px 60px rgb(0 0 0 / 12%);
+    overflow: hidden;
+  }
+
+  .cockpit-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding: 1rem;
+  }
+
+  .cockpit-topline p,
+  .repo-heading p {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .cockpit-topline span {
+    display: block;
+    margin-top: 0.25rem;
+    color: color-mix(in srgb, var(--foreground) 62%, transparent);
+    font-size: 0.85rem;
+  }
+
+  .cockpit-topline strong {
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+    border-radius: 999px;
+    padding: 0.35rem 0.65rem;
+    color: var(--accent);
+    font-size: 0.78rem;
+  }
+
+  .cockpit-grid {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .cockpit-row,
+  .repo-card,
+  .agent-panel {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--background) 88%, var(--muted) 12%);
+  }
+
+  .cockpit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 4.4rem;
+    padding: 0.9rem;
+  }
+
+  .cockpit-row span {
+    font-weight: 700;
+  }
+
+  .cockpit-row p {
+    margin: 0.2rem 0 0;
+    color: color-mix(in srgb, var(--foreground) 65%, transparent);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .cockpit-row strong {
+    color: var(--accent);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+  }
+
+  .cockpit-timeline {
+    display: grid;
+    gap: 0.7rem;
+    border-top: 1px solid var(--border);
+    padding: 1rem;
+  }
+
+  .cockpit-timeline div {
+    display: grid;
+    grid-template-columns: 0.8rem 1fr;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .cockpit-timeline span {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+
+  .cockpit-timeline p {
+    margin: 0;
+    color: color-mix(in srgb, var(--foreground) 72%, transparent);
+    font-size: 0.86rem;
+  }
+
+  .agent-panel {
+    padding: 1.15rem;
+  }
+
+  .agent-panel h2 {
+    margin: 0;
+    font-size: 1.08rem;
+    font-weight: 700;
+  }
+
+  .agent-panel p,
+  .repo-card > p {
+    margin: 0.75rem 0 0;
+    color: color-mix(in srgb, var(--foreground) 72%, transparent);
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
+  .repo-card {
+    padding: 1.15rem;
+  }
+
+  .repo-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .repo-heading h3 {
+    margin: 0.25rem 0 0;
+    font-size: 1.18rem;
+    font-weight: 700;
+  }
+
+  .repo-heading a {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.86rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .repo-heading a:hover {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    color: var(--accent);
+  }
+</style>
