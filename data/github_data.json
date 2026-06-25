@@ -2,7 +2,7 @@
   "username": "nikolajflojgaard",
   "name": "Nikolaj Fløjgaard",
   "bio": null,
-  "public_repos": 26,
+  "public_repos": 31,
   "followers": 2,
   "following": 0,
   "avatar_url": "https://avatars.githubusercontent.com/u/258772712?v=4",
@@ -19,49 +19,49 @@
       "private": false
     },
     {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-06-24T19:54:02Z",
-      "private": false
-    },
-    {
       "name": "agent-orchestration-hub",
       "description": "OpenClaw skill for coordinating multiple agents with briefs, state, gates, and cleanup.",
       "html_url": "https://github.com/nikolajflojgaard/agent-orchestration-hub",
       "stargazers_count": 0,
       "language": null,
-      "updated_at": "2026-06-24T16:31:36Z",
+      "updated_at": "2026-06-25T08:44:56Z",
       "private": false
     },
     {
-      "name": "repo-fleet-maintainer",
-      "description": "OpenClaw skill and scanner for maintaining a fleet of repositories safely.",
-      "html_url": "https://github.com/nikolajflojgaard/repo-fleet-maintainer",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-06-24T16:31:27Z",
-      "private": false
-    },
-    {
-      "name": "code-doc-pipeline",
-      "description": "AgentSkill for generating maintainable codebase documentation, diagrams, and CI documentation drift checks",
-      "html_url": "https://github.com/nikolajflojgaard/code-doc-pipeline",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-06-24T16:31:19Z",
-      "private": false
-    },
-    {
-      "name": "AI-Pilot",
+      "name": "homeassistant-weekly-training",
       "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/AI-Pilot",
+      "html_url": "https://github.com/nikolajflojgaard/homeassistant-weekly-training",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-06-25T08:43:23Z",
+      "private": false
+    },
+    {
+      "name": "homeassistant-investing-score-card",
+      "description": "Scoring a companies balance sheet and stock price",
+      "html_url": "https://github.com/nikolajflojgaard/homeassistant-investing-score-card",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-06-25T08:43:19Z",
+      "private": false
+    },
+    {
+      "name": "home-assistant-home-brief",
+      "description": "A Home Assistant custom integration and card for actionable household briefs, chores, energy, and daily brief packages.",
+      "html_url": "https://github.com/nikolajflojgaard/home-assistant-home-brief",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-06-25T08:43:16Z",
+      "private": false
+    },
+    {
+      "name": "reichkendlersolutions",
+      "description": "Business website - rescue",
+      "html_url": "https://github.com/nikolajflojgaard/reichkendlersolutions",
       "stargazers_count": 0,
       "language": "Astro",
-      "updated_at": "2026-06-24T15:22:01Z",
-      "private": true
+      "updated_at": "2026-06-25T08:41:30Z",
+      "private": false
     }
   ],
   "recent_activity": [
@@ -69,62 +69,62 @@
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/agent-orchestration-hub",
       "repo": "nikolajflojgaard/agent-orchestration-hub",
-      "created_at": "2026-06-24T16:31:07Z"
+      "created_at": "2026-06-25T08:44:53Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/repo-fleet-maintainer",
-      "repo": "nikolajflojgaard/repo-fleet-maintainer",
-      "created_at": "2026-06-24T16:31:07Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-weekly-training",
+      "repo": "nikolajflojgaard/homeassistant-weekly-training",
+      "created_at": "2026-06-25T08:43:20Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/code-doc-pipeline",
-      "repo": "nikolajflojgaard/code-doc-pipeline",
-      "created_at": "2026-06-24T16:30:34Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-investing-score-card",
+      "repo": "nikolajflojgaard/homeassistant-investing-score-card",
+      "created_at": "2026-06-25T08:43:16Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/agent-orchestration-hub",
-      "repo": "nikolajflojgaard/agent-orchestration-hub",
-      "created_at": "2026-06-24T16:20:48Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-06-25T08:43:12Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/repo-fleet-maintainer",
-      "repo": "nikolajflojgaard/repo-fleet-maintainer",
-      "created_at": "2026-06-24T16:20:23Z"
-    },
-    {
-      "type": "create",
-      "description": "Created branch in nikolajflojgaard/repo-fleet-maintainer",
-      "repo": "nikolajflojgaard/repo-fleet-maintainer",
-      "created_at": "2026-06-24T16:14:36Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/reichkendlersolutions",
+      "repo": "nikolajflojgaard/reichkendlersolutions",
+      "created_at": "2026-06-25T08:41:26Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/agent-orchestration-hub",
-      "repo": "nikolajflojgaard/agent-orchestration-hub",
-      "created_at": "2026-06-24T15:53:52Z"
-    },
-    {
-      "type": "create",
-      "description": "Created branch in nikolajflojgaard/agent-orchestration-hub",
-      "repo": "nikolajflojgaard/agent-orchestration-hub",
-      "created_at": "2026-06-24T15:39:11Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/mjk-judo",
+      "repo": "nikolajflojgaard/mjk-judo",
+      "created_at": "2026-06-25T08:41:23Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/egedalbogholderi",
-      "repo": "nikolajflojgaard/egedalbogholderi",
-      "created_at": "2026-06-24T15:21:25Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-weekly-training",
+      "repo": "nikolajflojgaard/homeassistant-weekly-training",
+      "created_at": "2026-06-25T08:41:19Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/AI-Pilot",
-      "repo": "nikolajflojgaard/AI-Pilot",
-      "created_at": "2026-06-24T15:21:25Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-investing-score-card",
+      "repo": "nikolajflojgaard/homeassistant-investing-score-card",
+      "created_at": "2026-06-25T08:41:16Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-household-chores",
+      "repo": "nikolajflojgaard/homeassistant-household-chores",
+      "created_at": "2026-06-25T08:41:12Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/home-assistant-home-brief",
+      "repo": "nikolajflojgaard/home-assistant-home-brief",
+      "created_at": "2026-06-25T08:41:08Z"
     }
   ],
-  "fetched_at": "2026-06-25T04:06:01.740Z"
+  "fetched_at": "2026-06-25T09:33:03.382Z"
 }
