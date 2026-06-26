@@ -16,8 +16,8 @@ const { frontmatter } = Astro.props;
 
 <Layout title={`${frontmatter.title} | ${SITE.title}`} description={frontmatter.description}>
   <Header />
-  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-16">
-    <section id="about" class="prose prose-lg mb-20 max-w-3xl prose-img:border-0 mt-8">
+  <main id="main-content" class="site-shell pb-16">
+    <section id="about" class="prose prose-lg site-copy mb-20 prose-img:border-0 mt-8">
       <h1 class="text-3xl tracking-tight sm:text-4xl">{frontmatter.title}</h1>
       <slot />
     </section>

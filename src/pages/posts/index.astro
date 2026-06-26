@@ -3,8 +3,8 @@ import { getCollection } from "astro:content";
 import Card from "@/components/Card.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
-import { SITE } from "@/consts";
 import { SOCIALS } from "@/constants";
+import { SITE } from "@/consts";
 import Layout from "@/layouts/Layout.astro";
 import getPostsByGroupCondition from "@/utils/getPostsByGroupCondition";
 
@@ -47,7 +47,7 @@ const selectedTopics = [
 
 <Layout title={`Posts | ${SITE.title}`} description={`Posts by ${SITE.title}.`}>
   <Header />
-  <main id="main-content" class="mx-auto w-full max-w-5xl px-4 pb-10">
+  <main id="main-content" class="site-shell pb-10">
     <section class="mt-8 mb-8 rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/10 to-accent/5 p-6 sm:p-8">
       <div class="max-w-3xl">
         <h1 class="text-3xl font-semibold sm:text-4xl">Posts</h1>

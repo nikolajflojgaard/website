@@ -11,14 +11,12 @@ type Props = CollectionEntry<"blog">["data"] & {
   readingTime?: string;
 };
 
-const { title, description, pubDatetime, modDatetime, heroImage, ogImage, slug, readingTime } = Astro.props;
+const { title, description, pubDatetime, modDatetime, heroImage, ogImage, slug, readingTime } =
+  Astro.props;
 
 // Prefer an explicit hero image. If missing, fall back to ogImage (used by LinkedIn imports).
-const topImage = typeof heroImage === "string"
-  ? heroImage
-  : typeof ogImage === "string"
-    ? ogImage
-    : ogImage?.src;
+const topImage =
+  typeof heroImage === "string" ? heroImage : typeof ogImage === "string" ? ogImage : ogImage?.src;
 
 // Enforce canonical URL to always be /posts/ path without trailing slash
 // This matches Vercel's trailingSlash: false configuration
@@ -37,7 +35,7 @@ const canonicalURL = new URL(canonicalPath, Astro.site).toString();
   <!-- Back Button -->
   {
     SITE.showBackButton && (
-      <div class="mx-auto flex w-full max-w-3xl items-center justify-start px-2">
+      <div class="site-shell flex items-center justify-start">
         <a
           id="back-button"
           href="/"
@@ -66,7 +64,7 @@ const canonicalURL = new URL(canonicalPath, Astro.site).toString();
   <!-- Main Content -->
   <main
     id="main-content"
-    class="mx-auto mt-8 w-full max-w-5xl px-4 pb-12"
+    class="site-shell mt-8 pb-12"
     data-pagefind-body
   >
     <section class="rounded-2xl border border-accent/15 bg-gradient-to-br from-accent/8 to-background p-6 sm:p-8 mb-8">
@@ -154,7 +152,7 @@ const canonicalURL = new URL(canonicalPath, Astro.site).toString();
       <p class="mt-4 max-w-3xl text-base leading-8 text-foreground/78">{description}</p>
     </section>
 
-    <article id="article" class="article-prose mx-auto mt-10 max-w-3xl">
+    <article id="article" class="article-prose site-copy mt-10">
       {
         topImage && (
           <img

@@ -3,6 +3,7 @@ import { type CollectionEntry, render } from "astro:content";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import BackButton from "@/components/BackButton.astro";
+import Card from "@/components/Card.astro";
 import Datetime from "@/components/Datetime.astro";
 import EditPost from "@/components/EditPost.astro";
 import Footer from "@/components/Footer.astro";
@@ -10,7 +11,6 @@ import Header from "@/components/Header.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
 import StructuredData from "@/components/StructuredData.astro";
 import Tag from "@/components/Tag.astro";
-import Card from "@/components/Card.astro";
 import { SITE } from "@/config";
 import Layout from "@/layouts/Layout.astro";
 import { getPath } from "@/utils/getPath";
@@ -92,21 +92,24 @@ const currentPostIndex = allPosts.findIndex((a) => a.slug === post.id);
 const prevPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
 const nextPost = currentPostIndex !== allPosts.length ? allPosts[currentPostIndex + 1] : null;
 
-const currentTags = new Set((tags ?? []).map(tag => tag.toLowerCase()));
+const currentTags = new Set((tags ?? []).map((tag) => tag.toLowerCase()));
 const relatedPosts = posts
-  .filter(candidate => candidate.id !== post.id)
-  .map(candidate => {
-    const candidateTags = (candidate.data.tags ?? []).map(tag => tag.toLowerCase());
-    const overlap = candidateTags.filter(tag => currentTags.has(tag)).length;
+  .filter((candidate) => candidate.id !== post.id)
+  .map((candidate) => {
+    const candidateTags = (candidate.data.tags ?? []).map((tag) => tag.toLowerCase());
+    const overlap = candidateTags.filter((tag) => currentTags.has(tag)).length;
     return { candidate, overlap };
   })
-  .filter(item => item.overlap > 0)
+  .filter((item) => item.overlap > 0)
   .sort((a, b) => {
     if (b.overlap !== a.overlap) return b.overlap - a.overlap;
-    return new Date(b.candidate.data.pubDatetime).getTime() - new Date(a.candidate.data.pubDatetime).getTime();
+    return (
+      new Date(b.candidate.data.pubDatetime).getTime() -
+      new Date(a.candidate.data.pubDatetime).getTime()
+    );
   })
   .slice(0, 3)
-  .map(item => item.candidate);
+  .map((item) => item.candidate);
 
 // Calculate word count for structured data
 const wordCount = (post.body ?? "").split(/\s+/).length;
@@ -133,7 +136,7 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
   <main
     id="main-content"
     class:list={[
-      "mx-auto w-full max-w-3xl px-4 pb-12",
+      "site-shell pb-12",
       { "mt-8": !SITE.showBackButton },
     ]}
     data-pagefind-body
@@ -158,7 +161,7 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
       </div>
       <EditPost class="max-sm:hidden" {hideEditPost} {post} />
     </div>
-    <article id="article" class="mx-auto prose mt-6 max-w-3xl">
+    <article id="article" class="prose site-copy mt-6">
       {
         topImage && (
           <img
