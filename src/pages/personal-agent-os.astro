@@ -14,18 +14,49 @@ const tabs = [
 ];
 
 const runtimeRows = [
-  ["Gateway", "running", "Message bridge is active."],
-  ["OpenClaw node", "running", "Local node service is registered."],
-  ["Personal ops", "running", "Dashboard generator is active."],
-  ["Telegram", "configured", "Direct chat surface is available."],
-  ["Scheduler", "12 jobs", "Recurring work is tracked through Gateway cron."],
-  ["Exposure", "private", "No public tunnel or raw ops endpoint shown."],
+  {
+    label: "Gateway",
+    value: "healthy",
+    tone: "ok",
+    detail: "Message bridge is active.",
+  },
+  {
+    label: "OpenClaw node",
+    value: "healthy",
+    tone: "ok",
+    detail: "Local node service is registered.",
+  },
+  {
+    label: "Personal ops",
+    value: "healthy",
+    tone: "ok",
+    detail: "Dashboard generator is active.",
+  },
+  {
+    label: "Telegram",
+    value: "healthy",
+    tone: "ok",
+    detail: "Direct chat surface is available.",
+  },
+  {
+    label: "Scheduler",
+    value: "watch",
+    tone: "warning",
+    detail: "Recurring work is tracked through Gateway cron.",
+  },
+  {
+    label: "Exposure",
+    value: "private",
+    tone: "ok",
+    detail: "No public tunnel or raw ops endpoint shown.",
+  },
 ];
 
 const orchestrationFlows = [
   {
     name: "Daily brief pipeline",
     state: "live",
+    tone: "ok",
     owner: "Cron -> Jason -> Telegram",
     path: ["preflight", "generate", "publish"],
     detail:
@@ -34,6 +65,7 @@ const orchestrationFlows = [
   {
     name: "Repo publish lane",
     state: "live",
+    tone: "ok",
     owner: "Jason -> GitHub Actions -> Simply",
     path: ["pull", "validate", "deploy"],
     detail:
@@ -42,6 +74,7 @@ const orchestrationFlows = [
   {
     name: "TaskFlow runner",
     state: "ready",
+    tone: "warning",
     owner: "TaskFlow -> child agents",
     path: ["brief", "wait", "resume"],
     detail:
@@ -50,20 +83,57 @@ const orchestrationFlows = [
 ];
 
 const scheduleRows = [
-  ["Daily brief", "07:30", "Preflight, home brief, and final morning brief delivery."],
-  ["Drive and EV checks", "daily", "Recurring monitoring work is isolated from the main chat."],
-  [
-    "Backups",
-    "scheduled",
-    "Workspace and Home Assistant config backup jobs stay separate from ad hoc work.",
-  ],
-  ["Market alerts", "weekly", "Stock/watchlist checks run on a fixed cadence."],
+  {
+    label: "Daily brief",
+    value: "healthy",
+    tone: "ok",
+    detail: "Preflight, home brief, and final morning brief delivery.",
+  },
+  {
+    label: "Drive and EV checks",
+    value: "watch",
+    tone: "warning",
+    detail: "Recurring monitoring work is isolated from the main chat.",
+  },
+  {
+    label: "Backups",
+    value: "healthy",
+    tone: "ok",
+    detail: "Workspace and Home Assistant config backup jobs stay separate from ad hoc work.",
+  },
+  {
+    label: "Market alerts",
+    value: "healthy",
+    tone: "ok",
+    detail: "Stock/watchlist checks run on a fixed cadence.",
+  },
 ];
 
 const memoryRows = [
-  ["Daily notes", "capture", "Raw session context lands in dated notes when it is worth keeping."],
-  ["Long-term memory", "curated", "Durable facts and preferences stay compact in MEMORY.md."],
-  ["Soul and user", "loaded", "Operating style and owner context are part of the workspace."],
+  {
+    label: "Daily notes",
+    value: "healthy",
+    tone: "ok",
+    detail: "Raw session context lands in dated notes when it is worth keeping.",
+  },
+  {
+    label: "Long-term memory",
+    value: "healthy",
+    tone: "ok",
+    detail: "Durable facts and preferences stay compact in MEMORY.md.",
+  },
+  {
+    label: "Memory drift",
+    value: "watch",
+    tone: "warning",
+    detail: "Raw notes should be distilled when durable signal starts accumulating.",
+  },
+  {
+    label: "Soul and user",
+    value: "healthy",
+    tone: "ok",
+    detail: "Operating style and owner context are part of the workspace.",
+  },
 ];
 
 const skillRows = [
@@ -108,24 +178,31 @@ const skillRows = [
   },
 ];
 
-const statusLegend = [
-  ["ok", "Green", "Working"],
-  ["warning", "Yellow", "Needs attention"],
-  ["danger", "Red", "Stopped"],
-];
-
 const reviewRows = [
-  [
-    "QA / Red Team",
-    "available",
-    "Read-only second pass for bugs, weak validation, privacy issues, and overclaims.",
-  ],
-  ["Deploy watch", "active", "GitHub deploy jobs are watched until the final status is known."],
-  [
-    "Public safety",
-    "gated",
-    "The page shows status-level facts only, not private operational contents.",
-  ],
+  {
+    label: "QA / Red Team",
+    value: "healthy",
+    tone: "ok",
+    detail: "Read-only second pass for bugs, weak validation, privacy issues, and overclaims.",
+  },
+  {
+    label: "Deploy watch",
+    value: "healthy",
+    tone: "ok",
+    detail: "GitHub deploy jobs are watched until the final status is known.",
+  },
+  {
+    label: "Public safety",
+    value: "gated",
+    tone: "warning",
+    detail: "The page shows status-level facts only, not private operational contents.",
+  },
+  {
+    label: "Blocked claim",
+    value: "blocked",
+    tone: "danger",
+    detail: "Public claims stop when validation, privacy checks, or source confidence fail.",
+  },
 ];
 
 const identityRows = [
@@ -189,7 +266,6 @@ const identityRows = [
             data-panel="runtime"
             role="tabpanel"
             aria-label="Runtime"
-            hidden
           >
             <div class="panel-topbar">
               <div>
@@ -200,11 +276,11 @@ const identityRows = [
             </div>
 
             <div class="metric-grid">
-              {runtimeRows.map(([label, value, detail]) => (
-                <article class="metric-card">
-                  <span>{label}</span>
-                  <strong>{value}</strong>
-                  <p>{detail}</p>
+              {runtimeRows.map((row) => (
+                <article class:list={["metric-card", `status-${row.tone}`]}>
+                  <span>{row.label}</span>
+                  <strong>{row.value}</strong>
+                  <p>{row.detail}</p>
                 </article>
               ))}
             </div>
@@ -216,6 +292,7 @@ const identityRows = [
             data-panel="orchestration"
             role="tabpanel"
             aria-label="Orchestration"
+            hidden
           >
             <div class="panel-topbar">
               <div>
@@ -227,7 +304,7 @@ const identityRows = [
 
             <div class="flow-feed">
               {orchestrationFlows.map((flow) => (
-                <article class="flow-card">
+                <article class:list={["flow-card", `status-${flow.tone}`]}>
                   <div class="flow-head">
                     <div>
                       <h3>{flow.name}</h3>
@@ -265,11 +342,11 @@ const identityRows = [
             </div>
 
             <div class="row-list">
-              {scheduleRows.map(([label, value, detail]) => (
-                <article>
-                  <h3>{label}</h3>
-                  <strong>{value}</strong>
-                  <p>{detail}</p>
+              {scheduleRows.map((row) => (
+                <article class:list={[`status-${row.tone}`]}>
+                  <h3>{row.label}</h3>
+                  <strong>{row.value}</strong>
+                  <p>{row.detail}</p>
                 </article>
               ))}
             </div>
@@ -288,20 +365,10 @@ const identityRows = [
                 <p class="eyebrow">Skills</p>
                 <h2>Enabled skill health</h2>
               </div>
-              <span>green / yellow / red</span>
+              <span>auth-aware status</span>
             </div>
 
             <div class="skill-health">
-              <div class="status-legend" aria-label="Skill health color legend">
-                {statusLegend.map(([tone, label, detail]) => (
-                  <div class:list={["legend-item", `status-${tone}`]}>
-                    <span aria-hidden="true"></span>
-                    <strong>{label}</strong>
-                    <p>{detail}</p>
-                  </div>
-                ))}
-              </div>
-
               <div class="health-grid">
                 {skillRows.map((row) => (
                   <article class:list={["health-card", `status-${row.tone}`]}>
@@ -333,11 +400,11 @@ const identityRows = [
             </div>
 
             <div class="row-list">
-              {memoryRows.map(([label, value, detail]) => (
-                <article>
-                  <h3>{label}</h3>
-                  <strong>{value}</strong>
-                  <p>{detail}</p>
+              {memoryRows.map((row) => (
+                <article class:list={[`status-${row.tone}`]}>
+                  <h3>{row.label}</h3>
+                  <strong>{row.value}</strong>
+                  <p>{row.detail}</p>
                 </article>
               ))}
             </div>
@@ -360,11 +427,11 @@ const identityRows = [
             </div>
 
             <div class="row-list">
-              {reviewRows.map(([label, value, detail]) => (
-                <article>
-                  <h3>{label}</h3>
-                  <strong>{value}</strong>
-                  <p>{detail}</p>
+              {reviewRows.map((row) => (
+                <article class:list={[`status-${row.tone}`]}>
+                  <h3>{row.label}</h3>
+                  <strong>{row.value}</strong>
+                  <p>{row.detail}</p>
                 </article>
               ))}
             </div>
@@ -570,10 +637,24 @@ const identityRows = [
 
   .metric-card,
   .flow-card,
-  .row-list article {
+  .row-list article,
+  .health-card {
+    position: relative;
+    overflow: hidden;
     border: 1px solid var(--border);
     border-radius: 8px;
     background: var(--background);
+  }
+
+  .metric-card::before,
+  .flow-card::before,
+  .row-list article::before,
+  .health-card::before {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0.35rem;
+    background: var(--status-color);
+    content: "";
   }
 
   .metric-card {
@@ -591,8 +672,6 @@ const identityRows = [
     text-transform: uppercase;
   }
 
-  .metric-card strong,
-  .row-list strong,
   .identity-strip strong {
     display: block;
     margin-top: 0.35rem;
@@ -675,51 +754,6 @@ const identityRows = [
     text-transform: uppercase;
   }
 
-  .status-legend {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.65rem;
-  }
-
-  .legend-item,
-  .health-card {
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--background);
-  }
-
-  .legend-item {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 0.15rem 0.55rem;
-    align-items: center;
-    padding: 0.75rem;
-  }
-
-  .legend-item > span {
-    width: 0.7rem;
-    height: 0.7rem;
-    border-radius: 999px;
-    background: var(--status-color);
-    box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--status-color) 16%, transparent);
-  }
-
-  .legend-item strong {
-    color: var(--foreground);
-    font-size: 0.8rem;
-    font-weight: 850;
-    line-height: 1.2;
-    text-transform: uppercase;
-  }
-
-  .legend-item p {
-    grid-column: 2;
-    margin: 0;
-    color: color-mix(in srgb, var(--foreground) 62%, transparent);
-    font-size: 0.78rem;
-    line-height: 1.35;
-  }
-
   .health-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -727,20 +761,10 @@ const identityRows = [
   }
 
   .health-card {
-    position: relative;
     display: grid;
     gap: 0.85rem;
     min-height: 8.4rem;
-    overflow: hidden;
     padding: 1rem;
-  }
-
-  .health-card::before {
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 0.35rem;
-    background: var(--status-color);
-    content: "";
   }
 
   .health-card div {
@@ -759,7 +783,12 @@ const identityRows = [
     text-transform: uppercase;
   }
 
-  .health-card strong {
+  .metric-card strong,
+  .row-list strong,
+  .health-card strong,
+  .flow-head > span {
+    display: inline-flex;
+    width: fit-content;
     border: 1px solid color-mix(in srgb, var(--status-color) 40%, var(--border));
     border-radius: 999px;
     background: color-mix(in srgb, var(--status-color) 12%, var(--background));
@@ -857,7 +886,6 @@ const identityRows = [
     }
 
     .metric-grid,
-    .status-legend,
     .health-grid,
     .identity-strip {
       grid-template-columns: 1fr;
