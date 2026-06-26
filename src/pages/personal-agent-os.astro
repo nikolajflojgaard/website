@@ -67,26 +67,51 @@ const memoryRows = [
 ];
 
 const skillRows = [
-  [
-    "Gog OAuth",
-    "watch",
-    "Google Workspace auth is a visible failure point for Gmail, Calendar, Drive, and Docs.",
-  ],
-  [
-    "GitHub CLI",
-    "available",
-    "Repo, CI, deploy, issue, and PR checks depend on authenticated gh access.",
-  ],
-  [
-    "Home Assistant MCP",
-    "configured",
-    "Home state, chores, solar, and device checks stay behind local auth.",
-  ],
-  [
-    "Skill Workshop",
-    "available",
-    "Reusable playbooks and durable skill proposals can be inspected before approval.",
-  ],
+  {
+    label: "Gog OAuth",
+    value: "watch",
+    tone: "warning",
+    detail:
+      "Google Workspace auth can expire and should move yellow before Gmail, Calendar, Drive, or Docs fail.",
+  },
+  {
+    label: "GitHub CLI",
+    value: "healthy",
+    tone: "ok",
+    detail: "Repo, CI, deploy, issue, and PR checks depend on authenticated gh access.",
+  },
+  {
+    label: "Home Assistant MCP",
+    value: "healthy",
+    tone: "ok",
+    detail: "Home state, chores, solar, and device checks stay behind local auth.",
+  },
+  {
+    label: "Skill Workshop",
+    value: "healthy",
+    tone: "ok",
+    detail: "Reusable playbooks and durable skill proposals can be inspected before approval.",
+  },
+  {
+    label: "Host restart",
+    value: "armed",
+    tone: "ok",
+    detail:
+      "Restart handle is installed, but still requires explicit confirmation before rebooting the local host.",
+  },
+  {
+    label: "Failure state",
+    value: "blocked",
+    tone: "danger",
+    detail:
+      "Reserved for broken auth, missing tools, unavailable services, or checks that need manual repair.",
+  },
+];
+
+const statusLegend = [
+  ["ok", "Green", "Working"],
+  ["warning", "Yellow", "Needs attention"],
+  ["danger", "Red", "Stopped"],
 ];
 
 const reviewRows = [
@@ -261,19 +286,33 @@ const identityRows = [
             <div class="panel-topbar">
               <div>
                 <p class="eyebrow">Skills</p>
-                <h2>Enabled surfaces</h2>
+                <h2>Enabled skill health</h2>
               </div>
-              <span>auth-aware status</span>
+              <span>green / yellow / red</span>
             </div>
 
-            <div class="row-list">
-              {skillRows.map(([label, value, detail]) => (
-                <article>
-                  <h3>{label}</h3>
-                  <strong>{value}</strong>
-                  <p>{detail}</p>
-                </article>
-              ))}
+            <div class="skill-health">
+              <div class="status-legend" aria-label="Skill health color legend">
+                {statusLegend.map(([tone, label, detail]) => (
+                  <div class:list={["legend-item", `status-${tone}`]}>
+                    <span aria-hidden="true"></span>
+                    <strong>{label}</strong>
+                    <p>{detail}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div class="health-grid">
+                {skillRows.map((row) => (
+                  <article class:list={["health-card", `status-${row.tone}`]}>
+                    <div>
+                      <span>{row.label}</span>
+                      <strong>{row.value}</strong>
+                    </div>
+                    <p>{row.detail}</p>
+                  </article>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -567,7 +606,8 @@ const identityRows = [
   }
 
   .flow-feed,
-  .row-list {
+  .row-list,
+  .skill-health {
     display: grid;
     gap: 0.85rem;
     padding: 1rem;
@@ -635,6 +675,123 @@ const identityRows = [
     text-transform: uppercase;
   }
 
+  .status-legend {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .legend-item,
+  .health-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--background);
+  }
+
+  .legend-item {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.15rem 0.55rem;
+    align-items: center;
+    padding: 0.75rem;
+  }
+
+  .legend-item > span {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 999px;
+    background: var(--status-color);
+    box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--status-color) 16%, transparent);
+  }
+
+  .legend-item strong {
+    color: var(--foreground);
+    font-size: 0.8rem;
+    font-weight: 850;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .legend-item p {
+    grid-column: 2;
+    margin: 0;
+    color: color-mix(in srgb, var(--foreground) 62%, transparent);
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  .health-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .health-card {
+    position: relative;
+    display: grid;
+    gap: 0.85rem;
+    min-height: 8.4rem;
+    overflow: hidden;
+    padding: 1rem;
+  }
+
+  .health-card::before {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0.35rem;
+    background: var(--status-color);
+    content: "";
+  }
+
+  .health-card div {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .health-card span {
+    color: color-mix(in srgb, var(--foreground) 68%, transparent);
+    font-size: 0.72rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .health-card strong {
+    border: 1px solid color-mix(in srgb, var(--status-color) 40%, var(--border));
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--status-color) 12%, var(--background));
+    color: var(--status-color);
+    padding: 0.2rem 0.55rem;
+    font-size: 0.68rem;
+    font-weight: 850;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .health-card p {
+    margin: 0;
+    color: color-mix(in srgb, var(--foreground) 70%, transparent);
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .status-ok {
+    --status-color: #17803d;
+  }
+
+  .status-warning {
+    --status-color: #9a6a00;
+  }
+
+  .status-danger {
+    --status-color: #b42318;
+  }
+
   .identity-strip {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -700,6 +857,8 @@ const identityRows = [
     }
 
     .metric-grid,
+    .status-legend,
+    .health-grid,
     .identity-strip {
       grid-template-columns: 1fr;
     }
