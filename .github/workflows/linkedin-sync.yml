@@ -38,14 +38,14 @@ jobs:
           echo "Europe/Copenhagen hour: $hour shouldRun: $should_run"
           echo "SHOULD_RUN=$should_run" >> "$GITHUB_ENV"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         if: env.SHOULD_RUN == 'true'
 
       - name: Set up Node.js
         if: env.SHOULD_RUN == 'true'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: "22"
+          node-version: "24"
           cache: "npm"
 
       - name: Install dependencies
