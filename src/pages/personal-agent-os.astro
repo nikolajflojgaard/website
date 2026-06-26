@@ -4,103 +4,178 @@ import Header from "@/components/Header.astro";
 import { SITE } from "@/config";
 import Layout from "@/layouts/Layout.astro";
 
-const runtimeRows = [
-  ["Gateway", "running", "Message bridge is active."],
-  ["OpenClaw node", "running", "Local node service is registered."],
-  ["Personal ops", "running", "Dashboard generator is active."],
-  ["Telegram", "configured", "Direct chat surface is available."],
-  ["Scheduler", "enabled", "12 cron jobs tracked."],
-  ["Exposure", "private", "No public tunnel or raw ops endpoint shown."],
+const railItems = [
+  ["A", "Activity"],
+  ["C", "Chat"],
+  ["T", "Teams"],
+  ["P", "Tasks"],
+  ["W", "Workflows"],
 ];
 
-const cronRows = [
-  ["Briefs", "3", "daily preflight, home brief, daily brief"],
-  ["Monitoring", "4", "Drive, EV, watch, household checks"],
-  ["Backups", "2", "workspace and Home Assistant config"],
-  ["Market alerts", "3", "stock/watchlist checks"],
+const channels = [
+  ["Runtime", "Gateway, node, Telegram"],
+  ["Orchestration", "Flows currently worth showing"],
+  ["Schedules", "Cron and recurring work"],
+  ["Memory", "Daily notes and durable recall"],
+  ["Review", "QA gates and deploy checks"],
+];
+
+const orchestrationFlows = [
+  {
+    name: "Daily brief pipeline",
+    state: "live",
+    owner: "Cron -> Jason -> Telegram",
+    path: ["preflight", "generate", "publish"],
+    detail:
+      "Morning brief jobs run as isolated scheduled work, then deliver the useful summary back to Telegram.",
+  },
+  {
+    name: "Repo publish lane",
+    state: "live",
+    owner: "Jason -> GitHub Actions -> Simply",
+    path: ["pull", "validate", "deploy"],
+    detail:
+      "Site changes use the shared-main publish rule: rebase, build, commit, push, then watch deployment.",
+  },
+  {
+    name: "TaskFlow runner",
+    state: "ready",
+    owner: "TaskFlow -> child agents",
+    path: ["brief", "wait", "resume"],
+    detail:
+      "Long-running work can be split into durable child tasks with wait states, gates, and final reports.",
+  },
+  {
+    name: "Memory loop",
+    state: "active",
+    owner: "Daily notes -> MEMORY.md",
+    path: ["capture", "distill", "recall"],
+    detail:
+      "Raw daily context stays separate from curated long-term memory so the assistant stays useful without dumping everything.",
+  },
+  {
+    name: "QA gate",
+    state: "available",
+    owner: "QA / Red Team -> Jason",
+    path: ["review", "fix", "verify"],
+    detail:
+      "Risky work can get a read-only second pass for bugs, weak validation, privacy issues, and overclaims.",
+  },
+];
+
+const statusRows = [
+  ["Gateway", "running"],
+  ["OpenClaw node", "running"],
+  ["Telegram", "configured"],
+  ["Scheduler", "12 jobs"],
+  ["Exposure", "private"],
 ];
 
 const identityRows = [
-  ["User", "Nikolaj", "owner context"],
-  ["Agent", "Jason", "personal developer"],
-  ["Soul", "engineering-minded", "blunt, useful, privacy-aware"],
-  ["Memory", "layered", "daily notes plus curated long-term memory"],
+  ["User", "Nikolaj"],
+  ["Agent", "Jason"],
+  ["Soul", "engineering-minded"],
+  ["Memory", "layered"],
 ];
 ---
 
 <Layout
   title={`Personal Agent OS | ${SITE.title}`}
-  description="A small public-safe status page for Jason's personal agent operating layer."
+  description="A Teams-style public-safe cockpit for Jason's personal agent operating layer."
 >
   <Header />
   <main id="main-content" class="w-full pb-16">
-    <section class="mx-auto w-full max-w-5xl px-4 pt-8 pb-10">
+    <section class="mx-auto w-full max-w-6xl px-4 pt-8 pb-8">
       <p class="eyebrow">Personal Agent OS</p>
       <h1 class="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-        Jason runtime status.
+        Agent ops cockpit.
       </h1>
       <p class="mt-5 max-w-2xl text-base leading-8 text-foreground/78">
-        A public-safe check that the local agent layer exists and is alive. No prompts, chat IDs, local addresses,
-        hostnames, raw memory, or session logs.
+        A public-safe Teams-style view of the local agent layer: runtime status, orchestration flows, schedules,
+        memory posture, and review gates. No prompts, chat IDs, hostnames, local addresses, secrets, or raw logs.
       </p>
-      <p class="snapshot">Snapshot: 26 Jun 2026, 07:10 CPH</p>
     </section>
 
-    <section class="border-y border-border bg-background">
-      <div class="mx-auto grid max-w-5xl gap-8 px-4 py-10 lg:grid-cols-[1fr_0.82fr]">
-        <article class="panel">
-          <div class="panel-head">
-            <p class="eyebrow">Runtime</p>
-            <strong>alive</strong>
-          </div>
-
-          <div class="status-table" aria-label="Agent runtime status">
-            {runtimeRows.map(([name, state, detail]) => (
-              <div class="status-row">
-                <h2>{name}</h2>
-                <span>{state}</span>
-                <p>{detail}</p>
-              </div>
-            ))}
-          </div>
-        </article>
-
-        <article class="panel">
-          <div class="panel-head">
-            <p class="eyebrow">Cron</p>
-            <strong>12 jobs</strong>
-          </div>
-
-          <div class="status-table compact" aria-label="Scheduled automation groups">
-            {cronRows.map(([group, count, detail]) => (
-              <div class="status-row">
-                <h2>{group}</h2>
-                <span>{count}</span>
-                <p>{detail}</p>
-              </div>
-            ))}
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="mx-auto max-w-5xl px-4 py-10">
-      <article class="panel">
-        <div class="panel-head">
-          <p class="eyebrow">Identity and memory</p>
-          <strong>loaded</strong>
-        </div>
-
-        <div class="identity-grid">
-          {identityRows.map(([label, value, detail]) => (
-            <div>
-              <span>{label}</span>
-              <h2>{value}</h2>
-              <p>{detail}</p>
+    <section class="mx-auto max-w-6xl px-4">
+      <div class="teams-shell" aria-label="Teams-style Agent OS cockpit">
+        <aside class="teams-rail" aria-label="Primary sections">
+          {railItems.map(([letter, label]) => (
+            <div class:list={["rail-item", label === "Teams" && "active"]}>
+              <span>{letter}</span>
+              <p>{label}</p>
             </div>
           ))}
-        </div>
-      </article>
+        </aside>
+
+        <aside class="team-sidebar" aria-label="Agent OS channels">
+          <div class="team-title">
+            <span>NF</span>
+            <div>
+              <strong>Jason OS</strong>
+              <p>private operating layer</p>
+            </div>
+          </div>
+
+          <div class="channel-list">
+            {channels.map(([name, detail]) => (
+              <article class:list={["channel", name === "Orchestration" && "selected"]}>
+                <strong>{name}</strong>
+                <p>{detail}</p>
+              </article>
+            ))}
+          </div>
+        </aside>
+
+        <section class="team-main">
+          <div class="team-topbar">
+            <div>
+              <p class="eyebrow">Orchestration</p>
+              <h2>Flows running behind Jason</h2>
+            </div>
+            <span>Snapshot 26 Jun 2026, 08:40 CPH</span>
+          </div>
+
+          <div class="status-strip" aria-label="Runtime status summary">
+            {statusRows.map(([label, value]) => (
+              <div>
+                <span>{label}</span>
+                <strong>{value}</strong>
+              </div>
+            ))}
+          </div>
+
+          <div class="flow-feed">
+            {orchestrationFlows.map((flow) => (
+              <article class="flow-card">
+                <div class="flow-head">
+                  <div>
+                    <h3>{flow.name}</h3>
+                    <p>{flow.owner}</p>
+                  </div>
+                  <span>{flow.state}</span>
+                </div>
+
+                <div class="flow-path" aria-label={`${flow.name} path`}>
+                  {flow.path.map((step) => (
+                    <span>{step}</span>
+                  ))}
+                </div>
+
+                <p>{flow.detail}</p>
+              </article>
+            ))}
+          </div>
+
+          <div class="identity-strip" aria-label="Identity and memory">
+            {identityRows.map(([label, value]) => (
+              <div>
+                <span>{label}</span>
+                <strong>{value}</strong>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
     </section>
   </main>
   <Footer />
@@ -108,136 +183,322 @@ const identityRows = [
 
 <style>
   .eyebrow {
-    color: var(--accent);
+    color: #4f52b2;
     font-size: 0.75rem;
     font-weight: 850;
     letter-spacing: 0.12em;
     text-transform: uppercase;
   }
 
-  .snapshot {
-    margin-top: 1.5rem;
-    color: color-mix(in srgb, var(--foreground) 66%, transparent);
-    font-size: 0.88rem;
+  .teams-shell {
+    display: grid;
+    min-height: 44rem;
+    overflow: hidden;
+    border: 1px solid #d8dbe8;
+    border-radius: 8px;
+    background: #f5f5f8;
+    color: #252423;
+    grid-template-columns: 4.5rem 17rem minmax(0, 1fr);
+  }
+
+  .teams-rail {
+    display: grid;
+    align-content: start;
+    gap: 0.35rem;
+    background: #2f2f44;
+    padding: 0.8rem 0.45rem;
+  }
+
+  .rail-item {
+    display: grid;
+    min-height: 4.1rem;
+    place-items: center;
+    border-radius: 6px;
+    color: #dadaf4;
+    text-align: center;
+  }
+
+  .rail-item.active {
+    background: #444791;
+    color: white;
+  }
+
+  .rail-item span {
+    display: grid;
+    width: 1.7rem;
+    height: 1.7rem;
+    place-items: center;
+    border-radius: 6px;
+    background: color-mix(in srgb, currentColor 16%, transparent);
+    font-size: 0.82rem;
+    font-weight: 850;
+  }
+
+  .rail-item p {
+    margin: 0.25rem 0 0;
+    font-size: 0.64rem;
     font-weight: 750;
   }
 
-  .panel {
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: color-mix(in srgb, var(--background) 91%, var(--muted) 9%);
-  }
-
-  .panel-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    border-bottom: 1px solid var(--border);
+  .team-sidebar {
+    border-right: 1px solid #d8dbe8;
+    background: #ebedf5;
     padding: 1rem;
   }
 
-  .panel-head strong,
-  .status-row span {
-    color: var(--accent);
+  .team-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 1px solid #d8dbe8;
+    padding-bottom: 1rem;
+  }
+
+  .team-title > span {
+    display: grid;
+    width: 2.4rem;
+    height: 2.4rem;
+    place-items: center;
+    border-radius: 7px;
+    background: #6264a7;
+    color: white;
+    font-weight: 850;
+  }
+
+  .team-title strong {
+    display: block;
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+
+  .team-title p,
+  .channel p,
+  .team-topbar > span,
+  .flow-head p,
+  .flow-card > p {
+    margin: 0;
+    color: #6b6a69;
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .channel-list {
+    display: grid;
+    gap: 0.35rem;
+    margin-top: 1rem;
+  }
+
+  .channel {
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 0.75rem;
+  }
+
+  .channel.selected {
+    border-color: #d8dbe8;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+  }
+
+  .channel strong {
+    display: block;
+    font-size: 0.94rem;
+  }
+
+  .channel p {
+    margin-top: 0.15rem;
     font-size: 0.78rem;
+  }
+
+  .team-main {
+    min-width: 0;
+    background: #ffffff;
+  }
+
+  .team-topbar {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid #e5e5ef;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .team-topbar h2 {
+    margin: 0.35rem 0 0;
+    color: #252423;
+    font-size: 1.85rem;
+    font-weight: 760;
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+
+  .team-topbar > span {
+    text-align: right;
+  }
+
+  .status-strip,
+  .identity-strip {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    border-bottom: 1px solid #e5e5ef;
+  }
+
+  .status-strip div,
+  .identity-strip div {
+    border-left: 1px solid #e5e5ef;
+    padding: 0.9rem 1rem;
+  }
+
+  .status-strip div:first-child,
+  .identity-strip div:first-child {
+    border-left: 0;
+  }
+
+  .status-strip span,
+  .identity-strip span {
+    display: block;
+    color: #6b6a69;
+    font-size: 0.68rem;
     font-weight: 850;
     letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .status-strip strong,
+  .identity-strip strong {
+    display: block;
+    margin-top: 0.35rem;
+    color: #444791;
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+
+  .flow-feed {
+    display: grid;
+    gap: 0.85rem;
+    padding: 1rem;
+  }
+
+  .flow-card {
+    border: 1px solid #e5e5ef;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 5%);
+  }
+
+  .flow-head {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .flow-head h3 {
+    margin: 0;
+    color: #252423;
+    font-size: 1.06rem;
+    font-weight: 780;
+    line-height: 1.3;
+  }
+
+  .flow-head > span {
+    border: 1px solid #c7c9ed;
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
+    color: #444791;
+    font-size: 0.7rem;
+    font-weight: 850;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     white-space: nowrap;
   }
 
-  .status-table {
-    display: grid;
+  .flow-path {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0.9rem 0;
   }
 
-  .status-row {
-    display: grid;
-    grid-template-columns: minmax(8rem, 0.72fr) minmax(5.5rem, 0.28fr) minmax(0, 1fr);
-    gap: 1rem;
-    align-items: baseline;
-    border-top: 1px solid var(--border);
-    padding: 1rem;
-  }
-
-  .panel-head + .status-table .status-row:first-child {
-    border-top: 0;
-  }
-
-  .status-table.compact .status-row {
-    grid-template-columns: minmax(7rem, 1fr) auto;
-  }
-
-  .status-table.compact .status-row p {
-    grid-column: 1 / -1;
-  }
-
-  .status-row h2,
-  .identity-grid h2 {
-    margin: 0;
-    font-size: 1rem;
+  .flow-path span {
+    border: 1px solid #e0e2f2;
+    border-radius: 999px;
+    background: #f7f7fb;
+    padding: 0.25rem 0.65rem;
+    color: #3b3a39;
+    font-size: 0.78rem;
     font-weight: 760;
-    line-height: 1.35;
   }
 
-  .status-row p,
-  .identity-grid p {
-    margin: 0;
-    color: color-mix(in srgb, var(--foreground) 68%, transparent);
-    font-size: 0.92rem;
-    line-height: 1.6;
-  }
-
-  .identity-grid {
-    display: grid;
+  .identity-strip {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid #e5e5ef;
+    border-bottom: 0;
   }
 
-  .identity-grid div {
-    border-left: 1px solid var(--border);
-    padding: 1rem;
+  @media (max-width: 980px) {
+    .teams-shell {
+      grid-template-columns: 4rem minmax(0, 1fr);
+    }
+
+    .team-sidebar {
+      display: none;
+    }
   }
 
-  .identity-grid div:first-child {
-    border-left: 0;
-  }
+  @media (max-width: 720px) {
+    .teams-shell {
+      display: block;
+      min-height: auto;
+    }
 
-  .identity-grid span {
-    display: block;
-    margin-bottom: 0.45rem;
-    color: color-mix(in srgb, var(--foreground) 62%, transparent);
-    font-size: 0.72rem;
-    font-weight: 850;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
+    .teams-rail {
+      display: flex;
+      overflow-x: auto;
+      padding: 0.5rem;
+    }
 
-  .identity-grid p {
-    margin-top: 0.45rem;
-  }
+    .rail-item {
+      min-width: 4rem;
+      min-height: 3.6rem;
+    }
 
-  @media (max-width: 760px) {
-    .status-row,
-    .status-table.compact .status-row {
+    .team-topbar {
+      display: block;
+      padding: 1rem;
+    }
+
+    .team-topbar > span {
+      display: block;
+      margin-top: 0.75rem;
+      text-align: left;
+    }
+
+    .status-strip,
+    .identity-strip {
       grid-template-columns: 1fr;
-      gap: 0.35rem;
     }
 
-    .status-table.compact .status-row p {
-      grid-column: auto;
-    }
-
-    .identity-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .identity-grid div {
-      border-top: 1px solid var(--border);
+    .status-strip div,
+    .identity-strip div {
+      border-top: 1px solid #e5e5ef;
       border-left: 0;
     }
 
-    .identity-grid div:first-child {
+    .status-strip div:first-child,
+    .identity-strip div:first-child {
       border-top: 0;
+    }
+
+    .flow-head {
+      display: block;
+    }
+
+    .flow-head > span {
+      display: inline-flex;
+      margin-top: 0.75rem;
     }
   }
 </style>
