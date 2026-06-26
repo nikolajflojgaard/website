@@ -144,10 +144,10 @@ const identityRows = [
             {tabs.map(([id, name, detail]) => (
               <button
                 type="button"
-                class:list={["tab-button", id === "orchestration" && "selected"]}
+                class:list={["tab-button", id === "runtime" && "selected"]}
                 data-tab={id}
                 aria-controls={`${id}-panel`}
-                aria-selected={id === "orchestration" ? "true" : "false"}
+                aria-selected={id === "runtime" ? "true" : "false"}
                 role="tab"
               >
                 <strong>{name}</strong>
