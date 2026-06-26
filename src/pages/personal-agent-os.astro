@@ -101,7 +101,7 @@ const identityRows = [
 >
   <Header />
   <main id="main-content" class="w-full pb-16">
-    <section class="mx-auto w-full max-w-6xl px-4 pt-8 pb-8">
+    <section class="mx-auto w-full max-w-4xl px-4 pt-8 pb-8">
       <p class="eyebrow">Personal Agent OS</p>
       <h1 class="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
         Agent ops cockpit.
@@ -113,7 +113,7 @@ const identityRows = [
       </p>
     </section>
 
-    <section class="mx-auto max-w-6xl px-4">
+    <section class="mx-auto max-w-4xl px-4">
       <div class="ops-shell" aria-label="Agent OS cockpit">
         <aside class="ops-rail" aria-label="Primary sections">
           {railItems.map(([letter, label]) => (
@@ -350,29 +350,37 @@ const identityRows = [
     border-radius: 8px;
     background: color-mix(in srgb, var(--background) 92%, var(--muted) 8%);
     color: var(--foreground);
-    grid-template-columns: 4.25rem 17rem minmax(0, 1fr);
+    grid-template-columns: 15rem minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
   }
 
   .ops-rail {
-    display: grid;
-    align-content: start;
-    gap: 0.35rem;
-    background: color-mix(in srgb, var(--foreground) 92%, var(--background) 8%);
-    padding: 0.8rem 0.45rem;
+    display: flex;
+    grid-column: 1 / -1;
+    gap: 0.4rem;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border);
+    background: color-mix(in srgb, var(--background) 82%, var(--muted) 18%);
+    padding: 0.55rem;
   }
 
   .rail-item {
-    display: grid;
-    min-height: 4rem;
-    place-items: center;
+    display: flex;
+    min-height: 2.35rem;
+    align-items: center;
+    gap: 0.45rem;
+    border: 1px solid transparent;
     border-radius: 6px;
-    color: color-mix(in srgb, var(--background) 78%, transparent);
+    padding: 0.3rem 0.55rem;
+    color: color-mix(in srgb, var(--foreground) 66%, transparent);
     text-align: center;
+    white-space: nowrap;
   }
 
   .rail-item.active {
-    background: var(--accent);
-    color: var(--background);
+    border-color: var(--border);
+    background: var(--background);
+    color: var(--foreground);
   }
 
   .rail-item span {
@@ -387,12 +395,14 @@ const identityRows = [
   }
 
   .rail-item p {
-    margin: 0.25rem 0 0;
+    margin: 0;
     font-size: 0.64rem;
     font-weight: 750;
   }
 
   .ops-sidebar {
+    grid-column: 1;
+    grid-row: 2;
     border-right: 1px solid var(--border);
     background: color-mix(in srgb, var(--background) 74%, var(--muted) 26%);
     padding: 1rem;
@@ -474,6 +484,8 @@ const identityRows = [
   }
 
   .ops-main {
+    grid-column: 2;
+    grid-row: 2;
     min-width: 0;
     background: var(--background);
   }
@@ -634,7 +646,7 @@ const identityRows = [
 
   @media (max-width: 980px) {
     .ops-shell {
-      grid-template-columns: 4rem 14rem minmax(0, 1fr);
+      grid-template-columns: 13rem minmax(0, 1fr);
     }
 
     .metric-grid {
@@ -649,14 +661,11 @@ const identityRows = [
     }
 
     .ops-rail {
-      display: flex;
-      overflow-x: auto;
       padding: 0.5rem;
     }
 
     .rail-item {
       min-width: 4rem;
-      min-height: 3.6rem;
     }
 
     .ops-sidebar {
