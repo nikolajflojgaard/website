@@ -267,6 +267,10 @@ const hasSupabaseConfig = Boolean(
 
     const getRedirectTo = () => new URL("/personal-agent-os/private", window.location.origin).toString();
 
+    const cleanAuthUrl = () => {
+      window.history.replaceState({}, document.title, getRedirectTo());
+    };
+
     const syncProviderState = async () => {
       try {
         const response = await fetch(`${supabaseUrl}/auth/v1/settings`, {
@@ -434,6 +438,37 @@ const hasSupabaseConfig = Boolean(
     supabase.auth.onAuthStateChange((_, session) => {
       void applyUserState(session?.user ?? null);
     });
+
+    const finishAuthRedirect = async () => {
+      const url = new URL(window.location.href);
+      const hashParams = new URLSearchParams(window.location.hash.slice(1));
+      const errorDescription =
+        url.searchParams.get("error_description") ||
+        url.searchParams.get("error") ||
+        hashParams.get("error_description") ||
+        hashParams.get("error");
+
+      if (errorDescription) {
+        showAuthError(`Sign-in callback failed: ${decodeURIComponent(errorDescription)}`);
+        return;
+      }
+
+      const code = url.searchParams.get("code");
+      if (!code) return;
+
+      setAuthStatus("Finishing sign-in...", "muted");
+
+      const { error } = await supabase.auth.exchangeCodeForSession(code);
+      if (error) {
+        showAuthError(`Sign-in callback failed: ${error.message}`);
+        setAuthStatus("Sign-in callback failed", "danger");
+        return;
+      }
+
+      cleanAuthUrl();
+    };
+
+    await finishAuthRedirect();
 
     const { data, error } = await supabase.auth.getSession();
     if (error) {
