@@ -421,15 +421,15 @@ const isActive = (path: string) => {
   }
 
   #agent-auth-btn[data-auth-state="signed-out"] {
-    color: #dc2626;
-    background: color-mix(in srgb, #dc2626 10%, transparent);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, #dc2626 45%, transparent);
-  }
-
-  #agent-auth-btn[data-auth-state="signed-in"] {
     color: #16a34a;
     background: color-mix(in srgb, #16a34a 13%, transparent);
     box-shadow: inset 0 0 0 1px color-mix(in srgb, #16a34a 58%, transparent);
+  }
+
+  #agent-auth-btn[data-auth-state="signed-in"] {
+    color: #dc2626;
+    background: color-mix(in srgb, #dc2626 10%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, #dc2626 45%, transparent);
   }
 
   #agent-auth-btn[data-auth-state="unavailable"] {
