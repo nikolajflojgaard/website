@@ -30,7 +30,7 @@ const hasSupabaseConfig = Boolean(
           {
             hasSupabaseConfig ? (
               <p>
-                Supabase client keys are present. Sign in with Google or a magic link to continue.
+                Supabase client keys are present. Sign in with Google to continue.
               </p>
             ) : (
               <p>
@@ -56,23 +56,6 @@ const hasSupabaseConfig = Boolean(
             </button>
           </div>
 
-          <form id="magic-link-form" class="magic-form">
-            <label for="magic-email">Email magic link</label>
-            <div class="magic-row">
-              <input
-                id="magic-email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                placeholder="you@example.com"
-                required
-                disabled
-              />
-              <button id="magic-submit" class="btn" type="submit" disabled>Send</button>
-            </div>
-            <p id="magic-status" class="muted-note" aria-live="polite"></p>
-          </form>
-
           <dl class="user-meta">
             <div>
               <dt>User</dt>
@@ -85,13 +68,68 @@ const hasSupabaseConfig = Boolean(
           </dl>
         </article>
 
-        <article class="panel">
+        <article id="private-app" class="panel private-app" hidden>
           <div class="panel-head">
-            <h2>Agent cards</h2>
-            <span class="muted-note">Read-only after auth</span>
+            <h2 id="private-app-heading">Dashboard</h2>
+            <span id="app-sync-status" class="status-chip status-muted">Locked</span>
           </div>
-          <p id="cards-status" class="muted-note">Sign in to load cards from `public.agent_os_cards`.</p>
-          <div id="cards" class="cards-grid" aria-live="polite"></div>
+
+          <nav class="private-tabs" aria-label="Private console sections">
+            <button type="button" class="private-tab is-active" data-private-tab="dashboard">Dashboard</button>
+            <button type="button" class="private-tab" data-private-tab="cronjobs">Cronjobs</button>
+            <button type="button" class="private-tab" data-private-tab="skills">Skills</button>
+            <button type="button" class="private-tab" data-private-tab="chat">Chat</button>
+          </nav>
+
+          <section class="private-panel is-active" data-private-panel="dashboard">
+            <div class="control-grid">
+              <article class="control-tile">
+                <span>Auth</span>
+                <strong id="dashboard-auth">Signed out</strong>
+              </article>
+              <article class="control-tile">
+                <span>Cronjobs</span>
+                <strong id="dashboard-cron-count">0 tracked</strong>
+              </article>
+              <article class="control-tile">
+                <span>Skills</span>
+                <strong id="dashboard-skill-count">0 visible</strong>
+              </article>
+              <article class="control-tile">
+                <span>Bridge</span>
+                <strong id="dashboard-bridge">Static shell</strong>
+              </article>
+            </div>
+
+            <div class="panel-subhead">
+              <h3>Agent cards</h3>
+              <span class="muted-note">Read-only after auth</span>
+            </div>
+            <p id="cards-status" class="muted-note">Sign in to load cards from `public.agent_os_cards`.</p>
+            <div id="cards" class="cards-grid" aria-live="polite"></div>
+          </section>
+
+          <section class="private-panel" data-private-panel="cronjobs">
+            <p class="muted-note">Current scheduler inventory, sanitized for the private console.</p>
+            <div id="cronjobs-list" class="ops-list" aria-live="polite"></div>
+          </section>
+
+          <section class="private-panel" data-private-panel="skills">
+            <p class="muted-note">Page visibility toggles only. Runtime skill enablement still lives in OpenClaw.</p>
+            <div id="skills-list" class="ops-list" aria-live="polite"></div>
+          </section>
+
+          <section class="private-panel" data-private-panel="chat">
+            <form id="chat-form" class="chat-form">
+              <label for="chat-prompt">Prompt Jason</label>
+              <textarea id="chat-prompt" name="prompt" rows="5" placeholder="Write the next thing you want Jason to handle."></textarea>
+              <div class="chat-actions">
+                <button class="btn" type="submit">Queue prompt</button>
+                <span id="chat-status" class="muted-note" aria-live="polite">Agent bridge not connected yet.</span>
+              </div>
+            </form>
+            <div id="chat-log" class="chat-log" aria-live="polite"></div>
+          </section>
         </article>
       </div>
     </section>
@@ -114,14 +152,129 @@ const hasSupabaseConfig = Boolean(
   const providerStatusEl = document.querySelector("#provider-status");
   const googleButton = document.querySelector("#signin-google");
   const signOutButton = document.querySelector("#signout");
-  const magicForm = document.querySelector("#magic-link-form");
-  const magicEmailInput = document.querySelector("#magic-email");
-  const magicSubmit = document.querySelector("#magic-submit");
-  const magicStatusEl = document.querySelector("#magic-status");
   const userEmailEl = document.querySelector("#user-email");
   const userIdEl = document.querySelector("#user-id");
+  const privateAppEl = document.querySelector("#private-app");
+  const privateAppHeadingEl = document.querySelector("#private-app-heading");
+  const appSyncStatusEl = document.querySelector("#app-sync-status");
+  const dashboardAuthEl = document.querySelector("#dashboard-auth");
+  const dashboardCronCountEl = document.querySelector("#dashboard-cron-count");
+  const dashboardSkillCountEl = document.querySelector("#dashboard-skill-count");
+  const dashboardBridgeEl = document.querySelector("#dashboard-bridge");
   const cardsStatusEl = document.querySelector("#cards-status");
   const cardsEl = document.querySelector("#cards");
+  const cronJobsListEl = document.querySelector("#cronjobs-list");
+  const skillsListEl = document.querySelector("#skills-list");
+  const chatFormEl = document.querySelector("#chat-form");
+  const chatPromptEl = document.querySelector("#chat-prompt");
+  const chatStatusEl = document.querySelector("#chat-status");
+  const chatLogEl = document.querySelector("#chat-log");
+  const privateTabEls = [...document.querySelectorAll("[data-private-tab]")];
+  const privatePanelEls = [...document.querySelectorAll("[data-private-panel]")];
+  const headerMenuItemsEl = document.querySelector("#menu-items");
+  const originalHeaderMenu = headerMenuItemsEl?.innerHTML ?? "";
+
+  const cronJobs = [
+    {
+      name: "Daily brief preflight",
+      cadence: "07:20 Europe/Copenhagen",
+      summary: "Checks the daily brief inputs before publish.",
+      status: "ok",
+      enabled: true,
+    },
+    {
+      name: "Home Brief publish",
+      cadence: "07:28 Europe/Copenhagen",
+      summary: "Publishes the morning home brief.",
+      status: "ok",
+      enabled: true,
+    },
+    {
+      name: "Daily brief",
+      cadence: "07:30 Europe/Copenhagen",
+      summary: "Runs the main daily brief lane.",
+      status: "ok",
+      enabled: true,
+    },
+    {
+      name: "EV/FSD monitor",
+      cadence: "Daily morning",
+      summary: "Watches EV/FSD signals and reports useful changes.",
+      status: "ok",
+      enabled: true,
+    },
+    {
+      name: "Dealer monitor",
+      cadence: "Daily morning",
+      summary: "Watches configured dealer inventory signals.",
+      status: "ok",
+      enabled: true,
+    },
+    {
+      name: "Jason backup sync",
+      cadence: "Monday 02:00",
+      summary: "Backs up curated OpenClaw workspace files.",
+      status: "ok",
+      enabled: true,
+    },
+    {
+      name: "Drive drop-folder sweep",
+      cadence: "Weekdays every 2 hours",
+      summary: "Sweeps configured Drive drop folders during working hours.",
+      status: "ok",
+      enabled: true,
+    },
+    {
+      name: "Stock playbook buy-territory check",
+      cadence: "Biweekly Wednesday 12:00",
+      summary: "Checks stock playbook candidates against buy-zone rules.",
+      status: "ok",
+      enabled: true,
+    },
+    {
+      name: "Home Assistant config backup",
+      cadence: "Biweekly Wednesday 12:00",
+      summary: "Syncs Home Assistant config backup state.",
+      status: "ok",
+      enabled: true,
+    },
+    {
+      name: "Stock buy-zone alerts",
+      cadence: "Scheduled market check",
+      summary: "Checks configured buy-zone alert conditions.",
+      status: "ok",
+      enabled: true,
+    },
+    {
+      name: "Family message watcher",
+      cadence: "Disabled interval",
+      summary: "Paused watcher lane for family-message context.",
+      status: "paused",
+      enabled: false,
+    },
+    {
+      name: "Direct message watcher",
+      cadence: "Disabled interval",
+      summary: "Paused watcher lane for direct-message context.",
+      status: "paused",
+      enabled: false,
+    },
+  ];
+
+  const skills = [
+    ["github", "GitHub issues, PRs, CI, and repo operations."],
+    ["gog", "Google Workspace mail, calendar, Drive, Sheets, Docs, and contacts."],
+    ["gog-oauth-recovery", "Phone/browser Google OAuth recovery for headless use."],
+    ["stock-playbook-review", "Nikolaj's five-gate stock review workflow."],
+    ["architecture-doc-kissify", "Turns heavy architecture docs into sharper KISS markdown."],
+    ["openapi-spec-workflow", "Creates and renders OpenAPI contracts."],
+    ["healthcheck", "Host security hardening and exposure checks."],
+    ["repo-fleet-maintainer", "Scans and maintains multiple repos safely."],
+    ["agent-memory-distiller", "Distills recent work into compact durable memory."],
+    ["diagram-maker", "Creates architecture and workflow diagrams."],
+    ["openhue", "Controls Philips Hue lights and scenes."],
+    ["weather", "Current weather and forecasts."],
+  ].map(([name, summary]) => ({ name, summary }));
 
   const showAuthError = (message) => {
     if (!authErrorEl) return;
@@ -141,11 +294,6 @@ const hasSupabaseConfig = Boolean(
     authStatusEl.className = `status-chip status-${tone}`;
   };
 
-  const setMagicStatus = (message) => {
-    if (!magicStatusEl) return;
-    magicStatusEl.textContent = message;
-  };
-
   const setProviderStatus = (message) => {
     if (!providerStatusEl) return;
     providerStatusEl.textContent = message;
@@ -163,13 +311,10 @@ const hasSupabaseConfig = Boolean(
 
   const providerState = {
     google: true,
-    email: true,
   };
 
   const setControlsEnabled = (enabled) => {
     if (googleButton instanceof HTMLButtonElement) googleButton.disabled = !enabled || !providerState.google;
-    if (magicEmailInput instanceof HTMLInputElement) magicEmailInput.disabled = !enabled || !providerState.email;
-    if (magicSubmit instanceof HTMLButtonElement) magicSubmit.disabled = !enabled || !providerState.email;
   };
 
   const formatDate = (value) => {
@@ -246,7 +391,7 @@ const hasSupabaseConfig = Boolean(
   if (!hasConfig) {
     setAuthStatus("Setup needed", "warning");
     setControlsEnabled(false);
-    setMagicStatus("Add Supabase public env vars to enable login.");
+    setProviderStatus("Add Supabase public env vars to enable login.");
     setCardsStatus("Setup needed before cards can be loaded.");
   } else {
     const supabase = createClient(supabaseUrl, supabaseAnonKey, {
@@ -283,20 +428,12 @@ const hasSupabaseConfig = Boolean(
 
         const settings = await response.json();
         providerState.google = settings?.external?.google !== false;
-        providerState.email = settings?.external?.email !== false;
 
         if (!providerState.google && googleButton instanceof HTMLButtonElement) {
           googleButton.textContent = "Google disabled in Supabase";
         }
 
-        if (!providerState.email) {
-          setMagicStatus("Email magic links are disabled in Supabase.");
-        }
-
-        const disabledProviders = [
-          !providerState.google && "Google",
-          !providerState.email && "email magic links",
-        ].filter(Boolean);
+        const disabledProviders = [!providerState.google && "Google"].filter(Boolean);
 
         setProviderStatus(
           disabledProviders.length ? `${disabledProviders.join(" and ")} disabled in Supabase Auth.` : ""
@@ -309,16 +446,148 @@ const hasSupabaseConfig = Boolean(
 
     await syncProviderState();
 
+    const activatePrivateTab = (tabName) => {
+      const normalizedTab = ["dashboard", "cronjobs", "skills", "chat"].includes(tabName) ? tabName : "dashboard";
+
+      for (const button of privateTabEls) {
+        button.classList.toggle("is-active", button.dataset.privateTab === normalizedTab);
+      }
+
+      for (const panel of privatePanelEls) {
+        panel.classList.toggle("is-active", panel.dataset.privatePanel === normalizedTab);
+      }
+
+      if (privateAppHeadingEl) {
+        privateAppHeadingEl.textContent = normalizedTab.charAt(0).toUpperCase() + normalizedTab.slice(1);
+      }
+    };
+
+    const setPrivateHeaderNav = (enabled) => {
+      if (!headerMenuItemsEl) return;
+
+      if (!enabled) {
+        headerMenuItemsEl.innerHTML = originalHeaderMenu;
+        return;
+      }
+
+      headerMenuItemsEl.innerHTML = ["dashboard", "cronjobs", "skills", "chat"]
+        .map(
+          (tab) =>
+            `<li class="col-span-2"><a href="#${tab}" data-private-nav="${tab}">${tab.charAt(0).toUpperCase() + tab.slice(1)}</a></li>`
+        )
+        .join("");
+
+      for (const link of headerMenuItemsEl.querySelectorAll("[data-private-nav]")) {
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          activatePrivateTab(link.dataset.privateNav);
+          privateAppEl?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    };
+
+    const bindPrivateTabs = () => {
+      for (const button of privateTabEls) {
+        button.addEventListener("click", () => {
+          activatePrivateTab(button.dataset.privateTab);
+        });
+      }
+    };
+
+    const renderCronJobs = () => {
+      if (!cronJobsListEl) return;
+      cronJobsListEl.innerHTML = "";
+
+      for (const job of cronJobs) {
+        const item = document.createElement("article");
+        item.className = "ops-item";
+        item.innerHTML = `
+          <div>
+            <h3>${job.name}</h3>
+            <p>${job.summary}</p>
+            <small>${job.cadence}</small>
+          </div>
+          <span class="status-chip ${job.enabled ? "status-ok" : "status-muted"}">${job.enabled ? job.status : "disabled"}</span>
+        `;
+        cronJobsListEl.appendChild(item);
+      }
+
+      if (dashboardCronCountEl) {
+        dashboardCronCountEl.textContent = `${cronJobs.filter((job) => job.enabled).length}/${cronJobs.length} active`;
+      }
+    };
+
+    const getSkillVisibility = () => {
+      try {
+        return JSON.parse(localStorage.getItem("agent-os-skill-visibility") ?? "{}");
+      } catch {
+        return {};
+      }
+    };
+
+    const setSkillVisibility = (visibility) => {
+      localStorage.setItem("agent-os-skill-visibility", JSON.stringify(visibility));
+    };
+
+    const renderSkills = () => {
+      if (!skillsListEl) return;
+      const visibility = getSkillVisibility();
+      skillsListEl.innerHTML = "";
+
+      for (const skill of skills) {
+        const enabled = visibility[skill.name] ?? true;
+        const item = document.createElement("article");
+        item.className = "ops-item";
+        item.innerHTML = `
+          <div>
+            <h3>${skill.name}</h3>
+            <p>${skill.summary}</p>
+          </div>
+          <label class="toggle-row">
+            <input type="checkbox" ${enabled ? "checked" : ""} data-skill-toggle="${skill.name}" />
+            <span>${enabled ? "shown" : "hidden"}</span>
+          </label>
+        `;
+        skillsListEl.appendChild(item);
+      }
+
+      for (const toggle of skillsListEl.querySelectorAll("[data-skill-toggle]")) {
+        toggle.addEventListener("change", () => {
+          const nextVisibility = getSkillVisibility();
+          nextVisibility[toggle.dataset.skillToggle] = toggle.checked;
+          setSkillVisibility(nextVisibility);
+          renderSkills();
+        });
+      }
+
+      if (dashboardSkillCountEl) {
+        const visibleCount = skills.filter((skill) => getSkillVisibility()[skill.name] ?? true).length;
+        dashboardSkillCountEl.textContent = `${visibleCount}/${skills.length} visible`;
+      }
+    };
+
+    const appendChatLog = (message, tone = "muted") => {
+      if (!chatLogEl) return;
+      const item = document.createElement("article");
+      item.className = "chat-entry";
+      item.innerHTML = `<span class="status-chip status-${tone}">${tone}</span><p>${message}</p>`;
+      chatLogEl.prepend(item);
+    };
+
     const loadCards = async (user) => {
       if (!user) {
         clearCards();
         setCardsStatus("Sign in to load cards from `public.agent_os_cards`.");
+        if (privateAppEl instanceof HTMLElement) privateAppEl.hidden = true;
+        setPrivateHeaderNav(false);
         return;
       }
 
       if (!isAllowedUser(user)) {
         clearCards();
         setCardsStatus("Signed in account is not allowed for this console.");
+        if (privateAppEl instanceof HTMLElement) privateAppEl.hidden = true;
+        setPrivateHeaderNav(false);
         return;
       }
 
@@ -362,6 +631,11 @@ const hasSupabaseConfig = Boolean(
 
       if (!user) {
         setAuthStatus("Signed out", "muted");
+        if (dashboardAuthEl) dashboardAuthEl.textContent = "Signed out";
+        if (appSyncStatusEl) {
+          appSyncStatusEl.textContent = "Locked";
+          appSyncStatusEl.className = "status-chip status-muted";
+        }
         await loadCards(null);
         return;
       }
@@ -373,13 +647,23 @@ const hasSupabaseConfig = Boolean(
       }
 
       setAuthStatus("Signed in", "ok");
+      if (dashboardAuthEl) dashboardAuthEl.textContent = user.email ?? "Signed in";
+      if (dashboardBridgeEl) dashboardBridgeEl.textContent = "Google session";
+      if (appSyncStatusEl) {
+        appSyncStatusEl.textContent = "Unlocked";
+        appSyncStatusEl.className = "status-chip status-ok";
+      }
+      if (privateAppEl instanceof HTMLElement) privateAppEl.hidden = false;
+      setPrivateHeaderNav(true);
+      renderCronJobs();
+      renderSkills();
+      activatePrivateTab("dashboard");
       await loadCards(user);
     };
 
     if (googleButton instanceof HTMLButtonElement) {
       googleButton.addEventListener("click", async () => {
         clearAuthError();
-        setMagicStatus("");
 
         const { error } = await supabase.auth.signInWithOAuth({
           provider: "google",
@@ -394,39 +678,48 @@ const hasSupabaseConfig = Boolean(
       });
     }
 
-    if (magicForm instanceof HTMLFormElement) {
-      magicForm.addEventListener("submit", async (event) => {
+    if (chatFormEl instanceof HTMLFormElement) {
+      chatFormEl.addEventListener("submit", async (event) => {
         event.preventDefault();
-        clearAuthError();
 
-        const formData = new FormData(magicForm);
-        const email = String(formData.get("email") ?? "").trim();
-        if (!email) {
-          setMagicStatus("Enter your email first.");
+        const formData = new FormData(chatFormEl);
+        const prompt = String(formData.get("prompt") ?? "").trim();
+        if (!prompt) {
+          if (chatStatusEl) chatStatusEl.textContent = "Write a prompt first.";
           return;
         }
 
-        const { error } = await supabase.auth.signInWithOtp({
-          email,
-          options: {
-            emailRedirectTo: getRedirectTo(),
-          },
+        const { data: sessionData } = await supabase.auth.getSession();
+        const user = sessionData.session?.user;
+        if (!user || !isAllowedUser(user)) {
+          if (chatStatusEl) chatStatusEl.textContent = "Sign in with the allowed account first.";
+          return;
+        }
+
+        if (chatStatusEl) chatStatusEl.textContent = "Queueing prompt...";
+
+        const { error } = await supabase.from("agent_os_prompts").insert({
+          owner_id: user.id,
+          prompt,
+          status: "queued",
         });
 
         if (error) {
-          setMagicStatus("");
-          showAuthError(`Magic link failed: ${error.message}`);
+          localStorage.setItem("agent-os-chat-draft", prompt);
+          if (chatStatusEl) chatStatusEl.textContent = "Prompt bridge table missing. Draft kept locally.";
+          appendChatLog("Prompt kept locally until the Supabase prompt queue exists.", "warning");
           return;
         }
 
-        setMagicStatus("Magic link sent. Check your inbox.");
+        if (chatPromptEl instanceof HTMLTextAreaElement) chatPromptEl.value = "";
+        if (chatStatusEl) chatStatusEl.textContent = "Prompt queued for Jason.";
+        appendChatLog(prompt, "ok");
       });
     }
 
     if (signOutButton instanceof HTMLButtonElement) {
       signOutButton.addEventListener("click", async () => {
         clearAuthError();
-        setMagicStatus("");
 
         const { error } = await supabase.auth.signOut();
         if (error) {
@@ -467,6 +760,8 @@ const hasSupabaseConfig = Boolean(
 
       cleanAuthUrl();
     };
+
+    bindPrivateTabs();
 
     await finishAuthRedirect();
 
@@ -526,7 +821,6 @@ const hasSupabaseConfig = Boolean(
   }
 
   .actions,
-  .magic-form,
   .user-meta {
     margin-top: 0.8rem;
   }
@@ -551,31 +845,13 @@ const hasSupabaseConfig = Boolean(
     background: var(--background);
   }
 
-  .magic-form label,
-  .user-meta dt {
+  .user-meta dt,
+  .chat-form label {
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: color-mix(in srgb, var(--foreground) 70%, transparent);
-  }
-
-  .magic-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.4rem;
-  }
-
-  .magic-row input {
-    flex: 1 1 14rem;
-    min-width: 0;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--background);
-    color: var(--foreground);
-    padding: 0.45rem 0.6rem;
-    font: inherit;
   }
 
   .muted-note {
@@ -638,6 +914,144 @@ const hasSupabaseConfig = Boolean(
     display: grid;
     gap: 0.65rem;
     margin-top: 0.85rem;
+  }
+
+  .private-app {
+    overflow: hidden;
+  }
+
+  .private-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.9rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.65rem;
+  }
+
+  .private-tab {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--background);
+    color: var(--foreground);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 760;
+    padding: 0.4rem 0.65rem;
+  }
+
+  .private-tab.is-active {
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+    background: color-mix(in srgb, var(--accent) 11%, var(--background));
+    color: var(--accent);
+  }
+
+  .private-panel {
+    display: none;
+    margin-top: 1rem;
+  }
+
+  .private-panel.is-active {
+    display: block;
+  }
+
+  .control-grid {
+    display: grid;
+    gap: 0.65rem;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  }
+
+  .control-tile,
+  .ops-item,
+  .chat-entry {
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: var(--background);
+    padding: 0.8rem;
+  }
+
+  .control-tile span,
+  .ops-item small {
+    color: color-mix(in srgb, var(--foreground) 68%, transparent);
+    font-size: 0.82rem;
+  }
+
+  .control-tile strong {
+    display: block;
+    margin-top: 0.25rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .panel-subhead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+  .panel-subhead h3,
+  .ops-item h3 {
+    margin: 0;
+    font-size: 0.98rem;
+  }
+
+  .ops-list {
+    display: grid;
+    gap: 0.65rem;
+    margin-top: 0.85rem;
+  }
+
+  .ops-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem;
+  }
+
+  .ops-item p {
+    margin: 0.3rem 0;
+  }
+
+  .toggle-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+  }
+
+  .chat-form textarea {
+    width: 100%;
+    min-width: 0;
+    margin-top: 0.45rem;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: var(--background);
+    color: var(--foreground);
+    font: inherit;
+    line-height: 1.5;
+    padding: 0.65rem;
+    resize: vertical;
+  }
+
+  .chat-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+    margin-top: 0.65rem;
+  }
+
+  .chat-log {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 0.85rem;
+  }
+
+  .chat-entry p {
+    margin: 0.45rem 0 0;
   }
 
   .card-item {

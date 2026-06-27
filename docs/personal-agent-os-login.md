@@ -2,7 +2,7 @@
 
 `/personal-agent-os` stays public-safe by design.
 
-`/personal-agent-os/private` is the hidden private login console for authenticated read-only card access.
+`/personal-agent-os/private` is the hidden private login console for authenticated cards, prompt queueing, and private Agent OS controls.
 
 ## Security model
 
@@ -11,7 +11,7 @@
   - `PUBLIC_SUPABASE_URL`
   - `PUBLIC_SUPABASE_ANON_KEY`
 - Never use or ship Supabase service role keys in Astro client code.
-- Private card data is fetched client-side only after user auth. The initial HTML does not include private card content.
+- Private card and prompt data is fetched client-side only after user auth. The initial HTML does not include private card content.
 
 ## Required local env vars
 
@@ -32,7 +32,6 @@ In Supabase Dashboard:
 
 1. Enable providers:
    - Google OAuth
-   - Email (magic link)
 2. Add redirect URL:
    - `https://YOUR_DOMAIN/personal-agent-os/private`
    - For local dev also add: `http://localhost:4321/personal-agent-os/private`
@@ -40,7 +39,7 @@ In Supabase Dashboard:
 
 ## SQL schema and RLS (minimum)
 
-Run this in Supabase SQL editor (adapt fields as needed):
+Run this in Supabase SQL editor (adapt fields as needed). Replace `YOUR_AUTH_USER_ID` and `YOUR_ALLOWED_EMAIL` before seeding real data.
 
 ```sql
 create table if not exists public.agent_os_cards (
@@ -55,12 +54,15 @@ create table if not exists public.agent_os_cards (
 
 alter table public.agent_os_cards enable row level security;
 
--- Read-only for authenticated users
+-- Read-only for the authenticated owner and configured email
 create policy "agent_os_cards_select_authenticated"
 on public.agent_os_cards
 for select
 to authenticated
-using (auth.uid() = owner_id);
+using (
+  auth.uid() = owner_id
+  and lower(auth.jwt() ->> 'email') = lower('YOUR_ALLOWED_EMAIL')
+);
 
 -- Optional: keep write operations service-only or admin-only; no public write policy.
 ```
@@ -78,6 +80,44 @@ values (
 ```
 
 If `agent_os_cards` does not exist or policies block reads, the UI surfaces a safe setup error message instead of crashing.
+
+## Prompt queue schema and RLS
+
+The Chat tab writes prompts to a Supabase queue. A local/OpenClaw bridge can later poll this table and turn queued rows into real agent work.
+
+```sql
+create table if not exists public.agent_os_prompts (
+  id uuid primary key default gen_random_uuid(),
+  owner_id uuid not null references auth.users(id) on delete cascade,
+  prompt text not null,
+  status text not null default 'queued',
+  response text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.agent_os_prompts enable row level security;
+
+create policy "agent_os_prompts_insert_owner"
+on public.agent_os_prompts
+for insert
+to authenticated
+with check (
+  auth.uid() = owner_id
+  and lower(auth.jwt() ->> 'email') = lower('YOUR_ALLOWED_EMAIL')
+);
+
+create policy "agent_os_prompts_select_owner"
+on public.agent_os_prompts
+for select
+to authenticated
+using (
+  auth.uid() = owner_id
+  and lower(auth.jwt() ->> 'email') = lower('YOUR_ALLOWED_EMAIL')
+);
+
+-- Updates should be done by the local bridge with admin/database credentials, not from the browser.
+```
 
 ## GitHub Actions variables for deploy builds
 
