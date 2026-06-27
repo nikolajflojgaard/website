@@ -101,6 +101,11 @@ const isActive = (path: string) => {
               Dashboard
             </a>
           </li>
+          <li class="col-span-2 hidden" data-agent-nav>
+            <a href="/personal-agent-os/cockpit" data-agent-link="cockpit">
+              Cockpit
+            </a>
+          </li>
           {
             SITE.showArchives && (
               <li class="col-span-2">
@@ -227,8 +232,13 @@ const isActive = (path: string) => {
 	        brand.href = isSignedIn ? brand.dataset.agentHref || "/personal-agent-os/" : brand.dataset.defaultHref || "/";
 	      }
 
-	      const isAgentDashboard = window.location.pathname.replace(/\/$/, "") === "/personal-agent-os";
-	      const currentTarget = isAgentDashboard ? "dashboard" : window.location.hash.replace("#", "");
+	      const currentPath = window.location.pathname.replace(/\/$/, "");
+	      const currentTarget =
+	        currentPath === "/personal-agent-os"
+	          ? "dashboard"
+	          : currentPath === "/personal-agent-os/cockpit"
+	            ? "cockpit"
+	            : window.location.hash.replace("#", "");
 	      agentLinks.forEach((link) => {
 	        const isActiveAgentLink = link.getAttribute("data-agent-link") === currentTarget;
 	        link.classList.toggle("active-nav", isSignedIn && isActiveAgentLink);

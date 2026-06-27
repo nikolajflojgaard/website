@@ -1,0 +1,442 @@
+---
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import { SITE } from "@/config";
+import Layout from "@/layouts/Layout.astro";
+
+const statusTiles = [
+  { label: "Session", value: "Google auth", tone: "good", note: "Header owns access state." },
+  {
+    label: "Boundary",
+    value: "public-safe",
+    tone: "good",
+    note: "No raw logs, secrets, hostnames, or chat ids.",
+  },
+  {
+    label: "Bridge",
+    value: "queued",
+    tone: "watch",
+    note: "Supabase prompt queue is the next real backend step.",
+  },
+  { label: "Deploy", value: "supervised", tone: "good", note: "Build, check, push, verify live." },
+];
+
+const commandLane = [
+  { step: "Input", detail: "Telegram, site prompt queue, or direct session.", state: "open" },
+  { step: "Triage", detail: "Decide: answer, inspect, code, delegate, or wait.", state: "active" },
+  { step: "Build", detail: "Small coherent slice with product judgment first.", state: "guarded" },
+  {
+    step: "Verify",
+    detail: "Checks, build, browser state, mobile, and live smoke.",
+    state: "required",
+  },
+  { step: "Report", detail: "Short outcome, caveats only when they matter.", state: "clean" },
+];
+
+const workSurfaces = [
+  ["Header", "auth-aware chrome", "live"],
+  ["Dashboard", "Agent OS front door", "live"],
+  ["Cockpit", "operator view", "new"],
+  ["Prompt queue", "site-to-Jason bridge", "next"],
+  ["Local tools", "OpenClaw runtime", "private"],
+  ["Memory", "durable lessons", "active"],
+];
+
+const signals = [
+  { name: "UX quality", value: "hold the line", tone: "watch" },
+  { name: "Security posture", value: "RLS + local boundary", tone: "good" },
+  { name: "Deployment", value: "GitHub -> Simply", tone: "good" },
+  { name: "Automation", value: "approval-first", tone: "good" },
+];
+
+const designRules = [
+  "One obvious control beats three clever affordances.",
+  "Logged-in mode changes navigation, not the entire site personality.",
+  "Private data never belongs in static HTML.",
+  "A cockpit should help decisions, not decorate uncertainty.",
+];
+---
+
+<Layout
+  title={`Agent OS Cockpit | ${SITE.title}`}
+  description="A logged-in navigation surface for Jason's Agent OS cockpit."
+  robots="noindex, nofollow"
+>
+  <Header />
+  <main id="main-content" class="cockpit-page">
+    <div class="cockpit-shell">
+      <section class="cockpit-hero" aria-labelledby="cockpit-title">
+        <div>
+          <p class="eyebrow">Agent OS Cockpit</p>
+          <h1 id="cockpit-title">Jason's operator surface.</h1>
+          <p>
+            A wider, signed-in navigation destination for the parts that need room: command flow,
+            boundaries, state, and the next bridge into the local agent runtime.
+          </p>
+        </div>
+
+        <div class="cockpit-readout" aria-label="Cockpit readout">
+          <span>Mode</span>
+          <strong>Supervised</strong>
+          <small>Local-first, approval-aware, public-safe.</small>
+        </div>
+      </section>
+
+      <section class="status-grid" aria-label="Cockpit status">
+        {statusTiles.map((tile) => (
+          <article class:list={["status-tile", `tone-${tile.tone}`]}>
+            <span>{tile.label}</span>
+            <strong>{tile.value}</strong>
+            <p>{tile.note}</p>
+          </article>
+        ))}
+      </section>
+
+      <section class="cockpit-layout" aria-label="Cockpit workspace">
+        <div class="cockpit-panel command-panel">
+          <div class="panel-heading">
+            <p class="eyebrow">Command Lane</p>
+            <h2>How work should move</h2>
+          </div>
+
+          <ol class="command-lane">
+            {commandLane.map((item) => (
+              <li>
+                <span>{item.state}</span>
+                <div>
+                  <strong>{item.step}</strong>
+                  <p>{item.detail}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div class="cockpit-panel surface-panel">
+          <div class="panel-heading">
+            <p class="eyebrow">Surfaces</p>
+            <h2>What exists now</h2>
+          </div>
+
+          <div class="surface-grid">
+            {workSurfaces.map(([name, detail, state]) => (
+              <div>
+                <span>{state}</span>
+                <strong>{name}</strong>
+                <p>{detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="cockpit-panel signal-panel">
+          <div class="panel-heading">
+            <p class="eyebrow">Signals</p>
+            <h2>Current posture</h2>
+          </div>
+
+          <div class="signal-list">
+            {signals.map((signal) => (
+              <div class:list={[`tone-${signal.tone}`]}>
+                <span>{signal.name}</span>
+                <strong>{signal.value}</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="cockpit-panel rule-panel">
+          <div class="panel-heading">
+            <p class="eyebrow">Design Rules</p>
+            <h2>Guardrails after today</h2>
+          </div>
+
+          <ul class="rule-list">
+            {designRules.map((rule) => (
+              <li>{rule}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  :global(body:has(.cockpit-page) .site-shell) {
+    max-width: min(1500px, calc(100vw - 1rem));
+  }
+
+  .cockpit-page {
+    width: 100%;
+    padding: 2rem 0 4rem;
+    color: var(--foreground);
+  }
+
+  .cockpit-page :where(section) {
+    max-width: none;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .cockpit-shell {
+    width: min(1500px, calc(100vw - 1rem));
+    margin: 0 auto;
+    padding: 0 0.5rem;
+  }
+
+  .eyebrow {
+    margin: 0;
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .cockpit-hero {
+    display: grid;
+    align-items: end;
+    gap: 1.5rem;
+    padding: 1rem 0 1.4rem;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+  }
+
+  .cockpit-hero h1 {
+    margin: 0.55rem 0 0;
+    max-width: 58rem;
+    font-size: clamp(2.2rem, 5vw, 5.9rem);
+    font-weight: 850;
+    letter-spacing: 0;
+    line-height: 0.95;
+  }
+
+  .cockpit-hero p {
+    max-width: 48rem;
+    margin: 1rem 0 0;
+    color: color-mix(in srgb, var(--foreground) 74%, transparent);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .cockpit-readout {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    background:
+      linear-gradient(135deg, color-mix(in srgb, #16a34a 12%, transparent), transparent 46%),
+      color-mix(in srgb, var(--background) 88%, var(--muted) 12%);
+  }
+
+  .cockpit-readout span,
+  .status-tile span,
+  .surface-grid span,
+  .signal-list span,
+  .command-lane span {
+    display: block;
+    color: color-mix(in srgb, var(--foreground) 58%, transparent);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .cockpit-readout strong {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .cockpit-readout small {
+    display: block;
+    margin-top: 0.75rem;
+    color: color-mix(in srgb, var(--foreground) 65%, transparent);
+    line-height: 1.5;
+  }
+
+  .status-grid {
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .status-tile,
+  .cockpit-panel {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--background) 92%, var(--muted) 8%);
+  }
+
+  .status-tile {
+    min-height: 9rem;
+    padding: 1rem;
+  }
+
+  .status-tile strong {
+    display: block;
+    margin-top: 1rem;
+    font-size: 1.35rem;
+  }
+
+  .status-tile p,
+  .command-lane p,
+  .surface-grid p,
+  .rule-list,
+  .signal-list strong {
+    margin: 0.45rem 0 0;
+    color: color-mix(in srgb, var(--foreground) 68%, transparent);
+    line-height: 1.55;
+  }
+
+  .tone-good {
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, #16a34a 26%, transparent);
+  }
+
+  .tone-watch {
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, #d97706 28%, transparent);
+  }
+
+  .cockpit-layout {
+    display: grid;
+    gap: 0.8rem;
+    margin-top: 0.8rem;
+    grid-template-columns: minmax(20rem, 1.05fr) minmax(26rem, 1.5fr) minmax(18rem, 0.85fr);
+  }
+
+  .cockpit-panel {
+    padding: 1rem;
+  }
+
+  .command-panel {
+    grid-row: span 2;
+  }
+
+  .surface-panel {
+    min-height: 23rem;
+  }
+
+  .panel-heading {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.85rem;
+  }
+
+  .panel-heading h2 {
+    margin: 0.25rem 0 0;
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  .command-lane {
+    display: grid;
+    gap: 0.7rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .command-lane li {
+    display: grid;
+    align-items: start;
+    gap: 0.85rem;
+    grid-template-columns: 5.3rem minmax(0, 1fr);
+    border-left: 2px solid color-mix(in srgb, var(--accent) 42%, transparent);
+    padding: 0.6rem 0 0.65rem 0.8rem;
+  }
+
+  .command-lane strong,
+  .surface-grid strong,
+  .signal-list strong {
+    display: block;
+    margin-top: 0.15rem;
+    font-weight: 800;
+  }
+
+  .surface-grid {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .surface-grid div,
+  .signal-list div {
+    min-height: 7.2rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8rem;
+    background: color-mix(in srgb, var(--background) 88%, var(--muted) 12%);
+  }
+
+  .signal-list {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+
+  .rule-list {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-left: 1.1rem;
+  }
+
+  .rule-list li::marker {
+    color: var(--accent);
+  }
+
+  @media (max-width: 1120px) {
+    .status-grid,
+    .cockpit-layout {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .surface-panel,
+    .command-panel {
+      grid-row: auto;
+      grid-column: span 2;
+    }
+  }
+
+  @media (max-width: 760px) {
+    :global(body:has(.cockpit-page) .site-shell),
+    .cockpit-shell {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .cockpit-page {
+      padding-top: 1rem;
+    }
+
+    .cockpit-shell {
+      padding: 0 1rem;
+    }
+
+    .cockpit-hero,
+    .status-grid,
+    .cockpit-layout,
+    .surface-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .surface-panel,
+    .command-panel {
+      grid-column: auto;
+    }
+
+    .cockpit-hero h1 {
+      font-size: 2.8rem;
+    }
+
+    .command-lane li {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
