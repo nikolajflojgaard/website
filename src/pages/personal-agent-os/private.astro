@@ -15,7 +15,7 @@ const hasSupabaseConfig = Boolean(
 >
   <Header />
   <main id="main-content" class="w-full pb-16">
-    <section class="site-shell pt-8 pb-6">
+    <section id="private-hero" class="site-shell pt-8 pb-6">
       <p class="eyebrow">Personal Agent OS</p>
       <h1 class="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Private console</h1>
       <p class="mt-4 max-w-2xl text-base leading-8 text-foreground/78">
@@ -25,7 +25,7 @@ const hasSupabaseConfig = Boolean(
 
     <section class="site-shell pb-8">
       <div class="private-shell" data-has-config={hasSupabaseConfig ? "true" : "false"}>
-        <article class:list={["panel", !hasSupabaseConfig && "panel-warning"]} aria-live="polite">
+        <article id="auth-setup-panel" class:list={["panel", !hasSupabaseConfig && "panel-warning"]} aria-live="polite">
           <h2>Auth setup</h2>
           {
             hasSupabaseConfig ? (
@@ -43,7 +43,7 @@ const hasSupabaseConfig = Boolean(
           <p id="auth-error" class="status-chip status-danger" hidden></p>
         </article>
 
-        <article class="panel">
+        <article id="sign-in-panel" class="panel">
           <div class="panel-head">
             <h2>Sign in</h2>
             <button id="signout" type="button" class="btn btn-ghost" disabled>Sign out</button>
@@ -73,13 +73,6 @@ const hasSupabaseConfig = Boolean(
             <h2 id="private-app-heading">Dashboard</h2>
             <span id="app-sync-status" class="status-chip status-muted">Locked</span>
           </div>
-
-          <nav class="private-tabs" aria-label="Private console sections">
-            <button type="button" class="private-tab is-active" data-private-tab="dashboard">Dashboard</button>
-            <button type="button" class="private-tab" data-private-tab="cronjobs">Cronjobs</button>
-            <button type="button" class="private-tab" data-private-tab="skills">Skills</button>
-            <button type="button" class="private-tab" data-private-tab="chat">Chat</button>
-          </nav>
 
           <section class="private-panel is-active" data-private-panel="dashboard">
             <div class="control-grid">
@@ -148,6 +141,9 @@ const hasSupabaseConfig = Boolean(
 
   const authStatusEl = document.querySelector("#auth-status");
   const authErrorEl = document.querySelector("#auth-error");
+  const privateHeroEl = document.querySelector("#private-hero");
+  const authSetupPanelEl = document.querySelector("#auth-setup-panel");
+  const signInPanelEl = document.querySelector("#sign-in-panel");
   const allowedEmailNoteEl = document.querySelector("#allowed-email-note");
   const providerStatusEl = document.querySelector("#provider-status");
   const googleButton = document.querySelector("#signin-google");
@@ -169,10 +165,10 @@ const hasSupabaseConfig = Boolean(
   const chatPromptEl = document.querySelector("#chat-prompt");
   const chatStatusEl = document.querySelector("#chat-status");
   const chatLogEl = document.querySelector("#chat-log");
-  const privateTabEls = [...document.querySelectorAll("[data-private-tab]")];
   const privatePanelEls = [...document.querySelectorAll("[data-private-panel]")];
   const headerMenuItemsEl = document.querySelector("#menu-items");
   const originalHeaderMenu = headerMenuItemsEl?.innerHTML ?? "";
+  let privateHeaderActive = false;
 
   const cronJobs = [
     {
@@ -450,12 +446,17 @@ const hasSupabaseConfig = Boolean(
 
     await syncProviderState();
 
+    const signOut = async () => {
+      clearAuthError();
+
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        showAuthError(`Sign-out failed: ${error.message}`);
+      }
+    };
+
     const activatePrivateTab = (tabName) => {
       const normalizedTab = ["dashboard", "cronjobs", "skills", "chat"].includes(tabName) ? tabName : "dashboard";
-
-      for (const button of privateTabEls) {
-        button.classList.toggle("is-active", button.dataset.privateTab === normalizedTab);
-      }
 
       for (const panel of privatePanelEls) {
         panel.classList.toggle("is-active", panel.dataset.privatePanel === normalizedTab);
@@ -466,34 +467,62 @@ const hasSupabaseConfig = Boolean(
       }
     };
 
+    const setSignedInLayout = (enabled) => {
+      if (privateHeroEl instanceof HTMLElement) privateHeroEl.hidden = enabled;
+      if (authSetupPanelEl instanceof HTMLElement) authSetupPanelEl.hidden = enabled;
+      if (signInPanelEl instanceof HTMLElement) signInPanelEl.hidden = enabled;
+    };
+
+    const closeMobileMenu = () => {
+      const menuButton = document.querySelector("#menu-btn");
+      const menuItems = document.querySelector("#menu-items");
+      const menuIcon = document.querySelector("#menu-icon");
+      const closeIcon = document.querySelector("#close-icon");
+
+      if (menuButton?.getAttribute("aria-expanded") !== "true") return;
+
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Open Menu");
+      menuItems?.classList.add("hidden");
+      menuIcon?.classList.remove("hidden");
+      closeIcon?.classList.add("hidden");
+    };
+
     const setPrivateHeaderNav = (enabled) => {
       if (!headerMenuItemsEl) return;
 
       if (!enabled) {
+        if (!privateHeaderActive) return;
         headerMenuItemsEl.innerHTML = originalHeaderMenu;
+        privateHeaderActive = false;
         return;
       }
 
+      privateHeaderActive = true;
       headerMenuItemsEl.innerHTML = ["dashboard", "cronjobs", "skills", "chat"]
         .map(
           (tab) =>
             `<li class="col-span-2"><a href="#${tab}" data-private-nav="${tab}">${tab.charAt(0).toUpperCase() + tab.slice(1)}</a></li>`
         )
-        .join("");
+        .join("") +
+        `<li class="col-span-2"><button id="agent-os-logout" class="agent-nav-button" type="button">Log out</button></li>`;
 
       for (const link of headerMenuItemsEl.querySelectorAll("[data-private-nav]")) {
         link.addEventListener("click", (event) => {
           event.preventDefault();
-          activatePrivateTab(link.dataset.privateNav);
-          privateAppEl?.scrollIntoView({ behavior: "smooth", block: "start" });
+          const tab = link.dataset.privateNav;
+          activatePrivateTab(tab);
+          window.history.replaceState({}, document.title, `#${tab}`);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          closeMobileMenu();
         });
       }
-    };
 
-    const bindPrivateTabs = () => {
-      for (const button of privateTabEls) {
-        button.addEventListener("click", () => {
-          activatePrivateTab(button.dataset.privateTab);
+      const logoutButton = document.querySelector("#agent-os-logout");
+      if (logoutButton instanceof HTMLButtonElement) {
+        logoutButton.addEventListener("click", async () => {
+          closeMobileMenu();
+          await signOut();
         });
       }
     };
@@ -583,6 +612,7 @@ const hasSupabaseConfig = Boolean(
         clearCards();
         setCardsStatus("Sign in to load cards from `public.agent_os_cards`.");
         if (privateAppEl instanceof HTMLElement) privateAppEl.hidden = true;
+        setSignedInLayout(false);
         setPrivateHeaderNav(false);
         return;
       }
@@ -591,6 +621,7 @@ const hasSupabaseConfig = Boolean(
         clearCards();
         setCardsStatus("Signed in account is not allowed for this console.");
         if (privateAppEl instanceof HTMLElement) privateAppEl.hidden = true;
+        setSignedInLayout(false);
         setPrivateHeaderNav(false);
         return;
       }
@@ -635,6 +666,7 @@ const hasSupabaseConfig = Boolean(
 
       if (!user) {
         setAuthStatus("Signed out", "muted");
+        setSignedInLayout(false);
         if (dashboardAuthEl) dashboardAuthEl.textContent = "Signed out";
         if (appSyncStatusEl) {
           appSyncStatusEl.textContent = "Locked";
@@ -660,10 +692,11 @@ const hasSupabaseConfig = Boolean(
         appSyncStatusEl.className = "status-chip status-ok";
       }
       if (privateAppEl instanceof HTMLElement) privateAppEl.hidden = false;
+      setSignedInLayout(true);
       setPrivateHeaderNav(true);
       renderCronJobs();
       renderSkills();
-      activatePrivateTab("dashboard");
+      activatePrivateTab(window.location.hash.slice(1) || "dashboard");
       await loadCards(user);
     };
 
@@ -725,12 +758,7 @@ const hasSupabaseConfig = Boolean(
 
     if (signOutButton instanceof HTMLButtonElement) {
       signOutButton.addEventListener("click", async () => {
-        clearAuthError();
-
-        const { error } = await supabase.auth.signOut();
-        if (error) {
-          showAuthError(`Sign-out failed: ${error.message}`);
-        }
+        await signOut();
       });
     }
 
@@ -766,8 +794,6 @@ const hasSupabaseConfig = Boolean(
 
       cleanAuthUrl();
     };
-
-    bindPrivateTabs();
 
     await finishAuthRedirect();
 
@@ -926,40 +952,37 @@ const hasSupabaseConfig = Boolean(
     overflow: hidden;
   }
 
-  .private-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
-    margin-top: 0.9rem;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 0.65rem;
-  }
-
-  .private-tab {
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--background);
-    color: var(--foreground);
-    cursor: pointer;
-    font: inherit;
-    font-size: 0.88rem;
-    font-weight: 760;
-    padding: 0.4rem 0.65rem;
-  }
-
-  .private-tab.is-active {
-    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
-    background: color-mix(in srgb, var(--accent) 11%, var(--background));
-    color: var(--accent);
-  }
-
   .private-panel {
     display: none;
-    margin-top: 1rem;
   }
 
   .private-panel.is-active {
     display: block;
+  }
+
+  :global(.agent-nav-button) {
+    display: block;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--foreground);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    text-align: center;
+  }
+
+  :global(.agent-nav-button:hover),
+  :global(.agent-nav-button:focus-visible) {
+    color: var(--accent);
+  }
+
+  @media (min-width: 640px) {
+    :global(.agent-nav-button) {
+      padding: 0.25rem 0.5rem;
+      width: auto;
+    }
   }
 
   .control-grid {
