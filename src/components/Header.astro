@@ -290,6 +290,15 @@ const isActive = (path: string) => {
       return Boolean(email) && email === allowedEmail;
     };
 
+    const clearStoredSession = () => {
+      try {
+        const projectRef = new URL(supabaseUrl).hostname.split(".")[0];
+        window.localStorage.removeItem(`sb-${projectRef}-auth-token`);
+      } catch {
+        // Supabase signOut handles the normal path; this is only a defensive cleanup.
+      }
+    };
+
     const renderSession = async (session) => {
       const user = session?.user;
 
@@ -327,14 +336,16 @@ const isActive = (path: string) => {
       const { data } = await supabase.auth.getSession();
       const user = data.session?.user;
 
-	      if (user && isAllowedUser(user)) {
-	        await supabase.auth.signOut();
-	        renderSignedOut();
-	        if (window.location.pathname === "/personal-agent-os") {
-	          window.location.assign("/");
-	        }
-	        return;
-	      }
+      if (user && isAllowedUser(user)) {
+        try {
+          await supabase.auth.signOut({ scope: "local" });
+        } finally {
+          clearStoredSession();
+          renderSignedOut();
+          window.location.assign("/");
+        }
+        return;
+      }
 
 	      const redirectTo = new URL("/personal-agent-os#dashboard", window.location.origin).toString();
 	      await supabase.auth.signInWithOAuth({
