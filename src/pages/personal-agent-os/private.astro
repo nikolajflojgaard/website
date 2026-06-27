@@ -166,6 +166,8 @@ const hasSupabaseConfig = Boolean(
   const chatStatusEl = document.querySelector("#chat-status");
   const chatLogEl = document.querySelector("#chat-log");
   const privatePanelEls = [...document.querySelectorAll("[data-private-panel]")];
+  const brandLinkEl = document.querySelector("#top-nav-wrap > a");
+  const originalBrandHref = brandLinkEl?.getAttribute("href") ?? "/";
   const headerMenuItemsEl = document.querySelector("#menu-items");
   const originalHeaderMenu = headerMenuItemsEl?.innerHTML ?? "";
   let privateHeaderActive = false;
@@ -455,6 +457,21 @@ const hasSupabaseConfig = Boolean(
       }
     };
 
+    const signInWithGoogle = async () => {
+      clearAuthError();
+
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: getRedirectTo(),
+        },
+      });
+
+      if (error) {
+        showAuthError(`Google sign-in failed: ${error.message}`);
+      }
+    };
+
     const activatePrivateTab = (tabName) => {
       const normalizedTab = ["dashboard", "cronjobs", "skills", "chat"].includes(tabName) ? tabName : "dashboard";
 
@@ -467,11 +484,30 @@ const hasSupabaseConfig = Boolean(
       }
     };
 
+    const goToPrivateTab = (tabName) => {
+      const normalizedTab = ["dashboard", "cronjobs", "skills", "chat"].includes(tabName) ? tabName : "dashboard";
+      activatePrivateTab(normalizedTab);
+      window.history.replaceState({}, document.title, `#${normalizedTab}`);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
     const setSignedInLayout = (enabled) => {
       if (privateHeroEl instanceof HTMLElement) privateHeroEl.hidden = enabled;
       if (authSetupPanelEl instanceof HTMLElement) authSetupPanelEl.hidden = enabled;
       if (signInPanelEl instanceof HTMLElement) signInPanelEl.hidden = enabled;
+      if (brandLinkEl instanceof HTMLAnchorElement) {
+        brandLinkEl.setAttribute("href", enabled ? "#dashboard" : originalBrandHref);
+      }
     };
+
+    if (brandLinkEl instanceof HTMLAnchorElement) {
+      brandLinkEl.addEventListener("click", (event) => {
+        if (!privateHeaderActive) return;
+        event.preventDefault();
+        goToPrivateTab("dashboard");
+        closeMobileMenu();
+      });
+    }
 
     const closeMobileMenu = () => {
       const menuButton = document.querySelector("#menu-btn");
@@ -488,17 +524,43 @@ const hasSupabaseConfig = Boolean(
       closeIcon?.classList.add("hidden");
     };
 
+    const removeSignedOutAuthControl = () => {
+      document.querySelector("#agent-os-auth-item")?.remove();
+    };
+
+    const ensureSignedOutAuthControl = () => {
+      if (!headerMenuItemsEl || privateHeaderActive || document.querySelector("#agent-os-auth-button")) return;
+
+      const item = document.createElement("li");
+      item.id = "agent-os-auth-item";
+      item.className = "col-span-2";
+      item.innerHTML = `<button id="agent-os-auth-button" class="agent-nav-button agent-auth-button" type="button">Sign in</button>`;
+      headerMenuItemsEl.appendChild(item);
+
+      const authButton = item.querySelector("#agent-os-auth-button");
+      if (authButton instanceof HTMLButtonElement) {
+        authButton.disabled = !providerState.google;
+        authButton.addEventListener("click", async () => {
+          closeMobileMenu();
+          await signInWithGoogle();
+        });
+      }
+    };
+
     const setPrivateHeaderNav = (enabled) => {
       if (!headerMenuItemsEl) return;
 
       if (!enabled) {
-        if (!privateHeaderActive) return;
-        headerMenuItemsEl.innerHTML = originalHeaderMenu;
-        privateHeaderActive = false;
+        if (privateHeaderActive) {
+          headerMenuItemsEl.innerHTML = originalHeaderMenu;
+          privateHeaderActive = false;
+        }
+        ensureSignedOutAuthControl();
         return;
       }
 
       privateHeaderActive = true;
+      removeSignedOutAuthControl();
       headerMenuItemsEl.innerHTML = ["dashboard", "cronjobs", "skills", "chat"]
         .map(
           (tab) =>
@@ -510,10 +572,7 @@ const hasSupabaseConfig = Boolean(
       for (const link of headerMenuItemsEl.querySelectorAll("[data-private-nav]")) {
         link.addEventListener("click", (event) => {
           event.preventDefault();
-          const tab = link.dataset.privateNav;
-          activatePrivateTab(tab);
-          window.history.replaceState({}, document.title, `#${tab}`);
-          window.scrollTo({ top: 0, behavior: "smooth" });
+          goToPrivateTab(link.dataset.privateNav);
           closeMobileMenu();
         });
       }
@@ -702,18 +761,7 @@ const hasSupabaseConfig = Boolean(
 
     if (googleButton instanceof HTMLButtonElement) {
       googleButton.addEventListener("click", async () => {
-        clearAuthError();
-
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider: "google",
-          options: {
-            redirectTo: getRedirectTo(),
-          },
-        });
-
-        if (error) {
-          showAuthError(`Google sign-in failed: ${error.message}`);
-        }
+        await signInWithGoogle();
       });
     }
 
