@@ -10,8 +10,11 @@
 - Supabase auth runs in the browser with public client keys only:
   - `PUBLIC_SUPABASE_URL`
   - `PUBLIC_SUPABASE_ANON_KEY`
+- The Google button is not the security boundary. It starts OAuth for anyone, then the console unlocks only if the returned Supabase user matches `PUBLIC_AGENT_OS_ALLOWED_EMAIL`.
+- If `PUBLIC_AGENT_OS_ALLOWED_EMAIL` is missing, production access fails closed. Localhost remains usable for development.
 - Never use or ship Supabase service role keys in Astro client code.
 - Private card and prompt data is fetched client-side only after user auth. The initial HTML does not include private card content.
+- Actual private data must be protected by Supabase RLS using both `auth.uid()` and the allowed email. The UI guard is extra friction, not the database security layer.
 
 ## Required local env vars
 
@@ -20,9 +23,7 @@ Use `.env` (local) and `.env.example` placeholders:
 - `PUBLIC_SUPABASE_URL`
 - `PUBLIC_SUPABASE_ANON_KEY`
 
-Optional:
-
-- `PUBLIC_AGENT_OS_ALLOWED_EMAIL` (UI-side guard; blocks mismatching signed-in emails in the console)
+- `PUBLIC_AGENT_OS_ALLOWED_EMAIL` (required for production unlock; blocks mismatching signed-in emails in the console)
 
 If required Supabase vars are missing, `/personal-agent-os/private` shows a setup-needed state and disables auth actions.
 

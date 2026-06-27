@@ -383,8 +383,9 @@ const hasSupabaseConfig = Boolean(
   };
 
   const isAllowedUser = (user) => {
-    if (!allowedEmail) return true;
-    const email = user?.email?.toLowerCase();
+    const isLocalDev = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+    if (!allowedEmail) return isLocalDev;
+    const email = user?.email?.trim().toLowerCase();
     return Boolean(email) && email === allowedEmail;
   };
 
@@ -407,7 +408,10 @@ const hasSupabaseConfig = Boolean(
 
     if (allowedEmail && allowedEmailNoteEl) {
       allowedEmailNoteEl.hidden = false;
-      allowedEmailNoteEl.textContent = "This console is restricted to the configured allowed email.";
+      allowedEmailNoteEl.textContent = `This console unlocks only for ${allowedEmail}.`;
+    } else if (allowedEmailNoteEl) {
+      allowedEmailNoteEl.hidden = false;
+      allowedEmailNoteEl.textContent = "No allowed email is configured. Production access fails closed.";
     }
 
     const getRedirectTo = () => new URL("/personal-agent-os/private", window.location.origin).toString();
@@ -641,8 +645,10 @@ const hasSupabaseConfig = Boolean(
       }
 
       if (!isAllowedUser(user)) {
-        setAuthStatus("Signed in (blocked by allowed email)", "warning");
-        await loadCards(user);
+        setAuthStatus("Rejected account", "danger");
+        showAuthError(`Rejected Google account ${user.email ?? "unknown"}. Use ${allowedEmail || "the configured owner email"}.`);
+        await supabase.auth.signOut();
+        await loadCards(null);
         return;
       }
 
