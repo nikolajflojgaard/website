@@ -175,7 +175,6 @@ const isActive = (path: string) => {
               data-auth-state="signed-out"
             >
               <IconUserCircle class="agent-auth-icon" />
-              <span class="agent-auth-dot" aria-hidden="true"></span>
               <span id="agent-auth-label" class="sr-only">Sign in</span>
             </button>
           </li>
@@ -401,21 +400,6 @@ const isActive = (path: string) => {
     transform: translate(-50%, -50%);
   }
 
-  .agent-auth-dot {
-    position: absolute;
-    right: 0.55rem;
-    bottom: 0.55rem;
-    width: 0.44rem;
-    height: 0.44rem;
-    border: 1px solid var(--background);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--foreground) 30%, transparent);
-  }
-
-  #agent-auth-btn[data-auth-state="signed-in"] .agent-auth-dot {
-    background: var(--accent);
-  }
-
   #agent-auth-btn[data-auth-state="unavailable"] {
     cursor: not-allowed;
     opacity: 0.45;
@@ -433,9 +417,5 @@ const isActive = (path: string) => {
       height: 1.25rem;
     }
 
-    .agent-auth-dot {
-      right: 0.05rem;
-      bottom: 0.05rem;
-    }
   }
 	</style>
