@@ -5,11 +5,12 @@ import { SITE } from "@/config";
 import Layout from "@/layouts/Layout.astro";
 
 const tabs = [
-  ["runtime", "Runtime", "Gateway, node, Telegram"],
+  ["runtime", "Dashboard", "Gateway, node, Telegram"],
   ["orchestration", "Orchestration", "Flows currently worth showing"],
   ["control", "Control Deck", "Approvals, boundaries, recovery"],
-  ["schedules", "Schedules", "Cron and recurring work"],
+  ["schedules", "Cronjobs", "Cron and recurring work"],
   ["skills", "Skills", "Enabled tools and auth checks"],
+  ["chat", "Chat", "Prompt bridge status"],
   ["memory", "Memory", "Daily notes and durable recall"],
   ["review", "Review", "QA gates and deploy checks"],
 ];
@@ -308,7 +309,7 @@ const identityRows = [
             <span>NF</span>
             <div>
               <strong>Jason OS</strong>
-              <p>private operating layer</p>
+              <p>operating layer</p>
             </div>
           </div>
 
@@ -339,8 +340,8 @@ const identityRows = [
           >
             <div class="panel-topbar">
               <div>
-                <p class="eyebrow">Runtime</p>
-                <h2>Operating layer health</h2>
+                  <p class="eyebrow">Runtime</p>
+                  <h2>Dashboard</h2>
               </div>
               <span>Snapshot 26 Jun 2026, 08:50 CPH</span>
             </div>
@@ -485,8 +486,8 @@ const identityRows = [
           >
             <div class="panel-topbar">
               <div>
-                <p class="eyebrow">Schedules</p>
-                <h2>Cron-backed work</h2>
+                  <p class="eyebrow">Schedules</p>
+                  <h2>Cronjobs</h2>
               </div>
               <span>12 tracked jobs</span>
             </div>
@@ -530,6 +531,43 @@ const identityRows = [
                   </article>
                 ))}
               </div>
+            </div>
+          </section>
+
+          <section
+            id="chat-panel"
+            class="tab-panel"
+            data-panel="chat"
+            role="tabpanel"
+            aria-label="Chat"
+            hidden
+          >
+            <div class="panel-topbar">
+              <div>
+                <p class="eyebrow">Chat</p>
+                <h2>Prompt bridge</h2>
+              </div>
+              <span>auth header ready</span>
+            </div>
+
+            <div class="chat-panel-body">
+              <article class="showcase-card">
+                <div class="showcase-head">
+                  <h3>Talk to Jason from the site</h3>
+                  <p>
+                    The login state now lives in the global header. The next backend step is a Supabase prompt queue
+                    with a local OpenClaw bridge, not raw browser access to local tools.
+                  </p>
+                </div>
+                <form class="chat-preview" aria-label="Prompt bridge preview">
+                  <textarea
+                    rows="5"
+                    placeholder="Prompt queue is not connected yet."
+                    disabled
+                  ></textarea>
+                  <button type="button" disabled>Bridge offline</button>
+                </form>
+              </article>
             </div>
           </section>
 
@@ -603,24 +641,52 @@ const identityRows = [
 </Layout>
 
 <script>
+  // @ts-nocheck
   const tabButtons = document.querySelectorAll("[data-tab]");
   const tabPanels = document.querySelectorAll("[data-panel]");
+  const tabAliases = {
+    dashboard: "runtime",
+    cronjobs: "schedules",
+  };
+
+  const activateTab = (selectedTab) => {
+    if (!selectedTab) return;
+
+    const normalizedTab = tabAliases[selectedTab] || selectedTab;
+    const selectedButton = document.querySelector(`[data-tab="${normalizedTab}"]`);
+    const selectedPanel = document.querySelector(`[data-panel="${normalizedTab}"]`);
+
+    if (!selectedButton || !selectedPanel) return;
+
+    tabButtons.forEach((candidate) => {
+      const isSelected = candidate === selectedButton;
+      candidate.classList.toggle("selected", isSelected);
+      candidate.setAttribute("aria-selected", isSelected ? "true" : "false");
+    });
+
+    tabPanels.forEach((panel) => {
+      panel.toggleAttribute("hidden", panel !== selectedPanel);
+    });
+  };
+
+  const activateHashTab = () => {
+    const selectedTab = window.location.hash.replace("#", "") || "dashboard";
+    activateTab(selectedTab);
+  };
 
   tabButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const selectedTab = button.getAttribute("data-tab");
+      if (!selectedTab) return;
 
-      tabButtons.forEach((candidate) => {
-        const isSelected = candidate === button;
-        candidate.classList.toggle("selected", isSelected);
-        candidate.setAttribute("aria-selected", isSelected ? "true" : "false");
-      });
-
-      tabPanels.forEach((panel) => {
-        panel.toggleAttribute("hidden", panel.getAttribute("data-panel") !== selectedTab);
-      });
+      const publicHash = selectedTab === "runtime" ? "dashboard" : selectedTab === "schedules" ? "cronjobs" : selectedTab;
+      window.history.replaceState(null, "", `#${publicHash}`);
+      activateTab(selectedTab);
     });
   });
+
+  window.addEventListener("hashchange", activateHashTab);
+  activateHashTab();
 </script>
 
 <style>
@@ -1004,13 +1070,44 @@ const identityRows = [
     text-wrap: pretty;
   }
 
-  .flow-feed,
-  .row-list,
-  .skill-health {
-    display: grid;
-    gap: 0.85rem;
-    padding: 1rem;
-  }
+	  .flow-feed,
+	  .row-list,
+	  .skill-health,
+	  .chat-panel-body {
+	    display: grid;
+	    gap: 0.85rem;
+	    padding: 1rem;
+	  }
+
+	  .chat-preview {
+	    display: grid;
+	    gap: 0.75rem;
+	  }
+
+	  .chat-preview textarea {
+	    width: 100%;
+	    min-height: 9rem;
+	    resize: vertical;
+	    border: 1px solid var(--border);
+	    border-radius: 8px;
+	    background: color-mix(in srgb, var(--background) 94%, var(--muted) 6%);
+	    padding: 0.85rem;
+	    color: var(--foreground);
+	    font: inherit;
+	    line-height: 1.55;
+	  }
+
+	  .chat-preview button {
+	    width: fit-content;
+	    border: 1px solid var(--border);
+	    border-radius: 8px;
+	    background: color-mix(in srgb, var(--background) 90%, var(--muted) 10%);
+	    padding: 0.55rem 0.85rem;
+	    color: color-mix(in srgb, var(--foreground) 62%, transparent);
+	    font-size: 0.82rem;
+	    font-weight: 800;
+	    cursor: not-allowed;
+	  }
 
   .flow-card,
   .row-list article {
