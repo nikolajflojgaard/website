@@ -1,0 +1,613 @@
+---
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import { SITE } from "@/config";
+import Layout from "@/layouts/Layout.astro";
+
+const hasSupabaseConfig = Boolean(
+  import.meta.env.PUBLIC_SUPABASE_URL && import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+);
+---
+
+<Layout
+  title={`Private Console | ${SITE.title}`}
+  description="Private login and read-only cards for Personal Agent OS."
+>
+  <Header />
+  <main id="main-content" class="w-full pb-16">
+    <section class="site-shell pt-8 pb-6">
+      <p class="eyebrow">Personal Agent OS</p>
+      <h1 class="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Private console</h1>
+      <p class="mt-4 max-w-2xl text-base leading-8 text-foreground/78">
+        Login is client-side with Supabase public keys only. Cards load after authentication and remain read-only.
+      </p>
+    </section>
+
+    <section class="site-shell pb-8">
+      <div class="private-shell" data-has-config={hasSupabaseConfig ? "true" : "false"}>
+        <article class:list={["panel", !hasSupabaseConfig && "panel-warning"]} aria-live="polite">
+          <h2>Auth setup</h2>
+          {
+            hasSupabaseConfig ? (
+              <p>
+                Supabase client keys are present. Sign in with Google or a magic link to continue.
+              </p>
+            ) : (
+              <p>
+                Setup needed: missing `PUBLIC_SUPABASE_URL` and/or `PUBLIC_SUPABASE_ANON_KEY`. Add them before login
+                can work.
+              </p>
+            )
+          }
+          <p id="auth-status" class="status-chip status-muted">Checking session...</p>
+          <p id="auth-error" class="status-chip status-danger" hidden></p>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <h2>Sign in</h2>
+            <button id="signout" type="button" class="btn btn-ghost" disabled>Sign out</button>
+          </div>
+          <p id="allowed-email-note" class="muted-note" hidden></p>
+          <div class="actions">
+            <button id="signin-google" type="button" class="btn" disabled>
+              Continue with Google
+            </button>
+          </div>
+
+          <form id="magic-link-form" class="magic-form">
+            <label for="magic-email">Email magic link</label>
+            <div class="magic-row">
+              <input
+                id="magic-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="you@example.com"
+                required
+                disabled
+              />
+              <button id="magic-submit" class="btn" type="submit" disabled>Send</button>
+            </div>
+            <p id="magic-status" class="muted-note" aria-live="polite"></p>
+          </form>
+
+          <dl class="user-meta">
+            <div>
+              <dt>User</dt>
+              <dd id="user-email">Not signed in</dd>
+            </div>
+            <div>
+              <dt>User ID</dt>
+              <dd id="user-id">-</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <h2>Agent cards</h2>
+            <span class="muted-note">Read-only after auth</span>
+          </div>
+          <p id="cards-status" class="muted-note">Sign in to load cards from `public.agent_os_cards`.</p>
+          <div id="cards" class="cards-grid" aria-live="polite"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  // @ts-nocheck
+  import { createClient } from "@supabase/supabase-js";
+
+  const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL ?? "";
+  const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? "";
+  const allowedEmail = (import.meta.env.PUBLIC_AGENT_OS_ALLOWED_EMAIL ?? "").trim().toLowerCase();
+  const hasConfig = Boolean(supabaseUrl && supabaseAnonKey);
+
+  const authStatusEl = document.querySelector("#auth-status");
+  const authErrorEl = document.querySelector("#auth-error");
+  const allowedEmailNoteEl = document.querySelector("#allowed-email-note");
+  const googleButton = document.querySelector("#signin-google");
+  const signOutButton = document.querySelector("#signout");
+  const magicForm = document.querySelector("#magic-link-form");
+  const magicEmailInput = document.querySelector("#magic-email");
+  const magicSubmit = document.querySelector("#magic-submit");
+  const magicStatusEl = document.querySelector("#magic-status");
+  const userEmailEl = document.querySelector("#user-email");
+  const userIdEl = document.querySelector("#user-id");
+  const cardsStatusEl = document.querySelector("#cards-status");
+  const cardsEl = document.querySelector("#cards");
+
+  const showAuthError = (message) => {
+    if (!authErrorEl) return;
+    authErrorEl.hidden = false;
+    authErrorEl.textContent = message;
+  };
+
+  const clearAuthError = () => {
+    if (!authErrorEl) return;
+    authErrorEl.hidden = true;
+    authErrorEl.textContent = "";
+  };
+
+  const setAuthStatus = (label, tone = "muted") => {
+    if (!authStatusEl) return;
+    authStatusEl.textContent = label;
+    authStatusEl.className = `status-chip status-${tone}`;
+  };
+
+  const setMagicStatus = (message) => {
+    if (!magicStatusEl) return;
+    magicStatusEl.textContent = message;
+  };
+
+  const clearCards = () => {
+    if (!cardsEl) return;
+    cardsEl.innerHTML = "";
+  };
+
+  const setCardsStatus = (message) => {
+    if (!cardsStatusEl) return;
+    cardsStatusEl.textContent = message;
+  };
+
+  const setControlsEnabled = (enabled) => {
+    if (googleButton instanceof HTMLButtonElement) googleButton.disabled = !enabled;
+    if (magicEmailInput instanceof HTMLInputElement) magicEmailInput.disabled = !enabled;
+    if (magicSubmit instanceof HTMLButtonElement) magicSubmit.disabled = !enabled;
+  };
+
+  const formatDate = (value) => {
+    if (!value) return "";
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) return "";
+    return new Intl.DateTimeFormat("en", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(parsed);
+  };
+
+  const renderCards = (cards) => {
+    if (!cardsEl) return;
+    clearCards();
+
+    if (!cards.length) {
+      setCardsStatus("No cards yet.");
+      return;
+    }
+
+    setCardsStatus(`Loaded ${cards.length} card${cards.length === 1 ? "" : "s"}.`);
+
+    for (const card of cards) {
+      const article = document.createElement("article");
+      article.className = "card-item";
+
+      const head = document.createElement("div");
+      head.className = "card-head";
+
+      const title = document.createElement("h3");
+      title.textContent = card.title ?? "Untitled card";
+
+      const badge = document.createElement("span");
+      badge.className = "status-chip status-muted";
+      badge.textContent = card.status ?? "note";
+
+      head.append(title, badge);
+
+      const summary = document.createElement("p");
+      summary.textContent = card.summary ?? "";
+
+      const meta = document.createElement("div");
+      meta.className = "card-meta";
+
+      const updated = document.createElement("small");
+      const formattedDate = formatDate(card.updated_at);
+      updated.textContent = formattedDate ? `Updated ${formattedDate}` : "";
+      meta.appendChild(updated);
+
+      if (card.link_url) {
+        const link = document.createElement("a");
+        link.href = card.link_url;
+        link.textContent = "Open";
+        link.rel = "noopener noreferrer";
+        link.target = "_blank";
+        meta.appendChild(link);
+      }
+
+      article.append(head, summary, meta);
+      cardsEl.appendChild(article);
+    }
+  };
+
+  const isAllowedUser = (user) => {
+    if (!allowedEmail) return true;
+    const email = user?.email?.toLowerCase();
+    return Boolean(email) && email === allowedEmail;
+  };
+
+  if (!hasConfig) {
+    setAuthStatus("Setup needed", "warning");
+    setControlsEnabled(false);
+    setMagicStatus("Add Supabase public env vars to enable login.");
+    setCardsStatus("Setup needed before cards can be loaded.");
+  } else {
+    const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true,
+      },
+    });
+
+    setControlsEnabled(true);
+    clearAuthError();
+
+    if (allowedEmail && allowedEmailNoteEl) {
+      allowedEmailNoteEl.hidden = false;
+      allowedEmailNoteEl.textContent = "This console is restricted to the configured allowed email.";
+    }
+
+    const getRedirectTo = () => new URL("/personal-agent-os/private", window.location.origin).toString();
+
+    const loadCards = async (user) => {
+      if (!user) {
+        clearCards();
+        setCardsStatus("Sign in to load cards from `public.agent_os_cards`.");
+        return;
+      }
+
+      if (!isAllowedUser(user)) {
+        clearCards();
+        setCardsStatus("Signed in account is not allowed for this console.");
+        return;
+      }
+
+      setCardsStatus("Loading cards...");
+
+      const { data, error } = await supabase
+        .from("agent_os_cards")
+        .select("id,title,summary,status,updated_at,link_url")
+        .order("updated_at", { ascending: false })
+        .limit(24);
+
+      if (error) {
+        const isPolicyError = error.code === "42501" || /rls/i.test(error.message);
+        const isMissingTable = error.code === "42P01" || /agent_os_cards/.test(error.message);
+
+        if (isPolicyError) {
+          setCardsStatus("Cards are blocked by RLS/policy. Confirm SELECT policy for authenticated users.");
+        } else if (isMissingTable) {
+          setCardsStatus("Table `public.agent_os_cards` is missing. Run the setup SQL.");
+        } else {
+          setCardsStatus("Unable to load cards right now.");
+        }
+
+        return;
+      }
+
+      renderCards(data ?? []);
+    };
+
+    const applyUserState = async (user) => {
+      if (userEmailEl) {
+        userEmailEl.textContent = user?.email ?? "Not signed in";
+      }
+      if (userIdEl) {
+        userIdEl.textContent = user?.id ?? "-";
+      }
+
+      if (signOutButton instanceof HTMLButtonElement) {
+        signOutButton.disabled = !user;
+      }
+
+      if (!user) {
+        setAuthStatus("Signed out", "muted");
+        await loadCards(null);
+        return;
+      }
+
+      if (!isAllowedUser(user)) {
+        setAuthStatus("Signed in (blocked by allowed email)", "warning");
+        await loadCards(user);
+        return;
+      }
+
+      setAuthStatus("Signed in", "ok");
+      await loadCards(user);
+    };
+
+    if (googleButton instanceof HTMLButtonElement) {
+      googleButton.addEventListener("click", async () => {
+        clearAuthError();
+        setMagicStatus("");
+
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: "google",
+          options: {
+            redirectTo: getRedirectTo(),
+          },
+        });
+
+        if (error) {
+          showAuthError(`Google sign-in failed: ${error.message}`);
+        }
+      });
+    }
+
+    if (magicForm instanceof HTMLFormElement) {
+      magicForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        clearAuthError();
+
+        const formData = new FormData(magicForm);
+        const email = String(formData.get("email") ?? "").trim();
+        if (!email) {
+          setMagicStatus("Enter your email first.");
+          return;
+        }
+
+        const { error } = await supabase.auth.signInWithOtp({
+          email,
+          options: {
+            emailRedirectTo: getRedirectTo(),
+          },
+        });
+
+        if (error) {
+          setMagicStatus("");
+          showAuthError(`Magic link failed: ${error.message}`);
+          return;
+        }
+
+        setMagicStatus("Magic link sent. Check your inbox.");
+      });
+    }
+
+    if (signOutButton instanceof HTMLButtonElement) {
+      signOutButton.addEventListener("click", async () => {
+        clearAuthError();
+        setMagicStatus("");
+
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+          showAuthError(`Sign-out failed: ${error.message}`);
+        }
+      });
+    }
+
+    supabase.auth.onAuthStateChange((_, session) => {
+      void applyUserState(session?.user ?? null);
+    });
+
+    const { data, error } = await supabase.auth.getSession();
+    if (error) {
+      showAuthError(`Session check failed: ${error.message}`);
+      setAuthStatus("Auth check failed", "danger");
+    }
+
+    await applyUserState(data.session?.user ?? null);
+  }
+</script>
+
+<style>
+  .eyebrow {
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .private-shell {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .panel {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--background) 94%, var(--muted) 6%);
+    padding: 1rem;
+  }
+
+  .panel-warning {
+    border-color: color-mix(in srgb, #cf7f00 45%, var(--border));
+    background: color-mix(in srgb, #cf7f00 10%, var(--background));
+  }
+
+  .panel h2 {
+    margin: 0;
+    font-size: 1.02rem;
+    font-weight: 760;
+  }
+
+  .panel p {
+    margin: 0.55rem 0 0;
+    color: color-mix(in srgb, var(--foreground) 85%, transparent);
+    line-height: 1.55;
+  }
+
+  .panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+  }
+
+  .actions,
+  .magic-form,
+  .user-meta {
+    margin-top: 0.8rem;
+  }
+
+  .btn {
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--accent) 10%, var(--background));
+    color: var(--foreground);
+    font: inherit;
+    font-weight: 700;
+    padding: 0.45rem 0.75rem;
+  }
+
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .btn-ghost {
+    border-color: var(--border);
+    background: var(--background);
+  }
+
+  .magic-form label,
+  .user-meta dt {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--foreground) 70%, transparent);
+  }
+
+  .magic-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+  }
+
+  .magic-row input {
+    flex: 1 1 14rem;
+    min-width: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--background);
+    color: var(--foreground);
+    padding: 0.45rem 0.6rem;
+    font: inherit;
+  }
+
+  .muted-note {
+    margin: 0.4rem 0 0;
+    color: color-mix(in srgb, var(--foreground) 70%, transparent);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .user-meta {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .user-meta dd {
+    margin: 0.2rem 0 0;
+    color: var(--foreground);
+    word-break: break-word;
+  }
+
+  .status-chip {
+    display: inline-flex;
+    width: fit-content;
+    margin-top: 0.65rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.68rem;
+    font-weight: 850;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .status-muted {
+    border-color: color-mix(in srgb, var(--foreground) 20%, var(--border));
+    color: color-mix(in srgb, var(--foreground) 72%, transparent);
+    background: color-mix(in srgb, var(--muted) 45%, var(--background));
+  }
+
+  .status-ok {
+    border-color: color-mix(in srgb, #118a58 45%, var(--border));
+    color: #118a58;
+    background: color-mix(in srgb, #118a58 14%, var(--background));
+  }
+
+  .status-warning {
+    border-color: color-mix(in srgb, #cf7f00 45%, var(--border));
+    color: #cf7f00;
+    background: color-mix(in srgb, #cf7f00 14%, var(--background));
+  }
+
+  .status-danger {
+    border-color: color-mix(in srgb, #ba1a1a 48%, var(--border));
+    color: #ba1a1a;
+    background: color-mix(in srgb, #ba1a1a 12%, var(--background));
+  }
+
+  .cards-grid {
+    display: grid;
+    gap: 0.65rem;
+    margin-top: 0.85rem;
+  }
+
+  .card-item {
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: var(--background);
+    padding: 0.85rem;
+  }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+  }
+
+  .card-head h3 {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  .card-item p {
+    margin: 0.45rem 0 0;
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.7rem;
+  }
+
+  .card-meta small {
+    color: color-mix(in srgb, var(--foreground) 68%, transparent);
+  }
+
+  .card-meta a {
+    font-size: 0.86rem;
+    color: var(--accent);
+    text-underline-offset: 0.2em;
+  }
+
+  @media (min-width: 760px) {
+    .private-shell {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .private-shell > :first-child {
+      grid-column: 1 / -1;
+    }
+
+    .private-shell > :last-child {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

@@ -299,6 +299,9 @@ const identityRows = [
         schedules, memory posture, and review gates. No prompts, chat IDs, hostnames, local addresses, secrets, or
         raw logs.
       </p>
+      <p class="private-console-link-wrap">
+        <a class="private-console-link" href="/personal-agent-os/private">Private console</a>
+      </p>
     </section>
 
     <section class="site-shell">
@@ -630,6 +633,29 @@ const identityRows = [
     font-weight: 850;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+  }
+
+  .private-console-link-wrap {
+    margin-top: 0.9rem;
+  }
+
+  .private-console-link {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--background) 92%, var(--muted) 8%);
+    color: color-mix(in srgb, var(--foreground) 82%, transparent);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 0.24rem 0.62rem;
+    text-decoration: none;
+  }
+
+  .private-console-link:hover {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    color: var(--accent);
   }
 
   .ops-shell {

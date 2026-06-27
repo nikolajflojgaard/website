@@ -1,71 +1,120 @@
 # Personal Agent OS Login Protection
 
-`/personal-agent-os` is currently a static page on Simply hosting.  
-The recommended long-term protection is **Cloudflare Access** (identity-aware access control).
+`/personal-agent-os` stays public-safe by design.
 
-Until that is in place, this repo supports an interim **Basic Auth** setup that is compatible with Simply and does not store real credentials in git.
+`/personal-agent-os/private` is the hidden private login console for authenticated read-only card access.
 
-## Current repo behavior
+## Security model
 
-In `.github/workflows/simply-deploy.yml`, after build and before upload:
+- Keep current Basic Auth as an optional outer lock at `/personal-agent-os` and `/personal-agent-os/private` when needed on Simply hosting.
+- Supabase auth runs in the browser with public client keys only:
+  - `PUBLIC_SUPABASE_URL`
+  - `PUBLIC_SUPABASE_ANON_KEY`
+- Never use or ship Supabase service role keys in Astro client code.
+- Private card data is fetched client-side only after user auth. The initial HTML does not include private card content.
 
-1. If both GitHub secrets below are set, the workflow writes:
-   - `dist/.agent-os.htpasswd` from `AGENT_OS_HTPASSWD`
-   - `dist/personal-agent-os/.htaccess` with Basic Auth directives
-2. If either secret is missing, it skips auth setup and deploy behavior remains unchanged.
+## Required local env vars
 
-The root `public/.htaccess` also denies direct web access to `.agent-os.htpasswd`.
+Use `.env` (local) and `.env.example` placeholders:
 
-## Required GitHub Actions secrets
+- `PUBLIC_SUPABASE_URL`
+- `PUBLIC_SUPABASE_ANON_KEY`
 
-Set these in repo settings:
+Optional:
+
+- `PUBLIC_AGENT_OS_ALLOWED_EMAIL` (UI-side guard; blocks mismatching signed-in emails in the console)
+
+If required Supabase vars are missing, `/personal-agent-os/private` shows a setup-needed state and disables auth actions.
+
+## Supabase Auth setup
+
+In Supabase Dashboard:
+
+1. Enable providers:
+   - Google OAuth
+   - Email (magic link)
+2. Add redirect URL:
+   - `https://YOUR_DOMAIN/personal-agent-os/private`
+   - For local dev also add: `http://localhost:4321/personal-agent-os/private`
+3. Ensure your site URL/domain config in Supabase matches your production domain.
+
+## SQL schema and RLS (minimum)
+
+Run this in Supabase SQL editor (adapt fields as needed):
+
+```sql
+create table if not exists public.agent_os_cards (
+  id uuid primary key default gen_random_uuid(),
+  owner_id uuid not null references auth.users(id) on delete cascade,
+  title text not null,
+  summary text not null,
+  status text not null default 'note',
+  link_url text,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.agent_os_cards enable row level security;
+
+-- Read-only for authenticated users
+create policy "agent_os_cards_select_authenticated"
+on public.agent_os_cards
+for select
+to authenticated
+using (auth.uid() = owner_id);
+
+-- Optional: keep write operations service-only or admin-only; no public write policy.
+```
+
+Seed a card only after you know your Supabase user id:
+
+```sql
+insert into public.agent_os_cards (owner_id, title, summary, status)
+values (
+  'YOUR_AUTH_USER_ID',
+  'Headless gateway',
+  'Sanitized private status card loaded only after login.',
+  'healthy'
+);
+```
+
+If `agent_os_cards` does not exist or policies block reads, the UI surfaces a safe setup error message instead of crashing.
+
+## GitHub Actions variables for deploy builds
+
+In repository settings, add Actions **Variables** (not secrets) so build-time public vars are available:
+
+- `PUBLIC_SUPABASE_URL`
+- `PUBLIC_SUPABASE_ANON_KEY`
+- `PUBLIC_AGENT_OS_ALLOWED_EMAIL` (optional)
+
+`.github/workflows/simply-deploy.yml` passes these into the Build step.
+
+## Optional Basic Auth outer lock on Simply
+
+Current behavior in `.github/workflows/simply-deploy.yml`:
+
+1. If both secrets below are set, workflow writes:
+   - `dist/.agent-os.htpasswd`
+   - `dist/personal-agent-os/.htaccess`
+2. If missing, it skips Basic Auth setup.
+
+Required secrets:
 
 - `AGENT_OS_HTPASSWD`
 - `AGENT_OS_HTPASSWD_PATH`
 
-### `AGENT_OS_HTPASSWD` value format
-
-Use a single htpasswd line in Apache format, for example:
-
-```text
-agentos:$2y$12$...
-```
-
-Create it with bcrypt (do not commit it to the repo):
+Create `AGENT_OS_HTPASSWD` with bcrypt:
 
 ```bash
 htpasswd -nbB agentos 'REPLACE_WITH_STRONG_PASSWORD'
 ```
 
-Copy the output line exactly into the `AGENT_OS_HTPASSWD` secret.
+`AGENT_OS_HTPASSWD_PATH` must be the absolute Simply server path to the deployed `.agent-os.htpasswd` file, not a URL path.
 
-### `AGENT_OS_HTPASSWD_PATH` value format
+This keeps Basic Auth available as an extra outer gate while Supabase auth handles user identity inside the private console.
 
-This must be the **absolute server path** that Apache/PHP hosting resolves at runtime, matching where the deployed file exists.
+## Local-first data boundary
 
-Example pattern:
-
-```text
-/absolute/path/to/site/.agent-os.htpasswd
-```
-
-Use your actual Simply webroot path (not a URL path).
-
-## Deploy steps
-
-1. Add/update the two secrets in GitHub.
-2. Trigger `.github/workflows/simply-deploy.yml` (manual dispatch or push to `main`).
-3. Verify:
-   - Visiting `/personal-agent-os` prompts for username/password.
-   - Other site paths stay public.
-   - Accessing `/.agent-os.htpasswd` returns denied/not found.
-
-## Why Cloudflare Access is still preferred
-
-Basic Auth is a practical interim control for static hosting, but Cloudflare Access is stronger for production:
-
-- central identity provider integration (Google/Microsoft/Okta, etc.)
-- policy controls by user/group/device posture
-- better auditing and revocation workflows
-
-Use this Basic Auth setup as a compatibility bridge until Access is implemented.
+- Public page (`/personal-agent-os`): status-level, sanitized, no private logs/secrets.
+- Private page (`/personal-agent-os/private`): user-authenticated, client-fetched read-only cards.
+- Sensitive operations and secrets remain outside public/static HTML and outside browser bundle.
