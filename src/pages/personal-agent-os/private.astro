@@ -49,6 +49,7 @@ const hasSupabaseConfig = Boolean(
             <button id="signout" type="button" class="btn btn-ghost" disabled>Sign out</button>
           </div>
           <p id="allowed-email-note" class="muted-note" hidden></p>
+          <p id="provider-status" class="muted-note" aria-live="polite"></p>
           <div class="actions">
             <button id="signin-google" type="button" class="btn" disabled>
               Continue with Google
@@ -110,6 +111,7 @@ const hasSupabaseConfig = Boolean(
   const authStatusEl = document.querySelector("#auth-status");
   const authErrorEl = document.querySelector("#auth-error");
   const allowedEmailNoteEl = document.querySelector("#allowed-email-note");
+  const providerStatusEl = document.querySelector("#provider-status");
   const googleButton = document.querySelector("#signin-google");
   const signOutButton = document.querySelector("#signout");
   const magicForm = document.querySelector("#magic-link-form");
@@ -144,6 +146,11 @@ const hasSupabaseConfig = Boolean(
     magicStatusEl.textContent = message;
   };
 
+  const setProviderStatus = (message) => {
+    if (!providerStatusEl) return;
+    providerStatusEl.textContent = message;
+  };
+
   const clearCards = () => {
     if (!cardsEl) return;
     cardsEl.innerHTML = "";
@@ -154,10 +161,15 @@ const hasSupabaseConfig = Boolean(
     cardsStatusEl.textContent = message;
   };
 
+  const providerState = {
+    google: true,
+    email: true,
+  };
+
   const setControlsEnabled = (enabled) => {
-    if (googleButton instanceof HTMLButtonElement) googleButton.disabled = !enabled;
-    if (magicEmailInput instanceof HTMLInputElement) magicEmailInput.disabled = !enabled;
-    if (magicSubmit instanceof HTMLButtonElement) magicSubmit.disabled = !enabled;
+    if (googleButton instanceof HTMLButtonElement) googleButton.disabled = !enabled || !providerState.google;
+    if (magicEmailInput instanceof HTMLInputElement) magicEmailInput.disabled = !enabled || !providerState.email;
+    if (magicSubmit instanceof HTMLButtonElement) magicSubmit.disabled = !enabled || !providerState.email;
   };
 
   const formatDate = (value) => {
@@ -254,6 +266,44 @@ const hasSupabaseConfig = Boolean(
     }
 
     const getRedirectTo = () => new URL("/personal-agent-os/private", window.location.origin).toString();
+
+    const syncProviderState = async () => {
+      try {
+        const response = await fetch(`${supabaseUrl}/auth/v1/settings`, {
+          headers: {
+            apikey: supabaseAnonKey,
+          },
+        });
+
+        if (!response.ok) return;
+
+        const settings = await response.json();
+        providerState.google = settings?.external?.google !== false;
+        providerState.email = settings?.external?.email !== false;
+
+        if (!providerState.google && googleButton instanceof HTMLButtonElement) {
+          googleButton.textContent = "Google disabled in Supabase";
+        }
+
+        if (!providerState.email) {
+          setMagicStatus("Email magic links are disabled in Supabase.");
+        }
+
+        const disabledProviders = [
+          !providerState.google && "Google",
+          !providerState.email && "email magic links",
+        ].filter(Boolean);
+
+        setProviderStatus(
+          disabledProviders.length ? `${disabledProviders.join(" and ")} disabled in Supabase Auth.` : ""
+        );
+        setControlsEnabled(true);
+      } catch {
+        setProviderStatus("Could not verify enabled Supabase auth providers.");
+      }
+    };
+
+    await syncProviderState();
 
     const loadCards = async (user) => {
       if (!user) {
