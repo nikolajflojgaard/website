@@ -174,9 +174,9 @@ const isActive = (path: string) => {
               aria-label="Sign in"
               data-auth-state="signed-out"
             >
-              <span class="agent-auth-dot" aria-hidden="true"></span>
               <IconUserCircle class="agent-auth-icon" />
-              <span id="agent-auth-label" class="agent-auth-label">Sign in</span>
+              <span class="agent-auth-dot" aria-hidden="true"></span>
+              <span id="agent-auth-label" class="sr-only">Sign in</span>
             </button>
           </li>
         </ul>
@@ -373,56 +373,58 @@ const isActive = (path: string) => {
 	    stroke: var(--accent);
 	  }
 
-	  .agent-auth-button {
-	    position: relative;
-	    display: inline-flex;
-	    min-width: 5.35rem;
-	    height: 3rem;
-	    align-items: center;
-	    justify-content: center;
-	    gap: 0.35rem;
-	    padding: 0 0.45rem;
-	    color: var(--foreground);
-	  }
+  .agent-auth-button {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    padding: 1rem;
+    color: var(--foreground);
+  }
 
-	  .agent-auth-icon {
-	    width: 1.35rem;
-	    height: 1.35rem;
-	    flex: 0 0 auto;
-	  }
+  .agent-auth-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    transform: translate(-50%, -50%);
+  }
 
-	  .agent-auth-label {
-	    font-size: 0.76rem;
-	    font-weight: 760;
-	    line-height: 1;
-	    white-space: nowrap;
-	  }
+  .agent-auth-dot {
+    position: absolute;
+    right: 0.55rem;
+    bottom: 0.55rem;
+    width: 0.44rem;
+    height: 0.44rem;
+    border: 1px solid var(--background);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--foreground) 30%, transparent);
+  }
 
-	  .agent-auth-dot {
-	    width: 0.42rem;
-	    height: 0.42rem;
-	    border-radius: 999px;
-	    background: color-mix(in srgb, var(--foreground) 32%, transparent);
-	  }
+  #agent-auth-btn[data-auth-state="signed-in"] .agent-auth-dot {
+    background: var(--accent);
+  }
 
-	  #agent-auth-btn[data-auth-state="signed-in"] .agent-auth-dot {
-	    background: var(--accent);
-	  }
+  #agent-auth-btn[data-auth-state="unavailable"] {
+    cursor: not-allowed;
+    opacity: 0.45;
+  }
 
-	  #agent-auth-btn[data-auth-state="signed-in"] .agent-auth-label {
-	    color: var(--accent);
-	  }
+  @media (min-width: 640px) {
+    .agent-auth-button {
+      width: 2rem;
+      height: 2rem;
+      padding: 0.5rem;
+    }
 
-	  #agent-auth-btn[data-auth-state="unavailable"] {
-	    cursor: not-allowed;
-	    opacity: 0.45;
-	  }
+    .agent-auth-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
 
-	  @media (min-width: 640px) {
-	    .agent-auth-button {
-	      height: 2rem;
-	      min-width: 4.9rem;
-	      padding: 0 0.2rem;
-	    }
-	  }
+    .agent-auth-dot {
+      right: 0.05rem;
+      bottom: 0.05rem;
+    }
+  }
 	</style>
