@@ -43,7 +43,7 @@ const isActive = (path: string) => {
         id="site-brand"
         href="/"
         data-default-href="/"
-        data-agent-href="/personal-agent-os#dashboard"
+        data-agent-href="/personal-agent-os/"
         class="absolute py-1 text-2xl leading-7 font-semibold whitespace-nowrap sm:static"
       >
         {SITE.title}
@@ -97,23 +97,8 @@ const isActive = (path: string) => {
             </a>
           </li>
           <li class="col-span-2 hidden" data-agent-nav>
-            <a href="/personal-agent-os#dashboard" data-agent-link="dashboard">
+            <a href="/personal-agent-os/" data-agent-link="dashboard">
               Dashboard
-            </a>
-          </li>
-          <li class="col-span-2 hidden" data-agent-nav>
-            <a href="/personal-agent-os#cronjobs" data-agent-link="cronjobs">
-              Cronjobs
-            </a>
-          </li>
-          <li class="col-span-2 hidden" data-agent-nav>
-            <a href="/personal-agent-os#skills" data-agent-link="skills">
-              Skills
-            </a>
-          </li>
-          <li class="col-span-2 hidden" data-agent-nav>
-            <a href="/personal-agent-os#chat" data-agent-link="chat">
-              Chat
             </a>
           </li>
           {
@@ -239,12 +224,13 @@ const isActive = (path: string) => {
 	      agentNavItems.forEach((item) => item.classList.toggle("hidden", !isSignedIn));
 
 	      if (brand instanceof HTMLAnchorElement) {
-	        brand.href = isSignedIn ? brand.dataset.agentHref || "/personal-agent-os#dashboard" : brand.dataset.defaultHref || "/";
+	        brand.href = isSignedIn ? brand.dataset.agentHref || "/personal-agent-os/" : brand.dataset.defaultHref || "/";
 	      }
 
-	      const currentHash = window.location.hash.replace("#", "");
+	      const isAgentDashboard = window.location.pathname.replace(/\/$/, "") === "/personal-agent-os";
+	      const currentTarget = isAgentDashboard ? "dashboard" : window.location.hash.replace("#", "");
 	      agentLinks.forEach((link) => {
-	        const isActiveAgentLink = link.getAttribute("data-agent-link") === currentHash;
+	        const isActiveAgentLink = link.getAttribute("data-agent-link") === currentTarget;
 	        link.classList.toggle("active-nav", isSignedIn && isActiveAgentLink);
 	      });
 	    };
@@ -371,7 +357,7 @@ const isActive = (path: string) => {
         return;
       }
 
-	      const redirectTo = new URL("/personal-agent-os#dashboard", window.location.origin).toString();
+	      const redirectTo = new URL("/personal-agent-os/", window.location.origin).toString();
 	      await supabase.auth.signInWithOAuth({
 	        provider: "google",
 	        options: { redirectTo },
