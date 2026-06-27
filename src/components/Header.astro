@@ -225,6 +225,7 @@ const isActive = (path: string) => {
     const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL ?? "";
     const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? "";
     const allowedEmail = (import.meta.env.PUBLIC_AGENT_OS_ALLOWED_EMAIL ?? "").trim().toLowerCase();
+    const authHintKey = "agent-os-auth-hint";
 
 	    const setButtonState = (state, text) => {
 	      button.dataset.authState = state;
@@ -249,11 +250,13 @@ const isActive = (path: string) => {
 	    };
 
 	    const renderSignedOut = () => {
+	      window.localStorage.removeItem(authHintKey);
 	      setButtonState("signed-out", "Signed out. Click to sign in");
 	      setNavigationState(false);
 	    };
 
 	    const renderSignedIn = () => {
+	      window.localStorage.setItem(authHintKey, "signed-in");
 	      setButtonState("signed-in", "Signed in. Click to sign out");
 	      setNavigationState(true);
 	    };
@@ -264,6 +267,31 @@ const isActive = (path: string) => {
 	      setNavigationState(false);
 	      return;
 	    }
+
+    const getProjectRef = () => {
+      try {
+        return new URL(supabaseUrl).hostname.split(".")[0];
+      } catch {
+        return "";
+      }
+    };
+
+    const hasStoredSession = () => {
+      const projectRef = getProjectRef();
+      if (!projectRef) return false;
+      return (
+        Boolean(window.localStorage.getItem(`sb-${projectRef}-auth-token`)) ||
+        window.localStorage.getItem(authHintKey) === "signed-in"
+      );
+    };
+
+    let isVerifyingInitialSession = hasStoredSession();
+
+    if (isVerifyingInitialSession) {
+      renderSignedIn();
+    } else {
+      renderSignedOut();
+    }
 
     const supabase = createClient(supabaseUrl, supabaseAnonKey, {
       auth: {
@@ -290,12 +318,9 @@ const isActive = (path: string) => {
     };
 
     const clearStoredSession = () => {
-      try {
-        const projectRef = new URL(supabaseUrl).hostname.split(".")[0];
-        window.localStorage.removeItem(`sb-${projectRef}-auth-token`);
-      } catch {
-        // Supabase signOut handles the normal path; this is only a defensive cleanup.
-      }
+      const projectRef = getProjectRef();
+      if (projectRef) window.localStorage.removeItem(`sb-${projectRef}-auth-token`);
+      window.localStorage.removeItem(authHintKey);
     };
 
     const renderSession = async (session) => {
@@ -360,11 +385,13 @@ const isActive = (path: string) => {
 	    });
 
     supabase.auth.onAuthStateChange((_, session) => {
+      if (isVerifyingInitialSession && !session) return;
       void renderSession(session);
     });
 
     void finishAuthRedirect().then(async () => {
       const { data } = await supabase.auth.getSession();
+      isVerifyingInitialSession = false;
       await renderSession(data.session);
     });
   }
