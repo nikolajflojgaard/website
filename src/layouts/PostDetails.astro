@@ -263,7 +263,11 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
 
     if (codeBlocks.length === 0) return;
 
-    const { default: mermaid } = await import("mermaid");
+    const mermaidModuleUrl =
+      "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    const { default: mermaid } = await import(
+      /* @vite-ignore */ mermaidModuleUrl
+    );
 
     mermaid.initialize({
       startOnLoad: false,
