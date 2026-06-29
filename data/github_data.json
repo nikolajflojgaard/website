@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "openclaw-claude-skills",
+      "description": "Curated OpenClaw/Codex skills adapted from useful Awesome Claude Skills patterns.",
+      "html_url": "https://github.com/nikolajflojgaard/openclaw-claude-skills",
+      "stargazers_count": 0,
+      "language": null,
+      "updated_at": "2026-06-29T07:37:26Z",
+      "private": true
+    },
+    {
       "name": "openclaw-workspace",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-06-29T00:00:10Z",
+      "updated_at": "2026-06-29T07:37:26Z",
       "private": false
     },
     {
@@ -33,7 +42,7 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-06-28T19:38:18Z",
+      "updated_at": "2026-06-29T04:40:48Z",
       "private": false
     },
     {
@@ -53,18 +62,33 @@
       "language": "Python",
       "updated_at": "2026-06-25T17:10:30Z",
       "private": false
-    },
-    {
-      "name": "personal-ops-dashboard",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/personal-ops-dashboard",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-06-25T10:50:02Z",
-      "private": false
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-06-29T07:37:23Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-claude-skills",
+      "repo": "nikolajflojgaard/openclaw-claude-skills",
+      "created_at": "2026-06-29T07:37:23Z"
+    },
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/openclaw-claude-skills",
+      "repo": "nikolajflojgaard/openclaw-claude-skills",
+      "created_at": "2026-06-29T07:33:51Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-06-29T07:08:51Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
@@ -100,31 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
       "created_at": "2026-06-27T15:25:41Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-06-27T15:15:33Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-06-27T15:01:06Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-06-27T14:52:46Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-06-27T14:45:15Z"
     }
   ],
-  "fetched_at": "2026-06-29T04:40:44.397Z"
+  "fetched_at": "2026-06-29T11:11:12.894Z"
 }
