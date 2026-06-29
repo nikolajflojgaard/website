@@ -255,6 +255,53 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
   <Footer />
 </Layout>
 
+<script>
+  async function renderMermaidDiagrams() {
+    const codeBlocks = Array.from(
+      document.querySelectorAll('pre[data-language="mermaid"] > code'),
+    );
+
+    if (codeBlocks.length === 0) return;
+
+    const { default: mermaid } = await import("mermaid");
+
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: "strict",
+      theme: document.documentElement.dataset.theme === "dark" ? "dark" : "default",
+    });
+
+    const diagrams = [];
+
+    for (const codeBlock of codeBlocks) {
+      const pre = codeBlock.parentElement;
+      if (!pre || pre.dataset.mermaidRendered === "true") continue;
+
+      const source = codeBlock.textContent?.trim();
+      if (!source) continue;
+
+      const wrapper = document.createElement("figure");
+      wrapper.className = "mermaid-diagram";
+
+      const diagram = document.createElement("div");
+      diagram.className = "mermaid";
+      diagram.textContent = source;
+
+      wrapper.appendChild(diagram);
+      pre.dataset.mermaidRendered = "true";
+      pre.replaceWith(wrapper);
+      diagrams.push(diagram);
+    }
+
+    if (diagrams.length > 0) {
+      mermaid.run({ nodes: diagrams });
+    }
+  }
+
+  renderMermaidDiagrams();
+  document.addEventListener("astro:page-load", renderMermaidDiagrams);
+</script>
+
 <script is:inline data-astro-rerun>
   /** Create a progress indicator
    *  at the top */
@@ -542,5 +589,20 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
     width: 100%;
     height: 100%;
     border: 0;
+  }
+
+  :global(.mermaid-diagram) {
+    margin: 2rem 0;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: color-mix(in srgb, var(--muted) 28%, var(--background));
+    padding: 1rem;
+  }
+
+  :global(.mermaid-diagram svg) {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
   }
 </style>
