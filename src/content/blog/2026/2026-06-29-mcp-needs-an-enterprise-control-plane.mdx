@@ -351,6 +351,82 @@ flowchart LR
   Incident --> Audit
 ```
 
+## C4-style network view
+
+The same architecture needs a network view, because a real technician request does not magically start inside the AI platform.
+
+It starts at the edge, crosses identity and access controls, enters the internal agent platform, calls internal domain systems through governed APIs, and may use an approved model provider through controlled egress.
+
+```mermaid
+flowchart TB
+  subgraph Internet["Public internet"]
+    Technician["Technician browser or mobile"]
+  end
+
+  subgraph Edge["Company edge and access zone"]
+    WAF["DNS, WAF and ingress controls"]
+    IdP["Enterprise identity provider"]
+    UI["Technician AI UI"]
+  end
+
+  subgraph AIPlatform["Internal AI platform zone"]
+    AG["Agent Gateway"]
+    Policy["Policy and approval engine"]
+    Registry["MCP registry"]
+    LLM["LLM Gateway"]
+    Audit["Audit and trace store"]
+  end
+
+  subgraph MCPZone["Internal MCP domain zone"]
+    Assurance["Assurance MCP"]
+    Order["Order MCP"]
+    Incident["Incident MCP"]
+  end
+
+  subgraph EnterpriseSystems["Enterprise API and system zone"]
+    APIM["API management and service mesh"]
+    Network["Network and inventory APIs"]
+    Fulfillment["Order and product APIs"]
+    ITSM["Incident platform"]
+  end
+
+  subgraph ControlledEgress["Controlled model egress"]
+    ModelProvider["Approved model providers"]
+  end
+
+  Technician --> WAF
+  WAF --> IdP
+  IdP --> UI
+  UI --> AG
+
+  AG --> Policy
+  AG --> Registry
+  AG --> Audit
+  AG --> LLM
+  LLM --> ModelProvider
+
+  AG --> Assurance
+  AG --> Order
+  AG --> Incident
+
+  Assurance --> APIM
+  Order --> APIM
+  Incident --> APIM
+  APIM --> Network
+  APIM --> Fulfillment
+  APIM --> ITSM
+
+  Assurance --> Audit
+  Order --> Audit
+  Incident --> Audit
+  Policy --> Audit
+  LLM --> Audit
+```
+
+This is the view that usually decides whether the architecture is enterprise-grade or just another internal demo.
+
+The edge should authenticate access. The Agent Gateway should control runtime authority. MCPs should stay inside the domain boundary. API management should protect downstream systems. The LLM Gateway should be the only sanctioned path to model providers.
+
 The important part is not the boxes.
 
 The important part is where the decisions live.
