@@ -93,6 +93,7 @@ const prevPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
 const nextPost = currentPostIndex !== allPosts.length ? allPosts[currentPostIndex + 1] : null;
 
 const currentTags = new Set((tags ?? []).map((tag) => tag.toLowerCase()));
+const hasMermaid = currentTags.has("mermaid");
 const relatedPosts = posts
   .filter((candidate) => candidate.id !== post.id)
   .map((candidate) => {
@@ -140,6 +141,7 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
       { "mt-8": !SITE.showBackButton },
     ]}
     data-pagefind-body
+    data-has-mermaid={hasMermaid ? "true" : "false"}
   >
     <h1
       transition:name={slugifyStr(title)}
@@ -257,6 +259,8 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
 
 <script>
   async function renderMermaidDiagrams() {
+    if (!document.querySelector('[data-has-mermaid="true"]')) return;
+
     const codeBlocks = Array.from(
       document.querySelectorAll('pre[data-language="mermaid"] > code'),
     );
