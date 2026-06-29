@@ -365,6 +365,88 @@ System-specific complexity stays behind the domain boundary.
 
 Audit crosses everything.
 
+## Request flow
+
+The flow is easier to understand as a sequence than as a static architecture diagram.
+
+The LLM Gateway is not a side box. It sits in the runtime loop whenever the agent needs model reasoning, model selection, redaction, cost control, retention policy, or response evaluation.
+
+The Agent Gateway remains the control point for identity, tool authorization, approvals, and audit. The MCP servers remain the domain boundary for business-safe tools.
+
+```mermaid
+sequenceDiagram
+  autonumber
+  actor Technician
+  participant UI as TDC AI / Technician UI
+  participant AG as Agent Gateway
+  participant Policy as Policy + Approval Engine
+  participant LLM as LLM Gateway
+  participant Model as Approved LLM Provider
+  participant Registry as MCP Registry
+  participant Assurance as Assurance MCP
+  participant Order as Order MCP
+  participant Incident as Incident MCP
+  participant APIs as Domain APIs
+  participant Audit as Audit + Trace Store
+
+  Technician->>UI: Ask about a customer service
+  UI->>AG: Send prompt, user token, customer context
+  AG->>Policy: Validate identity, role, session, customer relationship
+  Policy-->>AG: Read-only diagnostic tools allowed
+  AG->>Audit: Start correlated agent run
+
+  AG->>LLM: Classify intent and plan with redacted context
+  LLM->>Model: Route to approved model with policy controls
+  Model-->>LLM: Proposed plan and required tools
+  LLM-->>AG: Plan: check assurance, order status, incident history
+
+  AG->>Registry: Resolve approved MCP tools and versions
+  Registry-->>AG: Tool contracts, scopes, endpoints
+
+  AG->>Policy: Authorize read tool calls
+  Policy-->>AG: Approved
+  AG->>Assurance: get_customer_health(customerId)
+  Assurance->>APIs: Query network, inventory, modem state
+  APIs-->>Assurance: Diagnostic signals
+  Assurance-->>AG: Structured health result
+
+  AG->>Order: get_order_status(customerId)
+  Order->>APIs: Query fulfillment and product state
+  APIs-->>Order: Order signals
+  Order-->>AG: Structured order result
+
+  AG->>LLM: Summarize tool results for technician
+  LLM->>Model: Generate explanation from structured results
+  Model-->>LLM: Draft answer and next action
+  LLM-->>AG: Explanation plus proposed next step
+
+  alt Incident creation is needed
+    AG->>Policy: Check write scope and approval requirement
+    Policy-->>AG: Step-up confirmation required
+    AG-->>UI: Ask technician to confirm incident creation
+    Technician->>UI: Confirm
+    UI->>AG: Confirmation
+    AG->>Incident: create_incident(summary, evidence)
+    Incident->>APIs: Create ticket in incident platform
+    APIs-->>Incident: Incident ID
+    Incident-->>AG: Incident created
+  else Advisory only
+    AG-->>UI: Return explanation and recommended next action
+  end
+
+  AG->>Audit: Record prompts, model route, tool calls, policy decisions, outputs
+  AG-->>UI: Final answer with trace ID
+  UI-->>Technician: Show explanation, evidence, next action
+```
+
+This is the part many architecture sketches hide.
+
+The request is not "user talks to model, model calls tools."
+
+The real flow is: user enters through the Agent Gateway, the Agent Gateway asks the LLM Gateway for governed reasoning, the Agent Gateway authorizes and executes tool calls through MCP servers, the MCP servers talk to domain APIs, and the Agent Gateway returns an audited answer.
+
+That is the control plane.
+
 ## What the platform team should deliver
 
 If a team wants to win the mandate for MCP, Agent Gateway, and LLM Gateway across a large company, it should not pitch a loose collection of agents.
