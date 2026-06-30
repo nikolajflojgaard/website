@@ -165,3 +165,7 @@ html[data-theme="dark"] {
 .article-prose :where(hr) {
   @apply my-12 border-border;
 }
+
+.site-copy {
+  max-width: var(--container-4xl);
+}
