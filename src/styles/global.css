@@ -114,7 +114,7 @@ html[data-theme="dark"] {
   }
 
   .site-copy {
-    @apply mx-auto w-full max-w-3xl;
+    @apply mx-auto w-full max-w-4xl;
   }
 }
 
