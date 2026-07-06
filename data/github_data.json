@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "openclaw-workspace",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-07-06T00:00:08Z",
+      "private": false
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-07-05T13:52:04Z",
+      "updated_at": "2026-07-05T19:25:59Z",
       "private": false
     },
     {
@@ -35,15 +44,6 @@
       "language": "Python",
       "updated_at": "2026-07-01T10:00:26Z",
       "private": true
-    },
-    {
-      "name": "openclaw-workspace",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-06-29T20:16:01Z",
-      "private": false
     },
     {
       "name": "openclaw-claude-skills",
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-07-06T00:00:04Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
       "created_at": "2026-06-29T19:36:35Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-06-29T19:33:31Z"
     }
   ],
-  "fetched_at": "2026-07-05T19:25:54.420Z"
+  "fetched_at": "2026-07-06T04:06:18.932Z"
 }
