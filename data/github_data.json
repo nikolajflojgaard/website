@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "stock-playbook",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-07-27T18:59:07Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-07-27T10:02:29Z",
+      "updated_at": "2026-07-27T14:50:07Z",
       "private": false
     },
     {
@@ -53,18 +62,15 @@
       "language": null,
       "updated_at": "2026-06-29T07:37:26Z",
       "private": true
-    },
-    {
-      "name": "agent-orchestration-hub",
-      "description": "OpenClaw skill for coordinating multiple agents with briefs, state, gates, and cleanup.",
-      "html_url": "https://github.com/nikolajflojgaard/agent-orchestration-hub",
-      "stargazers_count": 0,
-      "language": null,
-      "updated_at": "2026-06-25T17:11:54Z",
-      "private": false
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-07-27T18:59:01Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
       "created_at": "2026-07-26T07:32:21Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-07-26T06:50:50Z"
     }
   ],
-  "fetched_at": "2026-07-27T14:47:49.847Z"
+  "fetched_at": "2026-07-27T19:42:26.193Z"
 }
