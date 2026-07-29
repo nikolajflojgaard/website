@@ -62,4 +62,3 @@ gh run list --workflow simply-deploy.yml --limit 1
 
 - The repo still contains `vercel.json`, but production DNS for `nikolajflojgaard.me` is currently served by Simply.
 - If hosting is moved to Vercel later, update this document and `scripts/deploy.sh` together so the local deploy command does not drift again.
-- For optional `/personal-agent-os` Basic Auth setup in GitHub Actions, see `docs/personal-agent-os-login.md`.

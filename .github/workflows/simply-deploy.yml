@@ -30,31 +30,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        env:
-          PUBLIC_SUPABASE_URL: ${{ vars.PUBLIC_SUPABASE_URL }}
-          PUBLIC_SUPABASE_ANON_KEY: ${{ vars.PUBLIC_SUPABASE_ANON_KEY }}
-          PUBLIC_AGENT_OS_ALLOWED_EMAIL: ${{ vars.PUBLIC_AGENT_OS_ALLOWED_EMAIL }}
         run: npm run build
-
-      - name: Configure optional Basic Auth for /personal-agent-os
-        env:
-          AGENT_OS_HTPASSWD: ${{ secrets.AGENT_OS_HTPASSWD }}
-          AGENT_OS_HTPASSWD_PATH: ${{ secrets.AGENT_OS_HTPASSWD_PATH }}
-        run: |
-          if [ -n "$AGENT_OS_HTPASSWD" ] && [ -n "$AGENT_OS_HTPASSWD_PATH" ]; then
-            mkdir -p dist/personal-agent-os
-            printf '%s\n' "$AGENT_OS_HTPASSWD" > dist/.agent-os.htpasswd
-            chmod 640 dist/.agent-os.htpasswd
-            {
-              printf '%s\n' 'AuthType Basic'
-              printf '%s\n' 'AuthName "Restricted Area"'
-              printf '%s\n' "AuthUserFile ${AGENT_OS_HTPASSWD_PATH}"
-              printf '%s\n' 'Require valid-user'
-              printf '%s\n' 'ErrorDocument 401 default'
-            } > dist/personal-agent-os/.htaccess
-          else
-            echo "AGENT_OS_HTPASSWD and/or AGENT_OS_HTPASSWD_PATH not set; skipping /personal-agent-os Basic Auth."
-          fi
 
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp

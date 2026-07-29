@@ -4,7 +4,6 @@ import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import IconMoon from "@/assets/icons/IconMoon.svg";
 import IconSearch from "@/assets/icons/IconSearch.svg";
 import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
-import IconUserCircle from "@/assets/icons/IconUserCircle.svg";
 import IconX from "@/assets/icons/IconX.svg";
 import { SITE } from "@/config";
 import Hr from "./Hr.astro";
@@ -43,7 +42,6 @@ const isActive = (path: string) => {
         id="site-brand"
         href="/"
         data-default-href="/"
-        data-agent-href="/personal-agent-os/"
         class="absolute py-1 text-2xl leading-7 font-semibold whitespace-nowrap sm:static"
       >
         {SITE.title}
@@ -96,16 +94,6 @@ const isActive = (path: string) => {
               Work
             </a>
           </li>
-          <li class="col-span-2 hidden" data-agent-nav>
-            <a href="/personal-agent-os/" data-agent-link="dashboard">
-              Dashboard
-            </a>
-          </li>
-          <li class="col-span-2 hidden" data-agent-nav>
-            <a href="/personal-agent-os/cockpit" data-agent-link="cockpit">
-              Cockpit
-            </a>
-          </li>
           {
             SITE.showArchives && (
               <li class="col-span-2">
@@ -156,18 +144,6 @@ const isActive = (path: string) => {
               </li>
             )
           }
-          <li class="col-span-1 flex items-center justify-center">
-            <button
-              id="agent-auth-btn"
-              class="agent-auth-button focus-outline"
-              title="Sign in"
-              aria-label="Sign in"
-              data-auth-state="signed-out"
-            >
-              <IconUserCircle class="agent-auth-icon" />
-              <span id="agent-auth-label" class="sr-only">Sign in</span>
-            </button>
-          </li>
         </ul>
       </nav>
     </div>
@@ -177,8 +153,6 @@ const isActive = (path: string) => {
 
 <script>
   // @ts-nocheck
-  import { createClient } from "@supabase/supabase-js";
-
   function toggleNav() {
     const menuBtn = document.querySelector("#menu-btn");
     const menuItems = document.querySelector("#menu-items");
@@ -201,262 +175,8 @@ const isActive = (path: string) => {
 
   toggleNav();
 
-	function setupAgentAuth() {
-	    const button = document.querySelector("#agent-auth-btn");
-	    const label = document.querySelector("#agent-auth-label");
-	    const brand = document.querySelector("#site-brand");
-	    const publicNavItems = document.querySelectorAll("[data-public-nav]");
-	    const agentNavItems = document.querySelectorAll("[data-agent-nav]");
-	    const agentLinks = document.querySelectorAll("[data-agent-link]");
-	    if (!(button instanceof HTMLButtonElement) || button.dataset.authBound === "true") return;
-
-    button.dataset.authBound = "true";
-
-    const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL ?? "";
-    const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY ?? "";
-    const allowedEmail = (import.meta.env.PUBLIC_AGENT_OS_ALLOWED_EMAIL ?? "").trim().toLowerCase();
-    const authHintKey = "agent-os-auth-hint";
-
-	    const setButtonState = (state, text) => {
-	      button.dataset.authState = state;
-	      button.title = text;
-	      button.setAttribute("aria-label", text);
-	      if (label) label.textContent = text;
-	    };
-
-	    const setNavigationState = (isSignedIn) => {
-	      publicNavItems.forEach((item) => item.classList.toggle("hidden", isSignedIn));
-	      agentNavItems.forEach((item) => item.classList.toggle("hidden", !isSignedIn));
-
-	      if (brand instanceof HTMLAnchorElement) {
-	        brand.href = isSignedIn ? brand.dataset.agentHref || "/personal-agent-os/" : brand.dataset.defaultHref || "/";
-	      }
-
-	      const currentPath = window.location.pathname.replace(/\/$/, "");
-	      const currentTarget =
-	        currentPath === "/personal-agent-os"
-	          ? "dashboard"
-	          : currentPath === "/personal-agent-os/cockpit"
-	            ? "cockpit"
-	            : window.location.hash.replace("#", "");
-	      agentLinks.forEach((link) => {
-	        const isActiveAgentLink = link.getAttribute("data-agent-link") === currentTarget;
-	        link.classList.toggle("active-nav", isSignedIn && isActiveAgentLink);
-	      });
-	    };
-
-	    const renderSignedOut = () => {
-	      window.localStorage.removeItem(authHintKey);
-	      setButtonState("signed-out", "Signed out. Click to sign in");
-	      setNavigationState(false);
-	    };
-
-	    const renderSignedIn = () => {
-	      window.localStorage.setItem(authHintKey, "signed-in");
-	      setButtonState("signed-in", "Signed in. Click to sign out");
-	      setNavigationState(true);
-	    };
-
-	    if (!supabaseUrl || !supabaseAnonKey) {
-	      button.disabled = true;
-	      setButtonState("unavailable", "Login unavailable");
-	      setNavigationState(false);
-	      return;
-	    }
-
-    const getProjectRef = () => {
-      try {
-        return new URL(supabaseUrl).hostname.split(".")[0];
-      } catch {
-        return "";
-      }
-    };
-
-    const hasStoredSession = () => {
-      const projectRef = getProjectRef();
-      if (!projectRef) return false;
-      return (
-        Boolean(window.localStorage.getItem(`sb-${projectRef}-auth-token`)) ||
-        window.localStorage.getItem(authHintKey) === "signed-in"
-      );
-    };
-
-    let isVerifyingInitialSession = hasStoredSession();
-
-    if (isVerifyingInitialSession) {
-      renderSignedIn();
-    } else {
-      renderSignedOut();
-    }
-
-    const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        autoRefreshToken: true,
-        persistSession: true,
-        detectSessionInUrl: true,
-      },
-    });
-
-    const cleanAuthUrl = () => {
-      const url = new URL(window.location.href);
-      url.searchParams.delete("code");
-      url.searchParams.delete("error");
-      url.searchParams.delete("error_code");
-      url.searchParams.delete("error_description");
-      window.history.replaceState({}, document.title, `${url.pathname}${url.search}${url.hash}`);
-    };
-
-    const isAllowedUser = (user) => {
-      const isLocalDev = ["localhost", "127.0.0.1"].includes(window.location.hostname);
-      if (!allowedEmail) return isLocalDev;
-      const email = user?.email?.trim().toLowerCase();
-      return Boolean(email) && email === allowedEmail;
-    };
-
-    const clearStoredSession = () => {
-      const projectRef = getProjectRef();
-      if (projectRef) window.localStorage.removeItem(`sb-${projectRef}-auth-token`);
-      window.localStorage.removeItem(authHintKey);
-    };
-
-    const renderSession = async (session) => {
-      const user = session?.user;
-
-	      if (user && !isAllowedUser(user)) {
-	        await supabase.auth.signOut();
-	        renderSignedOut();
-	        return;
-	      }
-
-	      if (user) {
-	        renderSignedIn();
-	        return;
-	      }
-
-	      renderSignedOut();
-	    };
-
-    const finishAuthRedirect = async () => {
-      const url = new URL(window.location.href);
-      const code = url.searchParams.get("code");
-      const authError = url.searchParams.get("error") || url.searchParams.get("error_description");
-
-      if (authError) {
-        cleanAuthUrl();
-        return;
-      }
-
-      if (!code) return;
-
-      await supabase.auth.exchangeCodeForSession(code);
-      cleanAuthUrl();
-    };
-
-    button.addEventListener("click", async () => {
-      const { data } = await supabase.auth.getSession();
-      const user = data.session?.user;
-
-      if (user && isAllowedUser(user)) {
-        try {
-          await supabase.auth.signOut({ scope: "local" });
-        } finally {
-          clearStoredSession();
-          renderSignedOut();
-          window.location.assign("/");
-        }
-        return;
-      }
-
-	      const redirectTo = new URL("/personal-agent-os/", window.location.origin).toString();
-	      await supabase.auth.signInWithOAuth({
-	        provider: "google",
-	        options: { redirectTo },
-	      });
-	    });
-
-	    window.addEventListener("hashchange", () => {
-	      void supabase.auth.getSession().then(({ data }) => {
-	        setNavigationState(Boolean(data.session?.user && isAllowedUser(data.session.user)));
-	      });
-	    });
-
-    supabase.auth.onAuthStateChange((_, session) => {
-      if (isVerifyingInitialSession && !session) return;
-      void renderSession(session);
-    });
-
-    void finishAuthRedirect().then(async () => {
-      const { data } = await supabase.auth.getSession();
-      isVerifyingInitialSession = false;
-      await renderSession(data.session);
-    });
-  }
-
-  setupAgentAuth();
-
   // Runs on view transitions navigation
   document.addEventListener("astro:after-swap", () => {
     toggleNav();
-    setupAgentAuth();
   });
 </script>
-
-<style>
-  .agent-auth-button {
-    position: relative;
-    width: 3rem;
-    height: 3rem;
-    padding: 1rem;
-    border-radius: 999px;
-    color: var(--foreground);
-    transition:
-      background-color 160ms ease,
-      box-shadow 160ms ease,
-      color 160ms ease,
-      transform 160ms ease;
-  }
-
-  .agent-auth-button:hover {
-    transform: translateY(-1px);
-  }
-
-  .agent-auth-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 1.5rem;
-    height: 1.5rem;
-    transform: translate(-50%, -50%);
-    transition: stroke 160ms ease;
-  }
-
-  #agent-auth-btn[data-auth-state="signed-out"] {
-    color: #16a34a;
-    background: color-mix(in srgb, #16a34a 13%, transparent);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, #16a34a 58%, transparent);
-  }
-
-  #agent-auth-btn[data-auth-state="signed-in"] {
-    color: #dc2626;
-    background: color-mix(in srgb, #dc2626 10%, transparent);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, #dc2626 45%, transparent);
-  }
-
-  #agent-auth-btn[data-auth-state="unavailable"] {
-    cursor: not-allowed;
-    opacity: 0.45;
-  }
-
-  @media (min-width: 640px) {
-    .agent-auth-button {
-      width: 2rem;
-      height: 2rem;
-      padding: 0.5rem;
-    }
-
-    .agent-auth-icon {
-      width: 1.25rem;
-      height: 1.25rem;
-    }
-  }
-</style>
