@@ -1,0 +1,206 @@
+---
+title: "Daniel Kokotajlo is probably right, just too early"
+description: "Daniel Kokotajlo's AI forecasts look extreme until you separate the mechanism from the calendar. The direction is plausible. The 2027-style timeline is the part I struggle to buy."
+pubDatetime: 2026-07-29T11:00:00.000Z
+tags:
+  - ai
+  - agentic-ai
+  - ai-safety
+  - forecasting
+  - technology
+source: "AI 2027, AI Futures Project timeline updates, Asterisk, LessWrong, Guardian"
+---
+
+Daniel Kokotajlo has the annoying kind of forecast you cannot easily dismiss.
+
+Not because every date is obviously right. It is not. The dates are the weakest part.
+
+But the machine underneath the forecast is plausible: better models become better coding assistants, better coding assistants become better AI research assistants, better AI research assistants speed up the labs building the next models, and suddenly the limiting factor is no longer just how many smart humans you can hire.
+
+That is the part people should take seriously.
+
+The calendar is where I think he gets too excited.
+
+## What he is actually predicting
+
+Kokotajlo is not just saying "AI will be big." Everyone says that now. It has become the safest sentence in technology, somewhere between "data matters" and "we should align stakeholders."
+
+His prediction is sharper.
+
+In [AI 2027](https://ai-2027.com/), written with Scott Alexander, Thomas Larsen, Eli Lifland, and Romeo Dean, the core claim is that superhuman AI could have an impact over the next decade larger than the Industrial Revolution. The story is built as a concrete scenario, not a vague deck of trend lines.
+
+The important mechanism is AI automating AI work.
+
+By early 2026 in the AI 2027 scenario, a leading lab is using internal agents for AI R&D and getting something like a 50 percent boost to algorithmic progress. By 2027, the scenario has AI systems moving from "mostly doing the job of a research engineer" to eclipsing humans across basically all cognitive work. That is the ignition point: AI stops being a product and becomes part of the research engine that improves the product.
+
+That is why Kokotajlo's forecasts feel different from normal AI hype.
+
+The usual AI hype says:
+
+- this tool will write your emails
+- this tool will replace customer support
+- this tool will make slides nobody asked for
+
+Kokotajlo's argument is more dangerous:
+
+- this tool will help build the next tool
+- the next tool will help build the next one faster
+- the gap between generations may compress
+- institutions will race because no one wants to be second
+- alignment and control become harder exactly when the stakes rise
+
+That is not a chatbot prediction.
+
+That is an industrial accident prediction.
+
+## Why I think he is directionally right
+
+Kokotajlo has earned more attention than most AI forecasters because his old work aged well.
+
+Before ChatGPT turned AI into a boardroom panic object, he wrote ["What 2026 Looks Like"](https://www.lesswrong.com/posts/6Xgy6CAf2jqHhynHL/what-2026-looks-like), a concrete year-by-year forecast from 2021. In a 2026 [Asterisk interview](https://asteriskmag.substack.com/p/before-he-wrote-ai-2027-he-predicted), he describes the method plainly: start from the present, make the next plausible step, then keep walking forward. Asterisk's framing is also blunt: a surprising amount of it landed closer to reality than most people expected.
+
+That matters because the best forecasts often look boring in hindsight. They do not require a magic insight. They require noticing the thing everyone else is politely underweighting.
+
+And Kokotajlo has been paying attention to the right thing: agency.
+
+The world has spent the last few years arguing about whether models "understand" things. Useful debate, sure. But while everyone was doing philosophy in the comment section, the products started learning to use tools, write code, inspect files, run tests, browse, remember context, call APIs, and continue work across steps.
+
+That changes the unit of progress.
+
+The relevant question is no longer: can a model answer a hard question in one shot?
+
+The question is: how much valuable work can a model complete per hour when wrapped in tools, memory, execution, retrieval, tests, and feedback?
+
+That framing makes Kokotajlo look much less crazy.
+
+Most knowledge work is not pure genius. It is a stack of reading, pattern matching, writing, checking, waiting, retrying, coordinating, and documenting. Modern AI is uneven at that, but it is moving directly into that territory. Software engineering is the obvious first target because the work is digital, testable, tool-rich, and full of feedback loops.
+
+So yes: AI-for-AI-research is a real accelerant.
+
+The people who wave that away are usually imagining current consumer chatbots. That is the wrong object. Frontier labs are not asking whether a public chatbot can plan your holiday. They are asking how far internal agents can push experiment implementation, code review, eval generation, synthetic data, debugging, model analysis, and infrastructure automation.
+
+Once that works, even partially, it compounds.
+
+Not perfectly. Not cleanly. Not without bottlenecks.
+
+But it compounds.
+
+## The part I do not buy: the calendar
+
+Where Kokotajlo loses me is the compression.
+
+The AI 2027 scenario is built around a very fast handoff from impressive agents to automated coding to automated AI R&D to superintelligence. The team has since clarified that they were never certain about 2027 specifically, and their own updated work pushes the central timelines later. In their January 2026 clarification, Kokotajlo and co-authors say they still think AGI and superintelligence may arrive soon, but they also emphasize uncertainty and show Daniel's timeline moving from a 2027 median in early 2025, to 2028, then roughly around 2030, and then about December 2030 in the January 2026 model update.
+
+That update is healthy. It is also a clue.
+
+The world keeps inserting friction into clean exponentials.
+
+AI demos move fast. Real adoption moves like plumbing.
+
+There are at least six brakes that I think matter more than the shortest-timeline crowd wants to admit.
+
+First, autonomy is jagged.
+
+A model can solve a hard benchmark and still fail at a stupid real task because the environment changed, the tool timed out, the spec was ambiguous, the repo was messy, the credentials were weird, or the required judgment was hiding between systems. This does not mean the technology is fake. It means "can do the task in a clean eval" and "can own the job in production" are different milestones.
+
+Second, AI R&D is not just coding.
+
+Coding is the easiest part to automate because it leaves artifacts you can run. Research taste is uglier. Which experiment matters? Which failure is meaningful? Which benchmark is lying? Which result should shift the roadmap? Which safety signal is real and which one is noise? Agents will help here, but replacing elite research judgment is a much harder step than generating patches.
+
+Third, institutions are slow even when the technology is fast.
+
+The Guardian's January 2026 coverage of Kokotajlo's timeline shift included a useful criticism: the real world has inertia. Procurement, regulation, security, internal politics, model risk committees, customer trust, vendor lock-in, and boring integration work all slow deployment. A superhuman system in a lab is not automatically a transformed economy on Tuesday.
+
+Fourth, hardware is not free.
+
+The AI 2027 picture depends on labs getting enough compute, power, datacenters, networking gear, and capital to keep the flywheel spinning. They probably get a lot of it. But "a lot" is not the same as "unbounded." Chips have supply chains. Datacenters have permits. Power grids have queues. Cooling is physical. Money has a cost. Reality has a habit of charging rent.
+
+Fifth, safety and security become operating constraints.
+
+If the models are weak, you can ship aggressively. If the models are strong enough to materially accelerate AI research, leak secrets, write exploits, manipulate workflows, or replicate across infrastructure, the lab cannot treat deployment as normal SaaS. The stronger Kokotajlo's models get, the more friction their handlers have reason to add.
+
+Sixth, social legitimacy matters.
+
+Markets can tolerate weird demos. They cannot tolerate "we accidentally gave a strategic system too much agency" for long. Public trust, state intervention, lawsuits, and geopolitical fear are not side quests. They are part of the system.
+
+This is why I think Kokotajlo is likely right on shape and too optimistic on speed.
+
+## The mistake is treating delay as disproof
+
+The lazy critique is: "He said 2027, now it is later, therefore the whole thing is nonsense."
+
+That is too easy.
+
+Forecasting powerful technology is not like predicting the next iPhone color. A good forecast can be wrong on timing and still right on mechanism. In fact, that is how a lot of important technology forecasts fail: the world arrives late, then pretends the early warning was silly.
+
+Kokotajlo's useful contribution is not the exact year.
+
+It is the structure:
+
+- recursive acceleration through AI R&D
+- agents as workers, not chat windows
+- intense lab competition
+- security and espionage pressure
+- weak governance relative to stakes
+- alignment getting harder as capability rises
+- decision-makers reacting late because the early versions look unreliable
+
+I buy most of that.
+
+I just think the messy middle is thicker.
+
+Instead of "2027 goes vertical," my intuition is more like: we get several years of increasingly uncomfortable partial automation. Coding gets eaten first. Research engineering gets heavily compressed. Internal lab workflows become agent-managed. Some companies quietly become much smaller than their revenue would normally imply. Governments wake up late. Regulators misunderstand the technical core. Everyone argues about whether the latest system is "really AGI" while the economic blast radius grows anyway.
+
+Then, eventually, the slope steepens.
+
+Maybe not in 2027. Maybe not even exactly in 2030.
+
+But the direction does not require believing in the most dramatic version of the story.
+
+## Why this matters now
+
+The bad outcome is not only "AI kills everyone."
+
+That is the headline because it is the loudest possibility. It is also the easiest one for normal people to dismiss, because it sounds like someone has been trapped in a philosophy seminar with a datacenter budget.
+
+The more immediate problem is loss of control in smaller, uglier forms:
+
+- companies depending on systems they cannot properly audit
+- critical workflows being delegated before accountability catches up
+- states racing because slowing down feels like unilateral surrender
+- AI labs becoming national-security actors without national-security discipline
+- misinformation, cyber, persuasion, and automation improving at the same time
+- economic power concentrating around whoever owns models, compute, distribution, and data
+
+That is enough to take Kokotajlo seriously.
+
+You do not need to accept every catastrophic branch of AI 2027 to see the problem. You only need to believe that AI systems will become much better at doing useful digital work, that labs will use them to speed up AI development, and that institutions will struggle to govern something moving faster than their normal planning cycles.
+
+That is not science fiction.
+
+That is already the direction of travel.
+
+## My read
+
+Kokotajlo is probably right in the way people hate most: not literally right on every detail, but right enough about the underlying pressure that ignoring him would be stupid.
+
+The 2027-style timeline looks too aggressive. The world is more stubborn than a scenario. Deployment is slower than capability. Autonomy is messier than benchmarks. AI research is more than code. Hardware and energy bite. Politics arrives late and then overcorrects.
+
+But none of that makes the core forecast comfortable.
+
+If the date slips from 2027 to 2030 or 2032, that is not a victory lap for skeptics. That is a scheduling update.
+
+The real question is not whether Kokotajlo's exact calendar survives contact with reality.
+
+It is whether we are preparing for the kind of world his forecast points at.
+
+And on that, I think he is much closer to the truth than the people laughing at the year.
+
+## Sources
+
+- [AI 2027](https://ai-2027.com/) by Daniel Kokotajlo, Scott Alexander, Thomas Larsen, Eli Lifland, and Romeo Dean
+- [What 2026 Looks Like](https://www.lesswrong.com/posts/6Xgy6CAf2jqHhynHL/what-2026-looks-like) by Daniel Kokotajlo
+- [Before he wrote AI 2027, he predicted the world in 2026. How did he do?](https://asteriskmag.substack.com/p/before-he-wrote-ai-2027-he-predicted), Asterisk
+- [Clarifying how our AI timelines forecasts have changed since AI 2027](https://blog.aifutures.org/p/clarifying-how-our-ai-timelines-forecasts), AI Futures Project
+- [AI Futures Timelines and Takeoff Model: Dec 2025 Update](https://www.alignmentforum.org/posts/YABG5JmztGGPwNFq2/ai-futures-timelines-and-takeoff-model-dec-2025-update), AI Alignment Forum
+- [Leading AI expert delays timeline for its possible destruction of humanity](https://www.theguardian.com/technology/2026/jan/06/leading-ai-expert-delays-timeline-possible-destruction-humanity), The Guardian
