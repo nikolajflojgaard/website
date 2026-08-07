@@ -1,0 +1,199 @@
+---
+title: "I made my agent's memory faster by making it smaller"
+description: "The useful version of agent memory is not a bigger bucket. It is a layered system: compact truth, raw notes, topic summaries, and a local index that works even when embeddings do not."
+pubDatetime: 2026-08-07T10:58:00.000Z
+tags:
+  - ai
+  - agentic-ai
+  - personal-systems
+  - architecture
+  - automation
+heroImage: "/images/memory-cluster-index-hero.svg"
+ogImage: "https://nikolajflojgaard.me/images/memory-cluster-index-hero.svg"
+featured: true
+source: "OpenClaw memory migration and public memory-cluster-index skill benchmark"
+---
+
+Agent memory sounds simple until you actually run one for a while.
+
+At first, the problem is obvious: the agent forgets too much.
+
+Then you fix that, and the next problem is worse: the agent remembers too much, too flatly, and too expensively. Old notes start competing with current facts. Search returns fragments instead of context. The assistant burns tokens rereading its own history. Eventually memory becomes less like continuity and more like a pile of receipts.
+
+That was the real problem I wanted to fix.
+
+So I rebuilt my agent's memory around a small idea:
+
+**Memory should be clustered before it is searched.**
+
+Not everything belongs in long-term memory. Not everything needs semantic search. Not every old daily note deserves to be pulled back into context. A useful personal agent needs layers.
+
+I turned the pattern into a public skill too: [memory-cluster-index](https://github.com/nikolajflojgaard/memory-cluster-index).
+
+## The old shape was conceptually right, but operationally weak
+
+The memory system already had the right instincts:
+
+- `MEMORY.md` for durable long-term truth
+- `memory/YYYY-MM-DD.md` for daily notes
+- local scripts for memory search
+
+That sounds fine. The problem was the retrieval shape.
+
+The local fallback index had gone stale and only covered a tiny slice of the archive. Worse, the fallback was line-based. It indexed individual lines instead of meaningful chunks. That is the wrong unit.
+
+A line can mention "running", "Home Assistant", or "stock playbook", but a line rarely carries enough context for the agent to know what to do with it.
+
+The result was predictable: too much search noise, too many raw-note reads, and too much context dragged into the conversation just to answer a simple "what did we decide?" question.
+
+## The new model: four layers
+
+The new setup has four memory layers.
+
+![Memory Cluster Index architecture](/images/memory-cluster-index-hero.svg)
+
+### 1. Compact truth
+
+`MEMORY.md` is now treated as the truth layer.
+
+It should contain stable facts, standing preferences, durable project context, and rules that should affect future behavior.
+
+It should not become a history file.
+
+That distinction matters. Long-term memory gets loaded and trusted more often. If you stuff it with every old event, you make the agent slower and less reliable at the same time.
+
+### 2. Raw daily notes
+
+Daily notes stay raw.
+
+They are useful because they preserve chronology and source evidence. They do not need to be beautiful. They do not need to be perfectly organized. They are the logbook, not the control plane.
+
+The mistake is reading them first.
+
+### 3. Topic summaries
+
+The real upgrade is `memory/summaries/*.md`.
+
+These are clustered by topic:
+
+- running
+- Home Assistant
+- stock playbook
+- work architecture
+- OpenClaw ops
+- family and household
+- repo publishing
+- business and web
+- research and content
+
+Each summary keeps the current state first, then standing rules, key decisions, timeline notes, open threads, and aliases.
+
+So if the agent needs to remember the running plan, it should not scan months of daily notes. It should route to the running summary, then expand into source notes only if needed.
+
+### 4. Local chunked index
+
+The final layer is a local SQLite FTS index over coherent chunks.
+
+This is deliberately lexical-first. Embeddings are useful, but they should not be a hard dependency for basic recall. If a token expires or a cloud embedding call fails, memory should not collapse.
+
+The index stores chunks with fields like:
+
+- source path
+- line range
+- date
+- layer
+- topic tags
+- aliases
+- title
+- text
+- update time
+- recency weight
+
+That gives the agent a cheaper search path before it starts reading files.
+
+## The retrieval path is the product
+
+The important part is not the file structure by itself. It is the order the agent follows.
+
+![Memory retrieval flow](/images/memory-cluster-index-flow.svg)
+
+The new default path is:
+
+1. Use `memory/MAP.md` to route topics and aliases.
+2. Read the likely topic summary.
+3. Use the local index for source chunks when needed.
+4. Pull daily-note excerpts only for evidence or nuance.
+5. Search session transcripts only if file memory is not enough.
+
+That is a much better default than "search everything and hope the top hit is useful."
+
+## The benchmark
+
+I measured the migration before calling it done.
+
+| Measure | Old setup | New setup |
+| --- | ---: | ---: |
+| Local fallback entries | 2,281 line entries | 360 topic/section chunks |
+| Search-engine median | 3.10 ms | 0.16 ms |
+| Broad memory context | about 59.7k tokens | about 7.9k tokens |
+| Normal one-topic route | about 59.7k tokens if reading everything | about 1.1k tokens |
+| Search-output-only context | about 59.7k tokens if reading everything | about 254 tokens |
+
+The raw search-engine speedup was about **20x**.
+
+But the bigger win is context.
+
+Reading `MEMORY.md`, the map, and all summaries is about **86.7% lighter** than loading the old memory archive. A normal one-topic route is about **98.1% lighter**. Search-output-only context is about **99.6% lighter**.
+
+That is the difference between an agent arriving with the right memory and an agent spending the first half of the turn rediscovering its own notes.
+
+I also ran eight relevance smoke tests:
+
+- running
+- Home Assistant daily brief
+- stock playbook Gate 6
+- DATA - NET / GOG / Drive / OpenAPI
+- OpenClaw ops / memory
+- repo publishing
+- business web / SEO
+- research and article content
+
+All eight returned the correct topic summary as the top hit.
+
+That is the metric I care about. Not "does search return something?" but "does search route the agent to the right compressed context first?"
+
+## The public skill
+
+The [memory-cluster-index skill](https://github.com/nikolajflojgaard/memory-cluster-index) captures the workflow so it can be reused:
+
+- inspect the current memory shape
+- identify topic clusters and aliases
+- create or update summaries
+- keep long-term memory compact
+- rebuild the local index
+- verify recall with representative searches
+
+It also includes a reference index schema for chunked local retrieval.
+
+The skill does not include my private memory. That would defeat the point. The public artifact is the method, not the contents.
+
+## The blunt lesson
+
+Most agent-memory problems are not solved by remembering more.
+
+They are solved by deciding what kind of memory something is.
+
+Daily notes are evidence.
+
+Topic summaries are recall.
+
+Long-term memory is truth.
+
+The index is routing.
+
+When those layers are separate, the agent gets faster, cheaper, and less confused. When they collapse into one big file or one flat search index, the assistant slowly turns into an expensive archive crawler.
+
+I do not want my agent to hoard context.
+
+I want it to remember like an operator: enough to act, enough to verify, and restrained enough to stay useful.
+
