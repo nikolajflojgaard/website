@@ -2,7 +2,7 @@
   "username": "nikolajflojgaard",
   "name": "Nikolaj Fløjgaard",
   "bio": null,
-  "public_repos": 33,
+  "public_repos": 34,
   "followers": 2,
   "following": 0,
   "avatar_url": "https://avatars.githubusercontent.com/u/258772712?v=4",
@@ -19,22 +19,31 @@
       "private": false
     },
     {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-08-11T02:06:24Z",
-      "private": false
-    },
-    {
       "name": "openclaw-workspace",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-08-10T00:00:12Z",
+      "updated_at": "2026-08-11T10:56:35Z",
       "private": true
+    },
+    {
+      "name": "work-architecture-playbook-public",
+      "description": "Public OpenAPI YAML/JSON to PDF drop-folder toolkit",
+      "html_url": "https://github.com/nikolajflojgaard/work-architecture-playbook-public",
+      "stargazers_count": 0,
+      "language": "JavaScript",
+      "updated_at": "2026-08-11T10:55:39Z",
+      "private": false
+    },
+    {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-08-11T07:16:09Z",
+      "private": false
     },
     {
       "name": "stock-playbook-review-skill",
@@ -53,15 +62,6 @@
       "language": "Python",
       "updated_at": "2026-08-07T15:27:08Z",
       "private": true
-    },
-    {
-      "name": "memory-cluster-index",
-      "description": "Cluster agent memory by topic and maintain fast local indexed recall",
-      "html_url": "https://github.com/nikolajflojgaard/memory-cluster-index",
-      "stargazers_count": 0,
-      "language": null,
-      "updated_at": "2026-08-07T09:52:09Z",
-      "private": false
     }
   ],
   "recent_activity": [
@@ -69,62 +69,62 @@
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
       "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-10T00:00:04Z"
+      "created_at": "2026-08-11T10:55:56Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook-public",
+      "repo": "nikolajflojgaard/work-architecture-playbook-public",
+      "created_at": "2026-08-11T10:55:22Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
       "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-08T07:33:20Z"
+      "created_at": "2026-08-11T10:53:38Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook-public",
+      "repo": "nikolajflojgaard/work-architecture-playbook-public",
+      "created_at": "2026-08-11T10:53:03Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
       "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-08T07:22:33Z"
+      "created_at": "2026-08-11T10:50:39Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook-public",
+      "repo": "nikolajflojgaard/work-architecture-playbook-public",
+      "created_at": "2026-08-11T10:50:10Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook-public",
+      "repo": "nikolajflojgaard/work-architecture-playbook-public",
+      "created_at": "2026-08-11T10:43:03Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook-public",
+      "repo": "nikolajflojgaard/work-architecture-playbook-public",
+      "created_at": "2026-08-11T10:42:09Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
       "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-08T06:47:08Z"
+      "created_at": "2026-08-11T10:47:14Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-08T06:44:35Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-08T06:41:41Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-08T06:29:21Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-08T05:15:46Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-08T05:10:14Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-08T05:03:03Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook-public",
+      "repo": "nikolajflojgaard/work-architecture-playbook-public",
+      "created_at": "2026-08-11T10:46:31Z"
     }
   ],
-  "fetched_at": "2026-08-11T07:15:53.511Z"
+  "fetched_at": "2026-08-11T13:17:25.370Z"
 }
