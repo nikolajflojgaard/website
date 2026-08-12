@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "homeassistant-backup",
+      "description": "backup of my home assistant",
+      "html_url": "https://github.com/nikolajflojgaard/homeassistant-backup",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-08-12T10:01:52Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-08-12T02:23:51Z",
+      "updated_at": "2026-08-12T07:40:03Z",
       "private": false
     },
     {
@@ -53,18 +62,15 @@
       "language": "Shell",
       "updated_at": "2026-08-07T15:44:13Z",
       "private": false
-    },
-    {
-      "name": "homeassistant-backup",
-      "description": "backup of my home assistant",
-      "html_url": "https://github.com/nikolajflojgaard/homeassistant-backup",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-08-07T15:27:08Z",
-      "private": true
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
+      "repo": "nikolajflojgaard/homeassistant-backup",
+      "created_at": "2026-08-12T10:00:48Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
       "repo": "nikolajflojgaard/openclaw-workspace",
       "created_at": "2026-08-11T10:47:14Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook-public",
-      "repo": "nikolajflojgaard/work-architecture-playbook-public",
-      "created_at": "2026-08-11T10:46:31Z"
     }
   ],
-  "fetched_at": "2026-08-12T07:39:46.472Z"
+  "fetched_at": "2026-08-12T13:21:19.357Z"
 }
