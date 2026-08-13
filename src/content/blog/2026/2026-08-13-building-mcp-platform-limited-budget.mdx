@@ -41,7 +41,7 @@ If the need is real but the budget is limited, the answer is not to build less c
 
 For MCP, the winning move is simple:
 
-Build one small Agent Gateway. Put Azure API Management in front of it. Use domain-owned MCP servers behind it. Use MLflow from [mlflow.org](https://mlflow.org/) for traces, evaluation, and feedback. Use the platform to make the path from business need to governed tool call shorter.
+Build one small Agent Gateway. Put Azure API Management in front of it. Use domain-owned MCP servers behind it. Use MLflow from [mlflow.org](https://mlflow.org/) for AI Gateway, traces, evaluation, and feedback. Use the platform to make the path from business need to governed tool call shorter.
 
 That is the platform.
 
@@ -122,7 +122,7 @@ flowchart LR
   apim["Azure API Management<br/>auth, policy, quota"]
   gateway["Agent Gateway<br/>routing + approvals"]
   mlflow["MLflow<br/>mlflow.org<br/>traces + evals"]
-  llm["LLM Gateway<br/>model policy"]
+  llm["MLflow AI Gateway<br/>model routing + cost"]
 
   subgraph mcp["domain MCP servers"]
     assurance["Assurance MCP"]
@@ -202,13 +202,43 @@ That split is what keeps the system cheap to grow.
 
 It also keeps the bottleneck visible. If a tool is slow to create because the domain cannot agree what the action means, the answer is not to let the agent improvise. The answer is to expose the disagreement and resolve the domain boundary.
 
-## MLflow.org is useful, but not as magic glue
+## Use MLflow AI Gateway, but do not confuse it with the domain gateway
 
 MLflow, the open-source project documented at [mlflow.org](https://mlflow.org/), is the part I would use carefully.
 
-It is tempting to say: "Build the Agent Gateway in MLflow." I would not start there.
+Actually, I would use more of it than a first sketch might suggest.
 
-MLflow is strongest as the evidence layer around the platform:
+MLflow's AI Gateway is useful for exactly the kind of budget-constrained setup this article is about. It gives you a unified endpoint for model providers, centralized key handling, endpoint configuration, usage tracking, budget controls, guardrails, and traces without asking a small team to build that plumbing from scratch.
+
+So yes: use the MLflow AI Gateway for the model/provider side.
+
+But I would still keep a thin domain Agent Gateway in front of the MCP execution path.
+
+Those are different jobs.
+
+MLflow AI Gateway answers:
+
+- which model/provider endpoint should this request use?
+- how do we centralize model credentials?
+- how do we track usage, latency, token count, and cost?
+- how do we apply model-side guardrails and budget controls?
+
+The domain Agent Gateway answers:
+
+- which business action is being attempted?
+- which user or service identity is the agent acting for?
+- which domain MCP tools are available in this context?
+- does this action need approval before execution?
+- what idempotency, audit, and rollback rules apply?
+- which domain owns the tool contract when it fails?
+
+If the platform only needs to host a simple agent endpoint, MLflow Agent Server may be enough to start. It can expose an agent as a FastAPI-backed endpoint with validation, streaming support, and built-in tracing. That is useful.
+
+But for enterprise MCP, the hard part is usually not serving one agent. The hard part is governing tool access across domains without turning the platform team into the owner of every business rule.
+
+That is why the domain Agent Gateway should stay small, and why the model gateway should come from MLflow instead of custom code.
+
+MLflow is also strongest as the evidence layer around the platform:
 
 - traces of agent runs
 - tool-call spans
@@ -218,16 +248,17 @@ MLflow is strongest as the evidence layer around the platform:
 - regression checks before changing tools
 - latency and cost comparisons
 
-The official MLflow MCP server from mlflow.org is aimed at interacting with MLflow traces programmatically. The docs also mark that MCP feature as experimental. That is useful, but it is not the same thing as a complete enterprise Agent Gateway.
+The official MLflow MCP server from mlflow.org is aimed at interacting with MLflow traces programmatically. That is useful, but it is not the same thing as a complete enterprise domain gateway for MCP tool entitlement, approvals, and business-action routing.
 
 So the better budget architecture is:
 
 - APIM as the enterprise front door
-- a small custom Agent Gateway for runtime policy and orchestration
-- MLflow from mlflow.org for tracing, evaluation, and improvement loops
+- MLflow AI Gateway for model/provider routing, credentials, usage, cost, and guardrails
+- a small custom Agent Gateway for domain runtime policy and MCP orchestration
+- MLflow tracing/evaluation from mlflow.org for improvement loops
 - domain MCP servers for owned capabilities
 
-This gives you a learning system without pretending the observability tool is the whole runtime.
+This gives you a learning system without pretending the model gateway is the whole domain runtime.
 
 ## The first version should be almost embarrassingly small
 
@@ -272,7 +303,7 @@ sequenceDiagram
   participant UI as AI UI
   participant APIM as Azure APIM
   participant AG as Agent Gateway
-  participant LLM as LLM Gateway
+  participant LLM as MLflow AI Gateway
   participant MCP as Assurance MCP
   participant API as Domain APIs
   participant Trace as MLflow
@@ -282,7 +313,7 @@ sequenceDiagram
   APIM->>APIM: validate token + quota
   APIM->>AG: forward with correlation id
   AG->>Trace: start run trace
-  AG->>LLM: classify task + plan
+  AG->>LLM: classify task + plan through governed model route
   AG->>MCP: diagnose_service
   MCP->>API: read owned systems
   API-->>MCP: typed result
@@ -377,8 +408,8 @@ Build only:
 - APIM route
 - Agent Gateway skeleton
 - one MCP server
+- MLflow AI Gateway endpoint for the approved model/provider route
 - MLflow trace logging, using the mlflow.org project rather than a custom trace store
-- one LLM route
 - one approval screen or approval event
 
 Avoid the internal platform temptation. No giant registry UI. No multi-agent marketplace. No twenty-domain architecture diagram.
@@ -415,7 +446,7 @@ For a serious pilot, the hardware and hosting requirements are modest:
 
 - one small container host or app service for the Agent Gateway
 - one small container/app service per MCP server
-- MLflow OSS from mlflow.org with a database backend and artifact storage
+- MLflow OSS from mlflow.org with AI Gateway enabled, a database backend, and artifact storage
 - APIM in front
 - Key Vault or equivalent for secrets
 - CI/CD from GitHub
@@ -441,7 +472,9 @@ Do not let a prompt decide authorization.
 
 Do not put every domain behind one AI-owned MCP server.
 
-Do not let MLflow become an excuse to skip audit design.
+Do not build your own model gateway before checking whether MLflow AI Gateway already covers the need.
+
+Do not let MLflow become an excuse to skip domain audit design.
 
 Do not publish remote MCP endpoints before private identity, policy, monitoring, and ownership are boring.
 
@@ -475,6 +508,9 @@ And demos are cheap until they reach production.
 - [Azure API Management validate-jwt policy](https://learn.microsoft.com/en-us/azure/api-management/validate-jwt-policy)
 - [Azure API Management managed identity policy](https://learn.microsoft.com/en-us/azure/api-management/authentication-managed-identity-policy)
 - [MLflow.org](https://mlflow.org/)
+- [MLflow AI Gateway](https://mlflow.org/docs/latest/genai/governance/ai-gateway/)
+- [MLflow AI Gateway for coding and long-running agents](https://mlflow.org/docs/latest/genai/governance/ai-gateway/coding-agents/)
+- [MLflow Agent Server](https://mlflow.org/docs/latest/genai/serving/agent-server/)
 - [MLflow MCP Server](https://mlflow.org/docs/latest/genai/mcp/)
 - [MLflow Tracing for LLM and Agent Observability](https://mlflow.org/docs/latest/genai/tracing/)
 - [Model Context Protocol specification 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28)
