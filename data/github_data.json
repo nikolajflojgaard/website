@@ -19,12 +19,30 @@
       "private": false
     },
     {
+      "name": "work-architecture-playbook-public",
+      "description": "Public OpenAPI YAML/JSON to PDF drop-folder toolkit",
+      "html_url": "https://github.com/nikolajflojgaard/work-architecture-playbook-public",
+      "stargazers_count": 0,
+      "language": "JavaScript",
+      "updated_at": "2026-08-13T07:31:26Z",
+      "private": false
+    },
+    {
+      "name": "work-architecture-playbook",
+      "description": "Private architecture/API workflow playbook, templates, and OpenAPI artifact tooling",
+      "html_url": "https://github.com/nikolajflojgaard/work-architecture-playbook",
+      "stargazers_count": 0,
+      "language": "JavaScript",
+      "updated_at": "2026-08-13T06:52:29Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-08-12T19:08:27Z",
+      "updated_at": "2026-08-13T02:25:33Z",
       "private": false
     },
     {
@@ -44,87 +62,69 @@
       "language": "Python",
       "updated_at": "2026-08-11T10:56:35Z",
       "private": true
-    },
-    {
-      "name": "work-architecture-playbook-public",
-      "description": "Public OpenAPI YAML/JSON to PDF drop-folder toolkit",
-      "html_url": "https://github.com/nikolajflojgaard/work-architecture-playbook-public",
-      "stargazers_count": 0,
-      "language": "JavaScript",
-      "updated_at": "2026-08-11T10:55:39Z",
-      "private": false
-    },
-    {
-      "name": "stock-playbook-review-skill",
-      "description": "Reusable OpenClaw skill for 5-gate stock reviews, portfolio-fit checks, and DCA dry-powder discipline",
-      "html_url": "https://github.com/nikolajflojgaard/stock-playbook-review-skill",
-      "stargazers_count": 0,
-      "language": "Shell",
-      "updated_at": "2026-08-07T15:44:13Z",
-      "private": false
     }
   ],
   "recent_activity": [
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
-      "repo": "nikolajflojgaard/homeassistant-backup",
-      "created_at": "2026-08-12T10:00:48Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-11T10:55:56Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook-public",
+      "repo": "nikolajflojgaard/work-architecture-playbook-public",
+      "created_at": "2026-08-13T07:31:08Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook-public",
       "repo": "nikolajflojgaard/work-architecture-playbook-public",
-      "created_at": "2026-08-11T10:55:22Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-11T10:53:38Z"
+      "created_at": "2026-08-13T07:28:15Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook-public",
       "repo": "nikolajflojgaard/work-architecture-playbook-public",
-      "created_at": "2026-08-11T10:53:03Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-11T10:50:39Z"
+      "created_at": "2026-08-13T07:25:07Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook-public",
       "repo": "nikolajflojgaard/work-architecture-playbook-public",
-      "created_at": "2026-08-11T10:50:10Z"
+      "created_at": "2026-08-13T07:19:31Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook-public",
       "repo": "nikolajflojgaard/work-architecture-playbook-public",
-      "created_at": "2026-08-11T10:43:03Z"
+      "created_at": "2026-08-13T06:59:02Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook-public",
       "repo": "nikolajflojgaard/work-architecture-playbook-public",
-      "created_at": "2026-08-11T10:42:09Z"
+      "created_at": "2026-08-13T06:56:19Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-11T10:47:14Z"
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook",
+      "repo": "nikolajflojgaard/work-architecture-playbook",
+      "created_at": "2026-08-13T06:52:17Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook",
+      "repo": "nikolajflojgaard/work-architecture-playbook",
+      "created_at": "2026-08-13T06:46:10Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook",
+      "repo": "nikolajflojgaard/work-architecture-playbook",
+      "created_at": "2026-08-13T06:39:01Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook",
+      "repo": "nikolajflojgaard/work-architecture-playbook",
+      "created_at": "2026-08-13T06:37:01Z"
     }
   ],
-  "fetched_at": "2026-08-13T02:25:28.397Z"
+  "fetched_at": "2026-08-13T07:41:28.072Z"
 }
