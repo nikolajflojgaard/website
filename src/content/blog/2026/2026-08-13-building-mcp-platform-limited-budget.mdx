@@ -1,6 +1,6 @@
 ---
-title: "Building an MCP platform when the budget is tight"
-description: "A practical architecture for building a domain-driven MCP and Agent Gateway setup on a limited budget, with Azure API Management at the edge and MLflow used where it actually helps."
+title: "The point of an MCP platform is not more code"
+description: "AI can generate more code. That is not the bottleneck. The real work is removing integration, ownership, approval, and governance bottlenecks with a domain-driven MCP platform."
 pubDatetime: 2026-08-13T17:30:00.000Z
 tags:
   - ai
@@ -15,7 +15,21 @@ featured: true
 source: "Architecture follow-up on domain-driven MCP, Azure API Management, Agent Gateway, and MLflow"
 ---
 
-The cheapest way to build an agent platform is also the most expensive one.
+AI can generate code now.
+
+That is useful.
+
+It is also not the bottleneck.
+
+Most companies are not slow because they lack code. They are slow because every useful change has to cross ownership boundaries, security reviews, integration queues, unclear APIs, approval paths, environment constraints, audit requirements, and systems nobody wants to touch casually.
+
+If AI just helps every team generate more code into that mess, the company does not become faster.
+
+It gets more mess.
+
+The point of an MCP platform is not to produce more wrappers, more agents, or more clever tool calls. The point is to remove the bottlenecks that stop useful automation from becoming safe production capability.
+
+That changes the architecture.
 
 It starts innocently enough. A team needs an assistant. They wrap a few APIs as tools, add a model, ship a demo, and call it a platform. Another team does the same thing two weeks later. Then another. Six months later the company has five agent stacks, six logging patterns, three ways to approve tool calls, no shared policy model, and a growing fear that somebody gave a model more authority than anyone meant to.
 
@@ -27,17 +41,68 @@ If the need is real but the budget is limited, the answer is not to build less c
 
 For MCP, the winning move is simple:
 
-Build one small Agent Gateway. Put Azure API Management in front of it. Use domain-owned MCP servers behind it. Use MLflow for traces, evaluation, and feedback. Do not let the agent layer become the new integration monolith.
+Build one small Agent Gateway. Put Azure API Management in front of it. Use domain-owned MCP servers behind it. Use MLflow for traces, evaluation, and feedback. Use the platform to make the path from business need to governed tool call shorter.
 
 That is the platform.
 
-Not a giant AI program. Not an internal chatbot carnival. A small, boring, governable execution path for agents that need to touch real systems.
+Not a giant AI program. Not an internal chatbot carnival. Not an excuse to generate more code than anyone can own.
+
+A small, boring, governable execution path for agents that need to touch real systems.
+
+## More code does not remove the bottleneck
+
+This is the trap in a lot of enterprise AI thinking:
+
+"If agents can write code, delivery will become cheap."
+
+Some delivery will become cheaper. Scaffolding, tests, adapters, examples, documentation, migration scripts, and repetitive glue code will all get faster.
+
+But the hard parts of enterprise delivery are rarely just typing code.
+
+The hard parts are:
+
+- Which domain owns the capability?
+- Which API is the source of truth?
+- Which user is the agent acting for?
+- Which data is allowed to leave the system?
+- Which action needs human approval?
+- Who reviews a failed tool call?
+- What happens when downstream systems disagree?
+- How does security replay what happened?
+- How does the second team reuse the pattern without copying the first team's shortcuts?
+
+More generated code can actually make those bottlenecks worse. Every team can generate its own connector, its own policy, its own logging, and its own version of "temporary" integration. That looks like acceleration from inside a sprint. From the enterprise view, it is just faster fragmentation.
+
+The useful goal is not code generation.
+
+The useful goal is bottleneck removal.
+
+That is why the architecture needs APIM, an Agent Gateway, domain-owned MCPs, and MLflow-style trace/eval loops. Not because those boxes are fashionable. Because they remove different bottlenecks:
+
+- APIM removes the "how do we expose and govern this safely?" bottleneck.
+- The Agent Gateway removes the "who can use which agent/tool/action?" bottleneck.
+- Domain MCP servers remove the "who owns this integration surface?" bottleneck.
+- MLflow removes the "how do we learn from real runs without guessing?" bottleneck.
+- Tool contracts remove the "what exactly does this tool do and what can go wrong?" bottleneck.
 
 ## The shape I would build first
 
 I would not start by asking which agent framework should win.
 
-I would start with ownership.
+I would start with the bottleneck map.
+
+Where does the work get stuck today?
+
+- waiting for another team to expose an API
+- waiting for security to approve a new integration path
+- waiting for someone to clarify who owns a business rule
+- waiting for manual checks across five systems
+- waiting for someone to turn a diagnosis into an incident
+- waiting for an audit answer after something went wrong
+
+Those are the constraints the platform should remove.
+
+And the first bottleneck to remove is usually ownership.
 
 The first useful question is: which domain owns the action?
 
@@ -109,7 +174,7 @@ That matters.
 
 It means MCP does not have to live outside the API governance model. Existing REST APIs can be exposed as tools. MCP endpoints can sit behind familiar policy gates. Enterprise discovery can happen through the same platform muscle the organization already knows.
 
-The budget lesson is: spend less custom effort on gateway plumbing.
+The bottleneck lesson is: spend less custom effort on gateway plumbing.
 
 Spend more effort on tool contracts.
 
@@ -134,6 +199,8 @@ If a technician asks, "Why is this service down?", the Agent Gateway may route t
 If the same technician asks to create an incident, the Agent Gateway should recognize that this is a higher-risk action and insert an approval step. The actual incident creation should still sit behind a domain-owned tool with an idempotency key and a proper audit trail.
 
 That split is what keeps the system cheap to grow.
+
+It also keeps the bottleneck visible. If a tool is slow to create because the domain cannot agree what the action means, the answer is not to let the agent improvise. The answer is to expose the disagreement and resolve the domain boundary.
 
 ## MLflow is useful, but not as magic glue
 
@@ -282,13 +349,13 @@ This is where domain-driven MCP design becomes real.
 
 The tool name is business language. The owner is explicit. The scope is enforceable. The data class is visible. The model is not expected to invent policy from a prose description.
 
-## The budget build plan
+## The bottleneck removal plan
 
-### Week 1: pick the slice
+### Week 1: find the bottleneck
 
 Do not create a platform backlog.
 
-Create a use-case card:
+Create a bottleneck card:
 
 - user
 - task
@@ -297,10 +364,13 @@ Create a use-case card:
 - risk per tool
 - data classes
 - success metric
+- current waiting point
 
-Success metric should be boring and measurable: reduce manual lookups, reduce time to diagnosis, improve incident quality, reduce repeated handoffs.
+Success metric should be boring and measurable: reduce manual lookups, reduce time to diagnosis, improve incident quality, reduce repeated handoffs, reduce time waiting for integration clarification.
 
-### Week 2: build the narrow runtime
+The point is to avoid building a generic platform nobody can judge. Pick a workflow where the bottleneck hurts enough that people will care if it disappears.
+
+### Week 2: build the narrow runtime that removes it
 
 Build only:
 
@@ -313,7 +383,9 @@ Build only:
 
 Avoid the internal platform temptation. No giant registry UI. No multi-agent marketplace. No twenty-domain architecture diagram.
 
-### Week 3: harden the controls
+The first release should remove one real blockage in one real workflow.
+
+### Week 3: harden the controls so the removal sticks
 
 Add:
 
@@ -327,11 +399,15 @@ Add:
 
 This is the point where MLflow earns its place. The traces from actual use become the test set for the next version.
 
-### Week 4: onboard the second domain
+The goal is not "we shipped an agent." The goal is "we can see where the agent succeeded, where it failed, what it called, what it cost, and what needs to change."
+
+### Week 4: onboard the second domain without copying shortcuts
 
 Only add the second domain after the first one works end to end.
 
 The second domain is the proof that the architecture is reusable. If onboarding a second MCP requires rewriting the gateway, the first version was too custom.
+
+If onboarding the second domain is mostly a new set of tool contracts, scopes, owners, and tests, the bottleneck has moved in the right direction.
 
 ## Minimum hosting
 
@@ -353,7 +429,7 @@ For a lab:
 - Docker Compose is enough
 - no production data, no production secrets
 
-The cost should go into design discipline, not compute.
+The cost should go into bottleneck removal and design discipline, not compute.
 
 ## What not to build
 
@@ -369,11 +445,13 @@ Do not let MLflow become an excuse to skip audit design.
 
 Do not publish remote MCP endpoints before private identity, policy, monitoring, and ownership are boring.
 
-The early version should feel almost too controlled. That is good. You can loosen a controlled system later. You cannot easily govern a tool jungle after everyone has built their favorite shortcut.
+The early version should feel almost too controlled. That is good. You can loosen a controlled system later. You cannot easily govern a tool jungle after everyone has generated their favorite shortcut.
 
 ## The real test
 
 You know the setup is working when a new domain can add a tool without inventing a new security model.
+
+You also know it is working when the organization stops waiting in the same places.
 
 Ask five questions:
 
@@ -382,6 +460,7 @@ Ask five questions:
 - Which scope allows it?
 - What happens when it fails?
 - Can we replay what happened?
+- Which bottleneck did it remove?
 
 If the answers are clear, you have a platform.
 
