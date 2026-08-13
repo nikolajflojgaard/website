@@ -1,0 +1,401 @@
+---
+title: "Building an MCP platform when the budget is tight"
+description: "A practical architecture for building a domain-driven MCP and Agent Gateway setup on a limited budget, with Azure API Management at the edge and MLflow used where it actually helps."
+pubDatetime: 2026-08-13T17:30:00.000Z
+tags:
+  - ai
+  - agentic-ai
+  - enterprise-architecture
+  - integration-architecture
+  - api-governance
+  - mermaid
+heroImage: "/images/budget-mcp-platform-sketch.svg"
+ogImage: "https://nikolajflojgaard.me/images/budget-mcp-platform-sketch.svg"
+featured: true
+source: "Architecture follow-up on domain-driven MCP, Azure API Management, Agent Gateway, and MLflow"
+---
+
+The cheapest way to build an agent platform is also the most expensive one.
+
+It starts innocently enough. A team needs an assistant. They wrap a few APIs as tools, add a model, ship a demo, and call it a platform. Another team does the same thing two weeks later. Then another. Six months later the company has five agent stacks, six logging patterns, three ways to approve tool calls, no shared policy model, and a growing fear that somebody gave a model more authority than anyone meant to.
+
+That is not a tooling problem.
+
+It is an architecture problem.
+
+If the need is real but the budget is limited, the answer is not to build less carefully. It is to build fewer things, with much cleaner boundaries.
+
+For MCP, the winning move is simple:
+
+Build one small Agent Gateway. Put Azure API Management in front of it. Use domain-owned MCP servers behind it. Use MLflow for traces, evaluation, and feedback. Do not let the agent layer become the new integration monolith.
+
+That is the platform.
+
+Not a giant AI program. Not an internal chatbot carnival. A small, boring, governable execution path for agents that need to touch real systems.
+
+## The shape I would build first
+
+I would not start by asking which agent framework should win.
+
+I would start with ownership.
+
+The first useful question is: which domain owns the action?
+
+If the tool diagnoses a customer service, that belongs to the assurance domain. If it checks an order, that belongs to the order domain. If it opens a ticket, that belongs to the service-management domain. The MCP server should follow that ownership line.
+
+That sounds obvious, but it is where many agent architectures go wrong. They build one big "AI tools service" owned by the AI/platform team. It wraps everything. It knows too much. It grows too quickly. After a while, nobody knows whether business rules live in the original system, the MCP wrapper, the prompt, or the agent's workflow code.
+
+That is exactly the mess domain-driven design was invented to avoid.
+
+An MCP server should be a domain capability surface, not a bag of endpoints.
+
+```mermaid
+%%{init: {"look": "handDrawn", "theme": "base", "themeVariables": {"fontFamily": "Comic Sans MS, Virgil, Arial", "primaryColor": "#fff8dc", "primaryBorderColor": "#333", "lineColor": "#333"}}}%%
+flowchart LR
+  user["operator<br/>technician<br/>case worker"]
+  ui["thin AI UI"]
+  apim["Azure API Management<br/>auth, policy, quota"]
+  gateway["Agent Gateway<br/>routing + approvals"]
+  mlflow["MLflow<br/>traces + evals"]
+  llm["LLM Gateway<br/>model policy"]
+
+  subgraph mcp["domain MCP servers"]
+    assurance["Assurance MCP"]
+    order["Order MCP"]
+    service["Service Mgmt MCP"]
+  end
+
+  subgraph systems["existing systems stay owned"]
+    inventory["Inventory"]
+    network["Network APIs"]
+    tickets["Ticketing"]
+    orders["Order APIs"]
+  end
+
+  user --> ui --> apim --> gateway
+  gateway --> llm
+  gateway --> mlflow
+  gateway --> assurance
+  gateway --> order
+  gateway --> service
+  assurance --> inventory
+  assurance --> network
+  order --> orders
+  service --> tickets
+```
+
+This is deliberately not fancy.
+
+The expensive parts of agent platforms are not the boxes. They are the consequences of putting the wrong responsibilities in the wrong boxes.
+
+## Azure API Management belongs at the front
+
+If the company already has Azure API Management, use it.
+
+Do not rebuild the front door in the Agent Gateway.
+
+APIM is good at the things that should be boring:
+
+- validating JWTs or Microsoft Entra tokens before traffic reaches the backend
+- applying rate limits and quotas
+- enforcing subscription/product access
+- attaching policy to API or MCP surfaces
+- emitting monitoring data through the Azure stack
+- giving teams a known API governance pattern
+
+Microsoft is also clearly moving APIM toward MCP governance. The current docs describe exposing REST APIs as MCP servers, selecting which operations become tools, associating those MCP servers with APIM products, and applying APIM policies to the resulting tools.
+
+That matters.
+
+It means MCP does not have to live outside the API governance model. Existing REST APIs can be exposed as tools. MCP endpoints can sit behind familiar policy gates. Enterprise discovery can happen through the same platform muscle the organization already knows.
+
+The budget lesson is: spend less custom effort on gateway plumbing.
+
+Spend more effort on tool contracts.
+
+## The Agent Gateway should stay thin
+
+The Agent Gateway is not the place to hide every integration shortcut.
+
+Its job is to decide:
+
+- who is asking
+- what task they are trying to perform
+- which agent flow is allowed
+- which MCP tools are available
+- whether the action needs human approval
+- which model route is permitted
+- what gets written to trace and audit
+
+Its job is not to know the deep business rules for every domain.
+
+If a technician asks, "Why is this service down?", the Agent Gateway may route the request to an assurance workflow. But the `diagnose_service` tool should live in Assurance MCP, owned by the team that understands the network, customer state, fallbacks, and failure modes.
+
+If the same technician asks to create an incident, the Agent Gateway should recognize that this is a higher-risk action and insert an approval step. The actual incident creation should still sit behind a domain-owned tool with an idempotency key and a proper audit trail.
+
+That split is what keeps the system cheap to grow.
+
+## MLflow is useful, but not as magic glue
+
+MLflow is the part I would use carefully.
+
+It is tempting to say: "Build the Agent Gateway in MLflow." I would not start there.
+
+MLflow is strongest as the evidence layer around the platform:
+
+- traces of agent runs
+- tool-call spans
+- prompt and model versions
+- feedback and human assessments
+- evaluation datasets
+- regression checks before changing tools
+- latency and cost comparisons
+
+The official MLflow MCP server is aimed at interacting with MLflow traces programmatically. The docs also mark that MCP feature as experimental. That is useful, but it is not the same thing as a complete enterprise Agent Gateway.
+
+So the better budget architecture is:
+
+- APIM as the enterprise front door
+- a small custom Agent Gateway for runtime policy and orchestration
+- MLflow for tracing, evaluation, and improvement loops
+- domain MCP servers for owned capabilities
+
+This gives you a learning system without pretending the observability tool is the whole runtime.
+
+## The first version should be almost embarrassingly small
+
+The right first release has one domain and three tools.
+
+Pick a painful workflow. Technician support is a good candidate because the value is obvious: fewer manual lookups, faster diagnosis, better incident quality.
+
+Start with:
+
+- one read-only tool
+- one diagnostic tool
+- one write/action tool that requires confirmation
+
+Example:
+
+```yaml
+domain: Assurance
+mcp: assurance-mcp
+tools:
+  - name: get_customer_service_summary
+    risk: low
+    scope: assurance:read
+  - name: diagnose_service
+    risk: medium
+    scope: assurance:diagnose
+  - name: create_incident
+    risk: high
+    scope: assurance:incident:create
+    requiresApproval: true
+```
+
+That is enough to prove the model.
+
+If those three tools cannot be built with clean ownership, policy, trace, and approval, adding twenty more tools will not fix it. It will just make the confusion harder to see.
+
+## A practical request flow
+
+```mermaid
+%%{init: {"look": "handDrawn", "theme": "base", "themeVariables": {"fontFamily": "Comic Sans MS, Virgil, Arial", "primaryColor": "#f7fbff", "primaryBorderColor": "#333", "lineColor": "#333"}}}%%
+sequenceDiagram
+  participant User
+  participant UI as AI UI
+  participant APIM as Azure APIM
+  participant AG as Agent Gateway
+  participant LLM as LLM Gateway
+  participant MCP as Assurance MCP
+  participant API as Domain APIs
+  participant Trace as MLflow
+
+  User->>UI: "Why is this service failing?"
+  UI->>APIM: request with user token
+  APIM->>APIM: validate token + quota
+  APIM->>AG: forward with correlation id
+  AG->>Trace: start run trace
+  AG->>LLM: classify task + plan
+  AG->>MCP: diagnose_service
+  MCP->>API: read owned systems
+  API-->>MCP: typed result
+  MCP-->>AG: diagnosis + evidence
+  AG->>Trace: log tool span + outcome
+  AG-->>UI: answer + next action
+  UI-->>User: show result
+```
+
+For a high-risk action, add a stop:
+
+```mermaid
+%%{init: {"look": "handDrawn", "theme": "base", "themeVariables": {"fontFamily": "Comic Sans MS, Virgil, Arial", "primaryColor": "#fffdf5", "primaryBorderColor": "#333", "lineColor": "#333"}}}%%
+flowchart LR
+  plan["agent proposes action"]
+  review["human review<br/>exact payload shown"]
+  approve{"approve?"}
+  tool["call MCP tool<br/>with idempotency key"]
+  audit["write audit trail"]
+  stop["stop safely"]
+
+  plan --> review --> approve
+  approve -->|yes| tool --> audit
+  approve -->|no| stop --> audit
+```
+
+This is the boring control that makes agent actions acceptable in production. The model can suggest. Deterministic code decides whether the action is allowed.
+
+## What the MCP contract should contain
+
+Every tool needs a contract that is readable by both humans and machines.
+
+Not just a JSON schema. A real operating contract.
+
+```yaml
+tool: diagnose_service
+owner: Assurance
+risk: medium
+scope: assurance:diagnose
+dataClass: customer-operational
+input:
+  customerId: string
+  serviceId: string
+  symptom: string
+output:
+  status: healthy | degraded | down | unknown
+  likelyCause: string
+  evidence:
+    - source: string
+      value: string
+  recommendedAction: string
+controls:
+  approval: false
+  idempotencyKey: optional
+  modelDataRule: minimize_before_model
+  auditPayload: metadata_plus_hash
+failureModes:
+  - downstream_timeout
+  - missing_service
+  - partial_data
+```
+
+This is where domain-driven MCP design becomes real.
+
+The tool name is business language. The owner is explicit. The scope is enforceable. The data class is visible. The model is not expected to invent policy from a prose description.
+
+## The budget build plan
+
+### Week 1: pick the slice
+
+Do not create a platform backlog.
+
+Create a use-case card:
+
+- user
+- task
+- systems touched
+- three tools
+- risk per tool
+- data classes
+- success metric
+
+Success metric should be boring and measurable: reduce manual lookups, reduce time to diagnosis, improve incident quality, reduce repeated handoffs.
+
+### Week 2: build the narrow runtime
+
+Build only:
+
+- APIM route
+- Agent Gateway skeleton
+- one MCP server
+- MLflow trace logging
+- one LLM route
+- one approval screen or approval event
+
+Avoid the internal platform temptation. No giant registry UI. No multi-agent marketplace. No twenty-domain architecture diagram.
+
+### Week 3: harden the controls
+
+Add:
+
+- tool scopes
+- risk classes
+- correlation IDs
+- idempotency keys for writes
+- prompt-injection tests
+- regression evals from real traces
+- a simple dashboard for latency, failures, tool calls, cost, and approval rates
+
+This is the point where MLflow earns its place. The traces from actual use become the test set for the next version.
+
+### Week 4: onboard the second domain
+
+Only add the second domain after the first one works end to end.
+
+The second domain is the proof that the architecture is reusable. If onboarding a second MCP requires rewriting the gateway, the first version was too custom.
+
+## Minimum hosting
+
+For a serious pilot, the hardware and hosting requirements are modest:
+
+- one small container host or app service for the Agent Gateway
+- one small container/app service per MCP server
+- MLflow OSS with a database backend and artifact storage
+- APIM in front
+- Key Vault or equivalent for secrets
+- CI/CD from GitHub
+- monitoring through the cloud stack you already use
+
+For a lab:
+
+- 8 GB RAM works
+- 16 GB RAM is comfortable
+- 50-100 GB SSD is fine at first
+- Docker Compose is enough
+- no production data, no production secrets
+
+The cost should go into design discipline, not compute.
+
+## What not to build
+
+Do not build a universal `call_api` MCP tool.
+
+Do not build `run_sql`.
+
+Do not let a prompt decide authorization.
+
+Do not put every domain behind one AI-owned MCP server.
+
+Do not let MLflow become an excuse to skip audit design.
+
+Do not publish remote MCP endpoints before private identity, policy, monitoring, and ownership are boring.
+
+The early version should feel almost too controlled. That is good. You can loosen a controlled system later. You cannot easily govern a tool jungle after everyone has built their favorite shortcut.
+
+## The real test
+
+You know the setup is working when a new domain can add a tool without inventing a new security model.
+
+Ask five questions:
+
+- Who owns this tool?
+- Which user is it acting for?
+- Which scope allows it?
+- What happens when it fails?
+- Can we replay what happened?
+
+If the answers are clear, you have a platform.
+
+If the answers are "the agent knows", you have a demo.
+
+And demos are cheap until they reach production.
+
+## References
+
+- [Azure API Management: expose a REST API as an MCP server](https://learn.microsoft.com/en-us/azure/api-management/export-rest-mcp-server)
+- [Azure API Management: authentication and authorization overview](https://learn.microsoft.com/en-us/azure/api-management/authentication-authorization-overview)
+- [Azure API Management validate-jwt policy](https://learn.microsoft.com/en-us/azure/api-management/validate-jwt-policy)
+- [Azure API Management managed identity policy](https://learn.microsoft.com/en-us/azure/api-management/authentication-managed-identity-policy)
+- [MLflow MCP Server](https://mlflow.org/docs/latest/genai/mcp/)
+- [MLflow Tracing for LLM and Agent Observability](https://mlflow.org/docs/latest/genai/tracing/)
+- [Model Context Protocol specification 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28)
+- [MCP 2026-07-28 specification notes](https://blog.modelcontextprotocol.io/posts/2026-07-28/)

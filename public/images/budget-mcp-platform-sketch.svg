@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="780" viewBox="0 0 1400 780" role="img" aria-labelledby="title desc">
+  <title id="title">Budget MCP platform sketch</title>
+  <desc id="desc">Hand-drawn style architecture sketch showing Azure API Management, Agent Gateway, MLflow, LLM Gateway, domain MCP servers, and existing systems.</desc>
+  <rect width="1400" height="780" fill="#faf7ef"/>
+  <g fill="none" stroke="#202020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M78 72 C208 55, 354 57, 487 69 C505 208, 496 343, 484 493 C333 513, 193 511, 73 493 C56 347, 59 205, 78 72Z" fill="#fff8dc"/>
+    <path d="M558 74 C737 53, 906 59, 1075 75 C1096 216, 1084 360, 1075 500 C905 516, 734 514, 558 499 C541 357, 542 213, 558 74Z" fill="#f4fbff"/>
+    <path d="M1125 94 C1198 80, 1284 81, 1337 96 C1349 215, 1345 333, 1334 442 C1258 458, 1182 458, 1121 443 C1106 325, 1110 209, 1125 94Z" fill="#f5fff3"/>
+    <path d="M210 508 C496 488, 819 494, 1188 513 C1206 589, 1205 668, 1187 715 C835 735, 506 730, 211 713 C190 647, 191 571, 210 508Z" fill="#fffdf5"/>
+  </g>
+  <g font-family="Comic Sans MS, Bradley Hand, Arial, sans-serif" fill="#202020">
+    <text x="92" y="111" font-size="32" font-weight="700">front door</text>
+    <text x="580" y="113" font-size="32" font-weight="700">small agent platform</text>
+    <text x="1144" y="132" font-size="30" font-weight="700">domains</text>
+    <text x="232" y="552" font-size="30" font-weight="700">existing systems stay where they are</text>
+  </g>
+  <g font-family="Comic Sans MS, Bradley Hand, Arial, sans-serif" font-size="24" fill="#202020" stroke="#202020" stroke-width="2.5">
+    <g>
+      <path d="M111 179 C186 166, 287 170, 365 181 C378 235, 371 282, 363 326 C279 339, 187 338, 112 325 C99 274, 98 224, 111 179Z" fill="#ffffff"/>
+      <text x="135" y="222">Azure API</text>
+      <text x="135" y="254">Management</text>
+      <text x="135" y="288" font-size="18">auth / quota / policy</text>
+    </g>
+    <g>
+      <path d="M608 175 C703 160, 841 164, 936 179 C951 239, 944 298, 934 349 C822 364, 712 361, 607 346 C592 288, 593 230, 608 175Z" fill="#ffffff"/>
+      <text x="645" y="222">Agent Gateway</text>
+      <text x="645" y="256" font-size="18">routing / approvals / audit</text>
+    </g>
+    <g>
+      <path d="M617 386 C691 375, 795 377, 866 389 C877 438, 872 483, 864 526 C781 537, 699 535, 616 524 C606 476, 605 431, 617 386Z" fill="#ffffff"/>
+      <text x="650" y="431">MLflow</text>
+      <text x="650" y="462" font-size="18">traces + evals</text>
+    </g>
+    <g>
+      <path d="M903 383 C968 374, 1054 376, 1116 388 C1126 436, 1122 481, 1114 520 C1042 532, 970 530, 904 519 C894 472, 895 428, 903 383Z" fill="#ffffff"/>
+      <text x="932" y="430">LLM Gateway</text>
+      <text x="932" y="461" font-size="18">model policy</text>
+    </g>
+    <g>
+      <path d="M1160 176 C1208 166, 1282 168, 1315 181 C1324 225, 1322 266, 1312 302 C1260 312, 1202 311, 1161 300 C1152 260, 1152 218, 1160 176Z" fill="#ffffff"/>
+      <text x="1184" y="222">Assurance</text>
+      <text x="1184" y="252">MCP</text>
+    </g>
+    <g>
+      <path d="M1161 322 C1208 313, 1280 315, 1314 326 C1323 369, 1320 409, 1310 438 C1260 449, 1204 448, 1160 436 C1152 399, 1152 359, 1161 322Z" fill="#ffffff"/>
+      <text x="1192" y="369">Order</text>
+      <text x="1192" y="399">MCP</text>
+    </g>
+    <g>
+      <path d="M291 594 C379 581, 505 584, 596 597 C609 643, 604 678, 592 699 C495 711, 386 708, 292 698 C281 661, 282 624, 291 594Z" fill="#ffffff"/>
+      <text x="326" y="642">domain APIs</text>
+      <text x="326" y="673" font-size="18">owned systems</text>
+    </g>
+    <g>
+      <path d="M690 594 C778 583, 898 585, 979 597 C991 642, 986 678, 976 699 C879 710, 786 707, 691 697 C680 660, 681 625, 690 594Z" fill="#ffffff"/>
+      <text x="726" y="642">ticketing / orders</text>
+      <text x="726" y="673" font-size="18">no agent shortcuts</text>
+    </g>
+  </g>
+  <g fill="none" stroke="#202020" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)">
+    <path d="M366 250 C449 250, 521 250, 607 250"/>
+    <path d="M936 247 C1015 226, 1085 218, 1159 221"/>
+    <path d="M937 278 C1014 327, 1086 366, 1161 377"/>
+    <path d="M742 350 C739 365, 738 374, 738 386"/>
+    <path d="M879 330 C916 347, 948 365, 974 383"/>
+    <path d="M1214 302 C1030 502, 773 574, 596 633"/>
+    <path d="M1206 438 C1055 537, 969 587, 883 594"/>
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2 L10 6 L2 10" fill="none" stroke="#202020" stroke-width="2"/>
+    </marker>
+  </defs>
+</svg>
