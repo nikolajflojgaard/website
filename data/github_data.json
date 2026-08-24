@@ -19,22 +19,22 @@
       "private": false
     },
     {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-08-23T12:50:35Z",
-      "private": false
-    },
-    {
       "name": "openclaw-workspace",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
       "stargazers_count": 0,
       "language": "Python",
-      "updated_at": "2026-08-17T00:00:10Z",
+      "updated_at": "2026-08-24T00:00:18Z",
       "private": true
+    },
+    {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-08-23T18:36:43Z",
+      "private": false
     },
     {
       "name": "work-architecture-playbook-public",
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-08-24T00:00:04Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
       "repo": "nikolajflojgaard/openclaw-workspace",
       "created_at": "2026-08-13T17:38:54Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-08-13T17:26:13Z"
     }
   ],
-  "fetched_at": "2026-08-23T18:36:31.333Z"
+  "fetched_at": "2026-08-24T01:41:55.686Z"
 }
