@@ -17,7 +17,7 @@ export const SOCIALS = [
   },
   {
     name: "LinkedIn",
-    href: "https://dk.linkedin.com/in/nikolaj-fl%C3%B8jgaard-90a71b109",
+    href: "https://www.linkedin.com/in/nikolaj-fløjgaard-reichkendler-90a71b109/",
     linkTitle: `${SITE.title} on LinkedIn`,
     icon: "linkedin",
     active: true,

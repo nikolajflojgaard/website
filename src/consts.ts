@@ -83,7 +83,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
     label: "X",
   },
   {
-    href: "https://dk.linkedin.com/in/nikolaj-fl%C3%B8jgaard-90a71b109",
+    href: "https://www.linkedin.com/in/nikolaj-fløjgaard-reichkendler-90a71b109/",
     label: "LinkedIn",
   },
   {

@@ -16,7 +16,7 @@ Senior integration architect with a passion for writing articles and building st
 
 - X: https://x.com/
 - GitHub: https://github.com/nikolajflojgaard
-- LinkedIn: https://dk.linkedin.com/in/nikolaj-fl%C3%B8jgaard-90a71b109
+- LinkedIn: https://www.linkedin.com/in/nikolaj-fløjgaard-reichkendler-90a71b109/
 - Email: Nikolaj_Fl@hotmail.com
 
 ---

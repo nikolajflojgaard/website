@@ -8,7 +8,7 @@ Senior Integration Architect focused on scalable architecture, pragmatic deliver
 ## Contact
 
 - Email: nikolaj_fl@hotmail.com
-- LinkedIn: https://dk.linkedin.com/in/nikolaj-fl%C3%B8jgaard-90a71b109
+- LinkedIn: https://www.linkedin.com/in/nikolaj-fløjgaard-reichkendler-90a71b109/
 - PDF CV: /resume/nikolaj-flojgaard-cv.pdf
 
 ## Core Competencies
