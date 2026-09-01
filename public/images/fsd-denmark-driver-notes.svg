@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" viewBox="0 0 1200 675">
+  <title id="title">Denmark driver notes after 2000 kilometers with FSD Supervised</title>
+  <desc id="desc">Diagram contrasting Nikolaj's real-world Denmark experience with FSD Supervised: roughly 2000 kilometers driven, around 97 percent subjectively correct, no dangerous situations observed, with slow traffic and janky steering as remaining rough edges.</desc>
+  <defs>
+    <style>
+      .bg { fill: #101417; }
+      .panel { fill: #f5f0e5; stroke: #f5f0e5; stroke-width: 2; }
+      .ink { fill: #f5f0e5; }
+      .dark { fill: #101417; }
+      .muted { fill: #a9b1b0; }
+      .lane { stroke: #d8d0bf; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 26 24; }
+      .edge { stroke: #47525a; stroke-width: 3; fill: none; }
+      .good { fill: #69a979; }
+      .watch { fill: #e7b84b; }
+      .rough { fill: #d86b5f; }
+      .tiny { font: 500 17px ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .small { font: 600 22px ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .label { font: 800 28px ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .big { font: 900 74px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="675" />
+  <path class="edge" d="M85 585C180 455 240 332 348 268c97-58 203-21 285-86 82-65 102-126 190-126 118 0 168 109 280 87" />
+  <path class="lane" d="M95 584C190 459 254 347 360 286c94-54 205-20 286-84 79-62 108-117 184-119 103-2 166 96 280 82" />
+  <path class="edge" d="M117 617C213 492 274 384 379 323c94-55 207-23 289-89 80-63 115-108 170-109 84-2 150 88 286 76" />
+
+  <text class="tiny muted" x="80" y="55">DENMARK NOTES · OWNER EXPERIENCE · FSD SUPERVISED</text>
+  <text class="label ink" x="80" y="102">Not magic. Good enough to change the habit.</text>
+
+  <rect class="panel" x="80" y="138" width="285" height="165" rx="10" />
+  <text class="big dark" x="108" y="231">2,000</text>
+  <text class="small dark" x="115" y="270">km in Denmark</text>
+
+  <rect class="panel" x="407" y="138" width="275" height="165" rx="10" />
+  <text class="big dark" x="437" y="231">97%</text>
+  <text class="small dark" x="444" y="270">feels right</text>
+
+  <rect class="panel" x="724" y="138" width="396" height="165" rx="10" />
+  <text class="label dark" x="754" y="203">No dangerous</text>
+  <text class="label dark" x="754" y="241">situations observed</text>
+  <text class="tiny dark" x="759" y="274">still supervised, still human-owned</text>
+
+  <g transform="translate(80 410)">
+    <circle class="good" cx="22" cy="22" r="13" />
+    <text class="small ink" x="52" y="31">strong on ordinary routing, lanes, roundabouts, and flow</text>
+    <circle class="watch" cx="22" cy="78" r="13" />
+    <text class="small ink" x="52" y="87">slow-moving traffic can feel too cautious</text>
+    <circle class="rough" cx="22" cy="134" r="13" />
+    <text class="small ink" x="52" y="143">occasional janky steering still breaks the spell</text>
+  </g>
+
+  <text class="tiny muted" x="80" y="626">Subjective owner notes, not a measured safety claim. The point is lived usefulness under supervision.</text>
+</svg>

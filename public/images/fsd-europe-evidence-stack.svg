@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" viewBox="0 0 1200 675">
+  <title id="title">Tesla FSD Supervised Europe evidence stack</title>
+  <desc id="desc">Editorial diagram showing five approved EU countries, 100 million public-road kilometers, more than 70 thousand customers, more than 1 million kilometers per day, and Tesla's reported 4.1 times lower crash likelihood.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f3ea; }
+      .ink { fill: #171717; }
+      .muted { fill: #6f675d; }
+      .line { stroke: #171717; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .soft-line { stroke: #b8afa3; stroke-width: 1.5; fill: none; }
+      .panel { fill: #fffaf1; stroke: #171717; stroke-width: 2.5; }
+      .paper { fill: #ffffff; stroke: #171717; stroke-width: 2; }
+      .tesla { fill: #d93025; }
+      .blue { fill: #305f72; }
+      .green { fill: #3f7b5b; }
+      .yellow { fill: #e7b84b; }
+      .tiny { font: 500 17px ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .small { font: 600 21px ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .label { font: 700 24px ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .big { font: 800 58px ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .huge { font: 900 86px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="675" />
+  <path class="soft-line" d="M70 119h1060M70 245h1060M70 371h1060M70 497h1060" />
+  <path class="soft-line" d="M188 70v540M407 70v540M626 70v540M845 70v540M1064 70v540" />
+
+  <text class="tiny muted" x="72" y="54">TESLA EUROPE FSD SUPERVISED · PUBLIC EU ROAD DATA · SEPTEMBER 2026</text>
+  <text class="label ink" x="72" y="102">From approval file to real roads</text>
+
+  <rect class="panel" x="72" y="132" width="330" height="160" rx="10" />
+  <text class="huge ink" x="96" y="222">100M</text>
+  <text class="small muted" x="103" y="260">km on public EU roads</text>
+
+  <rect class="panel" x="435" y="132" width="295" height="160" rx="10" />
+  <text class="huge tesla" x="460" y="222">4.1×</text>
+  <text class="small muted" x="467" y="260">less likely to crash</text>
+
+  <rect class="panel" x="765" y="132" width="363" height="160" rx="10" />
+  <text class="huge ink" x="790" y="222">70K+</text>
+  <text class="small muted" x="797" y="260">customers using it</text>
+
+  <rect class="paper" x="72" y="334" width="1056" height="220" rx="12" />
+  <text class="label ink" x="101" y="379">Where it is live now</text>
+  <g transform="translate(101 415)">
+    <rect class="green" width="150" height="78" rx="8" />
+    <text class="big" x="43" y="54" fill="#fff">NL</text>
+    <rect class="blue" x="174" width="150" height="78" rx="8" />
+    <text class="big" x="219" y="54" fill="#fff">DK</text>
+    <rect class="yellow" x="348" width="150" height="78" rx="8" />
+    <text class="big ink" x="393" y="54">BE</text>
+    <rect class="green" x="522" width="150" height="78" rx="8" />
+    <text class="big" x="568" y="54" fill="#fff">EE</text>
+    <rect class="blue" x="696" width="150" height="78" rx="8" />
+    <text class="big" x="742" y="54" fill="#fff">LT</text>
+  </g>
+  <text class="small muted" x="101" y="526">five national approvals, one EU-wide decision still ahead</text>
+
+  <path class="line" d="M402 212h33" />
+  <path class="line" d="M730 212h35" />
+  <path class="line" d="M600 292v42" />
+  <circle class="tesla" cx="600" cy="334" r="7" />
+
+  <text class="tiny muted" x="72" y="626">Source: Tesla Europe / Tesla FSD Evidence Dashboard. Tesla-supplied figures, not independent crash statistics.</text>
+</svg>
