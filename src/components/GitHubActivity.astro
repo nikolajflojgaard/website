@@ -1,22 +1,22 @@
 ---
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
-const DATA_PATH = resolve(process.cwd(), 'data/github_data.json');
+const DATA_PATH = resolve(process.cwd(), "data/github_data.json");
 
 let githubData: any = null;
 let error: string | null = null;
 
 try {
-  const raw = readFileSync(DATA_PATH, 'utf-8');
+  const raw = readFileSync(DATA_PATH, "utf-8");
   githubData = JSON.parse(raw);
 } catch (e) {
-  error = 'Failed to load GitHub data';
+  error = "Failed to load GitHub data";
 }
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
 
 function formatTimeAgo(dateStr: string): string {
@@ -25,8 +25,8 @@ function formatTimeAgo(dateStr: string): string {
   const diffMs = now.getTime() - date.getTime();
   const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-  
-  if (diffHours < 1) return 'just now';
+
+  if (diffHours < 1) return "just now";
   if (diffHours < 24) return `${diffHours}h ago`;
   if (diffDays < 7) return `${diffDays}d ago`;
   return formatDate(dateStr);
@@ -34,12 +34,18 @@ function formatTimeAgo(dateStr: string): string {
 
 function getActivityIcon(type: string): string {
   switch (type) {
-    case 'push': return '📤';
-    case 'create': return '🆕';
-    case 'pr': return '🔀';
-    case 'issue': return '📋';
-    case 'release': return '🏷️';
-    default: return '⚡';
+    case "push":
+      return "📤";
+    case "create":
+      return "🆕";
+    case "pr":
+      return "🔀";
+    case "issue":
+      return "📋";
+    case "release":
+      return "🏷️";
+    default:
+      return "⚡";
   }
 }
 ---
