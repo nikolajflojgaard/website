@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" viewBox="0 0 1200 675">
   <title id="title">Denmark driver notes after 2000 kilometers with FSD Supervised</title>
-  <desc id="desc">Diagram contrasting Nikolaj's real-world Denmark experience with FSD Supervised: roughly 2000 kilometers driven, around 97 percent subjectively correct, no dangerous situations observed, with slow traffic and janky steering as remaining rough edges.</desc>
+  <desc id="desc">Diagram contrasting Nikolaj's Denmark experience with FSD Supervised: roughly 2000 kilometers driven, around 97 percent subjectively correct, no dangerous situations observed, with slow traffic and janky steering as remaining rough edges.</desc>
   <defs>
     <style>
       .bg { fill: #101417; }
@@ -38,13 +38,13 @@
   <rect class="panel" x="724" y="138" width="396" height="165" rx="10" />
   <text class="label dark" x="754" y="203">No dangerous</text>
   <text class="label dark" x="754" y="241">situations observed</text>
-  <text class="tiny dark" x="759" y="274">still supervised, still human-owned</text>
+  <text class="tiny dark" x="759" y="274">still supervised, still human owned</text>
 
   <g transform="translate(80 410)">
     <circle class="good" cx="22" cy="22" r="13" />
     <text class="small ink" x="52" y="31">strong on ordinary routing, lanes, roundabouts, and flow</text>
     <circle class="watch" cx="22" cy="78" r="13" />
-    <text class="small ink" x="52" y="87">slow-moving traffic can feel too cautious</text>
+    <text class="small ink" x="52" y="87">slow traffic can feel too cautious</text>
     <circle class="rough" cx="22" cy="134" r="13" />
     <text class="small ink" x="52" y="143">occasional janky steering still breaks the spell</text>
   </g>
