@@ -1,0 +1,205 @@
+---
+title: "APIs are not the architecture"
+description: "TM Forum APIs, Mplify LSO, events, and OpenTelemetry all matter. None of them are enough alone. The architecture is the chain between them."
+pubDatetime: 2026-09-04T11:30:00.000Z
+tags:
+  - telecom
+  - integration-architecture
+  - enterprise-architecture
+  - tmforum
+  - event-driven-architecture
+  - observability
+heroImage: "/images/telco-automation-four-layers.svg"
+ogImage: "https://nikolajflojgaard.me/images/telco-automation-four-layers.svg"
+featured: true
+source: "Friday architecture brief on TM Forum Open API certifications, ODA, Mplify LSO, OpenTelemetry, and Azure Migrate dependency analysis"
+---
+
+The more telecom automation matures, the less useful it becomes to talk about "the API" as if that is the architecture.
+
+An API matters. A clean contract matters a lot.
+
+The real service flow does not live inside one Swagger file. It lives across order capture, product and service qualification, activation, inventory, assurance, incident handling, partner handoff, event propagation, and operational evidence.
+
+That is the part worth designing.
+
+TM Forum's latest conformance list shows the direction clearly. September 2026 certifications include intent management, service activation, resource activation, trouble ticket, change, incident, privacy, user role permission, and service qualification APIs. That is not one interface. It is a lifecycle starting to get standardized in pieces.
+
+That is good progress. It is also where architects can get lazy.
+
+Because a catalog of certified APIs can still produce a bad operating model if nobody owns the chain between them.
+
+## The API is only one boundary
+
+In a telco estate, REST APIs are best at commands and queries.
+
+Create a service order. Check qualification. Read inventory. Open a trouble ticket. Update an incident. Ask a partner for order status.
+
+That is a useful shape because it gives teams explicit contracts. It gives procurement something testable. It gives integration teams a common vocabulary. It gives vendors less room to invent strange proprietary surfaces and call them "standard".
+
+But APIs do not automatically solve state.
+
+They do not tell every downstream system that something changed. They do not guarantee a retry was safe. They do not prove that the activation event, inventory update, assurance alarm, and customer notification all refer to the same business moment.
+
+That is why a Senior Integration Architect cannot stop at API selection.
+
+The question is not only:
+
+> Which TMF API should we use?
+
+The better question is:
+
+> What state change are we making visible, who owns it, who consumes it, and how will operations prove what happened?
+
+That is the architecture.
+
+## Events carry the work between the boxes
+
+Most service automation failures are not caused by one missing endpoint.
+
+They happen in the gaps.
+
+An order was accepted, but the activation state did not reach assurance. Inventory changed, but the consuming system still holds the old resource state. A partner handoff succeeded technically, but the local service order stayed in a waiting state. A retry fired twice. A batch repair job corrected the data, but nobody can link it back to the original customer action.
+
+That is where events matter, not as fashion, but as the boring mechanism that lets state move without forcing every system into direct point to point calls.
+
+For telco service automation, I would normally separate three things:
+
+- API commands and queries for deliberate interactions
+- domain events for state propagation
+- telemetry for proof and correlation
+
+If those three are mixed together, the estate becomes hard to reason about. If they are separated too rigidly, teams create ceremony instead of flow.
+
+The balance is practical:
+
+- use APIs when a consumer needs an answer or an accepted command
+- use events when other systems need to react to a state change
+- use telemetry when operators need to explain what happened across systems
+
+OpenTelemetry is useful here because context propagation lets traces, metrics, and logs be correlated across process and network boundaries. In a telco flow, that means the commercial order, service order, activation request, event stream, and incident trail can share enough context for operations to follow the story.
+
+Without that, "automation" becomes a faster way to create tickets nobody can explain.
+
+## Partner automation needs its own edge
+
+Mplify LSO is interesting because it focuses on automated service interaction between providers.
+
+That edge matters. Internal OSS and BSS flows are already hard. Add a partner boundary and the architecture gets stricter. You now have two operating models, two sets of lifecycle states, two support organizations, and often two interpretations of the same product or service language.
+
+That is why the partner edge should not be treated as just another API call.
+
+It needs:
+
+- explicit lifecycle mapping
+- clear ownership when states disagree
+- certification or conformance evidence where possible
+- event mapping between internal and partner states
+- operational fallbacks when the partner flow stalls
+- observability that crosses the handoff without leaking private implementation detail
+
+The architect job is to keep the external contract clean while still making the internal consequences visible.
+
+That is not glamorous work.
+
+It is the work that stops automation from becoming a blame loop.
+
+## Intent is becoming a real integration boundary
+
+The intent management signal is worth watching.
+
+Intent has been easy to dismiss because the word is often abused. Too many vendor decks use it as a shortcut for "AI will figure it out".
+
+But the appearance of TMF921 Intent Management in current conformance material is different. It suggests intent is moving toward a governed interface, not just a slide.
+
+That matters because intent changes the boundary.
+
+A normal service order tells the estate what to do. An intent based flow says what outcome is wanted, then lets a handler negotiate, report, and manage how that outcome is reached.
+
+That is powerful.
+
+It is also dangerous if the organization has weak ownership.
+
+Before using intent seriously, I would want boring answers:
+
+- who is allowed to express the intent
+- who handles it
+- how conflicts are resolved
+- how progress is reported
+- when a human must approve a change
+- how the system proves the final state
+- which API, event, and telemetry records carry the evidence
+
+Without that, intent management becomes automation theatre.
+
+With it, intent can become a clean boundary between business goals and resource execution.
+
+## Hybrid migration is dependency architecture
+
+The Azure Migrate dependency material points at the same lesson from another angle. Microsoft describes dependency analysis as a way to understand dependencies across servers for assessment and migration. Agentless analysis captures TCP connection data, groups source and destination processes and ports into dependencies, and lets teams visualize or export the result.
+
+That sounds like migration tooling.
+
+For an architect, it is more than that.
+
+It is a reminder that hybrid modernization is not a hosting decision. It is dependency architecture.
+
+Before moving part of an OSS or BSS estate to Azure, you need to know:
+
+- which systems talk to which systems
+- which flows are synchronous
+- which flows are event based
+- which ports and protocols are actually used
+- which jobs are batch driven
+- which owners support each path
+- which flows break if latency changes
+- which contracts need strangler treatment before migration
+
+This is where the strangler pattern becomes useful, but only if it is grounded in evidence.
+
+Do not wrap a legacy system because the diagram looks cleaner. Wrap a capability because you know which consumers use it, which triggers start the flow, which states must be preserved, and which part can be migrated without breaking the rest.
+
+That is also how a digital twin can be useful.
+
+Not as a giant mirror of the company. That usually becomes expensive wallpaper.
+
+Use a small operational twin for one flow: order to activate, incident to restore, partner quote to accepted order. Model the states, owners, contracts, events, and telemetry needed to understand that flow. Then use it to make decisions.
+
+Small twin. Real flow. Clear decision.
+
+## The useful pattern
+
+For telco service automation, the reference pattern I would start from is simple:
+
+- REST APIs for lifecycle commands and reads
+- events for state changes that other systems need
+- OpenTelemetry context for correlation across the flow
+- explicit ownership for each state transition
+- decision records for exceptions, migration slices, and pattern choices
+
+That gives the work a shape.
+
+TM Forum Open APIs help define the service and business surfaces. ODA gives a broader component model. Mplify LSO gives the partner automation edge. OpenTelemetry gives correlation. Azure style dependency discovery helps expose the hybrid reality before migration.
+
+None of those is the architecture alone. The architecture is the chain.
+
+And the best architect in the room is often the person who can make that chain visible enough that people stop arguing about tools and start deciding where ownership, state, and failure actually belong.
+
+## What to read first
+
+If you work around OSS, BSS, integration, or service automation, I would read in this order:
+
+1. TM Forum certifications awarded, especially the September 2026 API spread across intent, activation, trouble ticket, change, incident, inventory, and qualification.
+2. TM Forum ODA overview, to place APIs inside components and lifecycle thinking.
+3. Mplify LSO Marketplace, to understand the partner edge and why inter provider automation needs a stricter boundary.
+4. OpenTelemetry context propagation and messaging conventions, because service automation needs correlation across async flows.
+5. Azure Migrate dependency analysis, not because every telco should move everything to Azure, but because it shows how quickly migration becomes dependency mapping.
+
+Sources:
+
+- [TM Forum certifications awarded](https://www.tmforum.org/certifications-awarded/)
+- [TM Forum Open Digital Architecture overview](https://www.tmforum.org/oda/about-oda)
+- [Mplify LSO Marketplace](https://lso.mplify.net/)
+- [OpenTelemetry context propagation](https://opentelemetry.io/docs/concepts/context-propagation/)
+- [OpenTelemetry messaging semantic conventions](https://opentelemetry.io/docs/specs/semconv/messaging/)
+- [Azure Migrate dependency visualization](https://learn.microsoft.com/en-us/azure/migrate/concepts-dependency-visualization?view=migrate)
