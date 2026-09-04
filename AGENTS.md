@@ -11,14 +11,35 @@ The agent may proactively:
 - draft blog posts, project-page updates, changelog notes, and small site fixes
 - propose distinctive diagrams, hero images, and supporting visuals for posts
 - open local branches and run validation checks
-- prepare pull-ready changes for Nikolaj to review
+- publish routine maintenance and owner-requested website work when it is clearly ready
 
 The agent must not:
 
-- publish, deploy, push to `main`, send social posts, or present text as Nikolaj without approval
 - invent personal stories, work claims, client details, or private context
 - turn the site into generic content marketing
-- change public positioning without explaining the tradeoff
+- publish sensitive claims, employer/client-specific material, investment advice, or first-person personal claims that Nikolaj did not provide
+- change public positioning without a clear reason and a short explanation
+- send social posts or messages as Nikolaj without explicit approval
+
+## Publishing Default
+
+Do not call every website change a draft by default. If Nikolaj asks for site work, assume the job is to ship when the work is ready.
+
+Before committing, pushing, or deploying public site changes:
+
+- run the `humanizer` skill on user-facing prose longer than roughly 120 words, then review and fix any flagged AI-writing patterns
+- keep Nikolaj's actual meaning and voice intact; do not sand off blunt opinions into generic consultant prose
+- run the publication safety gate on public-facing files
+- run the narrowest useful validation/build checks for the changed surface
+- check `git status` and preserve unrelated work
+
+Pause instead of publishing only when:
+
+- the quality is still questionable
+- the change materially alters Nikolaj's public positioning
+- the text makes legal, employer, client, investment, health, or other sensitive claims
+- the work depends on private context that must not be exposed
+- validation or the safety gate fails
 
 ## Visual Direction Default
 
@@ -43,9 +64,10 @@ Default operating loop:
 
 1. Check `git status` and preserve unrelated work.
 2. Read `docs/editorial-style.md` before drafting public prose.
-3. For maintenance changes, run the narrowest useful validation first.
-4. For public changes, run the publication safety gate before commit/push.
-5. Report drafts and diffs clearly, with exact files changed and what still needs approval.
+3. Run the `humanizer` skill on user-facing prose over roughly 120 words and fix obvious AI cadence.
+4. For maintenance changes, run the narrowest useful validation first.
+5. For public changes, run the publication safety gate before commit/push.
+6. Publish clean, owner-requested site work without over-caveating it as a draft. Report what changed and what shipped.
 
 Good output looks like: one strong draft, one useful site fix, or one concrete maintenance report. Not vague ideation.
 
