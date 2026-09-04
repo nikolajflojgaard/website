@@ -24,7 +24,16 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-09-04T08:53:43Z",
+      "updated_at": "2026-09-04T11:30:10Z",
+      "private": false
+    },
+    {
+      "name": "homeassistant-household-chores",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/homeassistant-household-chores",
+      "stargazers_count": 0,
+      "language": "JavaScript",
+      "updated_at": "2026-09-04T11:25:54Z",
       "private": false
     },
     {
@@ -53,18 +62,21 @@
       "language": "JavaScript",
       "updated_at": "2026-08-13T06:52:29Z",
       "private": true
-    },
-    {
-      "name": "homeassistant-backup",
-      "description": "backup of my home assistant",
-      "html_url": "https://github.com/nikolajflojgaard/homeassistant-backup",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-08-12T10:01:52Z",
-      "private": true
     }
   ],
   "recent_activity": [
+    {
+      "type": "release",
+      "description": "Released v0.4.12 in nikolajflojgaard/homeassistant-household-chores",
+      "repo": "nikolajflojgaard/homeassistant-household-chores",
+      "created_at": "2026-09-04T11:26:09Z"
+    },
+    {
+      "type": "release",
+      "description": "Released v0.4.11 in nikolajflojgaard/homeassistant-household-chores",
+      "repo": "nikolajflojgaard/homeassistant-household-chores",
+      "created_at": "2026-09-04T11:16:38Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website",
@@ -112,19 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
       "repo": "nikolajflojgaard/openclaw-workspace",
       "created_at": "2026-08-17T00:00:04Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-14T14:09:34Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-08-13T18:48:46Z"
     }
   ],
-  "fetched_at": "2026-09-04T10:58:43.993Z"
+  "fetched_at": "2026-09-04T16:06:13.635Z"
 }
