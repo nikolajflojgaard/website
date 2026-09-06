@@ -24,7 +24,7 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-09-06T03:59:53Z",
+      "updated_at": "2026-09-06T10:40:19Z",
       "private": false
     },
     {
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-household-chores",
+      "repo": "nikolajflojgaard/homeassistant-household-chores",
+      "created_at": "2026-09-04T11:11:10Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
       "created_at": "2026-09-01T11:53:28Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-08-31T11:27:45Z"
     }
   ],
-  "fetched_at": "2026-09-06T10:40:14.983Z"
+  "fetched_at": "2026-09-06T15:16:26.731Z"
 }
