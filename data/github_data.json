@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "homeassistant-backup",
+      "description": "backup of my home assistant",
+      "html_url": "https://github.com/nikolajflojgaard/homeassistant-backup",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-09-11T13:01:20Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-09-11T04:03:45Z",
+      "updated_at": "2026-09-11T10:58:36Z",
       "private": false
     },
     {
@@ -53,15 +62,6 @@
       "language": "JavaScript",
       "updated_at": "2026-08-13T09:42:39Z",
       "private": false
-    },
-    {
-      "name": "work-architecture-playbook",
-      "description": "Private architecture/API workflow playbook, templates, and OpenAPI artifact tooling",
-      "html_url": "https://github.com/nikolajflojgaard/work-architecture-playbook",
-      "stargazers_count": 0,
-      "language": "JavaScript",
-      "updated_at": "2026-08-13T06:52:29Z",
-      "private": true
     }
   ],
   "recent_activity": [
@@ -126,5 +126,5 @@
       "created_at": "2026-09-01T11:40:42Z"
     }
   ],
-  "fetched_at": "2026-09-11T10:58:31.403Z"
+  "fetched_at": "2026-09-11T16:14:03.654Z"
 }
