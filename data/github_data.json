@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "openclaw-workspace",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-09-14T09:58:52Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-09-13T20:34:53Z",
+      "updated_at": "2026-09-14T08:42:39Z",
       "private": false
     },
     {
@@ -34,15 +43,6 @@
       "stargazers_count": 0,
       "language": "Python",
       "updated_at": "2026-09-11T13:01:20Z",
-      "private": true
-    },
-    {
-      "name": "openclaw-workspace",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-09-07T00:00:10Z",
       "private": true
     },
     {
@@ -65,6 +65,36 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-09-14T09:58:48Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-09-14T09:04:49Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-09-14T08:42:36Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-09-14T08:51:42Z"
+    },
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-09-14T07:26:46Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
@@ -94,37 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
       "created_at": "2026-09-04T08:52:47Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-household-chores",
-      "repo": "nikolajflojgaard/homeassistant-household-chores",
-      "created_at": "2026-09-04T11:25:31Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-household-chores",
-      "repo": "nikolajflojgaard/homeassistant-household-chores",
-      "created_at": "2026-09-04T11:06:20Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.4.12 in nikolajflojgaard/homeassistant-household-chores",
-      "repo": "nikolajflojgaard/homeassistant-household-chores",
-      "created_at": "2026-09-04T11:26:09Z"
-    },
-    {
-      "type": "release",
-      "description": "Released v0.4.11 in nikolajflojgaard/homeassistant-household-chores",
-      "repo": "nikolajflojgaard/homeassistant-household-chores",
-      "created_at": "2026-09-04T11:16:38Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-09-02T05:12:15Z"
     }
   ],
-  "fetched_at": "2026-09-14T04:22:51.627Z"
+  "fetched_at": "2026-09-14T12:22:45.458Z"
 }
