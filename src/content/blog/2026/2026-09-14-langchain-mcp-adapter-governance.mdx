@@ -1,0 +1,192 @@
+---
+title: "LangChain made MCP boring, which is exactly when architecture matters"
+description: "LangChain moving MCP into langchain.mcp is useful because it removes adapter plumbing. It is also a reminder that easier tool access does not remove the need for identity, policy, and ownership."
+pubDatetime: 2026-09-14T08:30:00.000Z
+tags:
+  - ai
+  - agentic-ai
+  - enterprise-architecture
+  - integration-architecture
+  - api-governance
+  - security
+heroImage: "/images/langchain-mcp-adapter-control-plane.svg"
+ogImage: "https://nikolajflojgaard.me/images/langchain-mcp-adapter-control-plane.svg"
+featured: true
+source: "LangChain MCP adapter announcement, migration guide, FastMCP docs, and Sarah research pass"
+---
+
+LangChain just made MCP more boring.
+
+That is a good thing.
+
+The important part of [LangChain's MCP update](https://www.langchain.com/blog/mcp-in-langchain-stateless-protocol-elicitation-and-more) is not that agent frameworks can now call MCP tools. They could already do that through the standalone `langchain-mcp-adapters` package.
+
+The important part is that MCP support now lives in the main `langchain` package under [`langchain.mcp`](https://docs.langchain.com/oss/python/langchain/mcp), with `MCPAdapter` as the normal bridge between MCP servers and LangChain tools.
+
+That changes the adoption story.
+
+Before, MCP could feel like an extra integration layer you bolted onto an agent stack. Now it looks more like ordinary framework infrastructure. Install `langchain[mcp]`, point an adapter at a server, list the tools, and pass them to an agent.
+
+That is cleaner.
+
+It is also exactly where teams get sloppy.
+
+Because once tool access feels easy, people start treating the hard parts as solved. They are not solved. They have only moved closer to production.
+
+## The adapter is no longer the interesting part
+
+The migration guide is fairly direct: `MultiServerMCPClient` is replaced by `MCPAdapter`; `load_mcp_tools()` becomes `MCPAdapter(...).list_tools()`; `convert_mcp_tool_to_langchain_tool` becomes `as_langchain_tool`; and server configuration moves toward the standard `mcpServers` shape.
+
+That is useful. It removes custom glue from the place where glue should not be interesting.
+
+The new shape is simple:
+
+```python
+from langchain.agents import create_agent
+from langchain.mcp import MCPAdapter
+
+
+async def main():
+    async with MCPAdapter("https://example.com/mcp") as adapter:
+        tools = await adapter.list_tools()
+        agent = create_agent("claude-sonnet-5", tools)
+        return await agent.ainvoke({"messages": [{"role": "user", "content": "..."}]})
+```
+
+That is the right direction. Tool catalogs exposed through MCP become normal LangChain tools. Agents can use them alongside the rest of the LangChain and LangGraph machinery.
+
+But this also makes the boundary easier to underestimate.
+
+An MCP tool is not just a function call. It is a route into another system. Sometimes that system reads data. Sometimes it changes state. Sometimes it touches customer information, tickets, orders, files, calendars, infrastructure, or money.
+
+If the adapter layer becomes boring, the architecture around it becomes more important, not less.
+
+## FastMCP is doing the messy client work
+
+LangChain is not trying to own every MCP transport detail itself. The new adapter is [built on FastMCP](https://gofastmcp.com/clients/client), which handles the lower-level client concerns: transport inference, connection lifecycle, protocol negotiation, authentication, caching, and client groups.
+
+That is a smart split.
+
+LangChain adapts MCP tools into the agent runtime. FastMCP handles how the client talks to MCP servers.
+
+The distinction matters because MCP is not one neat deployment shape. The LangChain docs describe several targets for `MCPAdapter`: an HTTP(S) URL over Streamable HTTP, a local script over stdio, an in-process FastMCP server, an `MCPConfig` dict with several servers, a prebuilt FastMCP client, or a `ClientGroup`.
+
+That gives teams a smoother path from local experiments to real deployments. A developer can test an in-process server, connect to a local stdio tool, then move to remote Streamable HTTP when the server becomes shared infrastructure.
+
+The risk is that all of those shapes look equally harmless from the agent's point of view.
+
+They are not.
+
+A local stdio server is a different risk profile from a remote HTTP server behind proper identity and policy. A single aggregate `MCPConfig` is different from a `ClientGroup` where servers keep separate auth and protocol eras. A cached tool list is different from fresh discovery when authorization or server capabilities have changed.
+
+The adapter makes the API look consistent.
+
+The platform still has to understand the operational difference.
+
+## Elicitation is the most interesting feature
+
+The update that deserves more attention is elicitation.
+
+Modern MCP lets a server ask the client for input in the middle of a tool call. LangChain maps that to a LangGraph interrupt, so a run can pause, ask for missing human input, then resume with a command.
+
+That is exactly the kind of primitive production agents need.
+
+Think about a tool that creates an incident, updates a customer record, books a meeting, or triggers a workflow. The server may need a missing field. It may need the user to choose between ambiguous records. It may need confirmation before doing something destructive.
+
+Without a clean interruption model, teams tend to fake this in prompts:
+
+Ask the model to notice uncertainty. Ask it to ask a follow-up. Ask it not to proceed if the action is risky.
+
+That is not enough.
+
+The better pattern is runtime-level interruption. The tool asks for the missing decision. The agent run pauses. The person answers. The system resumes with a structured response.
+
+That is much closer to how real business processes work.
+
+There is a caveat. LangChain's current wrapper handles elicitation this way, but not every MCP client-side feature becomes magically supported. The migration guide calls out gaps around prompts, resources, sampling, roots, and some legacy behaviors. The namespace is also still marked beta in the docs.
+
+That is fine. Beta is not the problem.
+
+Pretending beta integration code is an enterprise operating model would be the problem.
+
+## Tool discovery is not governance
+
+FastMCP-backed caching is another useful improvement. Tool discovery can use cache hints, and `list_tools(cache_mode="use" | "refresh" | "bypass")` gives developers control over when to trust cached discovery.
+
+This is good engineering. Tool catalogs should not need a fresh network round trip on every run if the server can safely advertise a TTL.
+
+But caching also shows the difference between developer convenience and production governance.
+
+A cached tool list answers:
+
+> What tools did this server recently advertise?
+
+It does not answer:
+
+> Is this user allowed to call this tool, with these arguments, for this customer, right now?
+
+That second question belongs in the platform.
+
+For enterprise use, tool availability should be shaped by identity, policy, tenant, environment, data class, action risk, and current business context. If the tool can write, delete, provision, move money, notify a customer, or change operational state, the runtime needs explicit approval and audit behavior.
+
+LangChain helps here by surfacing MCP metadata on adapted tools. The docs show annotations like `destructive_hint` and `read_only_hint` flowing into tool metadata. That gives the agent layer something useful to inspect.
+
+But hints are not policy.
+
+They are input to policy.
+
+The policy still needs an owner.
+
+## The boring architecture I would want
+
+If I were putting this into a company with real systems, I would not start by asking whether LangChain or another framework should "own MCP."
+
+I would start with the control path.
+
+The minimum shape is:
+
+- an LLM gateway for model routing, cost, logging, and data policy
+- an agent gateway for identity, task routing, approvals, and audit correlation
+- domain-owned MCP servers for actual business capabilities
+- a tool registry that records ownership, risk, version, and deprecation state
+- tracing that connects user request, agent run, tool call, MCP server, and downstream API
+- human approval for destructive or externally visible actions
+
+LangChain's new adapter fits into that architecture nicely. It makes the application layer less annoying. It gives developers a normal way to turn MCP servers into LangChain tools. It also makes LangGraph interrupts a practical bridge for human-in-the-loop flows.
+
+But it does not remove the need for the control plane.
+
+If anything, it makes the control plane more urgent.
+
+Because the lower the friction gets, the faster teams will connect agents to tools. That is wonderful when the tools are read-only and harmless. It is a governance problem when the tools touch production systems and nobody can answer who approved what.
+
+## Less glue means fewer excuses
+
+This is the real takeaway.
+
+MCP is moving from "interesting protocol" to ordinary agent infrastructure. LangChain putting MCP into the main package is a signal that the ecosystem is normalizing around that direction.
+
+That should reduce custom adapter code.
+
+Good.
+
+Custom adapter code was never the value.
+
+The value is in the business capability behind the tool, the contract that describes it, the owner who supports it, the policy that governs it, and the trace that proves what happened.
+
+LangChain and FastMCP can make the connection easier.
+
+They cannot decide whether `create_incident`, `refund_customer`, `rotate_key`, `publish_campaign`, or `update_inventory` should be callable by this agent, for this user, in this context.
+
+That is architecture.
+
+And now that the adapter is getting boring, there is less excuse to avoid it.
+
+## Sources
+
+- [LangChain announcement: MCP in LangChain](https://www.langchain.com/blog/mcp-in-langchain-stateless-protocol-elicitation-and-more)
+- [LangChain docs: Model Context Protocol](https://docs.langchain.com/oss/python/langchain/mcp)
+- [LangChain migration guide: langchain-mcp-adapters](https://docs.langchain.com/oss/python/migrate/langchain-mcp-adapters)
+- [LangChain docs: MCP connections](https://docs.langchain.com/oss/python/langchain/mcp/connections)
+- [LangChain docs: MCP tools](https://docs.langchain.com/oss/python/langchain/mcp/tools)
+- [FastMCP client docs](https://gofastmcp.com/clients/client)
