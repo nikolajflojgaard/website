@@ -19,6 +19,15 @@
       "private": false
     },
     {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-09-14T21:41:31Z",
+      "private": false
+    },
+    {
       "name": "openclaw-workspace",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
@@ -35,15 +44,6 @@
       "language": "JavaScript",
       "updated_at": "2026-09-14T19:33:29Z",
       "private": true
-    },
-    {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-09-14T12:22:50Z",
-      "private": false
     },
     {
       "name": "homeassistant-backup",
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-09-14T19:39:43Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
       "created_at": "2026-09-04T11:29:57Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-household-chores",
-      "repo": "nikolajflojgaard/homeassistant-household-chores",
-      "created_at": "2026-09-04T11:11:10Z"
     }
   ],
-  "fetched_at": "2026-09-14T21:41:26.795Z"
+  "fetched_at": "2026-09-15T04:23:15.964Z"
 }
