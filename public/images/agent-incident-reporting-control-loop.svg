@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Agent incident reporting control loop</title>
+  <desc id="desc">A control room style illustration showing agent runs, traces, eval gates, and incident reports connected in a loop.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#101820"/>
+      <stop offset="0.55" stop-color="#17212b"/>
+      <stop offset="1" stop-color="#0f332f"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#25313d"/>
+      <stop offset="1" stop-color="#16232d"/>
+    </linearGradient>
+    <linearGradient id="alert" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffb85c"/>
+      <stop offset="1" stop-color="#ff6b4a"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000" flood-opacity="0.32"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <path d="M78 510 C230 410 265 210 448 250 C604 284 628 142 782 154 C930 166 948 324 1125 264" fill="none" stroke="#2fd7b5" stroke-opacity="0.18" stroke-width="2"/>
+  <path d="M60 140 C220 206 276 92 428 128 C590 166 650 438 820 394 C960 358 987 206 1140 218" fill="none" stroke="#9dd6ff" stroke-opacity="0.14" stroke-width="2"/>
+
+  <g filter="url(#shadow)">
+    <rect x="84" y="96" width="310" height="184" rx="18" fill="url(#panel)" stroke="#3e5162"/>
+    <text x="116" y="146" fill="#e7f0f5" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700">Agent run</text>
+    <text x="116" y="184" fill="#a9bac5" font-family="Inter, Arial, sans-serif" font-size="17">goal, context, tools, state</text>
+    <rect x="116" y="218" width="206" height="12" rx="6" fill="#2fd7b5"/>
+    <rect x="116" y="244" width="138" height="12" rx="6" fill="#6f8ea2"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="445" y="72" width="310" height="216" rx="18" fill="url(#panel)" stroke="#3e5162"/>
+    <text x="477" y="122" fill="#e7f0f5" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700">Trace</text>
+    <text x="477" y="160" fill="#a9bac5" font-family="Inter, Arial, sans-serif" font-size="17">model calls, tool calls, approvals</text>
+    <circle cx="503" cy="218" r="11" fill="#9dd6ff"/>
+    <line x1="522" y1="218" x2="686" y2="218" stroke="#6f8ea2" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="503" cy="252" r="11" fill="#2fd7b5"/>
+    <line x1="522" y1="252" x2="640" y2="252" stroke="#6f8ea2" stroke-width="8" stroke-linecap="round"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="806" y="102" width="310" height="184" rx="18" fill="url(#panel)" stroke="#3e5162"/>
+    <text x="838" y="152" fill="#e7f0f5" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700">Eval gate</text>
+    <text x="838" y="190" fill="#a9bac5" font-family="Inter, Arial, sans-serif" font-size="17">known failures, policies, regressions</text>
+    <rect x="838" y="226" width="92" height="34" rx="17" fill="#203b32" stroke="#2fd7b5"/>
+    <text x="863" y="249" fill="#9ff1de" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700">PASS</text>
+    <rect x="950" y="226" width="88" height="34" rx="17" fill="#47292a" stroke="#ff6b4a"/>
+    <text x="976" y="249" fill="#ffc3a8" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700">STOP</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="248" y="362" width="704" height="168" rx="20" fill="#121d25" stroke="#415666"/>
+    <text x="292" y="418" fill="#e7f0f5" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="800">Incident report</text>
+    <text x="292" y="458" fill="#a9bac5" font-family="Inter, Arial, sans-serif" font-size="18">what happened, how it was found, affected scope, fix, owner</text>
+    <rect x="724" y="396" width="164" height="58" rx="18" fill="url(#alert)"/>
+    <text x="760" y="432" fill="#17140f" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800">REVIEW</text>
+  </g>
+
+  <path d="M395 188 H438" stroke="#9dd6ff" stroke-width="5" stroke-linecap="round"/>
+  <path d="M755 188 H798" stroke="#9dd6ff" stroke-width="5" stroke-linecap="round"/>
+  <path d="M960 292 C938 344 900 366 850 388" fill="none" stroke="#ffb85c" stroke-width="5" stroke-linecap="round"/>
+  <path d="M350 362 C310 328 288 300 268 280" fill="none" stroke="#2fd7b5" stroke-width="5" stroke-linecap="round"/>
+
+  <circle cx="438" cy="188" r="5" fill="#9dd6ff"/>
+  <circle cx="798" cy="188" r="5" fill="#9dd6ff"/>
+  <circle cx="850" cy="388" r="5" fill="#ffb85c"/>
+  <circle cx="268" cy="280" r="5" fill="#2fd7b5"/>
+</svg>

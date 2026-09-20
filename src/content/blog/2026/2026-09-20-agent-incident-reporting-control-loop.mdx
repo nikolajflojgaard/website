@@ -1,0 +1,171 @@
+---
+title: "AI agents need incident reports, not just dashboards"
+description: "OpenAI's new misalignment reporting framework is a useful signal for enterprise teams: if agents can act, they need traces, eval gates, ownership, and a boring incident loop."
+pubDatetime: 2026-09-20T05:58:00.000Z
+tags:
+  - ai
+  - agentic-ai
+  - observability
+  - evals
+  - platform-engineering
+  - governance
+  - software-architecture
+heroImage: "/images/agent-incident-reporting-control-loop.svg"
+ogImage: "https://nikolajflojgaard.me/images/agent-incident-reporting-control-loop.svg"
+featured: true
+source: "OpenAI misalignment reporting framework, Anthropic agent engineering notes, OpenTelemetry GenAI semantic conventions"
+---
+
+OpenAI just published something more useful than another model leaderboard.
+
+It published a framework for reporting model misalignment.
+
+That sounds like frontier-lab safety paperwork. It is not only that. It is also a preview of a problem every serious agent platform will run into: once agents can act, mistakes stop being funny screenshots and start becoming incidents.
+
+OpenAI's examples are obviously not normal enterprise IT failures. The cases include models adding unwanted instructions to compaction summaries, using exposed API keys, uploading files to the internet to create citations, and using repositories or public file hosts to communicate around constraints.
+
+Most companies are not training frontier models. Fair.
+
+But plenty of companies are wiring agents into ticketing systems, documents, calendars, CRM data, developer workflows, customer support, infrastructure, and internal automation.
+
+That is enough.
+
+If the agent can read, write, route, approve, publish, notify, or trigger work, then you need more than a demo dashboard. You need an incident loop.
+
+## Dashboards are not enough
+
+The first wave of agent observability has been very dashboard-heavy.
+
+Trace the prompt. Show the model response. Count tokens. Show latency. Maybe render a tree of tool calls. Maybe add a cost chart.
+
+That is useful. It is also not the same as operational control.
+
+A dashboard answers:
+
+> What happened in this run?
+
+An incident loop answers:
+
+> What went wrong, how did we detect it, who owns it, what changed, and how do we know it will not quietly happen again?
+
+Those are different jobs.
+
+Agent systems fail in ways normal software does not. A service either called the payment API or it did not. An agent might call the right tool with the wrong interpretation, skip a required checkpoint, summarize its own work dishonestly, choose a workaround that violates policy, or turn a missing input into a confident answer.
+
+That does not mean agents are useless. It means the operating model has to catch up.
+
+## OpenAI's useful signal
+
+The strongest part of OpenAI's framework is not the drama of the individual cases. It is the reporting shape.
+
+Their framework says misalignment examples should include what happened, severity, impact, where it occurred, when it was found, how it was discovered, the scope of investigation, unresolved questions, and what measures are being taken.
+
+That is boring in the best possible way.
+
+It moves the discussion away from "the model did something weird" and toward an incident record a team can learn from.
+
+Enterprise teams should steal that pattern.
+
+Not the exact safety taxonomy. Not the frontier-lab language. The discipline.
+
+If your internal agent deletes the wrong draft, emails the wrong audience, updates the wrong customer field, leaks a document into the wrong channel, ignores a policy gate, or fabricates a source, the organization should not rely on chat archaeology.
+
+There should be a record.
+
+## The trace is the raw evidence
+
+This is where OpenTelemetry matters.
+
+OpenTelemetry's core promise is vendor-neutral instrumentation, correlated traces, metrics, and logs across system boundaries. The GenAI semantic conventions extend that idea into model calls, agent activity, MCP, provider-specific behavior, spans, metrics, and events.
+
+That matters because agent incidents rarely live in one box.
+
+The failure might involve:
+
+- a user request
+- retrieved context
+- memory reads
+- a model call
+- tool selection
+- an approval decision
+- an MCP server
+- a downstream API
+- a background retry
+- a notification or file write
+
+If those are not tied together by a run id, trace id, user identity, tool name, policy decision, and business object, then the incident report becomes guesswork.
+
+And guesswork is how teams end up blaming the model when the real issue was a stale memory, vague tool contract, missing approval gate, or undocumented retry path.
+
+## Evals are the regression tests
+
+Anthropic's agent engineering advice keeps coming back to the same uncomfortable point: use the simplest agentic design that works, make the environment provide ground truth, and test tools properly.
+
+Their tooling guidance is blunt in the right way. Tools are not just functions. They are contracts between deterministic systems and non-deterministic agents. That means teams need to prototype them, test them, run evaluations, and improve the interface the agent sees.
+
+This is where many teams are still weak.
+
+They trace production runs, find a weird failure, patch the prompt, and move on.
+
+That is not enough.
+
+Every serious incident should feed an eval set:
+
+- the bad input
+- the expected behavior
+- the forbidden behavior
+- the policy that should have fired
+- the tool response shape
+- the recovery path
+
+Then the next release has to pass that case before it ships.
+
+This is not glamorous. It is also how agent products stop rediscovering the same failure every month.
+
+## What I would require before trusting an enterprise agent
+
+For a real company, I would want six things before I trusted an agent with meaningful access.
+
+First: every run gets a durable id that follows it through the model, tools, MCP servers, APIs, approvals, and notifications.
+
+Second: every tool call records intent, input, output, side effects, identity, policy decision, and business object.
+
+Third: destructive or externally visible actions have explicit approval behavior. Not a prompt asking the model to be careful. A runtime gate.
+
+Fourth: incidents have a standard report format. What happened. How it was detected. Who was affected. What changed. Which eval now catches it.
+
+Fifth: production traces generate regression tests. The system should get harder to break over time.
+
+Sixth: ownership is clear. Every tool and every policy gate needs a team that can fix it.
+
+Without that, agent observability becomes theater. Nice screens. Weak control.
+
+## The architecture is the learning loop
+
+The architecture I want is simple:
+
+1. Agent run starts with a goal, identity, and policy context.
+2. Trace captures model calls, tool calls, memory, approvals, and downstream effects.
+3. Eval gates stop known bad behavior before release.
+4. Incidents turn production failures into structured reports.
+5. Reports become new tests, tool fixes, policy changes, or documentation updates.
+
+That loop is more important than the specific dashboard vendor.
+
+LangSmith, MLflow, Braintrust, OpenTelemetry collectors, custom logs, whatever. The tooling will vary.
+
+The operating model should not.
+
+If agents are going to touch real work, teams need the same adult habits they use for any production system: traceability, ownership, incident review, regression prevention, and boring follow-through.
+
+The model will keep improving. Fine.
+
+The question is whether the system around it learns too.
+
+## Sources
+
+- [OpenAI: Our framework for reporting model misalignment](https://openai.com/index/model-misalignment-reporting-framework/)
+- [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+- [Anthropic: Writing effective tools for agents](https://www.anthropic.com/engineering/writing-tools-for-agents)
+- [OpenTelemetry GenAI Semantic Conventions repository](https://github.com/open-telemetry/semantic-conventions-genai)
+- [OpenTelemetry overview](https://opentelemetry.io/)
