@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">Hand-sketched agent incident reporting control loop</title>
-  <desc id="desc">A rough notebook-style sketch showing an agent run, trace notes, an incident card, review, and fixes connected by hand-drawn arrows.</desc>
+  <desc id="desc">A rough notebook-style sketch showing an agent run, trace notes, a review gate, and an incident card connected as a numbered control loop.</desc>
   <defs>
     <pattern id="paperGrid" width="42" height="42" patternUnits="userSpaceOnUse">
       <path d="M 42 0 L 0 0 0 42" fill="none" stroke="#d8cdb8" stroke-width="1" opacity="0.45"/>
@@ -19,6 +19,9 @@
       .ink { fill: none; stroke: #24313a; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
       .thin { fill: none; stroke: #24313a; stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; }
       .note { fill: #fff8e8; stroke: #24313a; stroke-width: 3.4; stroke-linejoin: round; }
+      .flow { fill: none; stroke: #40515c; stroke-width: 3.1; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1 11; }
+      .dot { fill: #fff8e8; stroke: #24313a; stroke-width: 2.6; }
+      .num { fill: #24313a; font-family: "Bradley Hand", "Marker Felt", "Comic Sans MS", ui-rounded, sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0; }
       .wash-blue { fill: #7da2b8; opacity: 0.22; }
       .wash-green { fill: #8fab86; opacity: 0.24; }
       .wash-rust { fill: #c57a55; opacity: 0.24; }
@@ -83,21 +86,26 @@
       <path d="M259 358 C421 324 777 333 947 367" class="wash-rust"/>
     </g>
 
-    <path d="M374 215 C404 194 428 181 459 169" class="ink"/>
-    <path d="M447 166 C456 166 464 168 473 173" class="ink"/>
-    <path d="M450 166 C459 161 465 156 471 149" class="ink"/>
+    <g aria-label="numbered control loop connectors">
+      <path d="M373 219 C407 203 428 190 456 177" class="flow"/>
+      <path d="M760 193 C786 194 808 198 830 202" class="flow"/>
+      <path d="M952 319 C931 342 905 365 872 385" class="flow"/>
+      <path d="M338 362 C312 338 278 318 244 303" class="flow"/>
 
-    <path d="M760 190 C791 191 807 195 831 199" class="ink"/>
-    <path d="M820 190 C829 196 834 202 840 210" class="ink"/>
-    <path d="M823 190 C832 185 839 182 849 179" class="ink"/>
+      <circle cx="374" cy="219" r="15" class="dot"/>
+      <text x="369" y="226" class="num">1</text>
+      <circle cx="760" cy="193" r="15" class="dot"/>
+      <text x="755" y="200" class="num">2</text>
+      <circle cx="952" cy="319" r="15" class="dot"/>
+      <text x="947" y="326" class="num">3</text>
+      <circle cx="338" cy="362" r="15" class="dot"/>
+      <text x="333" y="369" class="num">4</text>
 
-    <path d="M966 318 C934 354 900 375 862 392" class="ink"/>
-    <path d="M872 378 C865 383 859 390 856 399" class="ink"/>
-    <path d="M872 378 C883 379 891 382 899 388" class="ink"/>
-
-    <path d="M330 356 C290 330 267 310 235 298" class="ink"/>
-    <path d="M249 298 C239 298 228 297 219 294" class="ink"/>
-    <path d="M249 298 C244 306 240 314 236 323" class="ink"/>
+      <text x="398" y="236" class="tiny">capture</text>
+      <text x="777" y="178" class="tiny">check</text>
+      <text x="902" y="346" class="tiny">record</text>
+      <text x="255" y="337" class="tiny">learn</text>
+    </g>
 
     <g opacity="0.78">
       <path d="M1010 487 C1034 475 1067 478 1094 492" class="thin"/>
