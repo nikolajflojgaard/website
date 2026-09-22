@@ -1,0 +1,252 @@
+---
+title: "Home Assistant MCP got useful when I stopped exposing Home Assistant"
+description: "The raw MCP server already worked. The useful step was building a curated integration facade: chores, Tesla, cameras, leaks, lights, and power, with writes behind gates."
+pubDatetime: 2026-09-22T09:45:00.000Z
+tags:
+  - ai
+  - agentic-ai
+  - home-assistant
+  - mcp
+  - langchain
+  - platform-engineering
+  - integration-architecture
+heroImage: "/images/home-assistant-mcp-facade-sketch.svg"
+ogImage: "https://nikolajflojgaard.me/images/home-assistant-mcp-facade-sketch.svg"
+featured: true
+source: "Local Home Assistant MCP facade build, LangChain MCP docs, MCP specification"
+---
+
+The first version of my Home Assistant MCP setup was technically correct and mostly useless.
+
+It could expose tools.
+
+It could list them through MCP.
+
+LangChain could discover them.
+
+And the result was still the wrong product surface.
+
+The raw Home Assistant MCP server gave me a list that looked like this: turn something on, turn something off, set a light, broadcast a message, pause media, change volume, set a climate temperature.
+
+That is not how a human thinks about the house.
+
+I do not think:
+
+> Call `HassTurnOn` with the right entity id.
+
+I think:
+
+> What is the Tesla status?
+
+> Are any leak sensors active?
+
+> What happened around the front door?
+
+> What is the house using from solar and the grid right now?
+
+That difference is the whole architecture.
+
+## The old setup exposed verbs
+
+Raw MCP made Home Assistant callable by agents.
+
+That is useful infrastructure. It is also not enough.
+
+A generic tool like `HassTurnOn` is powerful because it can control many things. That is exactly why it is a poor default surface for an agent.
+
+The model has to infer the domain, pick an entity, understand the side effect, and decide whether the action is appropriate. It has too much freedom at the least useful layer.
+
+That is fine for a lab demo.
+
+It is not how I want agents operating in my house.
+
+The old surface had three problems.
+
+First, it was too low-level. It exposed implementation verbs, not household capabilities.
+
+Second, it made safety awkward. The same generic control tool could be harmless for a lamp and risky for something physical or noisy.
+
+Third, it was hard to review. A tool list full of generic HA verbs does not tell me what the agent can actually do.
+
+That last part matters more than it sounds.
+
+If a system cannot show me its capabilities in human terms, it is not ready to act.
+
+## The new setup exposes integrations
+
+The better setup is a curated MCP facade in front of Home Assistant.
+
+LangChain still uses MCP. The adapter still discovers tools through `MCPAdapter.list_tools()`. Home Assistant is still the source of truth.
+
+But LangChain never binds directly to the raw Home Assistant MCP server.
+
+It binds to a small facade.
+
+The current default surface is six read-only tools:
+
+- `ha_household_chores__ListTasks`
+- `ha_tesla__GetVehicleStatus`
+- `ha_cameras__GetExteriorActivity`
+- `ha_safety__GetLeakStatus`
+- `ha_lights__ListGroupsAndScenes`
+- `ha_energy__GetPowerFlow`
+
+That list is much more boring than raw Home Assistant.
+
+Good.
+
+It is also far more useful.
+
+The agent can see chores as chores, not as a pile of custom HA services. It can see the Tesla as a vehicle status capability, not random sensors and switches. It can see exterior camera activity as metadata, not a permission to grab images. It can see power flow as solar, house load, grid import/export, price, CO2, and charging signals.
+
+This is the part people often miss about MCP.
+
+The protocol does not decide what the product boundary should be.
+
+You do.
+
+## The tool list is now reviewable
+
+The new facade gives me something I can inspect without decoding the entire HA entity registry.
+
+There is a capability inventory.
+
+There are manifests for each integration surface.
+
+There is a proof script that validates the facade.
+
+There is a LangChain smoke test that confirms `MCPAdapter.list_tools()` sees exactly the six curated tools.
+
+That makes the setup reviewable.
+
+If I ask "what can the agent do?", the answer is no longer "well, it can call Home Assistant."
+
+The answer is:
+
+- read chores
+- read Tesla state
+- read exterior camera activity metadata
+- read leak sensor status
+- read lights and scenes
+- read power, solar, grid, price, CO2, and charging state
+
+That is a useful answer.
+
+It also makes missing capabilities obvious. If I want training plans, grocery lists, washing machine state, or room comfort status later, they should appear as named capabilities with owners and gates, not as accidental consequences of a generic control tool.
+
+## Writes are candidates, not defaults
+
+The facade also has write candidates:
+
+- create or complete a chore
+- refresh Tesla data
+- take a camera snapshot
+- activate an approved room scene
+- change a solar charging workflow
+
+None of those are exposed by default.
+
+That is deliberate.
+
+Read tools answer questions.
+
+Write tools change the world.
+
+Even small home automations deserve that distinction. A scene is not a big enterprise transaction, but it still changes the physical environment. A camera snapshot is not just "data"; it is privacy-sensitive. A solar charging toggle can affect cost, battery behavior, and expectations around the car.
+
+So the first useful rule is simple:
+
+> Read by default. Write by approval or standing workflow.
+
+That is the same rule I would use in an enterprise setting.
+
+The stakes are different. The architecture pattern is the same.
+
+## The LangChain part is almost boring now
+
+LangChain's newer MCP support is the easy bit.
+
+The important adapter shape is that `langchain.mcp.MCPAdapter` can connect to an MCP server and list the tools as LangChain tools. That means a curated MCP surface can become ordinary agent tooling without a lot of custom glue.
+
+That is exactly what you want.
+
+The adapter should be boring.
+
+The domain boundary should not be.
+
+In this setup, the LangChain smoke test is intentionally simple. It spins up the curated facade and checks that the adapter discovers exactly these six tools, with no raw HA physical-control tools leaking through.
+
+That test is small, but it matters.
+
+It proves that the agent framework sees the product surface, not the backend mess.
+
+## Why this matters outside my house
+
+This is a home setup, but the lesson is enterprise-shaped.
+
+Raw backend operations are rarely the right agent tools.
+
+Agents should not see every service method, entity, switch, endpoint, stored procedure, and integration knob.
+
+They should see capabilities:
+
+- get customer health
+- explain order status
+- create incident draft
+- list risky changes
+- summarize service degradation
+- request approval
+
+Those capabilities need owners, schemas, audit behavior, and promotion rules.
+
+That is the difference between "we exposed our systems through MCP" and "we built an agent-ready platform."
+
+MCP is the interface.
+
+The facade is the architecture.
+
+## What changed
+
+The old setup answered:
+
+> Which Home Assistant verbs can an agent call?
+
+The new setup answers:
+
+> Which home capabilities are safe and useful enough to expose?
+
+That is the shift.
+
+It is not more complex for the agent. It is less complex. The agent gets fewer tools with better names.
+
+It is more work for the platform.
+
+That is the point.
+
+If you want agents to operate safely, you have to move complexity out of the model's guesses and into contracts the system can inspect.
+
+The model should not have to infer that six sensors, two switches, and a helper entity together mean "power flow."
+
+The platform should expose `ha_energy__GetPowerFlow`.
+
+The model should not have to decide whether a camera action is okay.
+
+The platform should expose metadata by default and keep snapshots behind a gate.
+
+The model should not have to discover that chore writes require idempotency and source metadata.
+
+The facade should enforce that.
+
+That is the part I am happy with now.
+
+Not because the setup is huge. It is not.
+
+Because it finally has the right shape.
+
+## Sources
+
+- [LangChain docs: Model Context Protocol](https://docs.langchain.com/oss/python/langchain/mcp)
+- [LangChain docs: MCP connections](https://docs.langchain.com/oss/python/langchain/mcp/connections)
+- [LangChain reference: MCP tools](https://reference.langchain.com/python/langchain/mcp/tools)
+- [Model Context Protocol 2026-07-28 specification release](https://blog.modelcontextprotocol.io/posts/2026-07-28/)
+- [MCP tool specification](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2026-07-28/server/tools.mdx)

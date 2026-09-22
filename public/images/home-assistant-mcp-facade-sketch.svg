@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Hand-sketched Home Assistant MCP facade</title>
+  <desc id="desc">A notebook-style sketch comparing old raw Home Assistant MCP verbs with a curated integration facade for LangChain.</desc>
+  <defs>
+    <pattern id="grid" width="38" height="38" patternUnits="userSpaceOnUse">
+      <path d="M38 0 L0 0 0 38" fill="none" stroke="#d8cdb8" stroke-width="1" opacity="0.35"/>
+    </pattern>
+    <filter id="paper" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="3" seed="2209" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.065"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <style>
+      .page { fill: #f3ead8; }
+      .grid { fill: url(#grid); }
+      .ink { fill: none; stroke: #26333a; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { fill: none; stroke: #26333a; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+      .card { fill: #fff7e7; stroke: #26333a; stroke-width: 3.2; stroke-linejoin: round; }
+      .soft-red { fill: #e5b6aa; opacity: 0.48; }
+      .soft-blue { fill: #94b3bf; opacity: 0.38; }
+      .soft-green { fill: #a7bb96; opacity: 0.42; }
+      .soft-gold { fill: #d9bd70; opacity: 0.42; }
+      .soft-lilac { fill: #b8adc8; opacity: 0.36; }
+      .label { fill: #26333a; font-family: "Bradley Hand", "Marker Felt", "Comic Sans MS", ui-rounded, sans-serif; font-size: 29px; font-weight: 700; letter-spacing: 0; }
+      .small { fill: #44515a; font-family: "Bradley Hand", "Marker Felt", "Comic Sans MS", ui-rounded, sans-serif; font-size: 19px; letter-spacing: 0; }
+      .tiny { fill: #4c5960; font-family: "Bradley Hand", "Marker Felt", "Comic Sans MS", ui-rounded, sans-serif; font-size: 15px; letter-spacing: 0; }
+      .mono { fill: #26333a; font-family: "SFMono-Regular", "Menlo", "Consolas", monospace; font-size: 17px; letter-spacing: 0; }
+      .dotted { fill: none; stroke: #50606a; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1 11; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="630" class="page"/>
+  <rect width="1200" height="630" class="grid"/>
+
+  <g filter="url(#paper)">
+    <text x="67" y="82" class="small">field note / home tools should look like integrations</text>
+    <path d="M64 96 C190 89 298 100 410 94" class="thin" opacity="0.45"/>
+
+    <g transform="rotate(-1.5 242 258)">
+      <path d="M68 145 C143 126 323 132 437 150 C456 237 449 386 423 455 C309 478 151 462 64 441 C42 356 45 230 68 145Z" class="card"/>
+      <path d="M68 145 C174 113 335 126 437 150" class="soft-red"/>
+      <text x="94" y="191" class="label">old MCP surface</text>
+      <text x="96" y="224" class="small">technically true, not useful</text>
+      <path d="M96 254 C190 246 289 251 391 246" class="thin"/>
+      <text x="104" y="286" class="mono">HassTurnOn</text>
+      <text x="104" y="315" class="mono">HassLightSet</text>
+      <text x="104" y="344" class="mono">HassBroadcast</text>
+      <text x="104" y="373" class="mono">SetTemperature</text>
+      <text x="104" y="402" class="mono">MediaSearchAndPlay</text>
+      <path d="M99 414 C177 408 262 411 360 404" class="thin" opacity="0.55"/>
+      <text x="102" y="438" class="tiny">a bucket of verbs, not a boundary</text>
+    </g>
+
+    <g transform="rotate(1.2 912 256)">
+      <path d="M735 123 C826 106 1032 117 1135 139 C1155 228 1148 407 1119 477 C1005 498 825 491 719 466 C696 360 704 209 735 123Z" class="card"/>
+      <path d="M735 123 C864 92 1020 108 1135 139" class="soft-green"/>
+      <text x="762" y="172" class="label">new facade</text>
+      <text x="764" y="205" class="small">small tools, named by real life</text>
+      <path d="M762 235 C859 229 969 232 1087 226" class="thin"/>
+      <text x="770" y="267" class="mono">chores.list</text>
+      <text x="770" y="296" class="mono">tesla.status</text>
+      <text x="770" y="325" class="mono">camera.activity</text>
+      <text x="770" y="354" class="mono">leak.status</text>
+      <text x="770" y="383" class="mono">lights.catalog</text>
+      <text x="770" y="412" class="mono">power.flow</text>
+      <path d="M768 439 C875 433 967 438 1077 430" class="thin" opacity="0.55"/>
+      <text x="770" y="465" class="tiny">read by default, writes behind gates</text>
+    </g>
+
+    <g transform="rotate(-0.7 586 320)">
+      <path d="M471 191 C524 181 642 184 706 198 C718 258 712 376 697 430 C625 445 524 438 460 421 C446 348 450 251 471 191Z" class="card"/>
+      <path d="M471 191 C527 170 647 175 706 198" class="soft-blue"/>
+      <text x="494" y="236" class="label">policy</text>
+      <text x="495" y="269" class="small">allowlist</text>
+      <text x="495" y="298" class="small">approval gates</text>
+      <text x="495" y="327" class="small">proof script</text>
+      <text x="495" y="356" class="small">LangChain smoke</text>
+      <path d="M500 386 C546 379 617 384 664 377" class="thin" opacity="0.58"/>
+      <text x="503" y="414" class="tiny">raw HA never binds directly</text>
+    </g>
+
+    <g aria-label="dotted relationship lines">
+      <path d="M447 280 C459 279 464 278 476 276" class="dotted"/>
+      <path d="M704 280 C716 279 724 278 738 275" class="dotted"/>
+      <path d="M446 374 C462 386 474 392 492 401" class="dotted"/>
+      <path d="M696 403 C712 394 725 388 742 380" class="dotted"/>
+    </g>
+
+    <g transform="rotate(-2 283 540)">
+      <path d="M123 512 C212 499 321 504 426 516" class="thin"/>
+      <text x="128" y="550" class="small">less magic, more ownership</text>
+    </g>
+
+    <g transform="rotate(1 904 548)">
+      <path d="M767 520 C844 509 962 515 1077 525" class="thin"/>
+      <text x="771" y="558" class="small">tools become capabilities</text>
+    </g>
+
+    <g>
+      <ellipse cx="589" cy="111" rx="104" ry="24" class="soft-gold"/>
+      <text x="508" y="119" class="small">LangChain sees six tools</text>
+      <ellipse cx="587" cy="516" rx="125" ry="25" class="soft-lilac"/>
+      <text x="488" y="524" class="small">writes wait for permission</text>
+    </g>
+  </g>
+</svg>
