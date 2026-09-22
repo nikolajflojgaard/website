@@ -24,7 +24,7 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-09-22T11:18:46Z",
+      "updated_at": "2026-09-22T16:40:54Z",
       "private": false
     },
     {
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-09-22T10:01:49Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
       "repo": "nikolajflojgaard/openclaw-workspace",
       "created_at": "2026-09-15T18:57:50Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-09-15T05:31:53Z"
     }
   ],
-  "fetched_at": "2026-09-22T16:40:49.014Z"
+  "fetched_at": "2026-09-22T21:06:27.893Z"
 }
