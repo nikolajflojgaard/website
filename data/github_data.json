@@ -24,8 +24,17 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-09-24T21:21:59Z",
+      "updated_at": "2026-09-25T11:33:04Z",
       "private": false
+    },
+    {
+      "name": "stock-playbook",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-09-25T10:40:56Z",
+      "private": true
     },
     {
       "name": "openclaw-workspace",
@@ -53,78 +62,69 @@
       "language": "Python",
       "updated_at": "2026-09-11T13:01:20Z",
       "private": true
-    },
-    {
-      "name": "homeassistant-household-chores",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/homeassistant-household-chores",
-      "stargazers_count": 0,
-      "language": "JavaScript",
-      "updated_at": "2026-09-04T11:25:54Z",
-      "private": false
     }
   ],
   "recent_activity": [
     {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "type": "pr",
+      "description": "merged PR in nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
-      "created_at": "2026-09-22T10:01:49Z"
+      "created_at": "2026-09-25T11:33:00Z"
     },
     {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-09-22T09:55:25Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-09-21T15:32:30Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-09-21T15:17:03Z"
+      "type": "pr",
+      "description": "opened PR in nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-09-25T11:32:33Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
-      "created_at": "2026-09-21T06:52:08Z"
+      "created_at": "2026-09-25T11:32:28Z"
+    },
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-09-25T11:32:24Z"
+    },
+    {
+      "type": "pr",
+      "description": "merged PR in nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-09-25T11:27:55Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
-      "created_at": "2026-09-20T05:59:07Z"
+      "created_at": "2026-09-25T11:27:56Z"
     },
     {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-09-20T06:11:34Z"
+      "type": "pr",
+      "description": "opened PR in nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-09-25T11:27:09Z"
+    },
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-09-25T11:27:06Z"
     },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
-      "created_at": "2026-09-20T06:16:18Z"
+      "created_at": "2026-09-25T11:20:01Z"
     },
     {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/work-architecture-playbook",
-      "repo": "nikolajflojgaard/work-architecture-playbook",
-      "created_at": "2026-09-14T19:33:25Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-09-15T18:57:50Z"
+      "type": "pr",
+      "description": "merged PR in nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-09-25T11:19:59Z"
     }
   ],
-  "fetched_at": "2026-09-25T04:24:20.925Z"
+  "fetched_at": "2026-09-25T11:33:36.349Z"
 }
