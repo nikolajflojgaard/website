@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "openclaw-workspace",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-09-26T15:27:45Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-09-26T04:28:37Z",
+      "updated_at": "2026-09-26T11:08:24Z",
       "private": false
     },
     {
@@ -46,15 +55,6 @@
       "private": true
     },
     {
-      "name": "openclaw-workspace",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-09-22T09:55:29Z",
-      "private": true
-    },
-    {
       "name": "work-architecture-playbook",
       "description": "Private architecture/API workflow playbook, templates, and OpenAPI artifact tooling",
       "html_url": "https://github.com/nikolajflojgaard/work-architecture-playbook",
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-09-26T15:27:42Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
       "created_at": "2026-09-25T10:52:08Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-09-25T10:48:38Z"
     }
   ],
-  "fetched_at": "2026-09-26T11:08:20.029Z"
+  "fetched_at": "2026-09-26T16:09:02.874Z"
 }
