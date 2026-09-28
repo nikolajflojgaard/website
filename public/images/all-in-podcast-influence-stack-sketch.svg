@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">All-In influence stack sketch</title>
+  <desc id="desc">A hand-drawn style sketch showing four hosts around a table feeding podcast, clips, events, capital, politics, and founder access into an influence loop.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="3" seed="18" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.08"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <style>
+      .paper { fill: #f5efd9; }
+      .ink { fill: none; stroke: #25231f; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { fill: none; stroke: #25231f; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+      .dot { fill: none; stroke: #4d4940; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 13; }
+      .label { font-family: "Bradley Hand", "Comic Sans MS", "Marker Felt", cursive; fill: #25231f; font-size: 33px; font-weight: 700; }
+      .small { font-family: "Bradley Hand", "Comic Sans MS", "Marker Felt", cursive; fill: #3d3932; font-size: 22px; }
+      .tiny { font-family: "Bradley Hand", "Comic Sans MS", "Marker Felt", cursive; fill: #5a554c; font-size: 18px; }
+      .blue { fill: #b9d4dc; }
+      .green { fill: #bdd8be; }
+      .pink { fill: #dfc0bf; }
+      .yellow { fill: #ead790; }
+      .purple { fill: #cbc4df; }
+      .gray { fill: #e4ddcb; }
+    </style>
+  </defs>
+
+  <rect class="paper" width="1400" height="820"/>
+  <g filter="url(#paper)">
+    <path class="thin" d="M92 86 C323 69 596 75 797 82 C990 88 1157 85 1307 73"/>
+    <text class="tiny" x="110" y="63">field notes / podcast as operating system</text>
+
+    <g transform="translate(495 245)">
+      <path class="gray" d="M-25 35 C37 -18 171 -36 271 1 C357 33 361 137 292 193 C226 247 78 246 1 188 C-72 133 -83 83 -25 35 Z"/>
+      <path class="ink" d="M-25 35 C37 -18 171 -36 271 1 C357 33 361 137 292 193 C226 247 78 246 1 188 C-72 133 -83 83 -25 35 Z"/>
+      <text class="label" x="55" y="82">the table</text>
+      <text class="small" x="32" y="118">weekly argument</text>
+      <text class="small" x="24" y="148">shared audience</text>
+    </g>
+
+    <g transform="translate(96 160)">
+      <path class="blue" d="M12 8 C96 -1 199 -3 275 10 C285 58 279 121 267 166 C182 174 86 172 8 160 C-2 111 1 55 12 8 Z"/>
+      <path class="ink" d="M12 8 C96 -1 199 -3 275 10 C285 58 279 121 267 166 C182 174 86 172 8 160 C-2 111 1 55 12 8 Z"/>
+      <text class="label" x="43" y="64">Calacanis</text>
+      <text class="small" x="45" y="101">host / operator</text>
+      <text class="tiny" x="45" y="132">distribution + founders</text>
+    </g>
+
+    <g transform="translate(1010 148)">
+      <path class="pink" d="M22 12 C101 -3 205 4 285 19 C291 73 286 132 269 177 C187 184 90 178 15 163 C-1 111 2 59 22 12 Z"/>
+      <path class="ink" d="M22 12 C101 -3 205 4 285 19 C291 73 286 132 269 177 C187 184 90 178 15 163 C-1 111 2 59 22 12 Z"/>
+      <text class="label" x="67" y="70">Chamath</text>
+      <text class="small" x="64" y="108">capital / macro</text>
+      <text class="tiny" x="64" y="139">provocation + mood</text>
+    </g>
+
+    <g transform="translate(114 520)">
+      <path class="green" d="M8 15 C81 -6 196 0 276 19 C288 71 284 127 265 173 C178 180 87 174 18 160 C1 110 -2 64 8 15 Z"/>
+      <path class="ink" d="M8 15 C81 -6 196 0 276 19 C288 71 284 127 265 173 C178 180 87 174 18 160 C1 110 -2 64 8 15 Z"/>
+      <text class="label" x="75" y="70">Sacks</text>
+      <text class="small" x="44" y="108">SaaS / politics</text>
+      <text class="tiny" x="44" y="139">operator arguments</text>
+    </g>
+
+    <g transform="translate(998 514)">
+      <path class="yellow" d="M17 9 C89 -4 205 1 281 16 C291 68 286 128 270 171 C190 183 86 176 13 160 C-2 111 1 58 17 9 Z"/>
+      <path class="ink" d="M17 9 C89 -4 205 1 281 16 C291 68 286 128 270 171 C190 183 86 176 13 160 C-2 111 1 58 17 9 Z"/>
+      <text class="label" x="58" y="70">Friedberg</text>
+      <text class="small" x="52" y="108">science / systems</text>
+      <text class="tiny" x="52" y="139">physical constraints</text>
+    </g>
+
+    <path class="dot" d="M382 247 C447 258 501 276 544 313"/>
+    <path class="dot" d="M1005 249 C918 261 840 285 763 322"/>
+    <path class="dot" d="M397 596 C472 536 520 482 551 426"/>
+    <path class="dot" d="M1003 597 C920 535 839 486 752 427"/>
+
+    <g transform="translate(508 58)">
+      <path class="purple" d="M15 11 C116 -6 263 -3 360 16 C373 69 369 133 352 181 C245 191 113 187 18 169 C-1 112 -4 62 15 11 Z"/>
+      <path class="ink" d="M15 11 C116 -6 263 -3 360 16 C373 69 369 133 352 181 C245 191 113 187 18 169 C-1 112 -4 62 15 11 Z"/>
+      <text class="label" x="76" y="67">podcast</text>
+      <text class="small" x="54" y="104">weekly attention surface</text>
+      <text class="tiny" x="54" y="135">current events + guest access</text>
+    </g>
+
+    <g transform="translate(494 602)">
+      <path class="blue" d="M17 10 C107 -4 278 -2 374 18 C388 67 383 127 363 170 C251 182 115 177 17 161 C-2 109 1 57 17 10 Z"/>
+      <path class="ink" d="M17 10 C107 -4 278 -2 374 18 C388 67 383 127 363 170 C251 182 115 177 17 161 C-2 109 1 57 17 10 Z"/>
+      <text class="label" x="57" y="66">influence loop</text>
+      <text class="small" x="52" y="103">clips / events / capital</text>
+      <text class="tiny" x="52" y="134">audience feedback becomes agenda</text>
+    </g>
+
+    <path class="thin" d="M691 240 C690 206 690 187 690 181"/>
+    <path class="thin" d="M689 451 C690 506 690 564 690 599"/>
+
+    <g transform="translate(435 384)">
+      <circle class="green" cx="30" cy="30" r="24"/>
+      <circle class="ink" cx="30" cy="30" r="24"/>
+      <text class="small" x="24" y="38">1</text>
+      <text class="small" x="70" y="38">attention</text>
+    </g>
+
+    <g transform="translate(626 462)">
+      <circle class="pink" cx="30" cy="30" r="24"/>
+      <circle class="ink" cx="30" cy="30" r="24"/>
+      <text class="small" x="23" y="38">2</text>
+      <text class="small" x="70" y="38">access</text>
+    </g>
+
+    <g transform="translate(795 384)">
+      <circle class="yellow" cx="30" cy="30" r="24"/>
+      <circle class="ink" cx="30" cy="30" r="24"/>
+      <text class="small" x="23" y="38">3</text>
+      <text class="small" x="70" y="38">agenda</text>
+    </g>
+
+    <path class="thin" d="M512 392 C596 345 730 343 813 391"/>
+    <path class="thin" d="M824 439 C789 492 732 520 656 494"/>
+    <path class="thin" d="M625 492 C558 488 509 459 474 432"/>
+
+    <text class="tiny" x="78" y="768">read as a signal surface, not a truth machine</text>
+    <text class="tiny" x="1048" y="768">media is architecture when it moves decisions</text>
+  </g>
+</svg>
