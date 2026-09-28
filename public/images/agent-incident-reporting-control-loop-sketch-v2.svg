@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Hand-sketched agent incident reporting control loop</title>
+  <desc id="desc">A rough notebook-style sketch showing an agent run, trace notes, a review gate, and an incident card connected as a numbered control loop.</desc>
+  <defs>
+    <pattern id="paperGrid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M 42 0 L 0 0 0 42" fill="none" stroke="#d8cdb8" stroke-width="1" opacity="0.45"/>
+    </pattern>
+    <filter id="paperNoise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="1325" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.08"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <style>
+      .paper { fill: #f3ead9; }
+      .grid { fill: url(#paperGrid); }
+      .ink { fill: none; stroke: #24313a; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { fill: none; stroke: #24313a; stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; }
+      .note { fill: #fff8e8; stroke: #24313a; stroke-width: 3.4; stroke-linejoin: round; }
+      .flow { fill: none; stroke: #40515c; stroke-width: 3.1; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1 11; }
+      .dot { fill: #fff8e8; stroke: #24313a; stroke-width: 2.6; }
+      .num { fill: #24313a; font-family: "Bradley Hand", "Marker Felt", "Comic Sans MS", ui-rounded, sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0; }
+      .wash-blue { fill: #7da2b8; opacity: 0.22; }
+      .wash-green { fill: #8fab86; opacity: 0.24; }
+      .wash-rust { fill: #c57a55; opacity: 0.24; }
+      .wash-gold { fill: #d9b65f; opacity: 0.26; }
+      .label { fill: #24313a; font-family: "Bradley Hand", "Marker Felt", "Comic Sans MS", ui-rounded, sans-serif; font-size: 31px; font-weight: 700; letter-spacing: 0; }
+      .small { fill: #44525a; font-family: "Bradley Hand", "Marker Felt", "Comic Sans MS", ui-rounded, sans-serif; font-size: 20px; letter-spacing: 0; }
+      .tiny { fill: #4d5a61; font-family: "Bradley Hand", "Marker Felt", "Comic Sans MS", ui-rounded, sans-serif; font-size: 17px; letter-spacing: 0; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="630" class="paper"/>
+  <rect width="1200" height="630" class="grid"/>
+  <g filter="url(#paperNoise)">
+    <path d="M54 74 C220 58 367 72 511 61 C720 46 901 69 1149 54" class="thin" opacity="0.22"/>
+    <path d="M63 559 C256 574 429 552 603 568 C817 588 982 548 1145 566" class="thin" opacity="0.2"/>
+
+    <text x="78" y="91" class="small">field notes / agent incident loop</text>
+    <path d="M72 104 C190 111 284 106 384 111" class="thin" opacity="0.45"/>
+
+    <g transform="rotate(-2 204 215)">
+      <path d="M93 145 C150 132 292 138 370 151 C379 196 377 247 365 299 C286 312 161 302 86 294 C80 245 80 190 93 145Z" class="note"/>
+      <path d="M113 168 C171 160 283 163 344 171" class="thin" opacity="0.55"/>
+      <text x="118" y="205" class="label">agent run</text>
+      <text x="118" y="238" class="small">goal, context, tools</text>
+      <path d="M121 263 C165 269 231 266 302 272" class="thin"/>
+      <path d="M121 284 C174 280 229 288 323 284" class="thin" opacity="0.65"/>
+      <path d="M89 145 C137 126 273 128 370 151" class="wash-blue"/>
+    </g>
+
+    <g transform="rotate(1.5 600 174)">
+      <path d="M468 98 C526 86 676 92 758 105 C764 158 766 228 752 289 C671 301 531 292 461 282 C451 217 456 151 468 98Z" class="note"/>
+      <path d="M491 123 C552 114 661 118 731 126" class="thin" opacity="0.52"/>
+      <text x="493" y="160" class="label">trace</text>
+      <text x="493" y="193" class="small">calls, approvals, evidence</text>
+      <circle cx="506" cy="225" r="7" fill="#7da2b8"/>
+      <path d="M525 224 C581 218 643 231 716 223" class="thin"/>
+      <circle cx="506" cy="256" r="7" fill="#8fab86"/>
+      <path d="M525 256 C575 260 630 251 682 258" class="thin" opacity="0.7"/>
+      <path d="M468 98 C542 77 657 81 758 105" class="wash-green"/>
+    </g>
+
+    <g transform="rotate(-1.4 966 208)">
+      <path d="M825 137 C879 125 1040 134 1127 150 C1139 201 1132 257 1117 311 C1039 326 901 316 818 302 C810 246 811 187 825 137Z" class="note"/>
+      <text x="850" y="197" class="label">review gate</text>
+      <text x="850" y="230" class="small">known failure?</text>
+      <path d="M854 261 C878 252 925 253 954 263 C951 280 949 294 943 303 C914 308 878 305 856 298 C850 283 849 273 854 261Z" fill="#d7ead1" stroke="#24313a" stroke-width="2.8"/>
+      <text x="875" y="288" class="tiny">hold</text>
+      <path d="M977 260 C1005 253 1053 256 1080 265 C1078 283 1074 296 1068 306 C1036 310 1003 306 982 299 C976 286 973 273 977 260Z" fill="#edd2c2" stroke="#24313a" stroke-width="2.8"/>
+      <text x="1000" y="288" class="tiny">ship</text>
+      <path d="M825 137 C895 117 1036 122 1127 150" class="wash-gold"/>
+    </g>
+
+    <g transform="rotate(1 596 442)">
+      <path d="M259 358 C356 338 760 344 947 367 C965 419 952 504 930 548 C733 573 428 558 250 541 C229 483 235 408 259 358Z" class="note"/>
+      <path d="M292 387 C375 376 783 381 905 392" class="thin" opacity="0.5"/>
+      <text x="304" y="431" class="label">incident report</text>
+      <text x="304" y="464" class="small">what happened / affected scope / owner / fix</text>
+      <path d="M308 492 C386 481 478 493 556 486" class="thin"/>
+      <path d="M308 521 C408 515 536 524 666 518" class="thin" opacity="0.66"/>
+      <path d="M735 415 C773 401 843 407 888 421 C889 448 881 472 866 488 C818 497 761 490 730 475 C722 452 724 430 735 415Z" fill="#efd8ce" stroke="#24313a" stroke-width="3"/>
+      <text x="766" y="454" class="small">write it</text>
+      <path d="M259 358 C421 324 777 333 947 367" class="wash-rust"/>
+    </g>
+
+    <g aria-label="numbered control loop connectors">
+      <path d="M373 219 C407 203 428 190 456 177" class="flow"/>
+      <path d="M760 193 C786 194 808 198 830 202" class="flow"/>
+      <path d="M952 319 C931 342 905 365 872 385" class="flow"/>
+      <path d="M338 362 C312 338 278 318 244 303" class="flow"/>
+
+      <circle cx="374" cy="219" r="15" class="dot"/>
+      <text x="369" y="226" class="num">1</text>
+      <circle cx="760" cy="193" r="15" class="dot"/>
+      <text x="755" y="200" class="num">2</text>
+      <circle cx="952" cy="319" r="15" class="dot"/>
+      <text x="947" y="326" class="num">3</text>
+      <circle cx="338" cy="362" r="15" class="dot"/>
+      <text x="333" y="369" class="num">4</text>
+
+      <text x="398" y="236" class="tiny">capture</text>
+      <text x="777" y="178" class="tiny">check</text>
+      <text x="902" y="346" class="tiny">record</text>
+      <text x="255" y="337" class="tiny">learn</text>
+    </g>
+
+    <g opacity="0.78">
+      <path d="M1010 487 C1034 475 1067 478 1094 492" class="thin"/>
+      <path d="M1017 510 C1046 501 1070 506 1097 517" class="thin"/>
+      <text x="1005" y="458" class="tiny">regression test</text>
+    </g>
+
+    <g opacity="0.68">
+      <path d="M94 397 C123 383 160 386 190 399" class="thin"/>
+      <path d="M101 420 C134 411 161 416 193 428" class="thin"/>
+      <text x="90" y="370" class="tiny">owner named</text>
+    </g>
+  </g>
+</svg>
