@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">Agent benchmark sketch</title>
+  <desc id="desc">A hand-drawn style benchmark comparing Grok Bot, Meta Muse, and Jason OpenClaw across integration, trust, and ownership.</desc>
+  <defs>
+    <filter id="paper" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.66" numOctaves="3" seed="24" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.07"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <style>
+      .paper { fill: #f4eedb; }
+      .ink { fill: none; stroke: #27231f; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { fill: none; stroke: #27231f; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+      .dash { fill: none; stroke: #4f4941; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 12; }
+      .label { font-family: "Bradley Hand", "Comic Sans MS", "Marker Felt", cursive; fill: #27231f; font-size: 32px; font-weight: 700; }
+      .small { font-family: "Bradley Hand", "Comic Sans MS", "Marker Felt", cursive; fill: #3e3932; font-size: 22px; }
+      .tiny { font-family: "Bradley Hand", "Comic Sans MS", "Marker Felt", cursive; fill: #5b554c; font-size: 18px; }
+      .muse { fill: #d7c3dc; }
+      .grok { fill: #bcd2da; }
+      .jason { fill: #bfd8bd; }
+      .note { fill: #eadc9a; }
+      .muted { fill: #e5ddca; }
+      .warn { fill: #e5c2bc; }
+    </style>
+  </defs>
+
+  <rect class="paper" width="1400" height="820"/>
+  <g filter="url(#paper)">
+    <path class="thin" d="M91 78 C299 62 514 72 729 68 C962 64 1133 76 1318 65"/>
+    <text class="tiny" x="112" y="54">field notes / personal agent benchmark</text>
+
+    <g transform="translate(88 146)">
+      <path class="grok" d="M18 10 C102 -7 269 -2 352 19 C369 91 363 195 342 263 C238 281 103 274 17 255 C-3 174 1 80 18 10 Z"/>
+      <path class="ink" d="M18 10 C102 -7 269 -2 352 19 C369 91 363 195 342 263 C238 281 103 274 17 255 C-3 174 1 80 18 10 Z"/>
+      <text class="label" x="54" y="62">Grok Bot</text>
+      <text class="small" x="43" y="103">cloud coworker</text>
+      <path class="thin" d="M44 130 C144 121 226 125 315 132"/>
+      <text class="tiny" x="45" y="165">own computer</text>
+      <text class="tiny" x="45" y="195">browser / files / terminal</text>
+      <text class="tiny" x="45" y="225">multi-bot handoffs</text>
+    </g>
+
+    <g transform="translate(518 130)">
+      <path class="muse" d="M17 13 C118 -6 285 -3 379 18 C396 92 389 216 365 287 C254 305 111 298 17 274 C-3 188 0 87 17 13 Z"/>
+      <path class="ink" d="M17 13 C118 -6 285 -3 379 18 C396 92 389 216 365 287 C254 305 111 298 17 274 C-3 188 0 87 17 13 Z"/>
+      <text class="label" x="74" y="64">Meta Muse</text>
+      <text class="small" x="63" y="105">consumer stack</text>
+      <path class="thin" d="M62 132 C165 123 257 125 335 134"/>
+      <text class="tiny" x="64" y="168">WhatsApp / app surface</text>
+      <text class="tiny" x="64" y="198">secure VM + Sentinel</text>
+      <text class="tiny" x="64" y="228">shopping / forms / goals</text>
+      <text class="tiny" x="64" y="258">strongest mainstream threat</text>
+    </g>
+
+    <g transform="translate(982 146)">
+      <path class="jason" d="M14 12 C98 -4 256 -3 339 16 C358 95 350 199 329 264 C229 278 100 272 18 254 C-2 178 0 79 14 12 Z"/>
+      <path class="ink" d="M14 12 C98 -4 256 -3 339 16 C358 95 350 199 329 264 C229 278 100 272 18 254 C-2 178 0 79 14 12 Z"/>
+      <text class="label" x="76" y="62">Jason</text>
+      <text class="small" x="48" y="103">personal ops layer</text>
+      <path class="thin" d="M45 130 C135 122 235 125 304 132"/>
+      <text class="tiny" x="47" y="165">website / GitHub / Drive</text>
+      <text class="tiny" x="47" y="195">Home Assistant / Telegram</text>
+      <text class="tiny" x="47" y="225">memory / crons / gates</text>
+    </g>
+
+    <g transform="translate(190 514)">
+      <path class="note" d="M10 17 C116 -5 330 0 446 21 C462 82 457 149 438 204 C310 219 122 211 17 194 C-3 126 1 68 10 17 Z"/>
+      <path class="ink" d="M10 17 C116 -5 330 0 446 21 C462 82 457 149 438 204 C310 219 122 211 17 194 C-3 126 1 68 10 17 Z"/>
+      <text class="label" x="58" y="72">benchmark</text>
+      <text class="small" x="55" y="112">not model IQ</text>
+      <text class="small" x="55" y="148">operating surface</text>
+      <text class="tiny" x="55" y="178">tools + memory + approvals + trust</text>
+    </g>
+
+    <g transform="translate(760 520)">
+      <path class="warn" d="M11 15 C100 -3 304 0 427 20 C446 81 438 148 421 202 C295 215 114 211 16 192 C-4 126 0 66 11 15 Z"/>
+      <path class="ink" d="M11 15 C100 -3 304 0 427 20 C446 81 438 148 421 202 C295 215 114 211 16 192 C-4 126 0 66 11 15 Z"/>
+      <text class="label" x="53" y="72">verdict</text>
+      <text class="small" x="52" y="112">do not switch yet</text>
+      <text class="small" x="52" y="148">steal the good ideas</text>
+      <text class="tiny" x="52" y="178">Muse: consumer stack / Grok: cloud coworker</text>
+    </g>
+
+    <path class="dash" d="M452 284 C500 339 550 399 602 522"/>
+    <path class="dash" d="M707 424 C665 463 623 496 593 530"/>
+    <path class="dash" d="M1043 421 C982 464 912 496 843 530"/>
+    <path class="dash" d="M630 620 C681 620 717 620 759 620"/>
+
+    <g transform="translate(611 425)">
+      <circle class="muted" cx="87" cy="43" r="42"/>
+      <circle class="ink" cx="87" cy="43" r="42"/>
+      <text class="label" x="54" y="54">?</text>
+      <text class="tiny" x="9" y="105">who should run the day?</text>
+    </g>
+
+    <text class="tiny" x="102" y="766">best model is not enough</text>
+    <text class="tiny" x="1015" y="766">best operating surface wins</text>
+  </g>
+</svg>
