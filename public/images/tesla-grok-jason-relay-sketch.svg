@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Tesla to Grok to Jason relay sketch</title>
+  <desc id="desc">A hand-drawn style architecture sketch showing a Tesla command surface, a Grok Bot relay, a Jason execution layer, guarded tools, and a feedback loop.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2d2a26"/>
+    </marker>
+    <filter id="paper" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="11" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply" opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="#f4efe3"/>
+  <g filter="url(#paper)">
+    <rect x="42" y="42" width="1116" height="546" rx="18" fill="#fbf7ec" stroke="#c7bfae" stroke-width="2"/>
+    <path d="M88 110 C292 96 474 105 676 95 C828 88 994 100 1112 88" fill="none" stroke="#d8cfbd" stroke-width="3"/>
+    <text x="96" y="92" fill="#8b8172" font-family="monospace" font-size="22">field notes / mobile agent relay</text>
+
+    <g font-family="monospace" fill="#2d2a26" stroke="#2d2a26" stroke-width="4" stroke-linejoin="round">
+      <rect x="98" y="208" width="190" height="122" rx="12" fill="#e9f1ee"/>
+      <text x="124" y="252" font-size="27" stroke="none">Tesla</text>
+      <text x="124" y="284" font-size="17" stroke="none">voice command</text>
+      <text x="124" y="307" font-size="17" stroke="none">while moving</text>
+
+      <rect x="378" y="178" width="206" height="140" rx="12" fill="#efe7f3"/>
+      <text x="406" y="222" font-size="27" stroke="none">Grok Bot</text>
+      <text x="406" y="254" font-size="17" stroke="none">home machine</text>
+      <text x="406" y="277" font-size="17" stroke="none">task relay</text>
+
+      <rect x="666" y="178" width="222" height="140" rx="12" fill="#f2eadc"/>
+      <text x="694" y="222" font-size="27" stroke="none">Jason</text>
+      <text x="694" y="254" font-size="17" stroke="none">trusted executor</text>
+      <text x="694" y="277" font-size="17" stroke="none">checks + gates</text>
+
+      <rect x="960" y="205" width="160" height="124" rx="12" fill="#e7edf5"/>
+      <text x="990" y="247" font-size="25" stroke="none">Tools</text>
+      <text x="990" y="278" font-size="16" stroke="none">site / HA</text>
+      <text x="990" y="300" font-size="16" stroke="none">files / git</text>
+    </g>
+
+    <g fill="none" stroke="#2d2a26" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)">
+      <path d="M292 260 C322 246 344 241 373 245"/>
+      <path d="M588 246 C620 230 636 226 662 232"/>
+      <path d="M891 247 C920 243 935 246 955 258"/>
+      <path d="M1043 336 C960 420 792 431 707 347"/>
+      <path d="M642 345 C570 410 423 413 347 342"/>
+      <path d="M294 338 C216 410 145 386 133 337"/>
+    </g>
+
+    <g font-family="monospace" font-size="17" fill="#5d554a">
+      <text x="322" y="230">capture</text>
+      <text x="608" y="212">structure</text>
+      <text x="904" y="228">execute</text>
+      <text x="720" y="418">report back</text>
+      <text x="413" y="421">needs approval?</text>
+      <text x="106" y="426">read out</text>
+    </g>
+
+    <g font-family="monospace" fill="#2d2a26">
+      <rect x="286" y="438" width="632" height="76" rx="10" fill="#fff4d6" stroke="#2d2a26" stroke-width="3"/>
+      <text x="318" y="475" font-size="22">Rule: Grok can ask. Jason decides what runs.</text>
+      <text x="318" y="499" font-size="16" fill="#6a6154">mobile control plane + guarded local execution</text>
+    </g>
+  </g>
+</svg>
