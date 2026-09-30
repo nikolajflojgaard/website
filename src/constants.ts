@@ -22,13 +22,6 @@ export const SOCIALS = [
     icon: "linkedin",
     active: true,
   },
-  {
-    name: "Mail",
-    href: "mailto:Nikolaj_Fl@hotmail.com",
-    linkTitle: `Send an email to ${SITE.title}`,
-    icon: "mail",
-    active: true,
-  },
 ] as const;
 
 export const SHARE_LINKS = [

@@ -8,8 +8,8 @@ Senior integration architect with a passion for writing articles and building st
 ## Navigation
 
 - [About](/about.md)
-- [Posts](/posts.md)
-- [Resume](/resume.md)
+- [Writing](/posts.md)
+- [Work](/resume.md)
 - [RSS Feed](/rss.xml)
 
 ## Links
@@ -17,7 +17,6 @@ Senior integration architect with a passion for writing articles and building st
 - X: https://x.com/
 - GitHub: https://github.com/nikolajflojgaard
 - LinkedIn: https://www.linkedin.com/in/nikolaj-fløjgaard-reichkendler-90a71b109/
-- Email: Nikolaj_Fl@hotmail.com
 
 ---
 

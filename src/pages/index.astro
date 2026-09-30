@@ -36,6 +36,7 @@ const generateSlug = (post: CollectionEntry<"blog">) => {
 const featuredPosts = sortedPosts.slice(0, 3).map((post) => ({
   title: post.data.title,
   description: post.data.description || "",
+  image: typeof post.data.heroImage === "string" ? post.data.heroImage : "",
   date: new Date(post.data.pubDatetime).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
@@ -44,27 +45,29 @@ const featuredPosts = sortedPosts.slice(0, 3).map((post) => ({
   slug: generateSlug(post),
 }));
 
-const guidedPaths = [
+const [leadPost, ...supportingPosts] = featuredPosts;
+
+const proofOfWorkItems = [
   {
-    title: "Enterprise architecture and transformation",
+    title: "Personal Agent Toolchain",
     description:
-      "For people dealing with architecture, platform decisions, integration mess, and large-scale transformation pressure.",
-    href: "/resume",
-    article: "See work",
-  },
-  {
-    title: "AI systems and agentic workflows",
-    description:
-      "For people trying to separate real operational AI from prompt theatre and demo energy.",
-    href: "/tags/ai",
-    article: "Explore AI writing",
-  },
-  {
-    title: "Built systems and proof-of-work",
-    description:
-      "For people who want to see actual artifacts, experiments, integrations, and product-shaped systems.",
+      "The operating layer behind Jason: planning, QA, memory, evaluation, docs, and durable task handoff.",
     href: "/projects",
-    article: "See projects",
+    label: "Agent ops",
+  },
+  {
+    title: "Household Chores",
+    description:
+      "A Home Assistant task system built around actual household coordination and chat-based interaction.",
+    href: "/posts/2026/2026-03-31-household-chores-home-assistant-agent-tasks",
+    label: "Home Assistant",
+  },
+  {
+    title: "Home Brief",
+    description:
+      "Persistent daily briefs across assistant and dashboard surfaces instead of one-shot generated messages.",
+    href: "/posts/2026/2026-04-30-home-brief-home-assistant-daily-briefs-that-persist",
+    label: "Integration",
   },
 ];
 ---
@@ -114,57 +117,82 @@ const guidedPaths = [
     <section class="py-10">
       <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2 class="text-xl font-semibold">Start from the right path</h2>
+          <h2 class="text-xl font-semibold">Welcome to my brain</h2>
           <p class="mt-2 max-w-2xl text-sm text-skin-base/70">
-            Different people land here for different reasons. This should make that easier.
+            A few pieces that show the ideas I keep pulling apart: systems, autonomy, work, and what actually holds up.
           </p>
         </div>
-        <LinkButton href="/posts/" class="text-sm">
-          Browse everything
+        <LinkButton href="/posts" class="text-sm">
+          All writing
+          <IconArrowRight class="inline-block" />
+        </LinkButton>
+      </div>
+
+      {leadPost && (
+        <div class="grid gap-4">
+          <a href={`/posts/${leadPost.slug}`} class="group grid overflow-hidden rounded-2xl border border-accent/20 bg-accent/8 transition-all hover:border-accent/45 hover:bg-accent/10 md:grid-cols-[0.9fr_1.1fr]">
+            {leadPost.image && (
+              <div class="flex min-h-56 items-center justify-center border-b border-accent/15 bg-background/70 p-4 md:border-r md:border-b-0">
+                <img
+                  src={leadPost.image}
+                  alt=""
+                  class="max-h-72 w-full object-contain transition-transform duration-300 group-hover:scale-[1.01]"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            )}
+            <div class="p-5 sm:p-6">
+              <div class="mb-3 inline-flex items-center rounded-full border border-accent/25 bg-background/80 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-accent">
+                Featured
+              </div>
+              <h3 class="max-w-2xl text-xl font-semibold tracking-tight transition-colors group-hover:text-accent sm:text-2xl">
+                {leadPost.title}
+              </h3>
+              <p class="mt-3 max-w-2xl text-sm leading-7 text-skin-base/72">{leadPost.description}</p>
+              <p class="mt-5 text-sm font-medium text-foreground/85">
+                Read article <IconArrowRight class="inline-block" />
+              </p>
+            </div>
+          </a>
+          <div class="grid gap-4 md:grid-cols-2">
+            {supportingPosts.map((post) => (
+              <a href={`/posts/${post.slug}`} class="group block rounded-2xl border border-border bg-background/70 p-5 transition-all hover:border-accent/35 hover:bg-background/90">
+                <div class="mb-2 text-xs text-skin-base/50">{post.date}</div>
+                <h3 class="mb-2 line-clamp-2 font-medium transition-colors group-hover:text-accent">{post.title}</h3>
+                <p class="line-clamp-2 text-sm leading-7 text-skin-base/70">{post.description}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+
+    <section class="pb-10">
+      <div class="mb-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 class="text-xl font-semibold">Proof of work</h2>
+          <p class="mt-2 max-w-xl text-sm text-skin-base/70">
+            A few built systems behind the writing. Enough proof, not a portfolio wall.
+          </p>
+        </div>
+        <LinkButton href="/projects" class="text-sm">
+          See proof of work
           <IconArrowRight class="inline-block" />
         </LinkButton>
       </div>
 
       <div class="grid gap-4 md:grid-cols-3">
-        {guidedPaths.map((path) => (
-          <a href={path.href} class="block rounded-2xl border border-border bg-background/70 p-5 transition-all hover:border-accent/40 hover:bg-background/85">
-            <h3 class="mb-2 font-semibold">{path.title}</h3>
-            <p class="mb-4 text-sm leading-7 text-skin-base/70">{path.description}</p>
-            <p class="text-sm font-medium text-foreground/85">{path.article}</p>
+        {proofOfWorkItems.map((item) => (
+          <a href={item.href} class="group block rounded-2xl border border-border bg-background/70 p-5 transition-all hover:border-accent/35 hover:bg-background/90">
+            <div class="mb-3 inline-flex items-center rounded-full border border-border/70 bg-muted/25 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-foreground/65">
+              {item.label}
+            </div>
+            <h3 class="mb-2 font-semibold transition-colors group-hover:text-accent">{item.title}</h3>
+            <p class="line-clamp-3 text-sm leading-7 text-skin-base/70">{item.description}</p>
           </a>
         ))}
       </div>
-    </section>
-
-    <Hr />
-
-    <section class="py-10">
-      <div class="mb-5 flex items-center justify-between">
-        <div>
-          <h2 class="text-xl font-semibold">Recent writing</h2>
-          <p class="mt-2 text-sm text-skin-base/70">Latest posts, if you want the freshest signal instead of the curated entry points above.</p>
-        </div>
-        <LinkButton href="/posts/" class="text-sm">
-          All Posts
-          <IconArrowRight class="inline-block" />
-        </LinkButton>
-      </div>
-
-      {featuredPosts.length > 0 ? (
-        <div class="grid gap-4 md:grid-cols-3">
-          {featuredPosts.map((post) => (
-            <a href={`/posts/${post.slug}`} class="group block rounded-2xl border border-skin-line bg-skin-fill/25 p-5 transition-all hover:border-accent/45 hover:bg-skin-fill/45">
-              <div class="mb-2 text-xs text-skin-base/50">{post.date}</div>
-              <h3 class="mb-2 line-clamp-2 font-medium transition-colors group-hover:text-accent">{post.title}</h3>
-              <p class="line-clamp-3 text-sm text-skin-base/70">{post.description}</p>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <div class="rounded-lg border border-skin-line bg-skin-fill/30 p-6 text-center">
-          <p class="text-skin-base/70">No posts yet, check back soon.</p>
-        </div>
-      )}
     </section>
   </main>
   <Footer />

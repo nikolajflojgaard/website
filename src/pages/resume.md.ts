@@ -5,9 +5,8 @@ export const GET: APIRoute = async () => {
 
 Senior Integration Architect focused on scalable architecture, pragmatic delivery, and modern automation.
 
-## Contact
+## Links
 
-- Email: nikolaj_fl@hotmail.com
 - LinkedIn: https://www.linkedin.com/in/nikolaj-fløjgaard-reichkendler-90a71b109/
 - PDF CV: /resume/nikolaj-flojgaard-cv.pdf
 

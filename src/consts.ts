@@ -60,15 +60,23 @@ export const SITE_DESCRIPTION = SITE.desc;
 export const NAV_LINKS: SocialLink[] = [
   {
     href: "/",
-    label: "Blog",
+    label: "Home",
+  },
+  {
+    href: "/posts",
+    label: "Writing",
+  },
+  {
+    href: "/resume",
+    label: "Work",
+  },
+  {
+    href: "/projects",
+    label: "Proof of Work",
   },
   {
     href: "/about",
     label: "About",
-  },
-  {
-    href: "/resume",
-    label: "Resume",
   },
 ];
 
@@ -86,10 +94,6 @@ export const SOCIAL_LINKS: SocialLink[] = [
     href: "https://www.linkedin.com/in/nikolaj-fløjgaard-reichkendler-90a71b109/",
     label: "LinkedIn",
   },
-  {
-    href: "mailto:Nikolaj_Fl@hotmail.com",
-    label: "Email",
-  },
 ];
 
 // Icon map for social media
@@ -97,5 +101,4 @@ export const ICON_MAP: Record<string, string> = {
   GitHub: "github",
   X: "twitter",
   LinkedIn: "linkedin",
-  Email: "mail",
 };
