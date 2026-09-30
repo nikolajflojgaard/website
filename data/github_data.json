@@ -2,7 +2,7 @@
   "username": "nikolajflojgaard",
   "name": "Nikolaj Fløjgaard",
   "bio": null,
-  "public_repos": 34,
+  "public_repos": 35,
   "followers": 2,
   "following": 0,
   "avatar_url": "https://avatars.githubusercontent.com/u/258772712?v=4",
@@ -24,8 +24,26 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-09-29T22:05:12Z",
+      "updated_at": "2026-09-30T11:59:52Z",
       "private": false
+    },
+    {
+      "name": "openclaw-agent-mcp",
+      "description": "Local MCP request bridge for Jason/OpenClaw",
+      "html_url": "https://github.com/nikolajflojgaard/openclaw-agent-mcp",
+      "stargazers_count": 0,
+      "language": "JavaScript",
+      "updated_at": "2026-09-30T10:54:04Z",
+      "private": false
+    },
+    {
+      "name": "stock-playbook",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-09-30T09:59:37Z",
+      "private": true
     },
     {
       "name": "openclaw-workspace",
@@ -37,15 +55,6 @@
       "private": true
     },
     {
-      "name": "jason-mcp",
-      "description": "Local MCP request bridge for Jason/OpenClaw",
-      "html_url": "https://github.com/nikolajflojgaard/jason-mcp",
-      "stargazers_count": 0,
-      "language": "JavaScript",
-      "updated_at": "2026-09-29T20:36:41Z",
-      "private": true
-    },
-    {
       "name": "homeassistant-backup",
       "description": "backup of my home assistant",
       "html_url": "https://github.com/nikolajflojgaard/homeassistant-backup",
@@ -53,18 +62,27 @@
       "language": "Python",
       "updated_at": "2026-09-25T13:01:13Z",
       "private": true
-    },
-    {
-      "name": "stock-playbook",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-09-25T10:40:56Z",
-      "private": true
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-09-29T09:10:52Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-09-29T09:10:15Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-09-29T08:53:03Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
@@ -91,40 +109,16 @@
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/jason-mcp",
-      "repo": "nikolajflojgaard/jason-mcp",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-agent-mcp",
+      "repo": "nikolajflojgaard/openclaw-agent-mcp",
       "created_at": "2026-09-29T20:36:38Z"
     },
     {
       "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/jason-mcp",
-      "repo": "nikolajflojgaard/jason-mcp",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-agent-mcp",
+      "repo": "nikolajflojgaard/openclaw-agent-mcp",
       "created_at": "2026-09-29T20:00:05Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-09-29T19:47:42Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-09-29T19:39:40Z"
-    },
-    {
-      "type": "create",
-      "description": "Created branch in nikolajflojgaard/jason-mcp",
-      "repo": "nikolajflojgaard/jason-mcp",
-      "created_at": "2026-09-29T19:38:40Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-09-29T08:57:02Z"
     }
   ],
-  "fetched_at": "2026-09-30T05:01:49.135Z"
+  "fetched_at": "2026-09-30T12:15:58.443Z"
 }
