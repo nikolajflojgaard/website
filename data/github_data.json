@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "openclaw-workspace",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-10-05T00:00:08Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-10-04T12:06:25Z",
+      "updated_at": "2026-10-04T21:07:40Z",
       "private": false
     },
     {
@@ -46,15 +55,6 @@
       "private": false
     },
     {
-      "name": "openclaw-workspace",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-09-29T20:37:59Z",
-      "private": true
-    },
-    {
       "name": "homeassistant-backup",
       "description": "backup of my home assistant",
       "html_url": "https://github.com/nikolajflojgaard/homeassistant-backup",
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-10-05T00:00:05Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-agent-mcp",
@@ -112,13 +118,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-agent-mcp",
       "repo": "nikolajflojgaard/openclaw-agent-mcp",
       "created_at": "2026-09-30T10:53:10Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-09-29T09:10:52Z"
     }
   ],
-  "fetched_at": "2026-10-04T21:07:35.908Z"
+  "fetched_at": "2026-10-05T05:03:09.054Z"
 }
