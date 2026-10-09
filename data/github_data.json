@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "homeassistant-backup",
+      "description": "backup of my home assistant",
+      "html_url": "https://github.com/nikolajflojgaard/homeassistant-backup",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-10-09T13:01:27Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-10-09T11:31:29Z",
+      "updated_at": "2026-10-09T12:56:05Z",
       "private": false
     },
     {
@@ -53,15 +62,6 @@
       "language": "JavaScript",
       "updated_at": "2026-09-30T10:54:04Z",
       "private": false
-    },
-    {
-      "name": "homeassistant-backup",
-      "description": "backup of my home assistant",
-      "html_url": "https://github.com/nikolajflojgaard/homeassistant-backup",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-09-25T13:01:13Z",
-      "private": true
     }
   ],
   "recent_activity": [
@@ -126,5 +126,5 @@
       "created_at": "2026-09-29T12:26:14Z"
     }
   ],
-  "fetched_at": "2026-10-09T12:56:00.394Z"
+  "fetched_at": "2026-10-09T22:28:51.338Z"
 }
