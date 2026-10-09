@@ -24,7 +24,7 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-10-08T23:09:24Z",
+      "updated_at": "2026-10-09T11:31:29Z",
       "private": false
     },
     {
@@ -65,6 +65,18 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-10-09T11:31:26Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-10-09T11:28:44Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
@@ -112,19 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
       "repo": "nikolajflojgaard/openclaw-workspace",
       "created_at": "2026-09-29T12:26:14Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-agent-mcp",
-      "repo": "nikolajflojgaard/openclaw-agent-mcp",
-      "created_at": "2026-09-30T10:54:01Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-agent-mcp",
-      "repo": "nikolajflojgaard/openclaw-agent-mcp",
-      "created_at": "2026-09-30T10:53:10Z"
     }
   ],
-  "fetched_at": "2026-10-09T05:35:25.113Z"
+  "fetched_at": "2026-10-09T12:56:00.394Z"
 }
