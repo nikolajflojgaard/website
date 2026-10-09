@@ -1,0 +1,164 @@
+---
+title: "Agent glue code is becoming the next ESB"
+description: "Telco and enterprise AI agents do not fail because tools are hard to call. They fail when identity, policy, state, approval, and proof are left inside custom glue code."
+pubDatetime: 2026-10-09T13:45:00.000Z
+tags:
+  - ai
+  - agentic-ai
+  - enterprise-architecture
+  - integration-architecture
+  - telecom
+  - tmforum
+heroImage: "/images/agent-hero.jpg"
+ogImage: "https://nikolajflojgaard.me/images/agent-hero.jpg"
+featured: true
+source: "Friday architecture brief on TM Forum Technical Solution Packages, AI-native ODA Canvas, event platforms, and Azure Arc SCVMM transition guidance"
+---
+
+The first wave of enterprise AI agents is starting to look very familiar.
+
+Not because the models are boring. The models are moving fast.
+
+The familiar part is the integration mess forming around them.
+
+An agent needs to read a customer record, open a ticket, query inventory, update a workflow, send a notification, call a network API, or summarize an incident. So a team writes a connector. Then another connector. Then a local policy check. Then a prompt rule. Then a special retry path. Then a hidden approval step. Then a spreadsheet explaining which tool is safe in which environment.
+
+That is how you accidentally rebuild an ESB.
+
+Only this time, the flows are partly hidden inside agent runs, tool descriptions, framework adapters, and prompt instructions. That makes the old integration problem worse, not better.
+
+The problem is not that agents can call tools.
+
+The problem is that tool access is becoming easy before the operating model is ready.
+
+## The useful signal from TM Forum
+
+TM Forum's latest architecture material points in the right direction.
+
+The [new Technical Solution Packages for Level 4 autonomous networks](https://www.tmforum.org/news-insight/newsroom/tm-forum-launches-reusable-blueprints-to-accelerate-level-4-autonomous-networks) are not just another standards announcement. The useful part is the shift from isolated proofs of concept to reusable implementation patterns. TM Forum describes the first portfolio as 20 packages built from real deployment experience and normalized against the Autonomous Networks framework and AI-native ODA.
+
+That matters because autonomy does not scale through clever demos.
+
+It scales through repeatable patterns that operators, vendors, and architects can inspect before they bet production flow on them.
+
+The [AI-native ODA Canvas](https://www.tmforum.org/oda/deployment-and-runtime/oda-canvas/) is the more interesting signal. TM Forum now frames the Canvas as a policy control and execution platform for both ODA Components and AI agents. The page explicitly names API gateways, identity and access management, observability, automation, MCP integration, guardrails, managed data access, and agent lifecycle management.
+
+That is the right conversation.
+
+Not "can an agent call a tool?"
+
+"Where does the agent run, who owns its authority, which contracts can it invoke, what policy applies, and how do operations prove what happened?"
+
+That is architecture.
+
+## Agents make the old integration mistake faster
+
+Most companies already know the old version of this problem.
+
+One team creates a point-to-point integration because it is faster. Another team copies the pattern. Soon the estate is full of undocumented transformations, unclear ownership, special-case retries, private data assumptions, and flows that only work because one person remembers why they were built.
+
+The ESB era was supposed to clean that up. Sometimes it did. Often it just moved the mess into a central platform with its own politics.
+
+Agent tooling can repeat the same mistake at higher speed.
+
+Instead of service A calling service B directly, an agent calls a tool that calls a workflow that calls a legacy API that emits an event that updates a ticket that another agent reads later.
+
+That might be a good design.
+
+It might also be a state machine nobody admits exists.
+
+The architect's job is to make that difference visible.
+
+## The control layer cannot live in prompts
+
+Prompt rules are useful, but they are not a control plane.
+
+"Do not do destructive things" is not the same as policy enforcement. "Ask the user first" is not the same as an approval record. "Use this tool carefully" is not the same as identity, authorization, and audit.
+
+For read-only agents, you can get away with a lot. The blast radius is lower. Bad summaries are annoying, but they usually do not mutate the estate.
+
+Write-capable agents are different.
+
+Once an agent can create, update, provision, notify, refund, close, deploy, disable, or escalate, the runtime needs boring answers:
+
+- who is the acting user
+- which system owns the capability
+- which contract version is being called
+- whether the action is read-only, reversible, destructive, or externally visible
+- what approval is required
+- where the decision is logged
+- how retries are made idempotent
+- how operations can replay or recover the flow
+
+If those answers are scattered across prompt text and local glue code, the architecture is already drifting.
+
+## Events and workflow still matter
+
+Event platforms are also moving into the agent story. Confluent's current Cloud release notes show the direction around Flink, stream processing, encryption, AI functions, and earlier streaming-agent/tool capabilities in the same operating neighborhood.
+
+That is not magic agent infrastructure by itself.
+
+It is a reminder that agents do not remove state. They create more state to explain.
+
+An agent decision is part of a business flow. The customer record changed. The ticket moved. The order advanced. The network configuration was proposed. The incident was enriched. The partner handoff waited for a response.
+
+Those facts still need contracts.
+
+APIs are good for deliberate commands and reads. Events are good for telling the estate what changed. Workflow engines are good for long-running coordination. Observability is good for proof across the mess.
+
+Agents do not replace those layers.
+
+They make the boundaries between them more important.
+
+## Hybrid control planes have an expiry date
+
+The Azure Arc-enabled SCVMM retirement guidance is a useful side lesson. Microsoft says new onboardings stop from October 2026 and existing Azure Arc-enabled SCVMM customers have support for current capabilities until September 2029.
+
+That is not mainly an Azure story.
+
+It is a control-plane story.
+
+Any long-lived architecture that assumes one management surface will stay stable for years needs a transition plan. That applies to hybrid infrastructure. It also applies to agent runtimes, MCP servers, tool registries, workflow engines, and event platforms.
+
+The more authority a control plane has, the more carefully you need to design the exit.
+
+Otherwise today's convenient agent layer becomes tomorrow's migration trap.
+
+## The pattern I would want
+
+For enterprise and telco agents, I would keep the shape deliberately boring:
+
+- domain-owned tools, not random shared scripts
+- a registry that records owner, contract, risk level, and lifecycle state
+- identity passed through the run, not guessed from the prompt
+- policy outside the model
+- human approval for destructive or externally visible actions
+- event records for state changes
+- workflow for long-running coordination
+- traces that connect user request, agent run, tool call, API call, event, and downstream system
+- recovery rules that are explicit enough to be operated at 3 AM
+
+That sounds less exciting than "autonomous agents".
+
+Good.
+
+Production architecture should be less exciting than the demo.
+
+The next serious agent platform will not win because it has the flashiest chat window. It will win because it makes tool use governable without slowing every team to a crawl.
+
+That is the real lesson in the current TM Forum direction.
+
+AI-native ODA is not interesting because it says "agents" near "telecom". It is interesting because it treats agents as part of an operating architecture: components, APIs, identity, guardrails, observability, data access, lifecycle, and reusable deployment patterns.
+
+That is where the work is.
+
+Agent glue code will happen. It always does.
+
+The question is whether we catch it early enough to turn it into architecture before it turns into the next ESB nobody wants to own.
+
+## Sources
+
+- [TM Forum launches reusable blueprints to accelerate Level 4 autonomous networks](https://www.tmforum.org/news-insight/newsroom/tm-forum-launches-reusable-blueprints-to-accelerate-level-4-autonomous-networks)
+- [TM Forum AI-native ODA Canvas](https://www.tmforum.org/oda/deployment-and-runtime/oda-canvas/)
+- [Confluent Cloud release notes](https://docs.confluent.io/cloud/current/release-notes/index.html)
+- [Azure Arc-enabled SCVMM transition guidance](https://learn.microsoft.com/en-us/azure/azure-arc/system-center-virtual-machine-manager/transition-guidance)
