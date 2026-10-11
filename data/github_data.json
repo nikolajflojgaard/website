@@ -24,7 +24,7 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-10-10T21:25:43Z",
+      "updated_at": "2026-10-11T05:10:41Z",
       "private": false
     },
     {
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
+      "repo": "nikolajflojgaard/homeassistant-backup",
+      "created_at": "2026-10-09T13:01:22Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
       "created_at": "2026-09-30T11:59:49Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
-      "repo": "nikolajflojgaard/openclaw-workspace",
-      "created_at": "2026-09-29T12:26:14Z"
     }
   ],
-  "fetched_at": "2026-10-11T05:10:37.267Z"
+  "fetched_at": "2026-10-11T12:28:34.311Z"
 }
