@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "stock-playbook",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-10-14T08:06:36Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-10-13T22:29:01Z",
+      "updated_at": "2026-10-14T04:23:21Z",
       "private": false
     },
     {
@@ -34,15 +43,6 @@
       "stargazers_count": 0,
       "language": "Python",
       "updated_at": "2026-10-09T13:01:27Z",
-      "private": true
-    },
-    {
-      "name": "stock-playbook",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-10-07T09:56:09Z",
       "private": true
     },
     {
@@ -65,6 +65,24 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-10-14T08:05:05Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-10-14T08:01:32Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-10-14T07:59:20Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
@@ -106,25 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
       "repo": "nikolajflojgaard/stock-playbook",
       "created_at": "2026-10-01T08:11:06Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-09-30T09:59:33Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-10-01T08:04:56Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-09-30T11:59:49Z"
     }
   ],
-  "fetched_at": "2026-10-14T04:23:17.028Z"
+  "fetched_at": "2026-10-14T11:32:37.154Z"
 }
