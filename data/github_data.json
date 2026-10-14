@@ -19,6 +19,15 @@
       "private": false
     },
     {
+      "name": "website",
+      "description": "My personal website",
+      "html_url": "https://github.com/nikolajflojgaard/website",
+      "stargazers_count": 0,
+      "language": "MDX",
+      "updated_at": "2026-10-14T11:33:18Z",
+      "private": false
+    },
+    {
       "name": "stock-playbook",
       "description": null,
       "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
@@ -26,15 +35,6 @@
       "language": "Python",
       "updated_at": "2026-10-14T08:06:36Z",
       "private": true
-    },
-    {
-      "name": "website",
-      "description": "My personal website",
-      "html_url": "https://github.com/nikolajflojgaard/website",
-      "stargazers_count": 0,
-      "language": "MDX",
-      "updated_at": "2026-10-14T04:23:21Z",
-      "private": false
     },
     {
       "name": "homeassistant-backup",
@@ -126,5 +126,5 @@
       "created_at": "2026-10-01T08:11:06Z"
     }
   ],
-  "fetched_at": "2026-10-14T11:32:37.154Z"
+  "fetched_at": "2026-10-14T16:55:14.103Z"
 }
