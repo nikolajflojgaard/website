@@ -19,12 +19,21 @@
       "private": false
     },
     {
+      "name": "nextgen-egedalbogholderi",
+      "description": "Private Astro redesign for Egedal Bogholderi",
+      "html_url": "https://github.com/nikolajflojgaard/nextgen-egedalbogholderi",
+      "stargazers_count": 0,
+      "language": "Astro",
+      "updated_at": "2026-10-15T12:33:50Z",
+      "private": true
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-10-15T04:05:54Z",
+      "updated_at": "2026-10-15T11:11:21Z",
       "private": false
     },
     {
@@ -53,15 +62,6 @@
       "language": "Python",
       "updated_at": "2026-10-05T00:00:08Z",
       "private": true
-    },
-    {
-      "name": "openclaw-agent-mcp",
-      "description": "Local MCP request bridge for Jason/OpenClaw",
-      "html_url": "https://github.com/nikolajflojgaard/openclaw-agent-mcp",
-      "stargazers_count": 0,
-      "language": "JavaScript",
-      "updated_at": "2026-09-30T10:54:04Z",
-      "private": false
     }
   ],
   "recent_activity": [
@@ -126,5 +126,5 @@
       "created_at": "2026-10-05T00:00:05Z"
     }
   ],
-  "fetched_at": "2026-10-15T11:11:16.710Z"
+  "fetched_at": "2026-10-15T16:41:59.799Z"
 }
