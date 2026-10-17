@@ -24,7 +24,7 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-10-16T16:24:42Z",
+      "updated_at": "2026-10-16T20:47:26Z",
       "private": false
     },
     {
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/nextgen-egedalbogholderi",
+      "repo": "nikolajflojgaard/nextgen-egedalbogholderi",
+      "created_at": "2026-10-15T12:28:03Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
       "repo": "nikolajflojgaard/homeassistant-backup",
       "created_at": "2026-10-09T13:01:22Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-10-09T11:31:26Z"
     }
   ],
-  "fetched_at": "2026-10-16T20:47:21.063Z"
+  "fetched_at": "2026-10-17T03:52:44.548Z"
 }
