@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       full_deploy:
-        description: "Full deploy: re-upload ALL files (ignore incremental size check)"
+        description: "Full deploy: re-upload ALL files (ignore content-hash manifest)"
         type: boolean
         default: false
   push:
@@ -55,34 +55,4 @@ jobs:
           PORT: ${{ secrets.SIMPLY_SFTP_PORT }}
           REMOTE_DIR: ${{ secrets.SIMPLY_REMOTE_DIR }}
           FULL_DEPLOY: ${{ inputs.full_deploy && 'true' || 'false' }}
-        run: |
-          # Pass 1: assets, only uploaded when size differs (always-files excluded, nothing deleted yet)
-          # Pass 2 (--transfer-all): always re-upload HTML, dotfiles/.htaccess, txt/json/xml/webmanifest, favicons, service worker, manifest, sitemaps, robots, feeds, pagefind entry files
-          # Pass 3: --delete removes files no longer in dist/ (no re-upload, sizes already match)
-          set -f  # don't let the shell expand the globs below
-          PATTERNS=".* *.html *.txt *.json *.webmanifest *.xml *.md sw.js workbox-*.js registerSW.js favicon* apple-touch-icon.png pagefind.js pagefind-ui.js pagefind-ui.css pagefind-highlight.js pagefind-modular-ui.js pagefind-modular-ui.css *.pf_meta"
-          ALWAYS_EXCLUDE=""; ALWAYS_INCLUDE=""
-          for p in $PATTERNS; do
-            ALWAYS_EXCLUDE="$ALWAYS_EXCLUDE --exclude-glob=$p"
-            ALWAYS_INCLUDE="$ALWAYS_INCLUDE --include-glob=$p"
-          done
-          if [ "$FULL_DEPLOY" = "true" ]; then
-            echo "Full deploy: re-uploading all files"
-            MIRROR_CMDS="mirror -R --delete --overwrite --transfer-all --parallel=4 --no-perms dist/ $REMOTE_DIR;"
-          else
-            MIRROR_CMDS="mirror -R --only-newer --ignore-time --parallel=4 --no-perms $ALWAYS_EXCLUDE dist/ $REMOTE_DIR;
-            mirror -R --transfer-all --parallel=4 --no-perms $ALWAYS_INCLUDE dist/ $REMOTE_DIR;
-            mirror -R --delete --only-newer --ignore-time --parallel=4 --no-perms dist/ $REMOTE_DIR;"
-          fi
-          lftp -e "
-            set ftp:passive-mode true;
-            set ftp:ssl-allow yes;
-            set ftp:ssl-force true;
-            set ftp:ssl-protect-data true;
-            set ssl:verify-certificate no;
-            set xfer:make-backup false;
-            open -u $USER,$PASS ftp://$HOST:$PORT;
-            mkdir -p $REMOTE_DIR;
-            $MIRROR_CMDS
-            bye
-          "
+        run: bash scripts/simply-hash-deploy.sh
