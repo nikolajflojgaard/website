@@ -10,6 +10,8 @@ import Socials from "@/components/Socials.astro";
 import StructuredData from "@/components/StructuredData.astro";
 import { SITE, SOCIALS } from "@/config";
 import Layout from "@/layouts/Layout.astro";
+import { Image } from "astro:assets";
+import heroImg from "@/assets/images/hero.png";
 
 const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 const sortedPosts = allPosts.sort((a, b) => {
@@ -81,8 +83,12 @@ const proofOfWorkItems = [
       <div class="relative rounded-3xl border border-accent/15 bg-gradient-to-br from-accent/8 via-background to-background p-6 sm:p-8">
         <div class="flex flex-col items-start gap-5 sm:flex-row sm:gap-6">
           <a href="/about" class="group mx-auto block sm:mx-0">
-            <img
-              src="/hero.png"
+            <Image
+              src={heroImg}
+              width={256}
+              height={256}
+              format="webp"
+              loading="eager"
               alt={SITE.title}
               class="h-32 w-32 rounded-full object-cover transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
             />

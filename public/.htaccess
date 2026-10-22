@@ -1,5 +1,9 @@
 Options -Indexes
 
+# Legacy /blog URLs -> /posts
+RedirectMatch 301 ^/blog/?$ /posts
+RedirectMatch 301 ^/blog/(.+)$ /posts/$1
+
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "DENY"
