@@ -36,7 +36,7 @@ export const SITE: Site = {
   profile: "https://nikolajflojgaard.me/about",
   desc: "Senior Integration Architect writing about AI agents, systems, autonomy, and the infrastructure behind what actually works.",
   title: "Nikolaj Fløjgaard",
-  ogImage: "avatar.jpg",
+  ogImage: "og.png",
   lightAndDarkMode: true,
   postPerIndex: 10,
   postPerPage: 10,

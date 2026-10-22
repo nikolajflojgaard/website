@@ -33,6 +33,8 @@ export default defineConfig({
 	      filter: (page) => {
 	        // Always exclude archives if not showing them
 	        if (!SITE.showArchives && page.endsWith("/archives")) return false;
+        // Exclude private stats page
+        if (page.includes("/nf-reader-signal-7c9d")) return false;
         
         // Optionally exclude tag pages to reduce sitemap bloat
         // Uncomment the following line to exclude all tag pages:
@@ -56,7 +58,6 @@ export default defineConfig({
 	        if (url === SITE.website || url === SITE.website + '/') {
 	          item.priority = 1.0;
 	          item.changefreq = ChangeFreqEnum.DAILY;
-	          item.lastmod = new Date().toISOString();
 	        }
 	        // Main section pages
 	        else if (url.endsWith('/posts') || url.endsWith('/about') || url.endsWith('/search')) {
@@ -64,7 +65,7 @@ export default defineConfig({
 	          item.changefreq = ChangeFreqEnum.WEEKLY;
 	        }
 	        // Recent blog posts (2024-2025)
-	        else if (url.includes('/posts/2025') || url.includes('/posts/2024')) {
+	        else if (/\/posts\/(\d{4})\//.test(url) && Number(url.match(/\/posts\/(\d{4})\//)[1]) >= new Date().getFullYear() - 1) {
 	          item.priority = 0.8;
 	          item.changefreq = ChangeFreqEnum.WEEKLY;
 	        }

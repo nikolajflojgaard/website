@@ -5,9 +5,11 @@ description: "Enterprise architecture, integration, automation, and AI, with a b
 ---
 
 import GitHubActivity from "@/components/GitHubActivity.astro";
+import { Image } from "astro:assets";
+import aboutImg from "@/assets/images/about.png";
 
 <div class="not-prose mt-8 text-base leading-8 text-foreground/88">
-  <img src="/about.png" alt="Nikolaj Fløjgaard" class="float-none mx-auto mb-6 w-full max-w-[280px] rounded-2xl border border-border object-cover shadow-sm md:float-left md:mr-8 md:mb-4" />
+  <Image src={aboutImg} width={560} height={560} format="webp" loading="lazy" alt="Nikolaj Fløjgaard" class="float-none mx-auto mb-6 w-full max-w-[280px] rounded-2xl border border-border object-cover shadow-sm md:float-left md:mr-8 md:mb-4" />
 
   <p class="text-lg leading-8 text-foreground">I work at the intersection of enterprise architecture, integration, automation, and AI.</p>
   <p>By day, I’m a Senior Integration Architect at TDC NET. The job is not just to make systems connect. It is to make them hold up under real business pressure. That means architecture that scales, integrations that survive messy reality, and automation that creates actual leverage instead of just moving complexity around.</p>

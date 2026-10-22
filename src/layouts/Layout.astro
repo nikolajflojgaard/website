@@ -56,7 +56,7 @@ const structuredData = {
 <html lang=`${SITE.lang ?? "en"}` class={`${scrollSmooth && "scroll-smooth"}`}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="view-transition" content="same-origin" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
@@ -72,12 +72,16 @@ const structuredData = {
     <meta name="author" content={author} />
     {robots && <meta name="robots" content={robots} />}
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preload" href="/fonts/atkinson-regular.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
+    <meta property="og:type" content={pubDatetime ? "article" : "website"} />
+    <meta property="og:site_name" content={SITE.title} />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Article Published/Modified time -->
     {
@@ -98,18 +102,19 @@ const structuredData = {
     }
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={socialImageURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
+    <meta name="twitter:creator" content="@FlJgaard" />
 
-    <!-- Google JSON-LD Structured data -->
-    <script
+    <!-- Google JSON-LD Structured data (only for articles; pages use StructuredData component) -->
+    {pubDatetime && <script
       type="application/ld+json"
       is:inline
       set:html={JSON.stringify(structuredData)}
-    />
+    />}
 
     <!-- Enable RSS feed auto-discovery  -->
     <!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery -->
@@ -120,7 +125,7 @@ const structuredData = {
       href={`${SITE.website}rss.xml`}
     />
 
-    <meta name="theme-color" content="" />
+    <meta name="theme-color" content="#006cac" />
 
     {
       // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
@@ -138,19 +143,22 @@ const structuredData = {
 
     <script is:inline src="/toggle-theme.js"></script>
     
-    <!-- Domain-based markdown redirect (optional) -->
-    <script is:inline>
-      const hostname = window.location.hostname;
-      // If you ever host a markdown-only mirror on a `.md` domain, redirect to `.md` routes.
-      if (hostname.endsWith('.md') && !window.location.pathname.endsWith('.md')) {
-        // Redirect to the .md version of the current page
-        const mdPath = window.location.pathname === '/' ? '/index.md' : window.location.pathname + '.md';
-        window.location.replace(mdPath + window.location.search + window.location.hash);
-      }
-    </script>
     
-    <!-- Twitter Widget Script -->
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <!-- Twitter widgets: only loaded on pages that contain tweet embeds -->
+    <script is:inline>
+      (function () {
+        function loadTw() {
+          if (window.twttr || document.getElementById("twitter-wjs")) return;
+          if (!document.querySelector("blockquote.twitter-tweet, .twitter-tweet-placeholder")) return;
+          var s = document.createElement("script");
+          s.id = "twitter-wjs"; s.async = true; s.charset = "utf-8";
+          s.src = "https://platform.twitter.com/widgets.js";
+          document.head.appendChild(s);
+        }
+        document.addEventListener("DOMContentLoaded", loadTw);
+        document.addEventListener("astro:page-load", loadTw);
+      })();
+    </script>
   </head>
   <body>
     <slot />
