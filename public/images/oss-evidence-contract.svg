@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="920" viewBox="0 0 1200 920" role="img" aria-labelledby="title desc">
+<title id="title">A reference is not a verdict</title><desc id="desc">An agent submits a claim and reference to an independent evidence lookup. Failed lookup yields an unsupported claim warning. Successful lookup retrieves real telemetry, but whether it supports the diagnosis still requires review.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#28645e"/></marker></defs>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#24332f}.mono{font-family:Menlo,Consolas,monospace;font-size:17px;letter-spacing:1px}.label{font-size:24px;font-weight:700}.body{font-size:22px}.muted{fill:#596961}.edge{fill:none;stroke:#28645e;stroke-width:3;marker-end:url(#arrow)}</style>
+<rect width="1200" height="920" fill="#f5f1e7"/><path d="M48 62H1152M48 861H1152" stroke="#b8b9ad"/>
+<text x="48" y="43" class="mono">EVIDENCE NOTES / 02</text><text x="1152" y="43" text-anchor="end" class="mono muted">OSS / AGENT CONTRACTS</text>
+<text x="48" y="126" font-size="46" font-weight="700">A reference is not a verdict.</text>
+<text x="48" y="173" class="body muted">Retrieve the measurement. Then question the conclusion.</text>
+<rect x="48" y="230" width="330" height="127" rx="8" fill="#e5e5dc" stroke="#b8b9ad"/>
+<text x="72" y="266" class="mono">MODEL OUTPUT</text><text x="72" y="306" class="label">Claim + data reference</text><text x="72" y="336" font-size="20">Not a generated copy of the data</text>
+<path d="M378 293H467" class="edge"/>
+<rect x="476" y="215" width="676" height="157" rx="8" fill="#deebe5" stroke="#28645e" stroke-width="2"/>
+<text x="504" y="252" class="mono">INDEPENDENT LOOKUP BOUNDARY</text><text x="504" y="294" font-size="29" font-weight="700">Resolve against the case data</text><text x="504" y="332" class="body">The model selects. The resolver retrieves.</text>
+<path d="M640 372V417H320V456M980 372V456" class="edge"/>
+<text x="345" y="443" class="mono" style="fill:#96621b">LOOKUP FAILS</text><text x="1000" y="432" class="mono" style="fill:#28645e">RESOLVES</text>
+<rect x="48" y="466" width="520" height="145" rx="8" fill="#f2dfb5" stroke="#b58a3e"/>
+<text x="76" y="507" class="label">Evidence unavailable</text><text x="76" y="545" class="body">Show the warning.</text><text x="76" y="577" class="body">Do not invent a replacement.</text>
+<rect x="608" y="466" width="544" height="145" rx="8" fill="#deebe5" stroke="#7b9c8d"/>
+<text x="636" y="507" class="label">Evidence retrieved</text><text x="636" y="545" class="body">Display the actual fragment.</text><text x="636" y="577" class="body">The diagnosis is not yet verified.</text>
+<path d="M880 611V657" class="edge"/>
+<rect x="48" y="668" width="1104" height="153" rx="8" fill="#fffaf0" stroke="#b8b9ad"/>
+<text x="76" y="706" class="mono">THE SEPARATE QUESTION / INFERENCE REVIEW</text><text x="76" y="750" font-size="29" font-weight="700">Does this measurement actually support the claim?</text><text x="76" y="789" class="body muted">A real series from the wrong time window can still produce a wrong answer.</text>
+<text x="48" y="895" class="body" font-weight="700">Resolvable evidence ≠ correct diagnosis.</text><text x="1152" y="895" text-anchor="end" class="mono muted">NIKOLAJ FLØJGAARD</text>
+</svg>

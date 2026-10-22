@@ -1,0 +1,74 @@
+---
+title: "Your OSS AI needs evidence contracts, not better explanations"
+description: "An AI diagnosis can cite real telemetry and still be wrong. Separate evidence lookup from inference, and make the failure boundary visible."
+pubDatetime: 2026-10-22T09:45:00.000Z
+tags:
+  - agentic-ai
+  - telecom
+  - enterprise-architecture
+heroImage: "/images/oss-evidence-contract.svg"
+ogImage: "https://nikolajflojgaard.me/images/oss-evidence-contract.png"
+featured: false
+---
+
+*A reference that resolves is evidence you can inspect. It is not a verdict. [Open the editable diagram](/images/oss-evidence-contract.svg).*
+
+An operations support system (OSS) assistant says a customer outage was caused by a damaged fibre. It gives a tidy explanation, mentions a drop in received power, and recommends dispatching a technician.
+
+That answer leaves two separate questions unanswered: did the measurement exist, and does it justify the diagnosis?
+
+Asking the model to explain itself more carefully does not settle either question. An explanation is another piece of generated text. For operational use, the useful boundary is between what the model claims and what the system can retrieve independently.
+
+## Put the evidence lookup outside the answer
+
+A recent [optical-network troubleshooting paper by Jeremias Dötterl and Martin Kuipers](https://arxiv.org/html/2610.23252v1) describes a concrete approach. Inspection tools return references to particular telemetry fragments. The agent cites those references instead of reproducing the data. An evidence lookup module resolves them against the case data and inserts the retrieved fragments into the displayed response.
+
+The references can identify a time-series window, log lines, or a JSON fragment. If lookup fails, the interface displays a warning. This is a demonstration architecture, not evidence that every diagnosis it produces is correct.
+
+The interesting design choice is where the data comes from at presentation time. The model chooses what to cite; the lookup supplies the actual data. That gives the operator something firmer than a plausible number typed into a paragraph.
+
+Call this an **evidence contract**: a claim about observed conditions must carry a reference that the system can resolve independently. The prose does not get to manufacture its own supporting measurement.
+
+## Three answers that must not look the same
+
+Consider a synthetic case involving one optical network unit, `onu-17`. These examples are invented to illustrate the contract, not measurements from a network or results reported in the paper.
+
+**A valid reference.** The assistant claims that received power dropped during the incident. Its reference resolves to the right unit and time window, and the retrieved series shows the drop. The observation has support. The cause remains a hypothesis: the series alone does not establish which physical fault produced it.
+
+**A missing reference.** The assistant cites a measurement that the lookup cannot find. The interface should retain the claim as unsupported, visibly mark the lookup failure, and avoid displaying an invented replacement plot. “Evidence unavailable” is an acceptable result. Silently turning it into a confident diagnosis is not.
+
+**A real reference that does not support the claim.** The assistant diagnoses a power drop but cites a flat series from before the incident. Lookup succeeds. The measurement is genuine. The argument is still wrong.
+
+The third case is the one a citation-shaped UI can hide. A working link earns a provenance check, not a correctness badge.
+
+## Resolution is a narrow guarantee
+
+A resolver can establish that a referenced fragment exists in the chosen case data. It cannot, by that fact alone, establish that the snapshot is complete, the clocks are aligned, the sensor is healthy, or the proposed cause follows from the observation.
+
+That distinction should survive into the product. Showing a green “verified” label beside the whole answer collapses several checks into one reassuring word. Label the narrow result instead: **evidence retrieved**. Keep the diagnosis and its uncertainty separate.
+
+There is also a difference between an empty result and a broken lookup. A valid query returning no matching alarms can be useful evidence, subject to the collection window and coverage. An unavailable data store tells you nothing about whether alarms occurred. The operator needs to see which happened.
+
+## What I would add to a production contract
+
+The following are proposed engineering extensions, not claims about features implemented or evaluated in the paper.
+
+Start with a stable case snapshot. A reference should identify the dataset version as well as the element, metric, and time window. If yesterday's diagnosis resolves against today's rolling telemetry, the evidence has changed underneath the answer. Record collection time and timezone; keep the original snapshot available for the incident's retention period.
+
+Then constrain the resolver. An agent-supplied reference should be parsed against an allowed schema and checked against the caller's access rights. It must not become permission to read any URI the model happens to emit. Resolve only within the authorised case and return explicit outcomes such as `resolved`, `empty`, `not_found`, or `access_denied`.
+
+For a derived result, retain the calculation. “These metrics are correlated” needs the input references, selected interval, and computation definition, not just a floating-point number. The operator should be able to rerun the calculation without asking the model to reconstruct it from memory.
+
+Finally, link evidence to individual claims. A list of five plots at the bottom of an answer does not reveal which plot supports which assertion. Separate the observed condition from the inferred cause and from the proposed action. That makes review possible even when only part of the answer is supported.
+
+None of this requires exposing a model's hidden reasoning. It requires inspectable inputs and an explicit account of what the system is asking the operator to believe.
+
+## Test the plausible wrong answer
+
+A useful acceptance test should include all three synthetic cases above. A missing reference exercises failure handling. A valid reference exercises retrieval. A genuine but irrelevant measurement exercises whether the interface encourages misplaced trust.
+
+Also change the case snapshot after producing an answer. The old reference should still resolve to the old evidence, or fail explicitly. It should not quietly display a different series.
+
+For any proposed automated remediation, evaluate the action policy separately. Being able to retrieve an alarm is not authority to restart equipment or change configuration. And once an agent can write, [an ambiguous timeout introduces another contract entirely](/posts/2026/2026-10-22-api-timeout-agent-did-it-twice): finding out whether the action happened without doing it twice.
+
+An OSS assistant does not become trustworthy because its explanation sounds like an experienced engineer. Give the engineer a way to check it, including a clear view of what the evidence does not prove.
