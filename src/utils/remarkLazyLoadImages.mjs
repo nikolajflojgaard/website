@@ -6,6 +6,7 @@ export function remarkLazyLoadImages() {
       node.data = node.data || {};
       node.data.hProperties = node.data.hProperties || {};
       node.data.hProperties.loading = "lazy";
+      node.data.hProperties.decoding = "async";
     });
   };
 }
