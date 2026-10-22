@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agent timeout recovery — sequence diagram</title><style>body{margin:0;background:#f5f1e7;color:#242d28;font:16px/1.5 system-ui}main{max-width:1200px;margin:24px auto;padding:0 16px}svg{display:block;width:100%;height:auto}a{color:inherit}</style><main><svg xmlns="http://www.w3.org/2000/svg" width="1200" height="960" viewBox="0 0 1200 960" role="img" aria-labelledby="title desc">
+<title id="title">The write succeeded. The answer never arrived.</title>
+<desc id="desc">Sequence diagram: an agent submits operation 042 through a tool to a system. The system commits the write but its response is lost. The caller has an unknown outcome. A blind retry with a new ID risks a duplicate. Reconciliation using the original ID finds the existing result. Replay is safe only under an enforced idempotency contract.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#303832"/></marker><marker id="amber" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#99620c"/></marker></defs>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#242d28}.mono{font-family:Menlo,Consolas,monospace;font-size:17px;letter-spacing:1px}.small{font-size:21px}.body{font-size:24px}.heading{font-size:30px;font-weight:700}.muted{fill:#59615a}.edge{fill:none;stroke:#303832;stroke-width:2.5;marker-end:url(#arrow)}.life{stroke:#c3c5b9;stroke-width:2;stroke-dasharray:5 8}</style>
+<rect width="1200" height="960" fill="#f5f1e7"/>
+<path d="M48 60H1152M48 902H1152" stroke="#b8b9ad" fill="none"/>
+<text x="48" y="43" class="mono">FAILURE NOTES / 01</text><text x="1152" y="43" text-anchor="end" class="mono muted">WRITE-CAPABLE AGENTS</text>
+<text x="48" y="119" font-size="43" font-weight="700">The write succeeded.</text>
+<text x="48" y="170" font-size="43" font-weight="700">The answer never arrived.</text>
+<text x="48" y="212" class="body muted">A timeout describes the caller’s knowledge. Not the system’s state.</text>
+<!-- Sequence connectors precede nodes. -->
+<path d="M200 313V493M600 313V493M1000 313V493" class="life" fill="none"/>
+<path d="M200 350H587M600 350H987" class="edge"/>
+<path d="M1000 438H694" stroke="#99620c" stroke-width="2.5" stroke-dasharray="8 7" fill="none" marker-end="url(#amber)"/>
+<path d="M663 424L684 450M684 424L663 450" stroke="#99620c" stroke-width="3" fill="none"/>
+<rect x="70" y="260" width="260" height="58" rx="6" fill="#e6e6dc" stroke="#b8b9ad"/>
+<rect x="470" y="260" width="260" height="58" rx="6" fill="#e6e6dc" stroke="#b8b9ad"/>
+<rect x="870" y="260" width="260" height="58" rx="6" fill="#e6e6dc" stroke="#b8b9ad"/>
+<text x="200" y="298" text-anchor="middle" class="body" font-weight="700">Agent</text><text x="600" y="298" text-anchor="middle" class="body" font-weight="700">Tool / workflow</text><text x="1000" y="298" text-anchor="middle" class="body" font-weight="700">System</text>
+<text x="390" y="381" text-anchor="middle" class="small">submit operation 042</text><text x="800" y="381" text-anchor="middle" class="small">create order</text>
+<rect x="879" y="398" width="242" height="30" rx="4" fill="#dce6dd"/><text x="1000" y="420" text-anchor="middle" font-size="19" fill="#30543c">WRITE COMMITTED</text>
+<text x="819" y="472" text-anchor="middle" class="small" style="fill:#855609">response lost</text>
+<rect x="70" y="410" width="495" height="72" rx="6" fill="#f3dfad" stroke="#b7852d"/><text x="96" y="441" class="small" font-weight="700">CALLER: OUTCOME UNKNOWN</text><text x="96" y="467" font-size="20">Not “nothing happened.” Not “safe to repeat.”</text>
+<text x="48" y="548" class="mono muted">TWO WAYS TO HANDLE THE SAME TIMEOUT</text>
+<rect x="48" y="575" width="535" height="283" rx="8" fill="#efe0d9" stroke="#c39a8b"/>
+<rect x="607" y="575" width="545" height="283" rx="8" fill="#e2e8dd" stroke="#a2b49d"/>
+<text x="76" y="614" class="mono" style="fill:#8b392b">01 / BLIND RETRY</text><text x="635" y="614" class="mono" style="fill:#395b40">02 / RECOVER THE ORIGINAL</text>
+<text x="76" y="663" class="heading">New ID. Same intention.</text><text x="635" y="663" class="heading">Same ID. Check the result.</text>
+<text x="76" y="706" class="body">Submit another create request.</text><text x="76" y="740" class="body">The first order still exists.</text>
+<text x="635" y="706" class="body">Look up operation 042.</text><text x="635" y="740" class="body">Return the existing order.</text>
+<path d="M76 762H555M635 762H1124" stroke="#b8b9ad" fill="none"/>
+<text x="76" y="799" class="body" font-weight="700" style="fill:#923d2d">Risk: duplicate side effect</text><text x="635" y="796" class="small" font-weight="700">Replay only under an enforced</text><text x="635" y="824" class="small" font-weight="700">idempotency contract.</text>
+<text x="48" y="937" class="body" font-weight="700">Retry the request, not the side effect.</text><text x="1152" y="937" text-anchor="end" class="mono muted">NIKOLAJ FLØJGAARD</text>
+</svg><p><a href="/posts/2026/2026-10-22-api-timeout-agent-did-it-twice">Read the article</a> · <a href="/images/agent-timeout-recovery.svg" download>Download editable SVG</a></p></main></html>

@@ -1,0 +1,117 @@
+---
+title: "The API timed out. Did the agent just do it twice?"
+description: "A timeout is not proof that nothing happened. Write-capable agents need operation IDs, honest unknown states, and recovery that does not repeat the side effect."
+pubDatetime: 2026-10-22T10:00:00.000Z
+tags:
+  - agentic-ai
+  - integration-architecture
+  - enterprise-architecture
+heroImage: "/images/agent-timeout-recovery.svg"
+ogImage: "https://nikolajflojgaard.me/images/agent-timeout-recovery.png"
+featured: true
+---
+
+*Retry the request, not the side effect. [Open the full-size diagram](/images/agent-timeout-recovery.html).*
+
+An agent asks a tool to create a service order. The backend creates it. Somewhere on the way back, the response disappears.
+
+The tool reports a timeout.
+
+The agent tries again.
+
+Now there are two orders, and the agent confidently reports that it recovered from a temporary error.
+
+This is a hypothetical example, not an incident report. But it exposes a very ordinary distributed-systems problem that becomes awkward when the caller can improvise its next move.
+
+**A timeout is not proof that nothing happened.**
+
+It means the caller did not get an answer in time. The request may never have arrived. It may still be running. It may have completed successfully.
+
+If the tool contract turns all three possibilities into “failed, try again,” it has already thrown away the information needed to recover safely.
+
+## The missing state is unknown
+
+In [Agent glue code is becoming the next ESB](/posts/2026/2026-10-09-agent-glue-code-next-esb), I argued that agent platforms need explicit recovery rules. This is one of the first rules worth making concrete.
+
+A write operation needs more than a success flag.
+
+For the service-order example, the caller should be able to distinguish a confirmed rejection before any write, an accepted operation still in progress, a completed operation with an order reference, and an outcome it cannot yet establish.
+
+That last state is uncomfortable. Keep it anyway.
+
+A useful response after a timeout would look roughly like this. These are illustrative fields, not a proposed universal API standard:
+
+```json
+{
+  "operationId": "order-op-042",
+  "status": "unknown",
+  "reason": "response_timeout",
+  "nextAction": "reconcile",
+  "statusUrl": "/operations/order-op-042"
+}
+```
+
+The operation ID must already exist before the write is attempted. Creating one after the timeout will not connect the caller to the request that might have succeeded.
+
+The agent can explain the situation to the user: “I submitted the order, but I have not confirmed the result yet.” That is less satisfying than a green tick. It is also true.
+
+## One intention, one operation ID
+
+The workflow should allocate and persist an ID for the logical action, then reuse it across transport retries. The model should not invent a fresh ID each time it calls the tool.
+
+A second attempt to submit the same order is still the same operation. A deliberate request for another order is a new operation, even if its fields happen to be identical.
+
+This distinction matters. A hash of the request body cannot reliably tell the difference between a duplicate delivery and a customer genuinely ordering the same thing twice.
+
+The backend needs to enforce the contract. Within the documented scope and retention window, the same operation ID and payload should resolve to the same logical result, without another order being created. Reusing the ID with a different payload should produce a conflict, not silently overwrite the meaning of the first request.
+
+AWS describes this approach in its [Builders’ Library article on idempotent APIs](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/), including parameter mismatches and late-arriving requests. The important detail is the service contract, not the spelling of the header.
+
+Putting `Idempotency-Key` on an HTTP request does nothing if the receiving system ignores it.
+
+## The dangerous gap is inside the tool
+
+Suppose the connector records an operation ID locally, calls a legacy system, then marks the operation as complete.
+
+That sounds reasonable until the connector crashes after the legacy write succeeds but before the completion record is saved.
+
+On restart, its own database says “in progress.” The legacy system already has the order. Sending the write again can still create a duplicate.
+
+A local deduplication table is not enough if it cannot be coordinated with the actual effect. For a database-owned write, a transaction and a uniqueness constraint may close that gap. For a remote write, the destination needs an idempotent contract or a reliable way to retrieve the result by the original operation reference.
+
+If neither exists, the honest answer is that automatic replay is not safe. Leave the operation unresolved and give it to an owner who can investigate. Do not hide the gap behind a more persistent agent.
+
+Also check where the guarantee ends. Creating one order does not automatically mean sending one confirmation email. A downstream notification needs its own duplicate-handling contract.
+
+## Reconcile before inventing another action
+
+After an ambiguous timeout, the recovery path should ask what happened to the original operation.
+
+- **Completed:** return the existing order reference. Do not create another order.
+- **Still running:** wait, with bounded polling or a completion event.
+- **Confirmed not applied:** retry if policy permits, preserving the operation identity and payload.
+- **Still unknown:** keep reconciling within a defined budget, then escalate to the responsible team.
+
+“Not found” deserves care. A read replica or search index may not have caught up. Absence from a lagging view is not proof that the write never happened. The status lookup must have documented consistency semantics before the workflow treats it as permission to replay.
+
+If the API explicitly guarantees idempotent replay, resending the original request with the same key can itself be a valid recovery path. A separate status endpoint is useful, not mandatory for every API.
+
+The guarantee is usually bounded. For example, [Stripe’s API v1 documentation](https://docs.stripe.com/api/idempotent_requests) says keys can be removed after they are at least 24 hours old; a reused key after removal creates a new request. A workflow resuming days later cannot assume yesterday’s deduplication record still protects it.
+
+Backoff and jitter help avoid hammering a struggling service. They do not make a non-idempotent write safe.
+
+## Put recovery below the model
+
+The agent can decide that an order is needed, within its authority. It should not have to reason its way through every network failure from a paragraph in a tool description.
+
+The tool or durable workflow should own operation identity, retry limits, and reconciliation. Persist that state across process restarts and new agent sessions. Carry the ID into traces so an operator can connect the user’s request to the write and its eventual result.
+
+There should also be a named owner for unresolved operations. “The agent will try again later” is not an operational handoff.
+
+Before giving an agent write access, run one deliberately unpleasant check: let the backend commit the change, then drop the response. Restart the caller and resume the workflow.
+
+Can it find the original result? Does it reuse the original operation ID? Does the downstream system still contain exactly one intended effect? Can a human tell what happened without reading a chat transcript?
+
+If not, the happy-path demo is hiding the most important part of the design.
+
+A reliable agent is allowed to say, “I don’t know yet.” The architecture has to give it a way to find out without doing the work twice.
