@@ -138,6 +138,8 @@ export default defineConfig({
         navigateFallback: "/404",
         // Avoid precaching HTML pages so freshly deployed posts are always fetched from network.
         globPatterns: ["**/*.{css,js,svg,png,jpg,jpeg,gif,webp,woff,woff2,ttf,eot,ico}"],
+        // Post images are cached on demand (runtimeCaching below) instead of precaching ~15 MB on first visit.
+        globIgnores: ["images/**", "videos/**", "pagefind/**"],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
