@@ -24,8 +24,26 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-10-21T21:27:54Z",
+      "updated_at": "2026-10-22T11:27:20Z",
       "private": false
+    },
+    {
+      "name": "stock-playbook",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-10-22T10:50:30Z",
+      "private": true
+    },
+    {
+      "name": "openclaw-workspace",
+      "description": null,
+      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
+      "stargazers_count": 0,
+      "language": "Python",
+      "updated_at": "2026-10-22T09:48:08Z",
+      "private": true
     },
     {
       "name": "nextgen-egedalbogholderi",
@@ -37,15 +55,6 @@
       "private": true
     },
     {
-      "name": "stock-playbook",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-10-14T08:06:36Z",
-      "private": true
-    },
-    {
       "name": "homeassistant-backup",
       "description": "backup of my home assistant",
       "html_url": "https://github.com/nikolajflojgaard/homeassistant-backup",
@@ -53,18 +62,57 @@
       "language": "Python",
       "updated_at": "2026-10-09T13:01:27Z",
       "private": true
-    },
-    {
-      "name": "openclaw-workspace",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/openclaw-workspace",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-10-05T00:00:08Z",
-      "private": true
     }
   ],
   "recent_activity": [
+    {
+      "type": "pr",
+      "description": "opened PR in nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-10-22T11:26:34Z"
+    },
+    {
+      "type": "pr",
+      "description": "merged PR in nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-10-22T11:02:36Z"
+    },
+    {
+      "type": "pr",
+      "description": "opened PR in nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-10-22T11:06:36Z"
+    },
+    {
+      "type": "pr",
+      "description": "opened PR in nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-10-22T10:54:17Z"
+    },
+    {
+      "type": "create",
+      "description": "Created branch in nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-10-22T10:47:23Z"
+    },
+    {
+      "type": "pr",
+      "description": "opened PR in nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-10-22T10:47:24Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/website",
+      "repo": "nikolajflojgaard/website",
+      "created_at": "2026-10-22T09:51:07Z"
+    },
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-10-22T09:43:10Z"
+    },
     {
       "type": "create",
       "description": "Created branch in nikolajflojgaard/nextgen-egedalbogholderi",
@@ -76,55 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
       "repo": "nikolajflojgaard/stock-playbook",
       "created_at": "2026-10-14T08:06:32Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/nextgen-egedalbogholderi",
-      "repo": "nikolajflojgaard/nextgen-egedalbogholderi",
-      "created_at": "2026-10-15T12:33:47Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-10-14T07:16:35Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-10-13T13:54:41Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-10-13T13:32:07Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-10-14T08:05:05Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-10-14T08:01:32Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-10-14T07:59:20Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
-      "repo": "nikolajflojgaard/homeassistant-backup",
-      "created_at": "2026-10-09T13:01:22Z"
     }
   ],
-  "fetched_at": "2026-10-22T04:10:20.226Z"
+  "fetched_at": "2026-10-22T11:30:39.320Z"
 }
