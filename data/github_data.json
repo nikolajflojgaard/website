@@ -24,7 +24,7 @@
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-10-24T04:05:40Z",
+      "updated_at": "2026-10-24T10:39:38Z",
       "private": false
     },
     {
@@ -65,6 +65,12 @@
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
+      "repo": "nikolajflojgaard/homeassistant-backup",
+      "created_at": "2026-10-23T13:01:11Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
@@ -118,13 +124,7 @@
       "description": "merged PR in nikolajflojgaard/website",
       "repo": "nikolajflojgaard/website",
       "created_at": "2026-10-22T11:27:15Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/website",
-      "repo": "nikolajflojgaard/website",
-      "created_at": "2026-10-22T09:58:09Z"
     }
   ],
-  "fetched_at": "2026-10-24T10:39:33.672Z"
+  "fetched_at": "2026-10-24T15:41:31.741Z"
 }
