@@ -65,7 +65,7 @@ export default defineConfig({
 	          item.changefreq = ChangeFreqEnum.WEEKLY;
 	        }
 	        // Recent blog posts (2024-2025)
-	        else if (/\/posts\/(\d{4})\//.test(url) && Number(url.match(/\/posts\/(\d{4})\//)[1]) >= new Date().getFullYear() - 1) {
+	        else if (/\/posts\/(\d{4})\//.test(url) && Number(url.match(/\/posts\/(\d{4})\//)?.[1]) >= new Date().getFullYear() - 1) {
 	          item.priority = 0.8;
 	          item.changefreq = ChangeFreqEnum.WEEKLY;
 	        }
@@ -135,12 +135,19 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         skipWaiting: true,
-        navigateFallback: "/404",
-        // Avoid precaching HTML pages so freshly deployed posts are always fetched from network.
-        globPatterns: ["**/*.{css,js,svg,png,jpg,jpeg,gif,webp,woff,woff2,ttf,eot,ico}"],
-        // Post images are cached on demand (runtimeCaching below) instead of precaching ~15 MB on first visit.
+        navigateFallback: null,
+        // Only the shell and explicit offline document are installed up front.
+        globPatterns: ["_astro/*.{css,js}", "fonts/*.woff2", "offline.html"],
         globIgnores: ["images/**", "videos/**", "pagefind/**"],
         runtimeCaching: [
+          {
+            // Never cache navigation responses; use the offline page only on network failure.
+            urlPattern: ({ request, url, sameOrigin }) =>
+              sameOrigin && request.mode === "navigate" && !url.search &&
+              !/^\/(api|admin)(\/|$)/.test(url.pathname),
+            handler: "NetworkOnly",
+            options: { precacheFallback: { fallbackURL: "/offline.html" } },
+          },
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: "CacheFirst",
@@ -172,10 +179,13 @@ export default defineConfig({
             },
           },
           {
-            urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/,
+            urlPattern: ({ url, sameOrigin, request }) =>
+              sameOrigin && request.destination === "image" &&
+              !url.search && url.pathname.startsWith("/images/"),
             handler: "CacheFirst",
             options: {
-              cacheName: "images-cache",
+              cacheName: "public-article-images-v2",
+              cacheableResponse: { statuses: [200] },
               expiration: {
                 maxEntries: 100,
                 maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days

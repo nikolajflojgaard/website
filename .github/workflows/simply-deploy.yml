@@ -47,10 +47,10 @@ jobs:
       - name: Install lftp
         run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends lftp
 
-      - name: Upload dist/ to Simply over FTPS
+      - name: Upload dist/ over certificate-verified FTPS (preserve remote-only files)
         env:
           HOST: ${{ secrets.SIMPLY_SFTP_HOST }}
-          USER: ${{ secrets.SIMPLY_SFTP_USER }}
+          FTP_USER: ${{ secrets.SIMPLY_SFTP_USER }}
           PASS: ${{ secrets.SIMPLY_SFTP_PASS }}
           PORT: ${{ secrets.SIMPLY_SFTP_PORT }}
           REMOTE_DIR: ${{ secrets.SIMPLY_REMOTE_DIR }}

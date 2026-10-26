@@ -11,7 +11,7 @@ type Props = CollectionEntry<"blog">["data"] & {
   readingTime?: string;
 };
 
-const { title, description, pubDatetime, modDatetime, heroImage, ogImage, slug, readingTime } =
+const { title, description, pubDatetime, modDatetime, heroImage, heroImageAlt, ogImage, slug, readingTime } =
   Astro.props;
 
 // Prefer an explicit hero image. If missing, fall back to ogImage (used by LinkedIn imports).
@@ -157,7 +157,7 @@ const canonicalURL = new URL(canonicalPath, Astro.site).toString();
         topImage && (
           <img
             src={topImage}
-            alt={title}
+            alt={heroImageAlt || title}
             class="mb-10 w-full rounded-2xl border border-border bg-secondary/20 shadow-sm"
             style="max-height: 460px; object-fit: contain;"
             loading="eager"

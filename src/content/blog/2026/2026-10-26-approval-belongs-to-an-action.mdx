@@ -1,0 +1,114 @@
+---
+title: "The human approved it. But what exactly did they approve?"
+description: "A yes in chat is not a durable approval contract. Bind consent to the exact action, reject changed payloads, and check again where the write happens."
+pubDatetime: 2026-10-26T14:00:00.000Z
+tags:
+  - agentic-ai
+  - integration-architecture
+  - enterprise-architecture
+heroImage: "/images/approval-action-contract.svg"
+heroImageAlt: "Changed action payload rejected despite earlier approval."
+ogImage: "https://nikolajflojgaard.me/images/approval-action-contract.png"
+featured: true
+---
+
+*Approval belongs to a specific action. [Open the editable diagram](/images/approval-action-contract.svg).*
+
+An agent prepares a change to a service configuration. One customer, one setting, one target environment. The operator reviews the proposal and clicks approve.
+
+While that approval is waiting to be processed, the agent refreshes its plan. A lookup now returns three matching services instead of one. The tool payload changes. The workflow still has an `approved: true` flag, so it submits all three changes.
+
+The audit log says a human approved the operation.
+
+Which operation?
+
+This is a synthetic example, not a personal incident. It illustrates a failure that a reassuring approval button cannot fix: the thing reviewed and the thing executed are different objects.
+
+## Stop approving a conversation
+
+A conversation is useful for reaching a decision. It is a poor place to store the authority for a later write.
+
+“Go ahead” may refer to the last proposal, a whole plan, or one item in a list. The system needs to resolve that meaning before execution. For a consequential change, show the operator the actual target and effect, then record approval against that particular proposal.
+
+This is not a new security problem invented by agents. [OWASP’s transaction authorization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html) calls for showing significant transaction data, enforcing authorization server-side, invalidating authorization when transaction data changes, and checking authorization at the final execution gate.
+
+Agents make the boundary easier to lose. They can revise plans, resolve names and fill in missing parameters after a conversation appears settled. A workflow that remembers only the human’s agreement has discarded the limits of that agreement.
+
+## Give approval something immutable to point at
+
+For the service-change example, I would store an immutable proposal before requesting approval. The following is an illustrative contract, not a standard or a complete implementation:
+
+```json
+{
+  "proposalId": "change-042",
+  "version": 1,
+  "operationId": "op-042",
+  "action": "set_service_profile",
+  "target": {
+    "tenant": "example-tenant",
+    "environment": "production",
+    "serviceId": "service-17"
+  },
+  "payload": { "profile": "standard" },
+  "expectedResourceVersion": "revision-8",
+  "executor": "service-change-worker",
+  "scope": "one service, one profile change",
+  "expiresAt": "2026-10-26T15:00:00Z"
+}
+```
+
+The approval record refers to this version and records the authenticated approver, decision time and permitted scope. The executor reads the stored proposal, not a new payload reconstructed from chat.
+
+A proposal digest can make comparisons convenient. It is not authorization by itself: anyone who can write a payload can calculate its hash. Protect the approval record through a trusted server-side store or an appropriately authenticated token, and validate the approver’s authority.
+
+If the design hashes JSON, define the representation. Otherwise equivalent objects can produce different bytes, while omitted fields or defaults can conceal meaningful differences. [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785) defines a JSON canonicalization scheme for reproducible hashing and signing. It does not decide which business fields belong in an approval. That is still the application’s job.
+
+Include defaults, resolved resource IDs and the environment in that decision. Approving a friendly name that resolves to a different resource tomorrow is not a stable target.
+
+## A changed payload is a new proposal
+
+Back to the three matching services. The original approval covers `service-17`. It does not cover the other two, even if the agent believes the broader change better satisfies the user’s intent.
+
+Create a new version, show the difference and request fresh approval. Retain the earlier version for the audit trail. Do not quietly stretch its authority.
+
+This does not mean asking humans to approve every internal implementation detail. A policy can explicitly permit a bounded set of actions. An approval can cover a batch, provided the batch or its selection rule and limits are what the operator actually reviewed. The dangerous move is changing those limits after consent.
+
+Expiry matters for the same reason. Yesterday’s acceptable change may be wrong during today’s incident. An expired approval should stop execution rather than become a prompt for the model to explain why it probably still applies.
+
+The resource itself can also change without the proposal changing. In the example, `expectedResourceVersion` makes that dependency explicit. If the target is no longer at `revision-8`, the execution path should fail its precondition and re-evaluate the change. A matching proposal digest does not prove the surrounding world stayed still.
+
+## Enforce it where the effect happens
+
+Checking approval in the chat interface is too early. Checking it in a workflow and then allowing a connector to modify the payload is also too early.
+
+The write boundary must verify that the submitted action matches the approved proposal, the approval is unexpired, and the executor is still authorised for that target. The resource precondition must be checked as part of the write where the destination supports it. A separate read followed by an unconditional write leaves another race.
+
+For a remote system, be honest about what the connector can guarantee. It may enforce an immutable outgoing request but lack a destination-side conditional update. That limitation belongs in the operational contract; it does not disappear because the agent passed an approval check.
+
+A sensible rejection is specific: “Proposal version changed; fresh approval required.” That gives the workflow a recovery path without letting it negotiate away the check.
+
+## Approval and retry safety answer different questions
+
+Approval answers whether this action may happen. Idempotency answers whether retrying the same logical operation creates another effect.
+
+Both are needed. Two workers can pick up the same approved proposal. A response can vanish after the destination commits. An approval token marked used before dispatch can strand a legitimate operation; marking it used afterwards can leave a duplicate-execution window.
+
+The execution service therefore needs a durable operation record and a defined relationship between approval consumption, dispatch and result reconciliation. Where possible, reserve the approved operation atomically, then let retries resume that same operation rather than obtain a new allowance to write.
+
+[AWS’s discussion of idempotent APIs](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/) explains why client request identity and parameter-mismatch handling matter. Those mechanisms do not replace approval. An unauthorised operation performed exactly once is still unauthorised.
+
+That is the connection to [the timeout problem](/posts/2026/2026-10-22-api-timeout-agent-did-it-twice): once an approved operation has an unknown outcome, reconcile it. Do not ask for a casual second “yes” and treat that as proof the first write never happened.
+
+And [retrievable evidence](/posts/2026/2026-10-22-oss-ai-evidence-contracts) answers a different question again. Evidence can support a proposed change. It cannot grant permission to execute it.
+
+## Test the moment after yes
+
+A useful test starts with a valid approval, then makes the workflow uncomfortable.
+
+Change the target while leaving the action name untouched. Modify one payload field. Let the approval expire. Revoke the executor’s access. Update the target resource. Deliver the approved operation to two workers, then drop the successful response.
+
+The expected outcomes should be explicit: changed or expired proposals stop; stale resource versions fail; duplicate deliveries converge on one logical operation; unknown outcomes remain visible until reconciled.
+
+Finally, inspect the audit record without opening the conversation. Can an operator recover the exact proposal, who approved it, what the execution service checked, and what the destination actually did?
+
+If the record only says “the human approved it,” the architecture has preserved a comforting sentence instead of a decision.

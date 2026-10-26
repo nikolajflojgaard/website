@@ -35,7 +35,7 @@ const {
   timezone,
   tags,
   hideEditPost,
-  heroImage,
+  heroImage, heroImageAlt,
 } = post.data;
 
 const { Content } = await render(post);
@@ -168,7 +168,7 @@ const wordCount = (post.body ?? "").split(/\s+/).length;
         topImage && (
           <img
             src={topImage}
-            alt={title}
+            alt={heroImageAlt || title}
             class="mb-8 w-full rounded-md border border-border bg-secondary/20"
             style="max-height: 420px; object-fit: contain;"
             loading="eager"

@@ -62,3 +62,20 @@ gh run list --workflow simply-deploy.yml --limit 1
 
 - The repo still contains `vercel.json`, but production DNS for `nikolajflojgaard.me` is currently served by Simply.
 - If hosting is moved to Vercel later, update this document and `scripts/deploy.sh` together so the local deploy command does not drift again.
+
+## Verified transfers and remote retention
+
+Local and CI deployments both use `scripts/simply-hash-deploy.sh`. FTPS
+requires certificate-chain and hostname verification; there is no production
+insecure fallback. Use the hosting provider's certificate-covered FTP hostname
+and a trusted CA bundle. A trust failure must be fixed, not bypassed.
+
+Both incremental and full uploads **preserve remote-only files**, including old
+hashed assets and files outside this build. The content-hash manifest decides
+what to upload, never grants permission to delete a remote path. This also
+protects already-open pages that still reference older assets. Removing obsolete
+public content requires a separate, explicitly scoped cleanup. A full upload
+replaces build-owned files but does not mirror-delete the server directory.
+
+The script uses Node for manifest generation so local macOS and Linux CI agree.
+The `LFTP_OPEN` override is a test harness hook, not a production configuration.
