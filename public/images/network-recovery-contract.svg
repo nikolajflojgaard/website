@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+<title id="title">Network automation: who owns recovery?</title>
+<desc id="desc">Illustrative BSS order, Azure workflow, on-prem adapter and network. Separate local records; observed-state feedback returns to the workflow. Compensate before customer cutover, reconcile unknown outcomes, repair forward after confirmed cutover, escalate failed recovery.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10" fill="none" stroke="#334155" stroke-width="1.5"/></marker></defs>
+<rect width="1200" height="720" fill="#f5f2eb"/>
+<g font-family="Arial, sans-serif" fill="#172c3c">
+<text x="48" y="55" font-size="17" letter-spacing="2">ILLUSTRATIVE ARCHITECTURE / NOT A VENDOR DEPLOYMENT</text>
+<text x="48" y="108" font-size="36" font-weight="700">The command succeeded. Who owns recovery?</text>
+<g fill="#fff" stroke="#334155" stroke-width="2">
+<rect x="48" y="158" width="210" height="140" rx="8"/>
+<rect x="312" y="158" width="260" height="140" rx="8"/>
+<rect x="626" y="158" width="250" height="140" rx="8"/>
+<rect x="930" y="158" width="222" height="140" rx="8"/>
+</g>
+<g font-size="23" font-weight="700"><text x="70" y="195">BSS order</text><text x="334" y="195">Azure workflow</text><text x="648" y="195">On-prem adapter</text><text x="952" y="195">Network</text></g>
+<g font-size="18"><text x="70" y="233">Order record</text><text x="70" y="269">Local commit</text><text x="334" y="233">Recovery owner</text><text x="334" y="269">Durable step record</text><text x="648" y="233">Operation record</text><text x="648" y="269">Local commit</text><text x="952" y="233">Apply + read back</text><text x="952" y="269">Separate side effect</text></g>
+<g fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"><path d="M258 219H302"/><path d="M572 219H616"/><path d="M876 219H920"/><path d="M1040 300V356H442V309"/></g>
+<text x="570" y="343" font-size="18">Observed-state events / version + time + operation ID</text>
+<rect x="48" y="403" width="1104" height="210" rx="8" fill="#e8eee9"/>
+<path d="M426 428V589M774 428V589" stroke="#87948b" stroke-width="2" stroke-dasharray="5 5"/>
+<g font-size="21" font-weight="700"><text x="70" y="444">BEFORE CUTOVER</text><text x="448" y="444">CUTOVER / PIVOT</text><text x="796" y="444">AFTER CONFIRMATION</text></g>
+<g font-size="19"><text x="70" y="485">Compensate confirmed work</text><text x="70" y="521">Release reservation</text><text x="70" y="557">Remove staged configuration</text><text x="448" y="485">Outcome unknown?</text><text x="448" y="521">Reconcile before writing</text><text x="448" y="557">Do not assume failure</text><text x="796" y="485">Preserve active service</text><text x="796" y="521">Idempotent inventory retry</text><text x="796" y="557">Confirm order completion</text></g>
+<text x="48" y="661" font-size="23" font-weight="700">Failed recovery → explicit unresolved state + operational owner + deadline</text>
+<text x="48" y="696" font-size="17">Each box owns its local work. The workflow tracks the unfinished customer outcome.</text>
+</g></svg>
