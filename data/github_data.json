@@ -19,12 +19,30 @@
       "private": false
     },
     {
+      "name": "nextgen-egedalbogholderi",
+      "description": "Private Astro redesign for Egedal Bogholderi",
+      "html_url": "https://github.com/nikolajflojgaard/nextgen-egedalbogholderi",
+      "stargazers_count": 0,
+      "language": "Astro",
+      "updated_at": "2026-11-10T12:44:21Z",
+      "private": true
+    },
+    {
+      "name": "egedalbogholderi",
+      "description": "Bogholderi",
+      "html_url": "https://github.com/nikolajflojgaard/egedalbogholderi",
+      "stargazers_count": 0,
+      "language": "Astro",
+      "updated_at": "2026-11-10T12:40:57Z",
+      "private": false
+    },
+    {
       "name": "website",
       "description": "My personal website",
       "html_url": "https://github.com/nikolajflojgaard/website",
       "stargazers_count": 0,
       "language": "MDX",
-      "updated_at": "2026-11-09T15:47:19Z",
+      "updated_at": "2026-11-10T01:22:20Z",
       "private": false
     },
     {
@@ -44,27 +62,15 @@
       "language": "Python",
       "updated_at": "2026-11-05T12:56:24Z",
       "private": true
-    },
-    {
-      "name": "stock-playbook",
-      "description": null,
-      "html_url": "https://github.com/nikolajflojgaard/stock-playbook",
-      "stargazers_count": 0,
-      "language": "Python",
-      "updated_at": "2026-10-27T13:32:00Z",
-      "private": true
-    },
-    {
-      "name": "nextgen-egedalbogholderi",
-      "description": "Private Astro redesign for Egedal Bogholderi",
-      "html_url": "https://github.com/nikolajflojgaard/nextgen-egedalbogholderi",
-      "stargazers_count": 0,
-      "language": "Astro",
-      "updated_at": "2026-10-15T12:33:50Z",
-      "private": true
     }
   ],
   "recent_activity": [
+    {
+      "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/openclaw-workspace",
+      "repo": "nikolajflojgaard/openclaw-workspace",
+      "created_at": "2026-11-09T01:00:04Z"
+    },
     {
       "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/website",
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
       "repo": "nikolajflojgaard/homeassistant-backup",
       "created_at": "2026-10-23T13:01:11Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-10-23T11:23:24Z"
     }
   ],
-  "fetched_at": "2026-11-10T01:22:15.606Z"
+  "fetched_at": "2026-11-10T14:38:59.235Z"
 }
