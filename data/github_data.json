@@ -67,6 +67,12 @@
   "recent_activity": [
     {
       "type": "push",
+      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
+      "repo": "nikolajflojgaard/stock-playbook",
+      "created_at": "2026-11-23T18:57:57Z"
+    },
+    {
+      "type": "push",
       "description": "Pushed 0 commits to nikolajflojgaard/homeassistant-backup",
       "repo": "nikolajflojgaard/homeassistant-backup",
       "created_at": "2026-11-18T11:00:06Z"
@@ -118,13 +124,7 @@
       "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
       "repo": "nikolajflojgaard/stock-playbook",
       "created_at": "2026-11-12T17:28:55Z"
-    },
-    {
-      "type": "push",
-      "description": "Pushed 0 commits to nikolajflojgaard/stock-playbook",
-      "repo": "nikolajflojgaard/stock-playbook",
-      "created_at": "2026-11-12T17:29:12Z"
     }
   ],
-  "fetched_at": "2026-11-23T23:40:04.253Z"
+  "fetched_at": "2026-11-24T09:21:52.923Z"
 }
